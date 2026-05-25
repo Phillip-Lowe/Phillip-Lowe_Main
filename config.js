@@ -6,35 +6,37 @@
 const BRAND = {
   // Identity
   name:          "The Utopia Deli",
-  tagline:       "Plant-based. Little Rock made.",
+  tagline:       "It's just good food",
   shortName:     "Utopia Deli",
   location:      "Little Rock, AR",
 
   // Contact
-  phone:         "(501) 555-0199",     // Replace with real number
+  phone:         "(501) 555-0199",
   email:         "order@theutopiadeli.com",
   instagram:     "@theutopiadeli",
+  website:       "https://theutopiadeli.com",
+  streetAddress: "123 Main Street",
 
   // Visual Identity — CSS variable overrides
   colors: {
-    primary:       "#590B3F",   // Deep plum
-    primaryLight:  "#7a1a55",   // Lighter plum
-    accent:        "#AF3D4B",   // Rose / CTA
+    primary:       "#590B3F",
+    primaryLight:  "#7a1a55",
+    accent:        "#AF3D4B",
     accentHover:   "#c44d5b",
-    secondary:     "#754681",   // Muted purple
-    gold:          "#D59F5C",   // Gold highlight
+    secondary:     "#754681",
+    gold:          "#D59F5C",
     goldLight:     "#f5e6d0",
   },
 
   // Assets
   logo:          "images/logo.png",
   favicon:       "images/logo.png",
-  heroImage:     null,            // Optional hero background
+  heroImage:     null,
 
   // Hours (CST/Chicago)
   hours: {
     timezone:    "America/Chicago",
-    openDays:    [1,2,3,4,5,6],   // Mon-Sat (0=Sun, 6=Sat)
+    openDays:    [1,2,3,4,5,6],
     openTime:    { hour: 12, minute: 30 },
     closeTime:   { hour: 19, minute: 30 },
     closedMessage: "Currently Closed · Opens Mon–Sat 12:30 PM",
@@ -43,14 +45,8 @@ const BRAND = {
 
   // Checkout / Payment
   checkout: {
-    // Where the order is sent after customer fills the form
-    // Set to your checkout server or n8n webhook URL
     endpoint:    "https://order-utopia-deli.systack.net/checkout",
-
-    // Square payment link domain (for display / CTA buttons)
     squareDomain: "square.link",
-
-    // Currency
     currency:    "USD",
     currencySymbol: "$",
   },

@@ -1019,9 +1019,21 @@ function applyBrand() {
     document.getElementById('pageFavicon').href = BRAND.favicon || BRAND.logo;
   }
   const fb = document.getElementById('footerBrand');
-  if (fb) fb.textContent = BRAND.name + (BRAND.tagline ? ' · ' + BRAND.tagline : '');
+  if (fb && BRAND.website) {
+    fb.innerHTML = `<a href="${BRAND.website}" target="_blank" style="color:inherit;text-decoration:none;">${BRAND.name}</a> · ${BRAND.tagline || ''}`;
+  } else if (fb) {
+    fb.textContent = BRAND.name + (BRAND.tagline ? ' · ' + BRAND.tagline : '');
+  }
   const fc = document.getElementById('footerContact');
-  if (fc && BRAND.phone) fc.textContent = 'Questions? Call or text ' + BRAND.phone;
+  if (fc) {
+    const parts = [];
+    if (BRAND.streetAddress) parts.push(BRAND.streetAddress);
+    if (BRAND.phone) parts.push(BRAND.phone);
+    if (BRAND.email) parts.push(BRAND.email);
+    if (parts.length) {
+      fc.innerHTML = parts.map(p => `<a href="${p.includes('@') ? 'mailto:' : p.includes('http') ? '' : 'tel:'}${p}" style="color:inherit;text-decoration:underline;">${p}</a>`).join(' · ');
+    }
+  }
   // Apply CSS color overrides from config
   if (BRAND.colors && BRAND.colors.primary) {
     document.documentElement.style.setProperty('--ud-primary', BRAND.colors.primary);
