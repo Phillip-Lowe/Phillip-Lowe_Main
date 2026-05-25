@@ -11,7 +11,7 @@ const BRAND = {
   location:      "Little Rock, AR",
 
   // Contact
-  phone:         "(501) 555-0199",
+  phone:         "(501) 551-5944",
   email:         "order@theutopiadeli.com",
   instagram:     "@theutopiadeli",
   website:       "https://theutopiadeli.com",
