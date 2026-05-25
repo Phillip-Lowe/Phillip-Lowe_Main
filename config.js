@@ -17,6 +17,16 @@ const BRAND = {
   website:       "https://theutopiadeli.com",
   streetAddress: "801 S. Chester, Little Rock, AR 72201",
 
+  // SMTP (using local email server instead of Gmail)
+  smtp: {
+    host: "smtp.gmail.com",      // Replace with your SMTP host
+    port: 587,
+    user: "theutopiadelilittlerock@gmail.com",
+    password: null,              // Loaded from keychain or env
+    fromName: "The Utopia Deli",
+    fromEmail: "order@theutopiadeli.com",
+  },
+
   // Visual Identity — CSS variable overrides
   colors: {
     primary:       "#590B3F",
