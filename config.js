@@ -45,7 +45,10 @@ const BRAND = {
 
   // Checkout / Payment
   checkout: {
-    endpoint:    "https://order-utopia-deli.systack.net/checkout",
+    // n8n webhook endpoint (free, visual workflow editor)
+    endpoint:    "https://n8n.theutopiadeli.com/webhook/utopia-deli-order-v4",
+    // Alternative: local checkout server (self-contained, no n8n dependency)
+    // endpoint:    "https://order-utopia-deli.systack.net/checkout",
     squareDomain: "square.link",
     currency:    "USD",
     currencySymbol: "$",
