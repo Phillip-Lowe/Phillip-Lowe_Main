@@ -15,7 +15,7 @@ const BRAND = {
   email:         "order@theutopiadeli.com",
   instagram:     "@theutopiadeli",
   website:       "https://theutopiadeli.com",
-  streetAddress: "123 Main Street",
+  streetAddress: "801 S. Chester, Little Rock, AR 72201",
 
   // Visual Identity — CSS variable overrides
   colors: {
