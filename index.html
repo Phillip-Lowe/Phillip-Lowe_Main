@@ -850,8 +850,32 @@
       // ===================== STATE =====================
       let cart = [];
       let selectedItem = null;
-      let selectedModifiers = {};
+      let selectedModifiers = {}; // Now stores arrays per group: { group: [opt1, opt2] }
       let itemQty = 1;
+
+      // ===================== MODIFIER RULES =====================
+      // Define min/max/required rules for each modifier group
+      // Based on: memory/2026-06-06-utopia-deli-modifiers.md
+      const GROUP_RULES = {
+        // REQUIRED groups (must select exactly 1)
+        protein: { min: 1, max: 1, type: 'REQUIRED' },
+        style: { min: 1, max: 1, type: 'REQUIRED' },
+        flavor: { min: 1, max: 1, type: 'REQUIRED' },
+        size: { min: 1, max: 1, type: 'REQUIRED' },
+        
+        // ADD groups (optional, multi-select)
+        sauce: { min: 0, max: 6, type: 'ADD' },
+        addons: { min: 0, max: 1, type: 'ADD' },
+        extras: { min: 0, max: 3, type: 'ADD' },
+        combo: { min: 0, max: 1, type: 'ADD' },
+        
+        // HOLD groups (removals, multi-select)
+        hold: { min: 0, max: 4, type: 'HOLD' },
+        
+        // SPECIAL groups (toggle/replace)
+        noranch: { min: 0, max: 1, type: 'SPECIAL' },
+        subs: { min: 0, max: 1, type: 'SPECIAL' },
+      };
 
       // ===================== RENDER MENU =====================
       function renderMenu() {
@@ -948,11 +972,41 @@
       function toggleMod(group, code, btn) {
         const item = findItem(selectedItem);
         const opt = item.modifiers[group].find((o) => o.code === code);
-        selectedModifiers[group] = opt;
-
-        // Update UI
-        const groupBtns = btn.parentElement.querySelectorAll(".mod-btn");
-        groupBtns.forEach((b) => b.classList.remove("active"));
+        
+        // Get rules for this group
+        const rules = GROUP_RULES[group] || { min: 0, max: 99, type: 'ADD' };
+        
+        // Initialize array if needed
+        if (!selectedModifiers[group]) {
+          selectedModifiers[group] = [];
+        }
+        
+        const groupList = selectedModifiers[group];
+        const existsIndex = groupList.findIndex(m => m.code === code);
+        
+        // REMOVE if already selected (toggle off)
+        if (existsIndex >= 0) {
+          groupList.splice(existsIndex, 1);
+          btn.classList.remove("active");
+          return;
+        }
+        
+        // ENFORCE MAX for multi-select groups
+        if (groupList.length >= rules.max) {
+          // For REQUIRED/SPECIAL (max=1), replace instead of blocking
+          if (rules.max === 1) {
+            groupList.length = 0; // Clear all
+            // Update UI: remove active from siblings
+            const groupBtns = btn.parentElement.querySelectorAll(".mod-btn");
+            groupBtns.forEach((b) => b.classList.remove("active"));
+          } else {
+            showAlert("error", `You can only select ${rules.max} option(s) for ${group}`);
+            return;
+          }
+        }
+        
+        // ADD selection
+        groupList.push(opt);
         btn.classList.add("active");
       }
 
@@ -974,11 +1028,35 @@
       }
 
       // ===================== CART =====================
+      function validateRequiredGroups(item) {
+        if (!item.modifiers) return true;
+        
+        for (const group in item.modifiers) {
+          const rules = GROUP_RULES[group];
+          if (!rules) continue;
+          
+          const min = rules.min || 0;
+          const selected = selectedModifiers[group] ? selectedModifiers[group].length : 0;
+          
+          if (selected < min) {
+            showAlert("error", `Please select at least ${min} option(s) for ${group}`);
+            return false;
+          }
+        }
+        return true;
+      }
+
       function addToCart(id) {
         const item = findItem(id);
         if (!item) return;
+        
+        // Validate required groups before adding
+        if (!validateRequiredGroups(item)) {
+          return; // STOP if validation fails
+        }
 
-        const mods = Object.values(selectedModifiers);
+        // Flatten all selected modifiers across groups
+        const mods = Object.values(selectedModifiers).flat();
         const modPrice = mods.reduce((s, m) => s + (m.price || 0), 0);
         const unitPrice = item.price + modPrice;
         const totalPrice = unitPrice * itemQty;
@@ -995,7 +1073,7 @@
         // Reset selection
         document.getElementById(`item-${id}`).classList.remove("selected");
         selectedItem = null;
-        selectedModifiers = {};
+        selectedModifiers = {}; // Reset to empty object (arrays per group)
         itemQty = 1;
 
         updateCart();
@@ -1031,7 +1109,7 @@
         checkoutPanel.style.display = "block";
 
         const subtotal = cart.reduce((s, i) => s + i.totalPrice, 0);
-        const tax = Math.round(subtotal * 0.0975); // Default AR tax; n8n will compute exact
+        const tax = Math.round(subtotal * 0.0952); // Arkansas 9.52% (display only)
         const grand = subtotal + tax;
 
         content.innerHTML = `
@@ -1063,7 +1141,7 @@
         <span>$${formatPrice(subtotal)}</span>
       </div>
       <div class="total-row tax">
-        <span>Tax (est.)</span>
+        <span>Tax (est. 9.52%)</span>
         <span>$${formatPrice(tax)}</span>
       </div>
       <div class="total-row grand">
