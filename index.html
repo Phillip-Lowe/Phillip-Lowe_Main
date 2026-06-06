@@ -917,13 +917,17 @@ async function handleCheckout(e) {
     customer: {
       name: form.get('name'),
       email: form.get('email'),
-      phone: form.get('phone'),
-      city: form.get('city'),
-      county: form.get('county')
+      phone: form.get('phone')
     },
     items: items,
+    totals: {
+      subtotal_cents: subtotal,
+      tax_cents: tax,
+      total_cents: frontend_total_cents
+    },
+    pickup_time: form.get('pickup_time') || '',
     notes: form.get('notes') || '',
-    frontend_total_cents: frontend_total_cents
+    source: 'web'
   };
 
   try {
@@ -940,7 +944,7 @@ async function handleCheckout(e) {
       showAlert('error', result.error || result.message || 'Something went wrong. Please try again.');
     } else {
       // Show confirmation — backend sends email + payment link
-      showConfirmation(result.message || 'We Got You! Check your email for the payment link.', result.square_link || result.payment_link);
+      showConfirmation(result.message || 'We Got You! Check your email for the payment link.', result.square_link || result.payment_link || result.payment_url);
     }
   } catch (err) {
     console.error('Checkout error:', err);
