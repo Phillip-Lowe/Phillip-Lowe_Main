@@ -1,0 +1,18 @@
+[BRIDGE] Starting SAOS provision bridge (poll=30s)
+[BRIDGE] No pending tasks — idle
+[BRIDGE] No pending tasks — idle
+[BRIDGE] No pending tasks — idle
+[BRIDGE] Starting SAOS provision bridge (poll=30s)
+[BRIDGE] No pending tasks — idle
+[BRIDGE] Starting SAOS provision bridge (poll=30s)
+[BRIDGE] Found task 49, retry=0/3
+[BRIDGE] Task 49: Provisioning CLEAN-TEST-CORP (tier=business)
+Creating VPS for client CLEAN-TEST-CORP...
+  Tier: business (Business Fleet - 8 vCPU, 16GB RAM)
+  Region: ord
+  Plan: vhp-8c-16gb-amd
+  Label: saos-CLEAN-TEST-CORP
+[BRIDGE] VPS created: 41e71361-d44f-4daf-8355-8216f59c4442
+[BRIDGE] Task 49 COMPLETE -> 41e71361-d44f-4daf-8355-8216f59c4442
+[BRIDGE] Starting SAOS provision bridge (poll=30s)
+[BRIDGE] No pending tasks — idle

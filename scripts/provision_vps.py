@@ -127,7 +127,7 @@ REGIONS = {
 # vhp-4c-16gb = High Performance, 4 vCPU, 16GB RAM ($96/mo)
 TIER_PLANS = {
     "business": {
-        "plan": "vhp-8c-16gb",  # 8 vCPU, 16GB RAM - both tiers use 8 cores
+        "plan": "vhp-8c-16gb-amd",  # 8 vCPU, 16GB RAM (AMD variant)
         "region": "ord",
         "os_id": UBUNTU_22_04_OS_ID,
         "description": "Business Fleet - 8 vCPU, 16GB RAM"
