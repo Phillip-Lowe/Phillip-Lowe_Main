@@ -1,0 +1,24 @@
+{
+  "client_id": "DEMO-CORP",
+  "generated_at": "2026-06-19T15:52:46.899093",
+  "client_name": "Demo Corporation",
+  "primary_color": "#1a365d",
+  "accent_color": "#0ea5e9",
+  "logo_url": "/assets/client-logo.png",
+  "favicon_url": "/assets/default-favicon.ico",
+  "tier": "Enterprise",
+  "locations": [
+    "ord",
+    "lax",
+    "lon"
+  ],
+  "compliance": [
+    "SOC2",
+    "GDPR",
+    "HIPAA"
+  ],
+  "task_count": 0,
+  "agent_count": 10,
+  "last_backup": "Never",
+  "retention_days": 30
+}

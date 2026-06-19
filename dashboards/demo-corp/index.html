@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Corporation — Operations Dashboard</title>
+    <link rel="stylesheet" href="assets/dashboard.css">
+    <link rel="icon" href="/assets/default-favicon.ico">
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand-bar" style="background: linear-gradient(135deg, #1a365d, #0ea5e9);">
+            <img src="/assets/client-logo.png" alt="Demo Corporation" class="client-logo">
+            <div class="header-meta">
+                <span class="tier-badge">Enterprise</span>
+                <span class="status-indicator status-ok">● All Systems Operational</span>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <a href="#overview" class="nav-item active">Overview</a>
+            <a href="#agents" class="nav-item">Agents</a>
+            <a href="#locations" class="nav-item">Locations</a>
+            <a href="#compliance" class="nav-item">Compliance</a>
+            <a href="#audit" class="nav-item">Audit Log</a>
+            <a href="#backups" class="nav-item">Backups</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-content">
+        <!-- Overview Cards -->
+        <section id="overview" class="card-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="uptime-value">99.98%</div>
+                <div class="metric-label">Uptime (30d)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="tasks-value">0</div>
+                <div class="metric-label">Tasks Completed</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="locations-value">{{location_count}}</div>
+                <div class="metric-label">Active Locations</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="agents-value">10</div>
+                <div class="metric-label">AI Agents Active</div>
+            </div>
+        </section>
+
+        <!-- Agent Status -->
+        <section id="agents" class="content-section">
+            <h2>Agent Fleet Status</h2>
+            <div class="agent-grid" id="agent-status-container">
+                                <div class="agent-card"><div class="agent-header"><span class="agent-emoji">📄</span><span class="agent-name">Invoice Agent</span><span class="agent-status status-online"></span></div><div style="font-size: 0.875rem; color: var(--gray-600);">245 tasks completed today</div></div>
+                <div class="agent-card"><div class="agent-header"><span class="agent-emoji">📅</span><span class="agent-name">Booking Agent</span><span class="agent-status status-online"></span></div><div style="font-size: 0.875rem; color: var(--gray-600);">189 tasks completed today</div></div>
+                <div class="agent-card"><div class="agent-header"><span class="agent-emoji">💬</span><span class="agent-name">Communication</span><span class="agent-status status-busy"></span></div><div style="font-size: 0.875rem; color: var(--gray-600);">56 tasks completed today</div></div>
+                <div class="agent-card"><div class="agent-header"><span class="agent-emoji">⚖️</span><span class="agent-name">Compliance</span><span class="agent-status status-online"></span></div><div style="font-size: 0.875rem; color: var(--gray-600);">12 tasks completed today</div></div>
+            </div>
+        </section>
+
+        <!-- Location Map -->
+        <section id="locations" class="content-section">
+            <h2>Multi-Location Infrastructure</h2>
+            <div class="location-list" id="location-container">
+                                <div class="location-card"><div class="agent-header"><span class="agent-emoji">🌍</span><span class="agent-name">Chicago (ORD)</span><span class="agent-status status-online"></span></div><div style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">Uptime: 99.98% | Status: Active</div></div>
+                <div class="location-card"><div class="agent-header"><span class="agent-emoji">🌍</span><span class="agent-name">Los Angeles (LAX)</span><span class="agent-status status-online"></span></div><div style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">Uptime: 99.98% | Status: Active</div></div>
+                <div class="location-card"><div class="agent-header"><span class="agent-emoji">🌍</span><span class="agent-name">London (LON)</span><span class="agent-status status-online"></span></div><div style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">Uptime: 99.98% | Status: Active</div></div>
+            </div>
+        </section>
+
+        <!-- Compliance Dashboard -->
+        <section id="compliance" class="content-section">
+            <h2>Compliance Status</h2>
+            <div class="compliance-grid">
+                                <div class="compliance-card"><div class="agent-header"><span class="agent-emoji">✅</span><span class="agent-name">SOC 2 Type I</span><span style="margin-left: auto; font-size: 0.75rem; color: var(--success);">READY</span></div></div>
+                <div class="compliance-card"><div class="agent-header"><span class="agent-emoji">✅</span><span class="agent-name">GDPR</span><span style="margin-left: auto; font-size: 0.75rem; color: var(--success);">READY</span></div></div>
+                <div class="compliance-card"><div class="agent-header"><span class="agent-emoji">⏳</span><span class="agent-name">HIPAA</span><span style="margin-left: auto; font-size: 0.75rem; color: var(--success);">PENDING</span></div></div>
+            </div>
+        </section>
+
+        <!-- Audit Log -->
+        <section id="audit" class="content-section">
+            <h2>Audit Log</h2>
+            <div class="table-container">
+                <table class="data-table" id="audit-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Event</th>
+                            <th>User</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="audit-body">
+                                                <tr><td>2026-06-19 10:00:00</td><td>Backup completed</td><td>SYSTEM</td><td><span style="color: var(--success);">✓</span></td></tr>
+                        <tr><td>2026-06-19 09:30:00</td><td>Agent deployment</td><td>SOL</td><td><span style="color: var(--success);">✓</span></td></tr>
+                        <tr><td>2026-06-19 09:00:00</td><td>Compliance scan</td><td>JURIS</td><td><span style="color: var(--success);">✓</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Backup Status -->
+        <section id="backups" class="content-section">
+            <h2>Backup Status</h2>
+            <div class="backup-grid">
+                <div class="backup-card">
+                    <div class="backup-icon">💾</div>
+                    <div class="backup-info">
+                        <div class="backup-title">Last Snapshot</div>
+                        <div class="backup-time" id="last-backup">Never</div>
+                    </div>
+                </div>
+                <div class="backup-card">
+                    <div class="backup-icon">📦</div>
+                    <div class="backup-info">
+                        <div class="backup-title">Retention</div>
+                        <div class="backup-time">30 days</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="dashboard-footer">
+        <p>Powered by <a href="https://systack.net" target="_blank">SyStack</a> | 
+           <a href="/docs/privacy">Privacy</a> | 
+           <a href="/docs/terms">Terms</a> | 
+           <a href="/docs/compliance">Compliance</a></p>
+        <p class="version">Dashboard v1.0 | Generated: 2026-06-19 15:52 UTC</p>
+    </footer>
+
+    <script src="assets/dashboard.js"></script>
+</body>
+</html>
