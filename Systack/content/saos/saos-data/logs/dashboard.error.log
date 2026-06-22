@@ -966,3 +966,8 @@ Port 8765 is in use by another program. Either identify and stop that program, o
 127.0.0.1 - - [22/Jun/2026 10:56:21] "GET /api/status HTTP/1.1" 200 -
 127.0.0.1 - - [22/Jun/2026 10:56:55] "GET /api/clients HTTP/1.1" 200 -
 127.0.0.1 - - [22/Jun/2026 10:56:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:32] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:33] "[33mGET /apple-touch-icon-precomposed.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [22/Jun/2026 10:57:33] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [22/Jun/2026 10:57:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

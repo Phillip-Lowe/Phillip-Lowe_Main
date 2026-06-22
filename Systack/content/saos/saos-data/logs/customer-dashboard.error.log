@@ -126,3 +126,15 @@ Port 8768 is in use by another program. Either identify and stop that program, o
 127.0.0.1 - - [22/Jun/2026 10:57:14] "GET /api/portal/client?client_id=1 HTTP/1.1" 200 -
 127.0.0.1 - - [22/Jun/2026 10:57:14] "GET /api/portal/tasks?client_id=1 HTTP/1.1" 200 -
 127.0.0.1 - - [22/Jun/2026 10:57:14] "GET /api/portal/status?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:44] "GET /api/portal/client?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:44] "GET /api/portal/tasks?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:44] "GET /api/portal/status?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:47] "GET /api/portal/client?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:47] "GET /api/portal/tasks?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:57:47] "GET /api/portal/status?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:58:17] "GET /api/portal/tasks?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:58:17] "GET /api/portal/client?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:58:17] "GET /api/portal/status?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:58:47] "GET /api/portal/client?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:58:47] "GET /api/portal/tasks?client_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:58:47] "GET /api/portal/status?client_id=1 HTTP/1.1" 200 -
