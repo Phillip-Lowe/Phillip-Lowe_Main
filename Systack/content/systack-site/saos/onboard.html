@@ -1,0 +1,771 @@
+<!-- SAOS Enterprise Post-Payment Onboarding Form -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure Your SAOS Enterprise Fleet — SyStack</title>
+    <style>
+        :root {
+            --navy: #001a2d;
+            --teal: #007da9;
+            --cyan: #00a1db;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-400: #94a3b8;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --green: #22c55e;
+            --green-light: #dcfce7;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--gray-50);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .success-banner {
+            background: linear-gradient(135deg, var(--green) 0%, #16a34a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .success-banner h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .success-banner p {
+            opacity: 0.9;
+        }
+        .form-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--gray-200);
+        }
+        .progress-step.active {
+            background: linear-gradient(90deg, var(--teal), var(--cyan));
+        }
+        .step-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        .step-label span.active {
+            color: var(--teal);
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+        label {
+            display: block;
+            color: var(--gray-800);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        .label-hint {
+            font-weight: 400;
+            color: var(--gray-600);
+            font-size: 0.8rem;
+            margin-left: 0.25rem;
+        }
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: var(--white);
+        }
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(0, 161, 219, 0.1);
+        }
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        @media (max-width: 500px) {
+            .checkbox-grid { grid-template-columns: 1fr; }
+        }
+        .checkbox-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .checkbox-card:hover {
+            border-color: var(--cyan);
+            background: var(--gray-50);
+        }
+        .checkbox-card input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: var(--cyan);
+            flex-shrink: 0;
+        }
+        .checkbox-card .card-content {
+            flex: 1;
+        }
+        .checkbox-card .card-title {
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+        }
+        .checkbox-card .card-desc {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+        .checkbox-card.selected {
+            border-color: var(--cyan);
+            background: rgba(0, 161, 219, 0.05);
+        }
+        .region-select {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .region-card {
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .region-card:hover {
+            border-color: var(--cyan);
+        }
+        .region-card.selected {
+            border-color: var(--cyan);
+            background: rgba(0, 161, 219, 0.05);
+        }
+        .region-card input {
+            display: none;
+        }
+        .region-flag {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .region-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-800);
+        }
+        .region-city {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+        .region-badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            background: var(--green-light);
+            color: #166534;
+            font-size: 0.7rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+        .color-picker {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .color-option {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        .color-option.selected {
+            border-color: var(--gray-800);
+            box-shadow: 0 0 0 3px white, 0 0 0 5px var(--gray-800);
+        }
+        .color-option .check {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.25rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            display: none;
+        }
+        .color-option.selected .check {
+            display: block;
+        }
+        .custom-color {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.75rem;
+        }
+        .custom-color input[type="color"] {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .custom-color input[type="text"] {
+            width: 120px;
+            padding: 0.5rem;
+        }
+        .pricing-summary {
+            background: var(--gray-100);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .pricing-summary h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.625rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.875rem;
+        }
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--navy);
+            padding-top: 1rem;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 125, 169, 0.4);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .required { color: #ef4444; }
+        .info-box {
+            background: rgba(0, 161, 219, 0.08);
+            border-left: 3px solid var(--cyan);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+        .hidden { display: none; }
+        #payment-info {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--gray-100);
+            border-radius: 8px;
+        }
+        #payment-info p {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: 0.25rem;
+        }
+        #payment-info strong {
+            color: var(--gray-800);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Success Banner -->
+        <div class="success-banner">
+            <h2>✓ Payment Confirmed</h2>
+            <p>Welcome to SAOS Enterprise. Let's configure your fleet.</p>
+        </div>
+
+        <!-- Form -->
+        <div class="form-card">
+            <!-- Progress -->
+            <div class="progress-bar">
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+            </div>
+            <div class="step-label">
+                <span>Account</span>
+                <span class="active">Configuration</span>
+                <span>Deploy</span>
+            </div>
+
+            <!-- Payment Info (auto-filled from URL params) -->
+            <div id="payment-info">
+                <p><strong>Customer:</strong> <span id="display-email">Loading...</span></p>
+                <p><strong>Plan:</strong> <span id="display-plan">Loading...</span></p>
+                <p><strong>Session:</strong> <span id="display-session">Loading...</span></p>
+            </div>
+
+            <form id="onboardingForm">
+                <!-- Hidden fields from Stripe -->
+                <input type="hidden" name="stripe_session_id" id="stripe_session_id">
+                <input type="hidden" name="stripe_customer_id" id="stripe_customer_id">
+                <input type="hidden" name="stripe_subscription_id" id="stripe_subscription_id">
+                <input type="hidden" name="billing_period" id="billing_period">
+                <input type="hidden" name="tier" id="tier" value="enterprise">
+
+                <!-- Business Info -->
+                <div class="form-group">
+                    <label for="businessName">Business Name <span class="required">*</span></label>
+                    <input type="text" id="businessName" name="business_name" required
+                           placeholder="e.g., Acme Corporation"
+                           pattern="[A-Za-z0-9\s\-\u0026]{2,50}">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactEmail">Primary Contact Email <span class="required">*</span></label>
+                    <input type="email" id="contactEmail" name="email" required
+                           placeholder="admin@yourcompany.com">
+                </div>
+
+                <!-- Region Selection -->
+                <div class="form-group">
+                    <label>Primary Region <span class="required">*</span>
+                        <span class="label-hint">Where your main VPS will be deployed</span>
+                    </label>
+                    <div class="region-select">
+                        <label class="region-card">
+                            <input type="radio" name="primary_region" value="ord" required>
+                            <div class="region-flag">🇺🇸</div>
+                            <div class="region-name">Chicago</div>
+                            <div class="region-city">US Central</div>
+                            <span class="region-badge">SOC2</span>
+                        </label>
+                        <label class="region-card">
+                            <input type="radio" name="primary_region" value="lax">
+                            <div class="region-flag">🇺🇸</div>
+                            <div class="region-name">Los Angeles</div>
+                            <div class="region-city">US West</div>
+                            <span class="region-badge">SOC2</span>
+                        </label>
+                        <label class="region-card">
+                            <input type="radio" name="primary_region" value="lon">
+                            <div class="region-flag">🇬🇧</div>
+                            <div class="region-name">London</div>
+                            <div class="region-city">UK</div>
+                            <span class="region-badge">GDPR</span>
+                        </label>
+                        <label class="region-card">
+                            <input type="radio" name="primary_region" value="ams">
+                            <div class="region-flag">🇳🇱</div>
+                            <div class="region-name">Amsterdam</div>
+                            <div class="region-city">Netherlands</div>
+                            <span class="region-badge">GDPR</span>
+                        </label>
+                        <label class="region-card">
+                            <input type="radio" name="primary_region" value="fra">
+                            <div class="region-flag">🇩🇪</div>
+                            <div class="region-name">Frankfurt</div>
+                            <div class="region-city">Germany</div>
+                            <span class="region-badge">GDPR + BSI</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Additional Locations -->
+                <div class="form-group">
+                    <label>Additional Locations
+                        <span class="label-hint">Deploy to multiple regions for redundancy</span>
+                    </label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="locations" value="ord">
+                            <div class="card-content">
+                                <div class="card-title">🇺🇸 Chicago</div>
+                                <div class="card-desc">US Central — SOC2</div>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="locations" value="lax">
+                            <div class="card-content">
+                                <div class="card-title">🇺🇸 Los Angeles</div>
+                                <div class="card-desc">US West — CCPA</div>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="locations" value="lon">
+                            <div class="card-content">
+                                <div class="card-title">🇬🇧 London</div>
+                                <div class="card-desc">UK — GDPR</div>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="locations" value="ams">
+                            <div class="card-content">
+                                <div class="card-title">🇳🇱 Amsterdam</div>
+                                <div class="card-desc">Netherlands — GDPR</div>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="locations" value="fra">
+                            <div class="card-content">
+                                <div class="card-title">🇩🇪 Frankfurt</div>
+                                <div class="card-desc">Germany — GDPR + BSI</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Compliance -->
+                <div class="form-group">
+                    <label>Compliance Requirements <span class="required">*</span>
+                        <span class="label-hint">Required certifications for your industry</span>
+                    </label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="compliance" value="SOC2" checked>
+                            <div class="card-content">
+                                <div class="card-title">SOC 2</div>
+                                <div class="card-desc">Security & Availability controls</div>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="compliance" value="HIPAA">
+                            <div class="card-content">
+                                <div class="card-title">HIPAA</div>
+                                <div class="card-desc">Healthcare data protection</div>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="compliance" value="GDPR">
+                            <div class="card-content">
+                                <div class="card-title">GDPR</div>
+                                <div class="card-desc">EU data privacy</div>
+                            </div>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="compliance" value="CCPA">
+                            <div class="card-content">
+                                <div class="card-title">CCPA</div>
+                                <div class="card-desc">California privacy rights</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Industry -->
+                <div class="form-group">
+                    <label for="industry">Industry (for AI agent tuning)</label>
+                    <select id="industry" name="industry">
+                        <option value="" selected>General / Other</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="finance">Finance / Banking</option>
+                        <option value="retail">Retail / E-commerce</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="technology">Technology / SaaS</option>
+                        <option value="legal">Legal / Compliance</option>
+                        <option value="education">Education</option>
+                        <option value="government">Government</option>
+                    </select>
+                </div>
+
+                <!-- Brand Color -->
+                <div class="form-group">
+                    <label>Brand Color</label>
+                    <div class="color-picker">
+                        <div class="color-option" data-color="#001a2d" style="background: #001a2d;">
+                            <span class="check">✓</span>
+                        </div>
+                        <div class="color-option" data-color="#007da9" style="background: #007da9;">
+                            <span class="check">✓</span>
+                        </div>
+                        <div class="color-option" data-color="#00a1db" style="background: #00a1db;">
+                            <span class="check">✓</span>
+                        </div>
+                        <div class="color-option" data-color="#1e40af" style="background: #1e40af;">
+                            <span class="check">✓</span>
+                        </div>
+                        <div class="color-option" data-color="#7c3aed" style="background: #7c3aed;">
+                            <span class="check">✓</span>
+                        </div>
+                        <div class="color-option" data-color="#dc2626" style="background: #dc2626;">
+                            <span class="check">✓</span>
+                        </div>
+                        <div class="color-option" data-color="#ea580c" style="background: #ea580c;">
+                            <span class="check">✓</span>
+                        </div>
+                        <div class="color-option" data-color="#16a34a" style="background: #16a34a;">
+                            <span class="check">✓</span>
+                        </div>
+                    </div>
+                    <div class="custom-color">
+                        <input type="color" id="colorPicker" value="#001a2d">
+                        <input type="text" id="brandColor" name="brand_color" value="#001a2d" 
+                               pattern="^#[0-9A-Fa-f]{6}$" placeholder="#001a2d">
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="pricing-summary">
+                    <h3>Your SAOS Enterprise Fleet</h3>
+                    <div class="summary-row">
+                        <span>VPS Configuration</span>
+                        <span>8 vCPU / 32GB RAM</span>
+                    </div>
+                    <div class="summary-row" id="location-count">
+                        <span>Locations</span>
+                        <span>1 region</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Included Agents</span>
+                        <span>10 fleet agents</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Compliance Docs</span>
+                        <span>Auto-generated</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Monthly Total</span>
+                        <span>$799/mo</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    After submitting, your VPS will be provisioned within 8 minutes. 
+                    You'll receive credentials via email.
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="spinner"></span>
+                    <span class="btn-text">Deploy My Fleet →</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Parse URL parameters from Stripe redirect
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        const customerId = urlParams.get('customer_id');
+        const planParam = urlParams.get('plan') || 'enterprise'; // business or enterprise
+        
+        // Determine plan display
+        const planDisplay = planParam === 'business' ? 'SAOS Business Fleet' : 'SAOS Enterprise Fleet';
+        const planTier = planParam === 'business' ? 'business' : 'enterprise';
+        
+        // Populate hidden fields
+        document.getElementById('stripe_session_id').value = sessionId || '';
+        document.getElementById('stripe_customer_id').value = customerId || '';
+        
+        // Set tier based on plan parameter
+        document.getElementById('tier').value = planTier;
+        
+        // Display payment info
+        document.getElementById('display-session').textContent = sessionId 
+            ? sessionId.substring(0, 20) + '...' 
+            : 'Demo mode';
+        document.getElementById('display-plan').textContent = planDisplay;
+        document.getElementById('display-email').textContent = 'Verifying...';
+        
+        // Fetch session details from Stripe (in production)
+        if (sessionId) {
+            // In production: fetch from your backend
+            // fetch(`/api/stripe/session/${sessionId}`)
+            //   .then(r => r.json())
+            //   .then(data => {
+            //     document.getElementById('display-email').textContent = data.customer_email;
+            //     document.getElementById('stripe_subscription_id').value = data.subscription_id;
+            //     document.getElementById('billing_period').value = data.mode;
+            //   });
+            
+            // Demo: simulate
+            setTimeout(() => {
+                document.getElementById('display-email').textContent = 'customer@example.com';
+                document.getElementById('stripe_subscription_id').value = 'sub_' + Math.random().toString(36).substring(7);
+                document.getElementById('billing_period').value = 'monthly';
+            }, 500);
+        }
+
+        // Region selection visual feedback
+        document.querySelectorAll('.region-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.region-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Checkbox card visual feedback
+        document.querySelectorAll('.checkbox-card').forEach(card => {
+            const checkbox = card.querySelector('input[type="checkbox"]');
+            card.addEventListener('click', function(e) {
+                if (e.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+                this.classList.toggle('selected', checkbox.checked);
+                updateLocationCount();
+            });
+        });
+
+        // Color picker
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('colorPicker').value = this.dataset.color;
+                document.getElementById('brandColor').value = this.dataset.color;
+            });
+        });
+
+        document.getElementById('colorPicker').addEventListener('input', function() {
+            document.getElementById('brandColor').value = this.value;
+            document.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
+        });
+
+        document.getElementById('brandColor').addEventListener('input', function() {
+            if (/^#[0-9A-Fa-f]{6}$/.test(this.value)) {
+                document.getElementById('colorPicker').value = this.value;
+                document.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
+            }
+        });
+
+        // Update location count
+        function updateLocationCount() {
+            const checked = document.querySelectorAll('input[name="locations"]:checked').length;
+            const primary = document.querySelector('input[name="primary_region"]:checked');
+            const total = checked + (primary ? 1 : 0);
+            document.getElementById('location-count').innerHTML = `
+                <span>Locations</span>
+                <span>${total} region${total !== 1 ? 's' : ''}</span>
+            `;
+        }
+
+        // Form submission
+        document.getElementById('onboardingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const spinner = btn.querySelector('.spinner');
+            const btnText = btn.querySelector('.btn-text');
+            
+            btn.disabled = true;
+            spinner.style.display = 'block';
+            btnText.textContent = 'Deploying Your Fleet...';
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {
+                stripe_session_id: formData.get('stripe_session_id'),
+                stripe_customer_id: formData.get('stripe_customer_id'),
+                stripe_subscription_id: formData.get('stripe_subscription_id'),
+                billing_period: formData.get('billing_period'),
+                business_name: formData.get('business_name'),
+                email: formData.get('email'),
+                primary_region: formData.get('primary_region'),
+                locations: formData.getAll('locations'),
+                compliance: formData.getAll('compliance'),
+                industry: formData.get('industry'),
+                brand_color: formData.get('brand_color')
+            };
+            
+            try {
+                // Submit to n8n webhook
+                const response = await fetch('https://n8n.systack.net/webhook/saos-enterprise-configure', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Show success
+                    document.querySelector('.form-card').innerHTML = `
+                        <div style="text-align: center; padding: 3rem;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🚀</div>
+                            <h2 style="color: var(--navy); margin-bottom: 1rem;">Fleet Deploying!</h2>
+                            <p style="color: var(--gray-600); margin-bottom: 1.5rem;">
+                                Your VPS is being provisioned in ${data.locations.length + 1} region(s).
+                                You'll receive credentials via email within 8 minutes.
+                            </p>
+                            <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 8px; text-align: left;">
+                                <p><strong>Business:</strong> ${data.business_name}</p>
+                                <p><strong>Regions:</strong> ${data.primary_region}${data.locations.length ? ', ' + data.locations.join(', ') : ''}</p>
+                                <p><strong>Client ID:</strong> ${result.client_id || 'N/A'}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.message || 'Deployment failed');
+                }
+            } catch (error) {
+                btn.disabled = false;
+                spinner.style.display = 'none';
+                btnText.textContent = 'Deploy My Fleet →';
+                alert('Error: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
