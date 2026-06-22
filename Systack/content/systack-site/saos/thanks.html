@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/brand/favicon-16.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to SAOS — Your Fleet is Deploying</title>
+    <title>Welcome to SAOS — Payment Confirmed</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -93,6 +93,13 @@
             font-size: 15px;
             color: #475569;
         }
+        .step-text.complete {
+            color: #10b981;
+        }
+        .step-text.active {
+            color: #00a1db;
+            font-weight: 600;
+        }
         .contact {
             margin-top: 30px;
             padding: 24px;
@@ -138,6 +145,33 @@
             50% { width: 60%; }
             100% { width: 100%; }
         }
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #00a1db, #007da9);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-btn:hover {
+            opacity: 0.9;
+        }
+        .hidden { display: none; }
+        .plan-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 161, 219, 0.1);
+            color: #00a1db;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
     </style>
 </head>
 <body>
@@ -147,27 +181,35 @@
         <h1>Welcome to SAOS</h1>
         <p class="subtitle">Your AI agent fleet is deploying now.</p>
         
+        <div class="plan-badge" id="plan-badge">Loading...</div>
+        
         <div class="status-box">
             <h2>🛰️ Fleet Deployment Status</h2>
             <div class="loader"><div class="loader-bar"></div></div>
             <ul class="steps">
                 <li>
                     <div class="step-num">1</div>
-                    <div class="step-text">Payment confirmed — check your email for receipt</div>
+                    <div class="step-text complete" id="step-payment">Payment confirmed — check your email for receipt</div>
                 </li>
                 <li>
                     <div class="step-num">2</div>
-                    <div class="step-text">Provisioning your agent instance (5–10 minutes)</div>
+                    <div class="step-text active" id="step-provision">Provisioning your agent instance (5–10 minutes)</div>
                 </li>
                 <li>
                     <div class="step-num">3</div>
-                    <div class="step-text">Your dedicated phone number activated</div>
+                    <div class="step-text" id="step-activate">Your dedicated phone number activated</div>
                 </li>
                 <li>
                     <div class="step-num">4</div>
-                    <div class="step-text">Onboarding call scheduled — we'll text you the time</div>
+                    <div class="step-text" id="step-onboard">Onboarding call scheduled — we'll text you the time</div>
                 </li>
             </ul>
+        </div>
+        
+        <div id="config-section" class="hidden">
+            <h2 style="color: #001a2d; margin-bottom: 16px;">Configure Your Fleet</h2>
+            <p style="color: #475569; margin-bottom: 24px;">Tell us where to deploy and what to call your lead agent.</p>
+            <a href="/saos/onboard.html" id="config-link" class="cta-btn">Configure My Fleet →</a>
         </div>
         
         <div class="contact">
@@ -180,5 +222,29 @@
             <p>SAOS by Systack — Your fleet never sleeps.</p>
         </div>
     </div>
+
+    <script>
+        // Parse URL params from Stripe redirect
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        const plan = urlParams.get('plan') || 'enterprise';
+        
+        // Update plan badge
+        const planNames = {
+            'business': 'SAOS Business Fleet ($299/mo)',
+            'enterprise': 'SAOS Enterprise Fleet ($799/mo)'
+        };
+        document.getElementById('plan-badge').textContent = planNames[plan] || planNames['enterprise'];
+        
+        // Update config link with plan parameter
+        document.getElementById('config-link').href = `/saos/onboard.html?plan=${plan}&session_id=${sessionId || ''}`;
+        document.getElementById('config-section').classList.remove('hidden');
+        
+        // Log conversion for analytics (optional)
+        if (sessionId) {
+            // Could send to n8n or analytics here
+            console.log('Conversion:', { sessionId, plan, timestamp: new Date().toISOString() });
+        }
+    </script>
 </body>
 </html>
