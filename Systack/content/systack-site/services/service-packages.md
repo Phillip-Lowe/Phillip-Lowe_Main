@@ -281,15 +281,15 @@ Your AI sidekick that actually works:
 - **10,000 n8n runs/mo**
 
 #### SAOS Enterprise Fleet — $799/mo
-**10-agent fleet with engagement & compliance.** Everything in Business Fleet plus CODY (build), CHATTY (communication), and GENI (creative) — plus on-premise deployment.
+**10-agent fleet with double RAM and dedicated support.** Everything in Business Fleet plus CODY (build), CHATTY (communication), and GENI (creative) — plus 32GB RAM, unlimited runs, and dedicated support line.
 - Everything in Business Fleet
 - **Plus 3 agents:** CODY, CHATTY, GENI
-- **On-premise deployment** — hardware in your building
-- **HIPAA-grade privacy** — zero cloud exposure
-- **Dedicated hardware** — Mac Studio or Linux + RTX 4090
-- **White-glove setup** — we install, configure, train
-- **Priority support** — 4-hour SLA
+- **32GB RAM** (double Business tier)
 - **Unlimited n8n runs**
+- **Dedicated support line** (not shared queue)
+- **4-hour SLA response**
+- **Priority feature requests**
+- **Quarterly business reviews**
 
 ---
 
@@ -298,8 +298,8 @@ Your AI sidekick that actually works:
 | Tier | Monthly | What You Get |
 |------|---------|--------------|
 | **Personal+** | $199/mo | 16GB VPS, local models, dashboard, email support |
-| **Business Fleet** | $299/mo | Team features, Slack, 10K runs, 5 members |
-| **Enterprise Fleet** | $799/mo | On-premise, HIPAA, dedicated hardware, white-glove |
+| **Business Fleet** | $299/mo | 7 agents, 16GB, team features, 10K runs |
+| **Enterprise Fleet** | $799/mo | 10 agents, 32GB, unlimited runs, dedicated support |
 
 **[Subscribe to SAOS Personal+](https://buy.stripe.com/7sYcMYfZLagn9wQ7MG87K03)**  
 **[Subscribe to SAOS Business](https://buy.stripe.com/dRm9AMcNzgELdN6d7087K0a)**  
