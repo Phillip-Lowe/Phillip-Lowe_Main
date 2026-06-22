@@ -315,7 +315,9 @@ class VultrProvisioner:
         start = time.time()
         
         while time.time() - start < timeout:
-            instance = self.get_instance(instance_id)
+            result = self.get_instance(instance_id)
+            # API returns {"instance": {...}} or just {...}
+            instance = result.get("instance", result) if isinstance(result, dict) else result
             status = instance.get("status", "unknown")
             
             print(f"  Status: {status} ({int(time.time() - start)}s)")
