@@ -7,3 +7,8 @@
 [2026-06-22 08:12:25] Running: /Library/Developer/CommandLineTools/usr/bin/python3 /Users/philliplowe/.openclaw/workspaces/sol/Systack/content/saos/saos-data/scripts/provision_pipeline.py --client-id test-123 --tier business --email test@example.com --agent-name Percy --client-name Test Corp --contact-name Test User --test-mode
 [2026-06-22 08:12:25] Pipeline started with PID 35633
 [2026-06-22 08:12:25] 127.0.0.1 - "POST / HTTP/1.1" 200 -
+[2026-06-22 10:10:02] 127.0.0.1 - "GET /api/portal/health HTTP/1.1" 200 -
+[2026-06-22 10:10:02] 127.0.0.1 - "GET /api/portal/status?client_id=1 HTTP/1.1" 200 -
+[2026-06-22 10:10:02] 127.0.0.1 - "GET /api/portal/client?client_id=1 HTTP/1.1" 200 -
+[2026-06-22 10:10:02] 127.0.0.1 - "GET /api/portal/tasks?client_id=1 HTTP/1.1" 200 -
+[2026-06-22 10:10:02] 127.0.0.1 - "GET /api/portal/agents HTTP/1.1" 200 -

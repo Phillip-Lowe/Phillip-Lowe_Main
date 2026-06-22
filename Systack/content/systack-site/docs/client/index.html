@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Documents — Systack</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.6);
+            --border: rgba(148, 163, 184, 0.1);
+            --accent: #00a1db;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --green: #22c55e;
+            --amber: #f59e0b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+        .tier-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .tier-badge.business {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--amber);
+        }
+        .tier-badge.enterprise {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+        }
+        .tier-section {
+            margin-bottom: 32px;
+        }
+        .tier-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .doc-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.2s;
+        }
+        .doc-card:hover {
+            border-color: rgba(0, 161, 219, 0.3);
+        }
+        .doc-card.locked {
+            opacity: 0.5;
+        }
+        .doc-icon {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+        .doc-body {
+            flex: 1;
+        }
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .doc-desc {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .doc-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .doc-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #007da9;
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .btn-locked {
+            background: rgba(255,255,255,0.03);
+            color: var(--muted);
+            border: 1px solid var(--border);
+            cursor: not-allowed;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge.pdf {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+        .badge.html {
+            background: rgba(0, 161, 219, 0.15);
+            color: var(--accent);
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .locked-notice {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--amber);
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Client Documents</h1>
+            <p>Your SAOS documentation, deployment guides, and reference materials.</p>
+            <div class="tier-badge business" id="tier-badge">Business Fleet</div>
+        </div>
+
+        <!-- Business Tier Documents -->
+        <div class="tier-section" id="business-docs">
+            <div class="tier-title">Included with Business Fleet</div>
+            
+            <div class="doc-card">
+                <div class="doc-icon">📖</div>
+                <div class="doc-body">
+                    <div class="doc-title">
+                        SyStack Service Manual
+                        <span class="badge pdf">PDF</span>
+                    </div>
+                    <div class="doc-desc">
+                        Complete overview of your SAOS deployment. Covers 7-agent fleet 
+                        capabilities, security practices, support channels, and FAQs.
+                        This is your primary reference for understanding what's included 
+                        and how to get help.
+                    </div>
+                    <div class="doc-meta">
+                        <span>📄 12 pages</span>
+                        <span>🔄 v1.0 — June 2026</span>
+                    </div>
+                    <div class="doc-actions">
+                        <a href="SyStack-Service-Manual-Client-v1.0.pdf" class="btn btn-primary" target="_blank">
+                            📥 Download PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon">📋</div>
+                <div class="doc-body">
+                    <div class="doc-title">
+                        SAOS Quick Start Guide
+                        <span class="badge html">WEB</span>
+                    </div>
+                    <div class="doc-desc">
+                        Step-by-step setup instructions for your 7-agent fleet. Covers 
+                        Tailscale connection, agent configuration, first task creation, 
+                        and common troubleshooting.
+                    </div>
+                    <div class="doc-meta">
+                        <span>📄 Online</span>
+                        <span>🔄 Updated regularly</span>
+                    </div>
+                    <div class="doc-actions">
+                        <a href="https://systack.net/saos/" class="btn btn-primary" target="_blank">
+                            🌐 View Guide
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enterprise Tier Documents -->
+        <div class="tier-section" id="enterprise-docs">
+            <div class="tier-title">Enterprise Only</div>
+            
+            <div class="doc-card locked" id="enterprise-deployment">
+                <div class="doc-icon">🚀</div>
+                <div class="doc-body">
+                    <div class="doc-title">
+                        Enterprise Deployment Guide
+                        <span class="badge pdf">PDF</span>
+                    </div>
+                    <div class="doc-desc">
+                        Technical guide for on-premise SAOS deployments. Covers hardware 
+                        requirements, network configuration, security hardening, and maintenance 
+                        procedures. For Enterprise clients and IT administrators.
+                    </div>
+                    <div class="doc-meta">
+                        <span>📄 18 pages</span>
+                        <span>🔄 v1.0 — June 2026</span>
+                    </div>
+                    <div class="doc-actions">
+                        <span class="btn btn-locked" id="enterprise-btn">🔒 Enterprise Required</span>
+                    </div>
+                    <div class="locked-notice" id="enterprise-notice">
+                        🔒 Upgrade to Enterprise Fleet to access this document
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Questions? <a href="mailto:support@systack.net">support@systack.net</a> · (501) 274-6231</p>
+            <p style="margin-top:8px;">© 2026 Systack. Your fleet never sleeps.</p>
+        </div>
+    </div>
+
+    <script>
+        // Check URL for tier parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const tier = urlParams.get('tier') || 'business';
+        
+        // Update badge
+        const badge = document.getElementById('tier-badge');
+        if (tier === 'enterprise') {
+            badge.textContent = 'Enterprise Fleet';
+            badge.className = 'tier-badge enterprise';
+            
+            // Unlock enterprise documents
+            document.getElementById('enterprise-deployment').classList.remove('locked');
+            document.getElementById('enterprise-btn').outerHTML = `
+                <a href="SyStack-Enterprise-Deployment-Guide-v1.0.pdf" class="btn btn-primary" target="_blank">
+                    📥 Download PDF
+                </a>
+            `;
+            document.getElementById('enterprise-notice').style.display = 'none';
+        } else {
+            badge.textContent = 'Business Fleet';
+            badge.className = 'tier-badge business';
+        }
+    </script>
+</body>
+</html>

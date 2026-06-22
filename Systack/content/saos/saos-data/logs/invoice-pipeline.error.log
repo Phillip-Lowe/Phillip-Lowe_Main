@@ -1,0 +1,180 @@
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 18, in <module>
+    from invoice_parser_production import process_pdf
+ModuleNotFoundError: No module named 'invoice_parser_production'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
+    from invoice_db import init_db
+ModuleNotFoundError: No module named 'invoice_db'

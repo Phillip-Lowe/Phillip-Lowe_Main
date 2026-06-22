@@ -163,7 +163,26 @@ class InvoiceHandler(BaseHTTPRequestHandler):
         
         try:
             # Process
-            raw_result = process_pdf(tmp_path, save_to_db=True, source="api")
+            raw_result = process_pdf(tmp_path)
+            
+            # Save to database
+            try:
+                from invoice_db import save_invoice
+                db_id = save_invoice(
+                    file_name=file_data.get('filename', 'unknown.pdf'),
+                    vendor=raw_result.get('vendor_name'),
+                    invoice_date=raw_result.get('invoice_date'),
+                    invoice_number=raw_result.get('invoice_number'),
+                    subtotal=raw_result.get('total_amount'),  # Use total as subtotal for now
+                    tax=None,
+                    total=raw_result.get('total_amount'),
+                    raw_text=raw_result.get('raw_text', '')[:5000],
+                    parsed_json=json.dumps(raw_result),
+                    source="api"
+                )
+                raw_result['sqlite_id'] = db_id
+            except Exception as db_err:
+                raw_result['db_error'] = str(db_err)
             
             if raw_result.get('error'):
                 result = raw_result
@@ -223,5 +242,8 @@ def run_server(port=8765):
 
 
 if __name__ == '__main__':
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8765
-    run_server(port)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=3000)
+    args = parser.parse_args()
+    run_server(args.port)

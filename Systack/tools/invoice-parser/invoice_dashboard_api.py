@@ -379,5 +379,8 @@ def run_server(port=8766):
 
 
 if __name__ == '__main__':
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8766
-    run_server(port)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=8766)
+    args = parser.parse_args()
+    run_server(args.port)

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-22T13:57:51.012Z",
+  "updatedAt": "2026-06-22T15:39:58.991Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:45:74": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:45:74",
@@ -27956,18 +27956,20 @@
       "endLine": 82,
       "source": "memory",
       "snippet": "systack-site/saos/index.html (+47 lines, Extended Capabilities + pricing) fleet/sol.md (created) fleet/oracle.md (created) fleet/atlas.md (created) fleet/vali.md (created) fleet/pessi.md (created) fleet/assembly.md (created) SAOS-FOUNDATION-SPEC.md (updated fleet + loop) MEMORY.md (added entry) ``` ### Next Actions - [ ] Activate CODY (fix cron jobs) - [ ] Create CHATTY onboarding sequence - [ ] Create first GENI marketing asset - [ ] Add Engagement Engine Stripe product/button - [ ] Update other s",
-      "recallCount": 4,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.934867903590202,
-      "maxScore": 0.5003684490919112,
+      "totalScore": 2.931117779016495,
+      "maxScore": 0.500919759273529,
       "firstRecalledAt": "2026-06-22T11:13:18.300Z",
-      "lastRecalledAt": "2026-06-22T12:59:23.404Z",
+      "lastRecalledAt": "2026-06-22T15:15:19.986Z",
       "queryHashes": [
         "59f09408f7c3",
         "a9058b82e1f7",
         "6511cd4c3daa",
-        "29dec0aeab22"
+        "29dec0aeab22",
+        "562f060b9d0e",
+        "38f39c6ead88"
       ],
       "recallDays": [
         "2026-06-22"
@@ -27990,18 +27992,20 @@
       "endLine": 82,
       "source": "memory",
       "snippet": "systack-site/saos/index.html (+47 lines, Extended Capabilities + pricing) fleet/sol.md (created) fleet/oracle.md (created) fleet/atlas.md (created) fleet/vali.md (created) fleet/pessi.md (created) fleet/assembly.md (created) SAOS-FOUNDATION-SPEC.md (updated fleet + loop) MEMORY.md (added entry) ``` ### Next Actions - [ ] Activate CODY (fix cron jobs) - [ ] Create CHATTY onboarding sequence - [ ] Create first GENI marketing asset - [ ] Add Engagement Engine Stripe product/button - [ ] Update other s",
-      "recallCount": 4,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.934867903590202,
-      "maxScore": 0.5003684490919112,
+      "totalScore": 2.931117779016495,
+      "maxScore": 0.500919759273529,
       "firstRecalledAt": "2026-06-22T11:13:18.300Z",
-      "lastRecalledAt": "2026-06-22T12:59:23.404Z",
+      "lastRecalledAt": "2026-06-22T15:15:19.986Z",
       "queryHashes": [
         "59f09408f7c3",
         "a9058b82e1f7",
         "6511cd4c3daa",
-        "29dec0aeab22"
+        "29dec0aeab22",
+        "562f060b9d0e",
+        "38f39c6ead88"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28466,15 +28470,16 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# Session End — 2026-06-17 06:50 CDT ## Summary: Complete SAOS Provisioning Pipeline Built **User directive:** \"Save all of this everywhere and have it on the to do list the things that we need to finish\" --- ## ✅ What Was Built Tonight (Complete) ### 1. SAOS Orchestrator Daemon (Already Running) - **File:** `orchestrator-daemon.py` - **Status:** Running via launchd (PID 70691) - **Function:** Polls task_queue every 10s, dispatches to all 10 fleet agents - **Tables:** `task_queue`, `agent_state`, `execution_log`, `message_bus` ### 2. Client Provisioning Pipeline (n8n) - **Workflow:** \"SAOS Client Provisioning Pipeline\" - **Webhook:** `POST https://n8n.systack.net/webhook/saas-provision",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4685527384281158,
-      "maxScore": 0.4685527384281158,
+      "totalScore": 0.9763679951429367,
+      "maxScore": 0.5078152567148209,
       "firstRecalledAt": "2026-06-22T12:54:55.300Z",
-      "lastRecalledAt": "2026-06-22T12:54:55.300Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
       "queryHashes": [
-        "6d544f140602"
+        "6d544f140602",
+        "5e49fc029968"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28497,16 +28502,17 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 05:45 CDT ## SAOS Build Day: Orchestrator + Provisioning + JURIS **User directive:** \"Save this whole session everywhere Wiki and everything\" --- ## What Was Built ### 1. SAOS Orchestrator Daemon (Persistent) - **File:** `orchestrator-daemon.py` - **Status:** Running via launchd (PID 70691) - **Function:** Polls task_queue every 10s, dispatches to all 10 fleet agents - **Tables:** `task_queue`, `agent_state`, `execution_log`, `message_bus` - **LaunchAgent:** `~/Library/LaunchAgents/net.systack.orchestrator.plist` ### 2. Client Provisioning Pipeline - **n8n Workflow:** \"SAOS Client Provisioning Pipeline\" (ID: 8567a376-834f-4794-9b4b-46a7b57cc34e) - **Status:** ACT",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9581283211708068,
-      "maxScore": 0.5016584903001785,
+      "totalScore": 1.4637620568275451,
+      "maxScore": 0.5056337356567383,
       "firstRecalledAt": "2026-06-22T12:54:55.300Z",
-      "lastRecalledAt": "2026-06-22T12:56:41.003Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
       "queryHashes": [
         "6d544f140602",
-        "a9058b82e1f7"
+        "a9058b82e1f7",
+        "5e49fc029968"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28529,16 +28535,17 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 05:45 CDT ## SAOS Build Day: Orchestrator + Provisioning + JURIS **User directive:** \"Save this whole session everywhere Wiki and everything\" --- ## What Was Built ### 1. SAOS Orchestrator Daemon (Persistent) - **File:** `orchestrator-daemon.py` - **Status:** Running via launchd (PID 70691) - **Function:** Polls task_queue every 10s, dispatches to all 10 fleet agents - **Tables:** `task_queue`, `agent_state`, `execution_log`, `message_bus` - **LaunchAgent:** `~/Library/LaunchAgents/net.systack.orchestrator.plist` ### 2. Client Provisioning Pipeline - **n8n Workflow:** \"SAOS Client Provisioning Pipeline\" (ID: 8567a376-834f-4794-9b4b-46a7b57cc34e) - **Status:** ACT",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9581283211708068,
-      "maxScore": 0.5016584903001785,
+      "totalScore": 1.4637620568275451,
+      "maxScore": 0.5056337356567383,
       "firstRecalledAt": "2026-06-22T12:54:55.300Z",
-      "lastRecalledAt": "2026-06-22T12:56:41.003Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
       "queryHashes": [
         "6d544f140602",
-        "a9058b82e1f7"
+        "a9058b82e1f7",
+        "5e49fc029968"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28593,15 +28600,16 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "# 2026-06-06 — Stripe Buttons + Dashboard Test ## Dashboard Test Results ### ✅ Dashboard Server Started Successfully - Flask server running on `http://127.0.0.1:8080` - Auto-detected n8n database at `~/.n8n/database.sqlite` - Created `~/.systack/dashboard.sqlite` for dashboard state ### ✅ Health Check ```json { \"disk\": {\"free_gb\": 15.35, \"status\": \"ok\"}, \"n8n\": {\"status\": \"ok\", \"last_check\": \"2026-06-06T18:56:00\"}, \"ollama\": {\"status\": \"ok\", \"last_check\": \"2026-06-06T18:56:00\"}, \"postgres\": {\"status\": \"unknown\"} } ``` ### ✅ Metrics ```json { \"today_count\": 10, \"pending_count\": 0, \"alert_count\": 0, \"success_rate\": 80.0 } ``` - Today count pulled from dashb",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4500710487365722,
-      "maxScore": 0.4500710487365722,
+      "totalScore": 1.1722936557675978,
+      "maxScore": 0.7222226070310256,
       "firstRecalledAt": "2026-06-22T12:56:37.731Z",
-      "lastRecalledAt": "2026-06-22T12:56:37.731Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.337Z",
       "queryHashes": [
-        "43f5fb3feae9"
+        "43f5fb3feae9",
+        "29688b8a471d"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28624,15 +28632,16 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "# 2026-06-06 — Stripe Buttons + Dashboard Test ## Dashboard Test Results ### ✅ Dashboard Server Started Successfully - Flask server running on `http://127.0.0.1:8080` - Auto-detected n8n database at `~/.n8n/database.sqlite` - Created `~/.systack/dashboard.sqlite` for dashboard state ### ✅ Health Check ```json { \"disk\": {\"free_gb\": 15.35, \"status\": \"ok\"}, \"n8n\": {\"status\": \"ok\", \"last_check\": \"2026-06-06T18:56:00\"}, \"ollama\": {\"status\": \"ok\", \"last_check\": \"2026-06-06T18:56:00\"}, \"postgres\": {\"status\": \"unknown\"} } ``` ### ✅ Metrics ```json { \"today_count\": 10, \"pending_count\": 0, \"alert_count\": 0, \"success_rate\": 80.0 } ``` - Today count pulled from dashb",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4500710487365722,
-      "maxScore": 0.4500710487365722,
+      "totalScore": 1.1722936557675978,
+      "maxScore": 0.7222226070310256,
       "firstRecalledAt": "2026-06-22T12:56:37.731Z",
-      "lastRecalledAt": "2026-06-22T12:56:37.731Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.337Z",
       "queryHashes": [
-        "43f5fb3feae9"
+        "43f5fb3feae9",
+        "29688b8a471d"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28655,15 +28664,16 @@
       "endLine": 55,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 05:51 CDT ## SAOS Repo Separation + Dashboard Fix **User directive:** \"Save this in all places\" + \"SAOS dashboard is down\" --- ## What Happened 1. **Repo Separation:** Moved SAOS code from `utopia-deli-order` to new `systack-saas` repo 2. **Gateway Restart:** User restarted OpenClaw gateway 3. **Dashboard Down:** `orchestrator-daemon.py` was running (PID 70691) but dashboard API (port 8765) was dead 4. **Root Cause:** Files moved to `/tmp/systack-saas-init/` — running from wrong location --- ## Fix Applied **Dashboard restarted from systack-saas repo:** ```bash cd /tmp/systack-saas-init/dashboard mkdir -p ../logs nohup python3 api.py --port 8765 >../logs/dashbo",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.507765918970108,
+      "totalScore": 1.0054904073476791,
       "maxScore": 0.507765918970108,
       "firstRecalledAt": "2026-06-22T12:56:41.003Z",
-      "lastRecalledAt": "2026-06-22T12:56:41.003Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
       "queryHashes": [
-        "a9058b82e1f7"
+        "a9058b82e1f7",
+        "5e49fc029968"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28686,15 +28696,16 @@
       "endLine": 55,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 05:51 CDT ## SAOS Repo Separation + Dashboard Fix **User directive:** \"Save this in all places\" + \"SAOS dashboard is down\" --- ## What Happened 1. **Repo Separation:** Moved SAOS code from `utopia-deli-order` to new `systack-saas` repo 2. **Gateway Restart:** User restarted OpenClaw gateway 3. **Dashboard Down:** `orchestrator-daemon.py` was running (PID 70691) but dashboard API (port 8765) was dead 4. **Root Cause:** Files moved to `/tmp/systack-saas-init/` — running from wrong location --- ## Fix Applied **Dashboard restarted from systack-saas repo:** ```bash cd /tmp/systack-saas-init/dashboard mkdir -p ../logs nohup python3 api.py --port 8765 >../logs/dashbo",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.507765918970108,
+      "totalScore": 1.0054904073476791,
       "maxScore": 0.507765918970108,
       "firstRecalledAt": "2026-06-22T12:56:41.003Z",
-      "lastRecalledAt": "2026-06-22T12:56:41.003Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
       "queryHashes": [
-        "a9058b82e1f7"
+        "a9058b82e1f7",
+        "5e49fc029968"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28881,15 +28892,16 @@
       "endLine": 75,
       "source": "memory",
       "snippet": "| Section | Content | Purpose | |---------|---------|---------| | **About SyStack** | Mission, vision, values | Brand identity | | **What Is SAOS** | Concept, benefits, diagram | Education | | **Service Plans** | Prices ($49-$299+), specs, features | Sales enablement | | **Products** | Invoice automation, ordering, no-shows | Product catalog | | **Security** | Encryption, VPN, compliance | Trust building | | **Getting Started** | 7-step onboarding | Expectation setting | | **Support** | Response times, SLA | Confidence | | **FAQ** | 7 common questions | Objection handling | | **Glossary** | SAOS, agent, workflow, n8n | Education | --- ## Comparison | Metric | Internal Manual | Client Manu",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.5018335610628127,
+      "totalScore": 0.9859790712594985,
       "maxScore": 0.5018335610628127,
       "firstRecalledAt": "2026-06-22T12:59:23.404Z",
-      "lastRecalledAt": "2026-06-22T12:59:23.404Z",
+      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
       "queryHashes": [
-        "29dec0aeab22"
+        "29dec0aeab22",
+        "e8384534b191"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28912,16 +28924,17 @@
       "endLine": 77,
       "source": "memory",
       "snippet": "| SAOS Personal+ Annual | $999/yr | Yearly | Save $189 | ### SAOS Business (Self-Managed Teams) | Product | Price | Billing | What It Is | |---------|-------|---------|-----------| | SAOS Business Fleet | $299/mo | Monthly | Team automation | | SAOS Enterprise Fleet | $799/mo | Monthly | On-premise option | ## Stripe Buttons Status ### ✅ Already Created | Button ID | Product | Price | |-----------|---------|-------| | `buy_btn_1TfU451WicviTxiig1l8JYjR` | SAOS Solo (DEPRECATED) | $149 | | `buy_btn_1TfU3M1WicviTxiilXTJNolL` | SAOS Business Fleet | $299 | | `buy_btn_1TfU1m1WicviTxiikPepeQO4` | SAOS Enterprise Fleet | $799 | ### ❌ Need to Create (11 products) 1. Systack Private Monthly — $7",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.0037163034081458,
+      "totalScore": 1.5055720403790471,
       "maxScore": 0.5318498209118843,
       "firstRecalledAt": "2026-06-22T12:59:23.404Z",
-      "lastRecalledAt": "2026-06-22T13:57:51.012Z",
+      "lastRecalledAt": "2026-06-22T15:04:19.914Z",
       "queryHashes": [
         "29dec0aeab22",
-        "cfdda1c56971"
+        "cfdda1c56971",
+        "4ad45b7d3d35"
       ],
       "recallDays": [
         "2026-06-22"
@@ -28976,16 +28989,17 @@
       "endLine": 59,
       "source": "memory",
       "snippet": "- Documented existing buttons (Business $299, Enterprise $799) - Created checklist for 7 new products - Added SAOS Fleet section to `service-packages.md` ## Files Created/Updated | File | Status | |------|--------| | `templates/private/*` | ✅ Created | | `templates/accelerate/*` | ✅ Moved | | `templates/README.md` | ✅ Updated | | `systack-site/services/service-packages.md` | ✅ Updated | | `systack-site/pricing.html` | ✅ Rewritten | | `systack-site/personal-agent/index.html` | ✅ Updated | | `systack-site/services.html` | ✅ Fixed | | `saos-products/FINAL-PRICING.md` | ✅ Created | | `saos-products/STRIPE-CATALOG.md` | ✅ Created | | `saos-products/STRIPE-CREATION-CHECKLIST.md` | ✅ Created | |",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9479037880897521,
-      "maxScore": 0.4836003333330154,
+      "totalScore": 1.4544905245304105,
+      "maxScore": 0.5065867364406585,
       "firstRecalledAt": "2026-06-22T12:59:23.404Z",
-      "lastRecalledAt": "2026-06-22T12:59:26.209Z",
+      "lastRecalledAt": "2026-06-22T15:15:19.986Z",
       "queryHashes": [
         "29dec0aeab22",
-        "8e4fb58a81df"
+        "8e4fb58a81df",
+        "38f39c6ead88"
       ],
       "recallDays": [
         "2026-06-22"
@@ -29039,15 +29053,16 @@
       "endLine": 138,
       "source": "memory",
       "snippet": "- Updated SAOS Fleet plans: Starter ($299), Pro ($599), Enterprise (custom) - Added on-premise/air-gapped callout - Risk killers updated: \"Local models only\" + \"Discovery questionnaire before commitment\" - CTA: \"Start Discovery Questionnaire\" instead of email link --- ### 6. Updated Services Page (`/services.html`) **Changes:** - Added Security & Compliance section with 4 trust features - Local models, Tailscale VPN, data tier assessment, on-premise option --- ## Deployment Checklist | Item | Status | Next Action | |------|--------|-------------| | n8n workflow JSON | ✅ Ready | Import into n8n via UI | | Google Sheets setup | ⏳ Needed | Create \"systack-leads\" spreadsheet | | Email crede",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4816527128219604,
+      "totalScore": 0.9550094664096831,
       "maxScore": 0.4816527128219604,
       "firstRecalledAt": "2026-06-22T13:07:18.092Z",
-      "lastRecalledAt": "2026-06-22T13:07:18.092Z",
+      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
       "queryHashes": [
-        "33f4ebba80e0"
+        "33f4ebba80e0",
+        "e8384534b191"
       ],
       "recallDays": [
         "2026-06-22"
@@ -29070,15 +29085,16 @@
       "endLine": 138,
       "source": "memory",
       "snippet": "- Updated SAOS Fleet plans: Starter ($299), Pro ($599), Enterprise (custom) - Added on-premise/air-gapped callout - Risk killers updated: \"Local models only\" + \"Discovery questionnaire before commitment\" - CTA: \"Start Discovery Questionnaire\" instead of email link --- ### 6. Updated Services Page (`/services.html`) **Changes:** - Added Security & Compliance section with 4 trust features - Local models, Tailscale VPN, data tier assessment, on-premise option --- ## Deployment Checklist | Item | Status | Next Action | |------|--------|-------------| | n8n workflow JSON | ✅ Ready | Import into n8n via UI | | Google Sheets setup | ⏳ Needed | Create \"systack-leads\" spreadsheet | | Email crede",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4816527128219604,
+      "totalScore": 0.9550094664096831,
       "maxScore": 0.4816527128219604,
       "firstRecalledAt": "2026-06-22T13:07:18.092Z",
-      "lastRecalledAt": "2026-06-22T13:07:18.092Z",
+      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
       "queryHashes": [
-        "33f4ebba80e0"
+        "33f4ebba80e0",
+        "e8384534b191"
       ],
       "recallDays": [
         "2026-06-22"
@@ -29101,15 +29117,17 @@
       "endLine": 63,
       "source": "memory",
       "snippet": "| **SAOS Personal+** | $199/mo | pricing.html, personal-agent/, service-packages.md | | **SAOS Business Fleet** | $299/mo | pricing.html, personal-agent/, service-packages.md | | **SAOS Enterprise Fleet** | $799/mo | pricing.html, personal-agent/, service-packages.md | | **Systack Accelerate** | $249/mo | pricing.html, service-packages.md | | **Systack Private** | $799/mo | pricing.html, service-packages.md | ## Key Message Consistent All pages now say: - \"We don't sell anything below 16GB RAM\" - \"We learned the hard way — smaller servers don't work\" - \"Optional cloud LLM — you pay provider directly\" ## Files Changed - `systack-site/pricing.html` — Complete rewrite with consistent pricing",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.5203184843063354,
+      "totalScore": 1.507855397462845,
       "maxScore": 0.5203184843063354,
       "firstRecalledAt": "2026-06-22T13:57:51.012Z",
-      "lastRecalledAt": "2026-06-22T13:57:51.012Z",
+      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
       "queryHashes": [
-        "cfdda1c56971"
+        "cfdda1c56971",
+        "4ad45b7d3d35",
+        "e8384534b191"
       ],
       "recallDays": [
         "2026-06-22"
@@ -29132,15 +29150,17 @@
       "endLine": 63,
       "source": "memory",
       "snippet": "| **SAOS Personal+** | $199/mo | pricing.html, personal-agent/, service-packages.md | | **SAOS Business Fleet** | $299/mo | pricing.html, personal-agent/, service-packages.md | | **SAOS Enterprise Fleet** | $799/mo | pricing.html, personal-agent/, service-packages.md | | **Systack Accelerate** | $249/mo | pricing.html, service-packages.md | | **Systack Private** | $799/mo | pricing.html, service-packages.md | ## Key Message Consistent All pages now say: - \"We don't sell anything below 16GB RAM\" - \"We learned the hard way — smaller servers don't work\" - \"Optional cloud LLM — you pay provider directly\" ## Files Changed - `systack-site/pricing.html` — Complete rewrite with consistent pricing",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.5203184843063354,
+      "totalScore": 1.507855397462845,
       "maxScore": 0.5203184843063354,
       "firstRecalledAt": "2026-06-22T13:57:51.012Z",
-      "lastRecalledAt": "2026-06-22T13:57:51.012Z",
+      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
       "queryHashes": [
-        "cfdda1c56971"
+        "cfdda1c56971",
+        "4ad45b7d3d35",
+        "e8384534b191"
       ],
       "recallDays": [
         "2026-06-22"
@@ -29163,15 +29183,20 @@
       "endLine": 78,
       "source": "memory",
       "snippet": "| **SAOS Enterprise Fleet** | $799/mo | https://buy.stripe.com/14A7sE9Bn2NVaAU2sm87K02 | `buy_btn_1TfU1m1WicviTxiikPepeQO4` | | **SAOS Business Fleet** | $299/mo | https://buy.stripe.com/6oUdR2eVHfAH5gA9UO87K01 | `buy_btn_1TfU3M1WicviTxiilXTJNolL` | | **SAOS Solo Agent** | $149/mo | https://buy.stripe.com/eVqbIUcNz607eRa8QK87K00 | `buy_btn_1TfU451WicviTxiig1l8JYjR` | ### Publishable Key `pk_live_51Tckdx1WicviTxii6uKLsxzQENJqWDNxt8Zqmst9YKBQ4F0KSn7VpuR7PZTGRQXJMv42NwimR1kcIdOxElznzIsM000DBc6pKp` ### Where Added - `systack-site/services/service-packages.md` — Private tier ($799) and Accelerate tier ($249) buttons - `systack-site/services/service-packages.md` — New SAOS Fleet section with all",
-      "recallCount": 1,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.5088055789470672,
-      "maxScore": 0.5088055789470672,
+      "totalScore": 3.2247211716730773,
+      "maxScore": 0.6983207665045439,
       "firstRecalledAt": "2026-06-22T13:57:51.012Z",
-      "lastRecalledAt": "2026-06-22T13:57:51.012Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.337Z",
       "queryHashes": [
-        "cfdda1c56971"
+        "cfdda1c56971",
+        "4ad45b7d3d35",
+        "562f060b9d0e",
+        "38f39c6ead88",
+        "e8384534b191",
+        "29688b8a471d"
       ],
       "recallDays": [
         "2026-06-22"
@@ -29194,15 +29219,19 @@
       "endLine": 78,
       "source": "memory",
       "snippet": "| **SAOS Enterprise Fleet** | $799/mo | https://buy.stripe.com/14A7sE9Bn2NVaAU2sm87K02 | `buy_btn_1TfU1m1WicviTxiikPepeQO4` | | **SAOS Business Fleet** | $299/mo | https://buy.stripe.com/6oUdR2eVHfAH5gA9UO87K01 | `buy_btn_1TfU3M1WicviTxiilXTJNolL` | | **SAOS Solo Agent** | $149/mo | https://buy.stripe.com/eVqbIUcNz607eRa8QK87K00 | `buy_btn_1TfU451WicviTxiig1l8JYjR` | ### Publishable Key `pk_live_51Tckdx1WicviTxii6uKLsxzQENJqWDNxt8Zqmst9YKBQ4F0KSn7VpuR7PZTGRQXJMv42NwimR1kcIdOxElznzIsM000DBc6pKp` ### Where Added - `systack-site/services/service-packages.md` — Private tier ($799) and Accelerate tier ($249) buttons - `systack-site/services/service-packages.md` — New SAOS Fleet section with all",
-      "recallCount": 1,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.5088055789470672,
-      "maxScore": 0.5088055789470672,
+      "totalScore": 2.7315032951195413,
+      "maxScore": 0.6983207665045439,
       "firstRecalledAt": "2026-06-22T13:57:51.012Z",
-      "lastRecalledAt": "2026-06-22T13:57:51.012Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.337Z",
       "queryHashes": [
-        "cfdda1c56971"
+        "cfdda1c56971",
+        "4ad45b7d3d35",
+        "562f060b9d0e",
+        "e8384534b191",
+        "29688b8a471d"
       ],
       "recallDays": [
         "2026-06-22"
@@ -29216,6 +29245,1000 @@
         "buy-btn-1tfu451wicvitxiig1l8jyjr",
         "stripe",
         "buttons"
+      ]
+    },
+    "memory:memory/2026-06-22-session-end-0749.md:1:42": {
+      "key": "memory:memory/2026-06-22-session-end-0749.md:1:42",
+      "path": "memory/2026-06-22-session-end-0749.md",
+      "startLine": 1,
+      "endLine": 42,
+      "source": "memory",
+      "snippet": "# Session End — 2026-06-22 07:49 CDT ## Status: Complete ### What Was Done #### 1. SAOS VPS Provisioning Pipeline — Tested End-to-End **Test Tier (vc2-1c-1gb):** - Created `saos-test002` at `45.76.29.64` - Cloud-init completed (~7 min) - Tailscale joined: `100.95.242.89`, `saos-test002.tail573d57.ts.net` - All services active: ollama, tailscaled, docker - **Issue found:** Webhook returned 404 - Destroyed after verification **Business Tier (vhp-8c-16gb-amd):** - Created `saos-biz001` at `64.177.117.124` - Specs: 8 vCPU, 16GB RAM, 350GB disk ($96/mo) - Cloud-init completed (~2 min) - Tailscale joined: `100.80.22.78`, `saos-biz001-1.tail573d57.ts.net` - All services active - **Same issue:*",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4986921340227127,
+      "maxScore": 0.4986921340227127,
+      "firstRecalledAt": "2026-06-22T15:03:25.399Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
+      "queryHashes": [
+        "5e49fc029968"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-22-session-end-0749.md",
+        "end-to-end",
+        "vc2-1c-1gb",
+        "saos-test002",
+        "45.76.29.64",
+        "cloud-init",
+        "100.95.242.89",
+        "saos-test002.tail573d57.ts.net"
+      ]
+    },
+    "memory:memory/recovered/2026-06-17-session-complete.md:133:156": {
+      "key": "memory:memory/recovered/2026-06-17-session-complete.md:133:156",
+      "path": "memory/recovered/2026-06-17-session-complete.md",
+      "startLine": 133,
+      "endLine": 156,
+      "source": "memory",
+      "snippet": "- `dashboard/api.py` — NEW - `dashboard/index.html` — NEW - `n8n/saas-provisioning-workflow.json` — NEW - `scripts/generate-identity.py` — NEW - `SAOS-PROVISIONING-BUILD-PLAN.md` — NEW - `fleet/juris.md` — NEW - `systack-site/saos/index.html` — MODIFIED - `~/.openclaw/openclaw.json` — MODIFIED (added \"juris\" to allowAgents) --- ## Next Steps (Not Done Tonight) 1. Vultr API integration for auto-VPS provisioning 2. Stripe webhook test with test mode 3. Client dashboard authentication 4. JURIS workspace identity files (SOUL, AGENTS, USER, MEMORY, TOOLS) --- *Session saved 2026-06-17 05:45 CDT* *User directive: \"Save this whole session everywhere Wiki and everything\"* *Pushed to GitHub:",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.49605380594730375,
+      "maxScore": 0.49605380594730375,
+      "firstRecalledAt": "2026-06-22T15:03:25.399Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
+      "queryHashes": [
+        "5e49fc029968"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-17-session-complete.md",
+        "dashboard/api.py",
+        "dashboard/index.html",
+        "scripts/generate-identity.py",
+        "saos-provisioning-build-plan.md",
+        "fleet/juris.md",
+        "systack-site/saos/index.html",
+        "openclaw/openclaw.json"
+      ]
+    },
+    "memory:memory/2026-06-17-session-complete.md:133:156": {
+      "key": "memory:memory/2026-06-17-session-complete.md:133:156",
+      "path": "memory/2026-06-17-session-complete.md",
+      "startLine": 133,
+      "endLine": 156,
+      "source": "memory",
+      "snippet": "- `dashboard/api.py` — NEW - `dashboard/index.html` — NEW - `n8n/saas-provisioning-workflow.json` — NEW - `scripts/generate-identity.py` — NEW - `SAOS-PROVISIONING-BUILD-PLAN.md` — NEW - `fleet/juris.md` — NEW - `systack-site/saos/index.html` — MODIFIED - `~/.openclaw/openclaw.json` — MODIFIED (added \"juris\" to allowAgents) --- ## Next Steps (Not Done Tonight) 1. Vultr API integration for auto-VPS provisioning 2. Stripe webhook test with test mode 3. Client dashboard authentication 4. JURIS workspace identity files (SOUL, AGENTS, USER, MEMORY, TOOLS) --- *Session saved 2026-06-17 05:45 CDT* *User directive: \"Save this whole session everywhere Wiki and everything\"* *Pushed to GitHub:",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.49605380594730375,
+      "maxScore": 0.49605380594730375,
+      "firstRecalledAt": "2026-06-22T15:03:25.399Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
+      "queryHashes": [
+        "5e49fc029968"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-17-session-complete.md",
+        "dashboard/api.py",
+        "dashboard/index.html",
+        "scripts/generate-identity.py",
+        "saos-provisioning-build-plan.md",
+        "fleet/juris.md",
+        "systack-site/saos/index.html",
+        "openclaw/openclaw.json"
+      ]
+    },
+    "memory:memory/2026-06-22-vps-provisioning-results.md:1:38": {
+      "key": "memory:memory/2026-06-22-vps-provisioning-results.md:1:38",
+      "path": "memory/2026-06-22-vps-provisioning-results.md",
+      "startLine": 1,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "# Session Log — 2026-06-22 ## VPS Provisioning Pipeline — Test Results ### Test Tier (vc2-1c-1gb) - **Created:** saos-test002 at 45.76.29.64 - **Cloud-init:** Completed successfully (~7 min) - **Tailscale:** Joined — 100.95.242.89, saos-test002.tail573d57.ts.net - **Services:** ollama, tailscaled, docker all active - **Webhook:** ❌ FAILED — 404 on `saas-vps-ready` - **Destroyed:** Yes (after verification) ### Business Tier (vhp-8c-16gb-amd) - **Created:** saos-biz001 at 64.177.117.124 - **Specs:** 8 vCPU, 16GB RAM, 350GB disk ($96/mo) - **Cloud-init:** Completed successfully (~2 min) - **Tailscale:** Joined — 100.80.22.78, saos-biz001-1.tail573d57.ts.net - **Services:** ollama, tailscaled",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.49588783085346216,
+      "maxScore": 0.49588783085346216,
+      "firstRecalledAt": "2026-06-22T15:03:25.399Z",
+      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
+      "queryHashes": [
+        "5e49fc029968"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "vc2-1c-1gb",
+        "saos-test002",
+        "45.76.29.64",
+        "cloud-init",
+        "100.95.242.89",
+        "saos-test002.tail573d57.ts.net",
+        "saas-vps-ready",
+        "vhp-8c-16gb-amd"
+      ]
+    },
+    "memory:memory/recovered/2026-06-17-oracle-fleet-expansion.md:1:41": {
+      "key": "memory:memory/recovered/2026-06-17-oracle-fleet-expansion.md:1:41",
+      "path": "memory/recovered/2026-06-17-oracle-fleet-expansion.md",
+      "startLine": 1,
+      "endLine": 41,
+      "source": "memory",
+      "snippet": "# Session — 2026-06-17 ## ORACLE Fleet Expansion Integrated: 7 → 10 Agents ### Source - ORACLE RSI architecture validation response - Status: PASS (strategically aligned with SAOS maturity) - SOL execution ### What Changed #### 1. Documentation Foundation - **SAOS-FOUNDATION-SPEC.md** updated: - Canonical 10-agent fleet table (Execution/Quality/Intelligence/Engagement/Compliance tiers) - External tiered abstraction: Core 7 + Extended Capabilities (+3) - Updated system loop with full canonical sequence - CODY positioned as Build Engine (technical docs only) - CHATTY + GENI bundled as \"Engagement Engine\" add-on #### 2. Website Updated - **systack-site/saos/index.html**: - Adde",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5191590160131454,
+      "maxScore": 0.5191590160131454,
+      "firstRecalledAt": "2026-06-22T15:13:47.823Z",
+      "lastRecalledAt": "2026-06-22T15:13:47.823Z",
+      "queryHashes": [
+        "562f060b9d0e"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "saos-foundation-spec.md",
+        "10-agent",
+        "add-on",
+        "systack-site/saos/index.html",
+        "oracle",
+        "fleet",
+        "expansion.md",
+        "expansion"
+      ]
+    },
+    "memory:memory/2026-06-17-oracle-fleet-expansion.md:1:41": {
+      "key": "memory:memory/2026-06-17-oracle-fleet-expansion.md:1:41",
+      "path": "memory/2026-06-17-oracle-fleet-expansion.md",
+      "startLine": 1,
+      "endLine": 41,
+      "source": "memory",
+      "snippet": "# Session — 2026-06-17 ## ORACLE Fleet Expansion Integrated: 7 → 10 Agents ### Source - ORACLE RSI architecture validation response - Status: PASS (strategically aligned with SAOS maturity) - SOL execution ### What Changed #### 1. Documentation Foundation - **SAOS-FOUNDATION-SPEC.md** updated: - Canonical 10-agent fleet table (Execution/Quality/Intelligence/Engagement/Compliance tiers) - External tiered abstraction: Core 7 + Extended Capabilities (+3) - Updated system loop with full canonical sequence - CODY positioned as Build Engine (technical docs only) - CHATTY + GENI bundled as \"Engagement Engine\" add-on #### 2. Website Updated - **systack-site/saos/index.html**: - Adde",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5191590160131454,
+      "maxScore": 0.5191590160131454,
+      "firstRecalledAt": "2026-06-22T15:13:47.823Z",
+      "lastRecalledAt": "2026-06-22T15:13:47.823Z",
+      "queryHashes": [
+        "562f060b9d0e"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "saos-foundation-spec.md",
+        "10-agent",
+        "add-on",
+        "systack-site/saos/index.html",
+        "oracle",
+        "fleet",
+        "expansion.md",
+        "expansion"
+      ]
+    },
+    "memory:memory/2026-06-07-site-nav-saos-juris.md:1:40": {
+      "key": "memory:memory/2026-06-07-site-nav-saos-juris.md:1:40",
+      "path": "memory/2026-06-07-site-nav-saos-juris.md",
+      "startLine": 1,
+      "endLine": 40,
+      "source": "memory",
+      "snippet": "# Session Summary — 2026-06-07 02:58 CDT ## What Was Done ### 1. JURIS Added to Fleet - Created `fleet/juris.md` — Legal & Compliance agent role spec - Updated `SAOS-FOUNDATION-SPEC.md` — JURIS in fleet table + RSI loop - Updated `MEMORY.md` — JURIS active, medical agent pending ### 2. SAOS Page Rebuilt - Added \"Meet Your Fleet\" section with all 7 agents (SOL, VALI, PESSI, ORACLE, ATLAS, ASSEMBLY, JURIS) - JURIS highlighted as NEW with blue border + badge - Updated pricing: Business Fleet ($299) + Enterprise ($799) with Stripe links - Removed Solo Agent card (deprecated — Personal+ is now $199) ### 3. Personal Agent Page = Percy Only - Removed Business Fleet + Enterprise Fleet pricing ca",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.46975739300251,
+      "maxScore": 0.46975739300251,
+      "firstRecalledAt": "2026-06-22T15:25:15.714Z",
+      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
+      "queryHashes": [
+        "e8384534b191"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "fleet/juris.md",
+        "saos-foundation-spec.md",
+        "memory.md",
+        "site",
+        "nav",
+        "saos",
+        "juris.md",
+        "summary"
+      ]
+    },
+    "memory:memory/recovered/2026-06-17-dashboard-fix.md:94:135": {
+      "key": "memory:memory/recovered/2026-06-17-dashboard-fix.md:94:135",
+      "path": "memory/recovered/2026-06-17-dashboard-fix.md",
+      "startLine": 94,
+      "endLine": 135,
+      "source": "memory",
+      "snippet": "| Morning Briefing | - | `com.systack.morning-briefing` | | Invoice API | 86824 | `com.systack.invoice-api` | ## Invoice Dashboard Restart + LaunchAgent **Status:** ✅ Fixed and auto-restarting ### Problem - Invoice dashboard (port 8766) was down after gateway restart - `invoice_dashboard_api.py` serves invoice data from SQLite DB - Not previously managed by launchd ### Fix ```bash cd /Users/philliplowe/.openclaw/workspaces/sol python3 invoice_dashboard_api.py # Port 8766 ``` ### LaunchAgent Added **File:** `~/Library/LaunchAgents/net.systack.invoice-dashboard.plist` **Label:** `net.systack.invoice-dashboard` **Port:** 8766 **PID:** 97487 **Auto-restart:** Yes (KeepAlive) ### Verifica",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5045079797506332,
+      "maxScore": 0.5045079797506332,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "gateway",
+        "2026-06-17-dashboard-fix.md",
+        "com.systack.morning-briefing",
+        "com.systack.invoice-api",
+        "auto-restarting",
+        "invoice-dashboard-api.py",
+        "users/philliplowe",
+        "openclaw/workspaces/sol"
+      ]
+    },
+    "memory:memory/2026-06-17-dashboard-fix.md:94:135": {
+      "key": "memory:memory/2026-06-17-dashboard-fix.md:94:135",
+      "path": "memory/2026-06-17-dashboard-fix.md",
+      "startLine": 94,
+      "endLine": 135,
+      "source": "memory",
+      "snippet": "| Morning Briefing | - | `com.systack.morning-briefing` | | Invoice API | 86824 | `com.systack.invoice-api` | ## Invoice Dashboard Restart + LaunchAgent **Status:** ✅ Fixed and auto-restarting ### Problem - Invoice dashboard (port 8766) was down after gateway restart - `invoice_dashboard_api.py` serves invoice data from SQLite DB - Not previously managed by launchd ### Fix ```bash cd /Users/philliplowe/.openclaw/workspaces/sol python3 invoice_dashboard_api.py # Port 8766 ``` ### LaunchAgent Added **File:** `~/Library/LaunchAgents/net.systack.invoice-dashboard.plist` **Label:** `net.systack.invoice-dashboard` **Port:** 8766 **PID:** 97487 **Auto-restart:** Yes (KeepAlive) ### Verifica",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5045079797506332,
+      "maxScore": 0.5045079797506332,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "gateway",
+        "2026-06-17-dashboard-fix.md",
+        "com.systack.morning-briefing",
+        "com.systack.invoice-api",
+        "auto-restarting",
+        "invoice-dashboard-api.py",
+        "users/philliplowe",
+        "openclaw/workspaces/sol"
+      ]
+    },
+    "memory:memory/recovered/2026-06-17-dashboard-fix.md:44:104": {
+      "key": "memory:memory/recovered/2026-06-17-dashboard-fix.md:44:104",
+      "path": "memory/recovered/2026-06-17-dashboard-fix.md",
+      "startLine": 44,
+      "endLine": 104,
+      "source": "memory",
+      "snippet": "|---------|-----|--------| | Orchestrator Daemon | 70691 | ✅ Running (launchd) | | Dashboard API | (new) | ✅ Just restarted | | n8n | (managed) | ✅ Running | --- ## Note for Future Sessions **After gateway restart:** 1. Orchestrator daemon auto-restarts via launchd ✅ 2. Dashboard API does NOT auto-restart — must restart manually 3. Dashboard files now live in `systack-saas` repo, not workspace **Dashboard restart command:** ```bash cd /path/to/systack-saas/dashboard python3 api.py --port 8765 ``` --- *Saved: 2026-06-17 05:53 CDT* *User directive: \"Save this in all places\"* ## Dashboard LaunchAgent Added **File:** `~/Library/LaunchAgents/net.systack.dashboard.plist` **Status:** ✅ Lo",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.47662207782268523,
+      "maxScore": 0.47662207782268523,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "gateway",
+        "2026-06-17-dashboard-fix.md",
+        "auto-restarts",
+        "auto-restart",
+        "systack-saas",
+        "path/to/systack-saas/dashboard",
+        "api.py",
+        "dashboard"
+      ]
+    },
+    "memory:memory/2026-06-17-dashboard-fix.md:44:104": {
+      "key": "memory:memory/2026-06-17-dashboard-fix.md:44:104",
+      "path": "memory/2026-06-17-dashboard-fix.md",
+      "startLine": 44,
+      "endLine": 104,
+      "source": "memory",
+      "snippet": "|---------|-----|--------| | Orchestrator Daemon | 70691 | ✅ Running (launchd) | | Dashboard API | (new) | ✅ Just restarted | | n8n | (managed) | ✅ Running | --- ## Note for Future Sessions **After gateway restart:** 1. Orchestrator daemon auto-restarts via launchd ✅ 2. Dashboard API does NOT auto-restart — must restart manually 3. Dashboard files now live in `systack-saas` repo, not workspace **Dashboard restart command:** ```bash cd /path/to/systack-saas/dashboard python3 api.py --port 8765 ``` --- *Saved: 2026-06-17 05:53 CDT* *User directive: \"Save this in all places\"* ## Dashboard LaunchAgent Added **File:** `~/Library/LaunchAgents/net.systack.dashboard.plist` **Status:** ✅ Lo",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.47662207782268523,
+      "maxScore": 0.47662207782268523,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "gateway",
+        "2026-06-17-dashboard-fix.md",
+        "auto-restarts",
+        "auto-restart",
+        "systack-saas",
+        "path/to/systack-saas/dashboard",
+        "api.py",
+        "dashboard"
+      ]
+    },
+    "memory:memory/2026-06-16-session-complete.md:33:71": {
+      "key": "memory:memory/2026-06-16-session-complete.md:33:71",
+      "path": "memory/2026-06-16-session-complete.md",
+      "startLine": 33,
+      "endLine": 71,
+      "source": "memory",
+      "snippet": "| 4 | T-2h | URGENT reminder + \"I'm on my way\" button | ✅ Active | | 5 | T-30min | Auto-check: confirmed? YES→proceed / NO→release slot | 🆕 ✅ ACTIVE | ### Problem It Solves Previously: unconfirmed bookings stayed in `booked` status forever → slots wasted → revenue lost. Now: unconfirmed slots auto-released 30 minutes before appointment → available for rebooking. --- ## Build 2: Invoice Pipeline Web Dashboard ✅ **API:** `invoice_dashboard_api.py` (port 8766) **Frontend:** `invoice-dashboard.html` (port 8768) **File:** `memory/2026-06-16-session-builds.md` ### API Endpoints | Endpoint | Description | |----------|-------------| | `/api/summary` | Dashboard metrics (AR/AP/net/review/we",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4477767705917358,
+      "maxScore": 0.4477767705917358,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-16-session-complete.md",
+        "t-2h",
+        "t-30min",
+        "auto-check",
+        "auto-released",
+        "invoice-dashboard-api.py",
+        "invoice-dashboard.html",
+        "api/summary"
+      ]
+    },
+    "memory:memory/2026-06-16-session-builds.md:1:49": {
+      "key": "memory:memory/2026-06-16-session-builds.md:1:49",
+      "path": "memory/2026-06-16-session-builds.md",
+      "startLine": 1,
+      "endLine": 49,
+      "source": "memory",
+      "snippet": "# 2026-06-16 — Invoice Web Dashboard Built + Auto-Release Deployed **Date:** 2026-06-16 ~03:00 CDT **Session:** SOL **Status:** Two major builds completed --- ## Build 1: T-30min Auto-Release Workflow ✅ **Workflow ID:** `KSmNNiADmPDOwJq0` **Status:** ✅ Active (every 5 minutes) **File:** `n8n-workflows/systack-auto-release-unconfirmed.json` ### What It Does - Runs every 5 minutes - Queries `systack_noshow.bookings` for unconfirmed appointments within 30 minutes - Marks `status = 'released'` and sets `released_at` - Notifies customer via HTTP webhook ### DB Changes ```sql ALTER TABLE bookings ADD COLUMN release_notified BOOLEAN DEFAULT FALSE; ALTER TABLE bookings ADD COLUMN relea",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4457033962011337,
+      "maxScore": 0.4457033962011337,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-16-session-builds.md",
+        "auto-release",
+        "t-30min",
+        "systack-noshow.bookings",
+        "released-at",
+        "release-notified",
+        "builds.md",
+        "invoice"
+      ]
+    },
+    "memory:memory/linkedin-posts/2026-06-08-all-posts-saved.md:37:49": {
+      "key": "memory:memory/linkedin-posts/2026-06-08-all-posts-saved.md:37:49",
+      "path": "memory/linkedin-posts/2026-06-08-all-posts-saved.md",
+      "startLine": 37,
+      "endLine": 49,
+      "source": "memory",
+      "snippet": "**Post TODAY (June 8):** Invoice Pipeline Beta Call - Pipeline is working NOW - Ready for beta testers - Direct call to action = immediate leads **Save Build Day post for:** Next week (Monday June 9 or Tuesday June 10) - Gives you content for when pipeline post engagement dies down - Shows behind-the-scenes = builds trust --- **All files saved to:** `memory/linkedin-posts/`",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4412886172533035,
+      "maxScore": 0.4412886172533035,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-08-all-posts-saved.md",
+        "behind-the-scenes",
+        "memory/linkedin-posts",
+        "all",
+        "posts",
+        "saved.md",
+        "post",
+        "june"
+      ]
+    },
+    "memory:memory/2026-06-09-deli-invoice-api.md:1:63": {
+      "key": "memory:memory/2026-06-09-deli-invoice-api.md:1:63",
+      "path": "memory/2026-06-09-deli-invoice-api.md",
+      "startLine": 1,
+      "endLine": 63,
+      "source": "memory",
+      "snippet": "# Session — 2026-06-09 17:15 CDT ## Utopia Deli Invoice API Setup **Status:** ✅ COMPLETE — Deli Invoice API created and tested ### What Was Built **New API Endpoint:** `http://127.0.0.1:9002/extract` - File: `deli_invoice_api.py` - Port: 9002 - Database: Postgres `utopia_deli` - User: `systack` / `Systack2026!CRM` ### Database Setup **Database recreated:** `utopia_deli` (was deleted during June 8 cleanup) **Tables created:** - `deli_invoices` — Main invoice data (with JSONB items column) - `deli_invoice_items` — Line items linked by invoice_id **Schema:** `public` ### For n8n Workflow **In your \"Utopia Deli — Invoice Email Pipeline\" workflow:** Update the HTTP Request node: - **Old",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4406175196170807,
+      "maxScore": 0.4406175196170807,
+      "firstRecalledAt": "2026-06-22T15:30:32.104Z",
+      "lastRecalledAt": "2026-06-22T15:30:32.104Z",
+      "queryHashes": [
+        "5bd586bac336"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-09-deli-invoice-api.md",
+        "127.0.0.1",
+        "9002/extract",
+        "deli-invoice-api.py",
+        "utopia-deli",
+        "deli-invoices",
+        "deli-invoice-items",
+        "invoice-id"
+      ]
+    },
+    "memory:memory/recovered/2026-06-06-stripe-buttons-dashboard-test.md:72:82": {
+      "key": "memory:memory/recovered/2026-06-06-stripe-buttons-dashboard-test.md:72:82",
+      "path": "memory/recovered/2026-06-06-stripe-buttons-dashboard-test.md",
+      "startLine": 72,
+      "endLine": 82,
+      "source": "memory",
+      "snippet": "- `systack-site/services/service-packages.md` — Added Stripe buttons + SAOS Fleet section - `systack-site/stripe-products.md` — Quick reference - `templates/private/dashboard-server.py` — Tested locally - `templates/private/dashboard.html` — Verified UI renders - `templates/private/n8n-log-to-dashboard.json` — Created ## Next - [ ] Activate n8n workflows (both Private + Accelerate) - [ ] Build P1 service line templates - [ ] Test end-to-end with real webhook payload",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.703676443571255,
+      "maxScore": 0.703676443571255,
+      "firstRecalledAt": "2026-06-22T15:38:53.337Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.337Z",
+      "queryHashes": [
+        "29688b8a471d"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "systack-site/stripe-products.md",
+        "templates/private/dashboard.html",
+        "end-to-end",
+        "stripe",
+        "buttons",
+        "dashboard",
+        "test.md",
+        "systack"
+      ]
+    },
+    "memory:memory/2026-06-06-stripe-buttons-dashboard-test.md:72:82": {
+      "key": "memory:memory/2026-06-06-stripe-buttons-dashboard-test.md:72:82",
+      "path": "memory/2026-06-06-stripe-buttons-dashboard-test.md",
+      "startLine": 72,
+      "endLine": 82,
+      "source": "memory",
+      "snippet": "- `systack-site/services/service-packages.md` — Added Stripe buttons + SAOS Fleet section - `systack-site/stripe-products.md` — Quick reference - `templates/private/dashboard-server.py` — Tested locally - `templates/private/dashboard.html` — Verified UI renders - `templates/private/n8n-log-to-dashboard.json` — Created ## Next - [ ] Activate n8n workflows (both Private + Accelerate) - [ ] Build P1 service line templates - [ ] Test end-to-end with real webhook payload",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.703676443571255,
+      "maxScore": 0.703676443571255,
+      "firstRecalledAt": "2026-06-22T15:38:53.337Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.337Z",
+      "queryHashes": [
+        "29688b8a471d"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "systack-site/stripe-products.md",
+        "templates/private/dashboard.html",
+        "end-to-end",
+        "stripe",
+        "buttons",
+        "dashboard",
+        "test.md",
+        "systack"
+      ]
+    },
+    "memory:memory/recovered/2026-06-07-invoice-parser-bulletproof.md:1:29": {
+      "key": "memory:memory/recovered/2026-06-07-invoice-parser-bulletproof.md:1:29",
+      "path": "memory/recovered/2026-06-07-invoice-parser-bulletproof.md",
+      "startLine": 1,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "# 2026-06-07 — Invoice Parser Made Bulletproof ## Result: ALL 7 test invoice formats now pass ✅ After multiple rounds of debugging, the invoice parser handles every format in the examples folder. ## Formats Working (7/7) | Format | Vendor | Items | Total | Status | |--------|--------|-------|-------|--------| | FROM:/BILL TO: + ITEMS (NovaTech) | NovaTech Solutions Inc. | 4 | $5,078.72 | ✅ | | Table/Column (real-invoice-test) | ABC Restaurant Supply Co. | 8 | $211.21 | ✅ | | Contractor/Messy (Mike's Repairs) | Mike's Electrical Repairs | 3 | $826.20 | ✅ | | International VAT (Shenzhen Apex) | Shenzhen Apex Manufacturing Ltd. | 3 | $2,587.70 | ✅ | | POS Receipt (Utopia Deli) | THE UTOPIA",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.496545472741127,
+      "maxScore": 0.496545472741127,
+      "firstRecalledAt": "2026-06-22T15:38:53.339Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.339Z",
+      "queryHashes": [
+        "a2cfb50fe8be"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "7/7",
+        "078.72",
+        "table/column",
+        "real-invoice-test",
+        "211.21",
+        "contractor/messy",
+        "826.20",
+        "587.70"
+      ]
+    },
+    "memory:memory/2026-06-07-invoice-parser-bulletproof.md:1:29": {
+      "key": "memory:memory/2026-06-07-invoice-parser-bulletproof.md:1:29",
+      "path": "memory/2026-06-07-invoice-parser-bulletproof.md",
+      "startLine": 1,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "# 2026-06-07 — Invoice Parser Made Bulletproof ## Result: ALL 7 test invoice formats now pass ✅ After multiple rounds of debugging, the invoice parser handles every format in the examples folder. ## Formats Working (7/7) | Format | Vendor | Items | Total | Status | |--------|--------|-------|-------|--------| | FROM:/BILL TO: + ITEMS (NovaTech) | NovaTech Solutions Inc. | 4 | $5,078.72 | ✅ | | Table/Column (real-invoice-test) | ABC Restaurant Supply Co. | 8 | $211.21 | ✅ | | Contractor/Messy (Mike's Repairs) | Mike's Electrical Repairs | 3 | $826.20 | ✅ | | International VAT (Shenzhen Apex) | Shenzhen Apex Manufacturing Ltd. | 3 | $2,587.70 | ✅ | | POS Receipt (Utopia Deli) | THE UTOPIA",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.496545472741127,
+      "maxScore": 0.496545472741127,
+      "firstRecalledAt": "2026-06-22T15:38:53.339Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.339Z",
+      "queryHashes": [
+        "a2cfb50fe8be"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "7/7",
+        "078.72",
+        "table/column",
+        "real-invoice-test",
+        "211.21",
+        "contractor/messy",
+        "826.20",
+        "587.70"
+      ]
+    },
+    "memory:memory/2026-06-08-invoice-parser-complete.md:1:40": {
+      "key": "memory:memory/2026-06-08-invoice-parser-complete.md:1:40",
+      "path": "memory/2026-06-08-invoice-parser-complete.md",
+      "startLine": 1,
+      "endLine": 40,
+      "source": "memory",
+      "snippet": "# 2026-06-08 — Invoice Parser Build Complete (Except Email Trigger) ## Time: 00:17 CDT ## Status: Parser working, email blocked by Gmail auth ## What Was Accomplished ### Parser (9 Formats) 1. All 7 synthetic PDFs pass ✅ 2. AT&T utility bill (real PDF from iCloud) passes ✅ 3. Scanned/image PDF with OCR fallback passes ✅ ### Infrastructure - API server: localhost:9001 via launchd - Cloudflare tunnel: invoices.systack.net - Database: 119 records, backup saved - OCR: Tesseract + pytesseract installed ### n8n - Logged into n8n UI via API (plowe95@yahoo.com / 123GreeN23!) - Created IMAP credential: xBT92arTjBY66ccE - Updated workflow qnsBnLIWQ1Sky68D with IMAP credential - Activation FAILED:",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4817755877971649,
+      "maxScore": 0.4817755877971649,
+      "firstRecalledAt": "2026-06-22T15:38:53.339Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.339Z",
+      "queryHashes": [
+        "a2cfb50fe8be"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "backup",
+        "scanned/image",
+        "invoices.systack.net",
+        "yahoo.com",
+        "invoice",
+        "parser",
+        "complete.md",
+        "complete"
+      ]
+    },
+    "memory:memory/2026-06-07-invoice-system-complete.md:1:45": {
+      "key": "memory:memory/2026-06-07-invoice-system-complete.md:1:45",
+      "path": "memory/2026-06-07-invoice-system-complete.md",
+      "startLine": 1,
+      "endLine": 45,
+      "source": "memory",
+      "snippet": "# 2026-06-07 — Bidirectional Invoice System Complete ## What Was Built ### Invoice Parser v2 - Handles 7 invoice formats (standard, FROM:/BILL TO:, POS receipt, subscription, professional services, contractor, international VAT) - Extracts text from PDFs AND plain text files - Auto-detects format and routes to correct parser ### Invoice Normalizer (ORACLE Design) - Converts raw parsed data → canonical LRFO (Ledger-Ready Financial Object) - Resolves direction: INBOUND (AR) vs OUTBOUND (AP) - Generates ledger entries with debit/credit accounts - Calculates confidence scores - Extracts entities, payment info, tax IDs ### API Endpoint - https://invoices.systack.net/extract - Returns normaliz",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.4648925274610518,
+      "maxScore": 0.5074497610330582,
+      "firstRecalledAt": "2026-06-22T15:38:53.339Z",
+      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "queryHashes": [
+        "a2cfb50fe8be",
+        "cd9a0faaf43f",
+        "478fcdea11fd"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "auto-detects",
+        "ledger-ready",
+        "debit/credit",
+        "invoices.systack.net/extract",
+        "invoice",
+        "complete.md",
+        "bidirectional",
+        "complete"
+      ]
+    },
+    "memory:memory/2026-06-08-invoice-pipeline-tested.md:1:34": {
+      "key": "memory:memory/2026-06-08-invoice-pipeline-tested.md:1:34",
+      "path": "memory/2026-06-08-invoice-pipeline-tested.md",
+      "startLine": 1,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "# 2026-06-08 — Invoice Email Pipeline — TESTED AND WORKING ## Status: ✅ PIPELINE FULLY FUNCTIONAL (except Postgres) ### What Was Tested **Execution #439 — SUCCESS!** The email pipeline successfully: 1. ✅ Received email at `support@systack.net` 2. ✅ IMAP trigger fired automatically 3. ✅ Downloaded PDF attachment (`invoice-004.pdf`) 4. ✅ Identified PDF via If node (`$binary.attachment_0.fileName` ends with `.pdf`) 5. ✅ Sent PDF to parser API via HTTP Request (`127.0.0.1:9001/extract`) 6. ✅ Parser extracted invoice data: - Vendor: \"Supplies, LLC\" - Invoice #: \"INV-2026-0612-001\" - Line items: Ergonomic Office Chair, Standing Desk Converter, LED Desk Lamp, Monitor Arm, Desk Organize",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4495334655046463,
+      "maxScore": 0.4495334655046463,
+      "firstRecalledAt": "2026-06-22T15:38:53.339Z",
+      "lastRecalledAt": "2026-06-22T15:38:53.339Z",
+      "queryHashes": [
+        "a2cfb50fe8be"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "systack.net",
+        "invoice-004.pdf",
+        "binary.attachment-0.filename",
+        "127.0.0.1",
+        "9001/extract",
+        "inv-2026-0612-001",
+        "invoice",
+        "pipeline"
+      ]
+    },
+    "memory:memory/2026-06-07-invoice-system-complete.md:37:63": {
+      "key": "memory:memory/2026-06-07-invoice-system-complete.md:37:63",
+      "path": "memory/2026-06-07-invoice-system-complete.md",
+      "startLine": 37,
+      "endLine": 63,
+      "source": "memory",
+      "snippet": "- `invoice_db.py` — database layer - `invoice_dashboard.py` — CLI dashboard - `load_synthetic_dataset.py` — dataset loader - `INVOICE-TRAINING-DATASET.md` — documentation - `INVOICE-SYSTEM-STATUS.md` — system overview - `INVOICE-PARSER-CHANGELOG.md` — format history - `INVOICE-PARSER-DEPLOYMENT.md` — deployment notes ## Dataset - 120 synthetic invoices from ORACLE (JSON) - 7 real-world example PDFs - Balanced: 67 AR + 53 AP - Mixed payment status: 64 paid, 56 unpaid ## Key Metrics - Total invoice value: $340,559.38 - AR total: $190,850.25 - AP total: $149,709.13 - Net position: +$41,141.12 (positive = more owed to us) ## Next Steps 1. Build web dashboard (not CLI) 2. Integrate with n8n em",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5060395777225494,
+      "maxScore": 0.5060395777225494,
+      "firstRecalledAt": "2026-06-22T15:39:32.770Z",
+      "lastRecalledAt": "2026-06-22T15:39:32.770Z",
+      "queryHashes": [
+        "cd9a0faaf43f"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "invoice-db.py",
+        "invoice-dashboard.py",
+        "load-synthetic-dataset.py",
+        "invoice-training-dataset.md",
+        "invoice-system-status.md",
+        "invoice-parser-changelog.md",
+        "invoice-parser-deployment.md",
+        "real-world"
+      ]
+    },
+    "memory:memory/2026-06-16-session-builds.md:42:86": {
+      "key": "memory:memory/2026-06-16-session-builds.md:42:86",
+      "path": "memory/2026-06-16-session-builds.md",
+      "startLine": 42,
+      "endLine": 86,
+      "source": "memory",
+      "snippet": "| `invoice-dashboard.html` | Single-page web dashboard (served on port 8768) | ### API Endpoints | Endpoint | Description | |----------|-------------| | `/api/summary` | Dashboard metrics (AR/AP/net/review/weekly) | | `/api/invoices` | Paginated list with search, status filter, sorting | | `/api/invoices/{id}` | Full detail with line items, normalized data | | `/api/aging` | AR aging report (current/30-60/60-90/90+) | | `/api/vendors` | Vendor directory with stats | | `/api/export/csv` | CSV download of all invoices | | `/health` | Health check | ### Dashboard Features - **3 tabs:** Invoices, Aging Report, Vendors - **Search:** Vendor, invoice #, file name - **Filter:** By payment status (",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5037428587675095,
+      "maxScore": 0.5037428587675095,
+      "firstRecalledAt": "2026-06-22T15:39:32.770Z",
+      "lastRecalledAt": "2026-06-22T15:39:32.770Z",
+      "queryHashes": [
+        "cd9a0faaf43f"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-16-session-builds.md",
+        "invoice-dashboard.html",
+        "single-page",
+        "api/summary",
+        "ar/ap/net/review/weekly",
+        "api/invoices",
+        "api/aging",
+        "current/30-60/60-90/90"
+      ]
+    },
+    "memory:memory/2026-06-10-deli-invoice-summary-email.md:41:75": {
+      "key": "memory:memory/2026-06-10-deli-invoice-summary-email.md:41:75",
+      "path": "memory/2026-06-10-deli-invoice-summary-email.md",
+      "startLine": 41,
+      "endLine": 75,
+      "source": "memory",
+      "snippet": "Subject: `Invoice Collected: Supplies, LLC — INV-2026-0612-001` Body: ``` 📋 Invoice Summary — June 2026 Invoice Just Collected: Vendor: Supplies, LLC Invoice #: INV-2026-0612-001 Amount: $2,132.13 Monthly Totals: Total Invoices Collected: 12 Total Amount: $8,450.23 Top Vendors: Supplies, LLC 3 invoices $4,200.00 Fresh Foods Co 4 invoices $2,100.00 ... Recent Invoices: Supplies, LLC INV-2026-0612-001 $2,132.13 06/10 Fresh Foods Co FFC-2026-0608 $540.00 06/08 ... ``` ## Files Updated - `deli_invoice_api.py` — Added summary functions and included in response ## Wiki Entry - `.openclaw/wiki/main/Deli-Invoice-Summary-Email.md` ## MEMORY.md Updated - Add",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4849231898784637,
+      "maxScore": 0.4849231898784637,
+      "firstRecalledAt": "2026-06-22T15:39:32.770Z",
+      "lastRecalledAt": "2026-06-22T15:39:32.770Z",
+      "queryHashes": [
+        "cd9a0faaf43f"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "inv-2026-0612-001",
+        "132.13",
+        "450.23",
+        "200.00",
+        "100.00",
+        "06/10",
+        "ffc-2026-0608",
+        "540.00"
+      ]
+    },
+    "memory:memory/recovered/2026-06-04-late.md:1:44": {
+      "key": "memory:memory/recovered/2026-06-04-late.md:1:44",
+      "path": "memory/recovered/2026-06-04-late.md",
+      "startLine": 1,
+      "endLine": 44,
+      "source": "memory",
+      "snippet": "# 2026-06-04 — Late Evening — Systack Site + Invoice Parser Build ## What Was Built ### 1. Invoice Parser (Production-Ready) - `invoice_parser_production.py` — clean production parser - `invoice_db.py` — SQLite database with invoices + items tables - `INVOICE-PARSER-CHANGELOG.md` — format tracking documentation - `n8n-invoice-workflow.json` — n8n workflow spec for email trigger - Tested successfully with 2 invoice formats - All validation checks pass ### 2. Systack Website Overhaul - **index.html** — new homepage with: - Hero section with live demo mockup - Stats bar (3+ years, 24/7 systems, 97% revenue, 2-3 days launch) - Two paths: Business Systems + Personal Agent - Invoice Ext",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4792410254478454,
+      "maxScore": 0.4792410254478454,
+      "firstRecalledAt": "2026-06-22T15:39:32.770Z",
+      "lastRecalledAt": "2026-06-22T15:39:32.770Z",
+      "queryHashes": [
+        "cd9a0faaf43f"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-04-late.md",
+        "production-ready",
+        "invoice-parser-production.py",
+        "invoice-db.py",
+        "invoice-parser-changelog.md",
+        "n8n-invoice-workflow.json",
+        "index.html",
+        "24/7"
+      ]
+    },
+    "memory:memory/2026-06-04-late.md:1:44": {
+      "key": "memory:memory/2026-06-04-late.md:1:44",
+      "path": "memory/2026-06-04-late.md",
+      "startLine": 1,
+      "endLine": 44,
+      "source": "memory",
+      "snippet": "# 2026-06-04 — Late Evening — Systack Site + Invoice Parser Build ## What Was Built ### 1. Invoice Parser (Production-Ready) - `invoice_parser_production.py` — clean production parser - `invoice_db.py` — SQLite database with invoices + items tables - `INVOICE-PARSER-CHANGELOG.md` — format tracking documentation - `n8n-invoice-workflow.json` — n8n workflow spec for email trigger - Tested successfully with 2 invoice formats - All validation checks pass ### 2. Systack Website Overhaul - **index.html** — new homepage with: - Hero section with live demo mockup - Stats bar (3+ years, 24/7 systems, 97% revenue, 2-3 days launch) - Two paths: Business Systems + Personal Agent - Invoice Ext",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4792410254478454,
+      "maxScore": 0.4792410254478454,
+      "firstRecalledAt": "2026-06-22T15:39:32.770Z",
+      "lastRecalledAt": "2026-06-22T15:39:32.770Z",
+      "queryHashes": [
+        "cd9a0faaf43f"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-04-late.md",
+        "production-ready",
+        "invoice-parser-production.py",
+        "invoice-db.py",
+        "invoice-parser-changelog.md",
+        "n8n-invoice-workflow.json",
+        "index.html",
+        "24/7"
+      ]
+    },
+    "memory:memory/2026-06-08-invoice-pipeline-complete.md:96:125": {
+      "key": "memory:memory/2026-06-08-invoice-pipeline-complete.md:96:125",
+      "path": "memory/2026-06-08-invoice-pipeline-complete.md",
+      "startLine": 96,
+      "endLine": 125,
+      "source": "memory",
+      "snippet": "4. Parser extracts vendor, line items, totals 5. Saves to SQLite database 6. Email notification sent ### Proven Working (Execution #439) - Received email with PDF invoice - Extracted: Vendor \"Supplies, LLC\", Invoice #INV-2026-0612-001, Total $2,132.13 - All 5 line items with prices extracted - Saved to invoice_data.db (entries 125, 126) ### Postgres Status - Postgres IS running on localhost:5432 - But n8n credential expects database \"crm\" + user \"systack\" - Actual Postgres has database \"utopia_deli\" + user \"philliplowe\" - Fix: Either create missing DB/user OR use SQLite (recommended) ### Current Blockers 1. Gmail app passwords revoked (too many login attempts) 2. Need new app password for",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.49966466128826137,
+      "maxScore": 0.49966466128826137,
+      "firstRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "queryHashes": [
+        "478fcdea11fd"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "inv-2026-0612-001",
+        "132.13",
+        "invoice-data.db",
+        "utopia-deli",
+        "db/user",
+        "invoice",
+        "pipeline",
+        "complete.md"
+      ]
+    },
+    "memory:memory/2026-06-10-invoice-pipeline-rebrand.md:40:76": {
+      "key": "memory:memory/2026-06-10-invoice-pipeline-rebrand.md:40:76",
+      "path": "memory/2026-06-10-invoice-pipeline-rebrand.md",
+      "startLine": 40,
+      "endLine": 76,
+      "source": "memory",
+      "snippet": "## Business Direction - No longer scoped to Utopia Deli specifically - Generic system ready to deploy for any business - Potential clients: businesses that receive vendor invoices via email (not Square users) ## Files Updated - `deli_invoice_api.py` — Full rewrite with new schema and email format ## Database Migration Required ```sql -- Run this in Postgres to migrate existing data -- (or just create new tables) CREATE TABLE IF NOT EXISTS invoices ( id SERIAL PRIMARY KEY, file_name TEXT, vendor TEXT, invoice_date TEXT, invoice_number TEXT, subtotal NUMERIC(10,2), tax NUMERIC(10,2), total NUMERIC(10,2), raw_text TEXT, parsed_json JSONB, items JSON",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.49739151597023007,
+      "maxScore": 0.49739151597023007,
+      "firstRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "queryHashes": [
+        "478fcdea11fd"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "deli-invoice-api.py",
+        "file-name",
+        "invoice-date",
+        "invoice-number",
+        "raw-text",
+        "parsed-json",
+        "invoice",
+        "pipeline"
+      ]
+    },
+    "memory:memory/2026-06-08-postgres-created.md:44:69": {
+      "key": "memory:memory/2026-06-08-postgres-created.md:44:69",
+      "path": "memory/2026-06-08-postgres-created.md",
+      "startLine": 44,
+      "endLine": 69,
+      "source": "memory",
+      "snippet": "INSERT INTO invoices (invoice_id, from_email, subject, vendor, invoice_number, total, status) VALUES ('TEST-001', 'test@example.com', 'Test Invoice', 'Test Vendor', 'INV-001', 100.00, 'pending_review'); ``` Result: ✅ SUCCESS ### Why This Is Better Than SQLite 1. **Multi-user access** — Multiple clients can connect simultaneously 2. **JSONB support** — Native JSON storage with indexing 3. **Scalability** — Handles larger datasets and concurrent writes 4. **Standard interface** — SQL standard, better tooling 5. **Reporting** — Better for dashboards and analytics 6. **Future-proof** — Industry standard for production systems ### Next Steps 1. Update n8n Postgres credential (iVuy7e5WTC05Hqwe)",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4878127127885818,
+      "maxScore": 0.4878127127885818,
+      "firstRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "queryHashes": [
+        "478fcdea11fd"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-08-postgres-created.md",
+        "invoice-id",
+        "from-email",
+        "invoice-number",
+        "test-001",
+        "example.com",
+        "inv-001",
+        "100.00"
+      ]
+    },
+    "memory:memory/2026-06-08-postgres-created.md:1:50": {
+      "key": "memory:memory/2026-06-08-postgres-created.md:1:50",
+      "path": "memory/2026-06-08-postgres-created.md",
+      "startLine": 1,
+      "endLine": 50,
+      "source": "memory",
+      "snippet": "# 2026-06-08 — Postgres CRM Database Created ## What Was Done ### Postgres Setup Complete - **Host:** localhost:5432 - **Database:** crm - **User:** systack - **Password:** Systack2026!CRM - **Owner:** philliplowe ### Tables Created **invoices** | Column | Type | Notes | |--------|------|-------| | id | SERIAL | Primary key | | invoice_id | VARCHAR(50) | Unique identifier | | from_email | VARCHAR(255) | Sender email | | subject | VARCHAR(500) | Email subject | | received_at | TIMESTAMP | When received | | pdf_filename | VARCHAR(255) | Original filename | | vendor | VARCHAR(255) | Extracted vendor name | | invoice_number | VARCHAR(50) | Invoice number | | invoice_date | DATE | Invoice dat",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.48582833409309384,
+      "maxScore": 0.48582833409309384,
+      "firstRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "queryHashes": [
+        "478fcdea11fd"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "2026-06-08-postgres-created.md",
+        "invoice-id",
+        "from-email",
+        "received-at",
+        "pdf-filename",
+        "invoice-number",
+        "invoice-date",
+        "postgres"
+      ]
+    },
+    "memory:memory/2026-06-10-systack-invoice-api-9001.md:1:35": {
+      "key": "memory:memory/2026-06-10-systack-invoice-api-9001.md:1:35",
+      "path": "memory/2026-06-10-systack-invoice-api-9001.md",
+      "startLine": 1,
+      "endLine": 35,
+      "source": "memory",
+      "snippet": "# 2026-06-10 — Systack Invoice API on Port 9001 ## Changes - Created `systack_invoice_api.py` — dedicated Systack invoice pipeline API - Runs on port 9001 (separate from generic invoice API on 8765 and deli/invoice_pipeline on 9002) - Uses existing SQLite database `invoice_data.db` ## Features - **Endpoint:** `POST /extract` — multipart form data with PDF invoice - **Health:** `GET /health` — shows invoice count - **Email summary:** Per-invoice HTML with line items, subtotal, tax, total - **Monthly running total:** Included in each email ## API Response Fields ```json { \"vendor\": \"Supplies, LLC\", \"invoice_number\": \"INV-2026-0612-001\", \"total\": 2132.13, \"items\": [...], \"sqlite_id",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.47910978496074674,
+      "maxScore": 0.47910978496074674,
+      "firstRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "queryHashes": [
+        "478fcdea11fd"
+      ],
+      "recallDays": [
+        "2026-06-22"
+      ],
+      "conceptTags": [
+        "systack-invoice-api.py",
+        "deli/invoice-pipeline",
+        "invoice-data.db",
+        "per-invoice",
+        "invoice-number",
+        "inv-2026-0612-001",
+        "2132.13",
+        "sqlite-id"
       ]
     }
   }
