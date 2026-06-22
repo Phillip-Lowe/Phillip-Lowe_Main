@@ -1,0 +1,309 @@
+{
+  "name": "Utopia Deli HTML Order v2 — CART_STATE Aligned",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "utopia-deli-html-order-v2",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "webhookId": "utopia-deli-html-order-v2"
+    },
+    {
+      "parameters": {
+        "jsCode": "let item = items[0].json; if (item.body) { item = item.body; } const errors = []; const required = [\"customer_name\",\"email\",\"phone\",\"order_items\",\"subtotal\",\"tax\",\"total\",\"pickup_time\"]; for (const field of required) { if (item[field] === undefined || item[field] === null || item[field] === \"\") { errors.push(\"Missing: \" + field); } } return [{ json: { valid: errors.length === 0, error: errors.join(\"; \") || undefined, payload: item } }];"
+      },
+      "name": "Validate JSON",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [200, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "name": "Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [400, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * HTML TO CART_STATE NORMALIZER\n *\n * PURPOSE:\n *   Transform HTML frontend payload into canonical CART_STATE format.\n *\n * INPUT (HTML Payload):\n *   { customer_name, email, phone, order_items[], subtotal, tax, total, pickup_time, special_instructions }\n *\n * OUTPUT (Canonical CART_STATE):\n *   { cart_id, status, customer_name, customer_email, customer_phone,\n *     cart_items[], cart_items_json, subtotal_cents, tax_cents, total_cents,\n *     created_at, updated_at, source: \"html\" }\n */\n\nconst input = $json.payload || $json;\n\n// 1. Generate cart_id\nconst now = new Date();\nconst date = now.toISOString().slice(0, 10).replace(/-/g, \"\");\nconst random = Math.floor(Math.random() * 900) + 100;\nconst cartId = \"UDO-\" + date + \"-\" + random;\n\n// 2. Transform order_items → cart_items\nconst orderItems = Array.isArray(input.order_items) ? input.order_items : [];\n\nconst cartItems = orderItems.map(function(item, idx) {\n  const qty = Number(item.qty || 1);\n  const priceDollars = Number(item.price || 0);\n  const basePriceCents = Math.round(priceDollars * 100);\n\n  // Parse modifiers from string array to structured objects\n  const rawModifiers = Array.isArray(item.modifiers) ? item.modifiers : [];\n  const modifiers = rawModifiers.map(function(modStr) {\n    const trimmed = String(modStr).trim();\n\n    // Detect add-ons: \"+ Addon Name ($0.50)\"\n    const addonMatch = trimmed.match(/^\\+\\s+(.+?)\\s*\\(\\$?([\\d.]+)\\)$/);\n    if (addonMatch) {\n      return { mod_name: trimmed, price_delta: Number(addonMatch[2]) };\n    }\n\n    // Detect take-offs\n    if (/^(no\\s|no-|hold\\s|hold-)/i.test(trimmed)) {\n      return { mod_name: trimmed, price_delta: 0 };\n    }\n\n    // Everything else = identifier/choice ($0)\n    return { mod_name: trimmed, price_delta: 0 };\n  });\n\n  // Calculate line total\n  const addonTotalCents = modifiers.reduce(function(sum, m) {\n    return sum + Math.round(Number(m.price_delta || 0) * 100 * qty);\n  }, 0);\n  const lineTotalCents = (basePriceCents * qty) + addonTotalCents;\n\n  return {\n    type: \"primary\",\n    display_name: item.name || \"Item \" + (idx + 1),\n    quantity: qty,\n    base_price_cents: basePriceCents,\n    variant_price_cents: 0,\n    modifiers: modifiers,\n    notes: item.notes || \"\",\n    line_total_cents: lineTotalCents\n  };\n});\n\n// 3. Compute canonical totals in cents\nconst subtotalCents = Math.round(Number(input.subtotal || 0) * 100);\nconst taxCents = Math.round(Number(input.tax || 0) * 100);\nconst totalCents = Math.round(Number(input.total || 0) * 100);\n\n// Validate: subtotal + tax == total\nif (subtotalCents + taxCents !== totalCents) {\n  throw new Error(\n    \"TOTAL_MISMATCH: subtotal (\" + subtotalCents + \") + tax (\" + taxCents +\n    \") != total (\" + totalCents + \")\"\n  );\n}\n\n// 4. Build canonical CART_STATE\nconst cartState = {\n  cart_id: cartId,\n  status: \"OPEN\",\n  customer_name: input.customer_name || \"\",\n  customer_email: input.email || \"\",\n  customer_phone: input.phone || \"\",\n  cart_items: cartItems,\n  cart_items_json: JSON.stringify(cartItems),\n  subtotal_cents: subtotalCents,\n  tax_cents: taxCents,\n  total_cents: totalCents,\n  created_at: now.toISOString(),\n  updated_at: now.toISOString(),\n  source: \"html\"\n};\n\n// 5. Build Square line items\nconst squareLineItems = cartItems.map(function(item) {\n  const lineItem = {\n    name: item.display_name,\n    quantity: String(item.quantity),\n    base_price_money: { amount: item.base_price_cents, currency: \"USD\" },\n    modifiers: []\n  };\n\n  if (Array.isArray(item.modifiers)) {\n    item.modifiers.forEach(function(mod) {\n      lineItem.modifiers.push({\n        name: mod.mod_name,\n        base_price_money: { amount: Math.round(Number(mod.price_delta || 0) * 100), currency: \"USD\" }\n      });\n    });\n  }\n\n  return lineItem;\n});\n\n// Add tax as separate line item\nif (taxCents > 0) {\n  squareLineItems.push({\n    name: \"Tax\",\n    quantity: \"1\",\n    base_price_money: { amount: taxCents, currency: \"USD\" }\n  });\n}\n\n// 6. Output\nreturn {\n  ...cartState,\n  square_line_items: squareLineItems,\n  square_line_items_with_tax: squareLineItems,\n  pickup_time: input.pickup_time || \"\",\n  special_instructions: input.special_instructions || \"\"\n};"
+      },
+      "name": "Normalize HTML → CART_STATE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, -100]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jF85_1dx9WBETfhQyda2nnnKzzvTgzSbQ_uqcgArpm0",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2016519037,
+          "mode": "list",
+          "cachedResultName": "CART_STATE"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "cart_id": "={{ $json.cart_id }}",
+            "created_at": "={{ $json.created_at }}",
+            "updated_at": "={{ $json.updated_at }}",
+            "status": "={{ $json.status }}",
+            "customer_name": "={{ $json.customer_name }}",
+            "customer_email": "={{ $json.customer_email }}",
+            "customer_phone": "={{ $json.customer_phone }}",
+            "cart_items_json": "={{ $json.cart_items_json }}",
+            "subtotal_cents": "={{ $json.subtotal_cents }}",
+            "tax_cents": "={{ $json.tax_cents }}",
+            "total_cents": "={{ $json.total_cents }}"
+          }
+        }
+      },
+      "name": "Write CART_STATE → Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [800, -100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $json;\n\n// Resolve cart_items safely\nlet cart_items = input.cart_items;\n\nif (!Array.isArray(cart_items)) {\n  if (typeof input.cart_items_json === \"string\") {\n    try {\n      cart_items = JSON.parse(input.cart_items_json);\n    } catch {\n      throw new Error(\"cart_items_json is invalid JSON\");\n    }\n  }\n}\n\nif (!Array.isArray(cart_items)) {\n  throw new Error(\"cart_html builder requires cart_items or cart_items_json\");\n}\n\n// Helpers\nconst money = cents =>\"$\" + (Number(cents || 0) / 100).toFixed(2);\n\nconst isTakeOff = mod =>\n  typeof mod?.mod_name === \"string\" &&\n  /^(no\\s|no-|hold\\s|hold-)/i.test(mod.mod_name.trim());\n\nconst sanitizeText = txt => String(txt).replace(/[<>]/g, \"\");\n\nconst BRAND_MUTED = \"#555\";\nconst BRAND_SUBTLE = \"#777\";\n\n// Build cart rows\nlet rows = \"\";\n\ncart_items.forEach(function(item, idx) {\n  const qty = Number(item.quantity || 1);\n  const baseUnitCents = Number(item.base_price_cents || 0) + Number(item.variant_price_cents || 0);\n  const baseDisplayCents = baseUnitCents * qty;\n  const modifiers = Array.isArray(item.modifiers) ? item.modifiers : [];\n\n  const identifiers = modifiers.filter(m => !isTakeOff(m) && Number(m.price_delta) === 0);\n  const takeoffs = modifiers.filter(isTakeOff);\n  const addons = modifiers.filter(m => !isTakeOff(m) && Number(m.price_delta) > 0);\n\n  if (idx > 0) {\n    rows += \"<tr><td colspan=\\\"2\\\" style=\\\"padding-top:14px;\\\"></td></tr>\";\n  }\n\n  // Item header\n  rows += \"<tr><td><strong>\" + (qty > 1 ? qty + \" × \" : \"\") + item.display_name + \"</strong></td><td style=\\\"text-align:right;\\\"><strong>\" + money(baseDisplayCents) + \"</strong></td></tr>\";\n\n  // Identifiers\n  identifiers.forEach(m => {\n    rows += \"<tr><td style=\\\"padding-left:24px; font-style:italic;\\\">\" + m.mod_name + \"</td><td></td></tr>\";\n  });\n\n  // Take-offs\n  if (takeoffs.length > 0) {\n    rows += \"<tr><td colspan=\\\"2\\\" style=\\\"padding-left:24px; font-size:11px; font-weight:600; color:\" + BRAND_MUTED + \"; padding-top:4px;\\\">TAKE OFF</td></tr>\";\n  }\n  takeoffs.forEach(m => {\n    rows += \"<tr><td style=\\\"padding-left:24px; font-style:italic; color:\" + BRAND_MUTED + \";\\\">\" + m.mod_name + \"</td><td></td></tr>\";\n  });\n\n  // Add-ons\n  if (addons.length > 0) {\n    rows += \"<tr><td colspan=\\\"2\\\" style=\\\"padding-left:24px; font-size:11px; font-weight:600; color:\" + BRAND_MUTED + \"; padding-top:6px;\\\">ADD‑ONS</td></tr>\";\n  }\n  addons.forEach(m => {\n    rows += \"<tr><td style=\\\"padding-left:24px;\\\">+ \" + m.mod_name + \"</td><td style=\\\"text-align:right;\\\">\" + money(Number(m.price_delta) * 100) + \"</td></tr>\";\n  });\n\n  // Notes\n  if (item.notes && String(item.notes).trim()) {\n    const safeNote = sanitizeText(item.notes);\n    rows += \"<tr><td colspan=\\\"2\\\" style=\\\"padding-left:24px; font-style:italic; color:\" + BRAND_MUTED + \"; padding-top:6px;\\\">Notes: \" + safeNote + \"</td></tr>\";\n  }\n\n  // Item total\n  if (addons.length > 0 && item.line_total_cents) {\n    rows += \"<tr><td style=\\\"padding-left:24px; font-weight:600;\\\">Item total</td><td style=\\\"text-align:right; font-weight:600;\\\">\" + money(item.line_total_cents) + \"</td></tr>\";\n  }\n});\n\n// Final cart HTML\nconst cart_html = \"<table width=\\\"100%\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\">\" +\n  rows +\n  \"<tr><td colspan=\\\"2\\\"><hr></td></tr>\" +\n  \"<tr><td><strong>Subtotal</strong></td><td style=\\\"text-align:right;\\\"><strong>\" + money(input.subtotal_cents) + \"</strong></td></tr>\" +\n  \"<tr><td>Tax</td><td style=\\\"text-align:right;\\\">\" + money(input.tax_cents) + \"</td></tr>\" +\n  \"<tr><td style=\\\"padding-top:10px;\\\"><strong>Total</strong></td><td style=\\\"padding-top:10px; text-align:right;\\\"><strong>\" + money(input.total_cents) + \"</strong></td></tr>\" +\n  \"</table>\";\n\nreturn { ...input, cart_html: cart_html };"
+      },
+      "name": "Build cart_html",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, -100]
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  ...$json,\n  confirmation_email_template:\n    \"<div style=\\\"font-family: Arial, sans-serif; max-width:600px; margin:auto; background:#FBF6F6; padding:24px;\\\">\\\" +\n    \"<div style=\\\"text-align:center;margin-bottom:24px;\\\"><a href=\\\"https://www.theutopiadeli.com\\\" target=\\\"_blank\\\" style=\\\"text-decoration:none;\\\"><img src=\\\"https://cdn.shopify.com/s/files/1/0763/5042/3270/files/TheUtopiaDeliLogo_menu.png?v=1774974380\\\" alt=\\\"The Utopia Deli\\\" style=\\\"max-width:220px;height:auto;border:none;\\\" /></a></div>\\\" +\n    \"<p style=\\\"color:#590B3F;font-size:26px;font-weight:700;line-height:1.35;margin:0 0 18px 0;\\\">We will begin preparing your order once we receive your payment.</p>\\\" +\n    \"<p style=\\\"font-style:italic;color:#754681;font-size:16px;margin:0 0 22px 0;\\\">The Utopia Deli. It's just good food.</p>\\\" +\n    \"<p style=\\\"color:#1F1B1D;font-size:14px;margin:0 0 20px 0;\\\">Please review your order and complete your secure payment below:</p>\\\" +\n    \"<h3 style=\\\"color:#590B3F;margin-top:32px;margin-bottom:12px;font-size:18px;\\\">Order Summary</h3>\\\" +\n    \"__CART_HTML__\\\" +\n    \"<hr style=\\\"border:none;border-top:1px solid #E6E1E1;margin:24px 0;\\\" />\\\" +\n    \"<div style=\\\"margin:24px 0;text-align:center;\\\">__PAYMENT_LINK__</div>\\\" +\n    \"<p style=\\\"margin-top:12px;font-size:12px;color:#8A8585;text-align:center;line-height:1.6;\\\">&copy; __CURRENT_YEAR__<br/><a href=\\\"https://www.theutopiadeli.com\\\" target=\\\"_blank\\\" style=\\\"color:#590B3F;text-decoration:none;font-weight:600;\\\">The Utopia Deli</a><br/>Pickup Order &middot; 801 S Chester St,<br/>Little Rock, AR 72202<br/><a href=\\\"tel:+15015515944\\\" style=\\\"color:#8A8585;text-decoration:none;\\\">+1 (501) 551&#8209;5944</a></p>\\\" +\n    \"</div>\"\n};"
+      },
+      "name": "Email Template",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, -100]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Square-Version", "value": "2026-01-22" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "body": "={{ JSON.stringify({\n  idempotency_key: $execution.id,\n  order: {\n    location_id: \"J4B6A3X6RYA63\",\n    reference_id: String($json.cart_id),\n    line_items: $json.square_line_items_with_tax,\n    note: \"Sales tax calculated externally and included as a line item.\\nSource: Utopia Deli HTML Ordering System\",\n    metadata: {\n      subtotal_cents: String($json.subtotal_cents),\n      tax_cents: String($json.tax_cents),\n      tax_rate_percent: \"9.52\",\n      tax_handling: \"manual_line_item\",\n      order_system: \"utopia_deli_html\"\n    }\n  },\n  checkout_options: {\n    redirect_url: \"https://www.theutopiadeli.com/payment-confirmed\"\n  }\n}) }}"
+      },
+      "name": "Create Payment Link (Square)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [600, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const httpResponse = items[0].json;\n\nlet paymentUrl = \"\";\nlet paymentId = \"\";\n\nif (httpResponse.payment_link) {\n  paymentUrl = httpResponse.payment_link.url || \"\";\n  paymentId = httpResponse.payment_link.id || \"\";\n} else if (httpResponse.body && httpResponse.body.payment_link) {\n  paymentUrl = httpResponse.body.payment_link.url || \"\";\n  paymentId = httpResponse.body.payment_link.id || \"\";\n}\n\nconst original = items[0].json;\n\nreturn [{\n  json: {\n    payment_link_url: paymentUrl,\n    payment_link_id: paymentId,\n    cart_id: original.cart_id,\n    customer_name: original.customer_name,\n    customer_email: original.customer_email,\n    cart_html: original.cart_html,\n    confirmation_email_template: original.confirmation_email_template,\n    subtotal_cents: original.subtotal_cents,\n    tax_cents: original.tax_cents,\n    total_cents: original.total_cents,\n    cart_items_json: original.cart_items_json\n  }\n}];"
+      },
+      "name": "Normalize Payment Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [800, 100]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1jF85_1dx9WBETfhQyda2nnnKzzvTgzSbQ_uqcgArpm0",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2016519037,
+          "mode": "list",
+          "cachedResultName": "CART_STATE"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "LOCKED",
+            "payment_link_id": "={{ $json.payment_link_id }}",
+            "payment_link_url": "={{ $json.payment_link_url }}",
+            "updated_at": "={{ $now }}"
+          },
+          "matchingColumns": ["cart_id"]
+        }
+      },
+      "name": "Update CART_STATE → LOCKED",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1000, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = items[0].json;\n\nif (!input.confirmation_email_template) {\n  throw new Error('Missing confirmation_email_template');\n}\nif (!input.cart_html) {\n  throw new Error('Missing cart_html');\n}\nif (!input.payment_link_url) {\n  throw new Error('Missing payment_link_url');\n}\n\nlet finalEmailHtml = input.confirmation_email_template;\n\nfinalEmailHtml = finalEmailHtml.replace(/__CART_HTML__/g, input.cart_html);\nfinalEmailHtml = finalEmailHtml.replace(\n  /__PAYMENT_LINK__/g,\n  \"<a href=\\\"\" + input.payment_link_url + \"\\\" style=\\\"background:#8C2F39;color:#ffffff;padding:14px 24px;border-radius:24px;text-decoration:none;font-weight:bold;display:inline-block;\\\">Complete Payment</a>\"\n);\nfinalEmailHtml = finalEmailHtml.replace(/__CURRENT_YEAR__/g, String(new Date().getFullYear()));\n\nconst unresolvedTokens = finalEmailHtml.match(/__[^_]+__/g);\nif (unresolvedTokens) {\n  throw new Error('Unresolved placeholders: ' + unresolvedTokens.join(', '));\n}\n\nreturn [{\n  json: {\n    ...input,\n    final_email_html: finalEmailHtml\n  }\n}];"
+      },
+      "name": "Compose Final Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 100]
+    },
+    {
+      "parameters": {
+        "credentials": {
+          "smtp": {
+            "id": "ZOvYr6kSP7zE8tBv",
+            "name": "deli gmail"
+          }
+        },
+        "fromEmail": "theutopiadelilittlerock@gmail.com",
+        "toEmail": "={{ $json.customer_email }}",
+        "subject": "=Your Utopia Deli Order — Payment Required",
+        "message": "={{ $json.final_email_html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "name": "Send Payment Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1400, 100]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200,
+          "responseData": "={ \"success\": true, \"order_id\": $json.cart_id, \"payment_url\": $json.payment_link_url }"
+        }
+      },
+      "name": "Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1600, 100]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 400,
+          "responseData": "={ \"success\": false, \"error\": $json.error }"
+        }
+      },
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [600, 250]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [{ "node": "Validate JSON", "type": "main", "index": 0 }]
+      ]
+    },
+    "Validate JSON": {
+      "main": [
+        [{ "node": "Valid?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Valid?": {
+      "main": [
+        [
+          { "node": "Normalize HTML → CART_STATE", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Error Response", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Normalize HTML → CART_STATE": {
+      "main": [
+        [
+          { "node": "Write CART_STATE → Sheets", "type": "main", "index": 0 },
+          { "node": "Create Payment Link (Square)", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Write CART_STATE → Sheets": {
+      "main": [
+        [{ "node": "Build cart_html", "type": "main", "index": 0 }]
+      ]
+    },
+    "Build cart_html": {
+      "main": [
+        [{ "node": "Email Template", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email Template": {
+      "main": [
+        [{ "node": "Compose Final Email", "type": "main", "index": 0 }]
+      ]
+    },
+    "Create Payment Link (Square)": {
+      "main": [
+        [{ "node": "Normalize Payment Response", "type": "main", "index": 0 }]
+      ]
+    },
+    "Normalize Payment Response": {
+      "main": [
+        [{ "node": "Update CART_STATE → LOCKED", "type": "main", "index": 0 }]
+      ]
+    },
+    "Update CART_STATE → LOCKED": {
+      "main": [
+        [{ "node": "Compose Final Email", "type": "main", "index": 0 }]
+      ]
+    },
+    "Compose Final Email": {
+      "main": [
+        [{ "node": "Send Payment Email", "type": "main", "index": 0 }]
+      ]
+    },
+    "Send Payment Email": {
+      "main": [
+        [{ "node": "Success Response", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "pinData": {},
+  "versionId": "v2-cart-state-aligned"
+}

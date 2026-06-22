@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../brand/apple-touch-icon.png">  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knight Train — Find Me</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --midnight: #0a0a1a;
+      --midnight-light: #12122a;
+      --gold: #d4af37;
+      --gold-light: #f0d878;
+      --silver: #c0c0c0;
+      --white: #ffffff;
+      --gray-600: #6b6b8a;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--white);
+      background: var(--midnight);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    .logo {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .tagline {
+      color: var(--silver);
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      background: var(--midnight-light);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.2s;
+    }
+    .link-card:hover {
+      border-color: var(--gold);
+      transform: translateX(4px);
+    }
+    .link-icon {
+      font-size: 28px;
+      width: 40px;
+      text-align: center;
+    }
+    .link-text {
+      text-align: left;
+      flex: 1;
+    }
+    .link-text h3 {
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+    .link-text p {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+    .link-arrow {
+      color: var(--gold);
+      font-size: 18px;
+    }
+    .footer {
+      color: var(--gray-600);
+      font-size: 13px;
+    }
+    .footer a { color: var(--gold); text-decoration: none; }
+    @media (max-width: 480px) {
+      .logo { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">⚔️ Knight Train</div>
+    <div class="tagline">The Midnight Night Train — Follow The Movement</div>
+
+    <div class="links">
+      <a href="https://www.facebook.com/chris.randle2" target="_blank" class="link-card">
+        <span class="link-icon">📘</span>
+        <div class="link-text">
+          <h3>Facebook</h3>
+          <p>Chris Randle</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="#" class="link-card">
+        <span class="link-icon">📸</span>
+        <div class="link-text">
+          <h3>Instagram</h3>
+          <p>Coming Soon</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="#" class="link-card">
+        <span class="link-icon">🎥</span>
+        <div class="link-text">
+          <h3>YouTube</h3>
+          <p>Match Highlights</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="#" class="link-card">
+        <span class="link-icon">✉️</span>
+        <div class="link-text">
+          <h3>Book a Match</h3>
+          <p>Contact for bookings</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="../knighttrain-demo.html" class="link-card">
+        <span class="link-icon">🌐</span>
+        <div class="link-text">
+          <h3>Full Website</h3>
+          <p>Merch, bio, and more</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="footer">
+      <p>Built with 🎭 by <strong><a href="https://systack.net">Systack</a></strong></p>
+      <p><a href="tel:+15012746231">(501) 274-6231</a> · <a href="mailto:support@systack.net">support@systack.net</a></p>
+    </div>
+  </div>
+</body>
+</html>

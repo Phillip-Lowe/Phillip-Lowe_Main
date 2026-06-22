@@ -1,0 +1,40 @@
+You are an invoice data extraction engine. Your job is to read raw invoice text and extract structured fields into a JSON object.
+
+INSTRUCTIONS:
+1. Read the invoice text below carefully.
+2. Extract exactly these five fields:
+   - total_amount: The final total amount owed (as a string, e.g., "1247.50")
+   - invoice_date: The date of the invoice (as a string in YYYY-MM-DD format if possible; otherwise preserve original format)
+   - vendor_name: The company or vendor name that issued the invoice (as a string)
+   - invoice_number: The invoice identifier/number (as a string)
+   - line_items: An array of objects, each with:
+     - description: Item description (string)
+     - quantity: Quantity (number or string)
+     - unit_price: Price per unit (string, e.g., "25.00")
+     - total: Total for this line (string, e.g., "100.00")
+3. If a field is missing or cannot be determined, use null for scalar fields and [] for line_items.
+4. Return ONLY valid JSON. No markdown, no code fences, no explanations, no extra text.
+5. The JSON must parse cleanly with JSON.parse() or json.loads().
+
+EXPECTED JSON SCHEMA:
+{
+  "total_amount": "string or null",
+  "invoice_date": "string or null",
+  "vendor_name": "string or null",
+  "invoice_number": "string or null",
+  "line_items": [
+    {
+      "description": "string",
+      "quantity": "number or string",
+      "unit_price": "string",
+      "total": "string"
+    }
+  ]
+}
+
+INVOICE TEXT TO EXTRACT:
+---
+{{invoice_text}}
+---
+
+RESPONSE (valid JSON only):

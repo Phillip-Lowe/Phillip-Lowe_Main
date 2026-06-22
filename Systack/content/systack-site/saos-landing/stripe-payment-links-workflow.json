@@ -1,0 +1,207 @@
+{
+  "name": "SAOS Stripe Payment Link Generator",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger",
+      "name": "When clicking 'Execute Workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// SAOS Product Configurations\nconst products = [\n  {\n    name: \"SAOS Solo Agent\",\n    description: \"One AI agent. Order handling, customer service, or task automation. Perfect for solo operators.\",\n    amount: 14900,\n    interval: \"month\"\n  },\n  {\n    name: \"SAOS Business Fleet\",\n    description: \"3 AI agents working together — order taker, invoice processor, lead qualifier. Complete business coverage.\",\n    amount: 29900,\n    interval: \"month\"\n  },\n  {\n    name: \"SAOS Enterprise Fleet\",\n    description: \"Unlimited AI agents, custom development, API integrations, white-label option, SLA guarantee.\",\n    amount: 79900,\n    interval: \"month\"\n  }\n];\n\nreturn products.map(p => ({\n  json: p\n}));"
+      },
+      "id": "products",
+      "name": "Set Product Configs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.stripe.com/v1/products",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.stripeSecretKey }}"
+            }
+          ]
+        }
+      },
+      "id": "create-product",
+      "name": "Create Stripe Product",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.stripe.com/v1/prices",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "product",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "unit_amount",
+              "value": "={{ $json.amount }}"
+            },
+            {
+              "name": "currency",
+              "value": "usd"
+            },
+            {
+              "name": "recurring[interval]",
+              "value": "={{ $json.interval }}"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.stripeSecretKey }}"
+            }
+          ]
+        }
+      },
+      "id": "create-price",
+      "name": "Create Stripe Price",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.stripe.com/v1/payment_links",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "line_items[0][price]",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "line_items[0][quantity]",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {},
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.stripeSecretKey }}"
+            }
+          ]
+        }
+      },
+      "id": "create-link",
+      "name": "Create Payment Link",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format results\nconst productName = $('Set Product Configs').all()[0].json.name;\nconst priceAmount = $('Set Product Configs').all()[0].json.amount;\nconst link = $json.url;\n\nreturn [{\n  json: {\n    product: productName,\n    price: '$' + (priceAmount / 100) + '/month',\n    payment_link: link,\n    status: 'created'\n  }\n}];"
+      },
+      "id": "format",
+      "name": "Format Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    }
+  ],
+  "connections": {
+    "When clicking 'Execute Workflow'": {
+      "main": [
+        [
+          {
+            "node": "Set Product Configs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Product Configs": {
+      "main": [
+        [
+          {
+            "node": "Create Stripe Product",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Stripe Product": {
+      "main": [
+        [
+          {
+            "node": "Create Stripe Price",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Stripe Price": {
+      "main": [
+        [
+          {
+            "node": "Create Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "pinData": {},
+  "versionId": null
+}

@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Systack AI Automation — Private, managed AI automation pipelines for your business. Two tiers: on-premises or cloud.">
+  <meta property="og:title" content="Systack AI Automation — Private &amp; Managed AI Pipelines">
+  <meta property="og:description" content="Not AI consulting. Named automations that process invoices, extract documents, classify data, and respond to customers — 100% private or cloud-managed.">
+  <meta property="og:url" content="https://systack.net/services/">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand/apple-touch-icon.png">
+  <title>Systack AI Automation — Private &amp; Managed Automation Pipelines</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #001a2d;
+      --navy-light: #002845;
+      --navy-mid: #003a5c;
+      --teal: #007da9;
+      --cyan: #00a1db;
+      --cyan-bright: #00c5e0;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --amber: #f59e0b;
+      --amber-light: #fef3c7;
+      --green: #22c55e;
+      --green-bg: #f0fdf4;
+      --purple: #8b5cf6;
+      --purple-bg: #f5f3ff;
+      --red: #ef4444;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+    .nav-logo-text {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo-text span { color: var(--cyan); }
+    .nav-menu { display: flex; gap: 22px; }
+    .nav-menu a {
+      color: var(--gray-600);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-menu a:hover { color: var(--cyan); }
+    .nav-menu a.active { color: var(--navy); font-weight: 700; }
+    .nav-cta {
+      background: var(--cyan);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal); }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--navy-mid) 100%);
+      color: white;
+      padding: 70px 40px;
+      border-radius: 20px;
+      margin: 30px 0 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0,197,224,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0,197,224,0.15);
+      border: 1px solid rgba(0,197,224,0.3);
+      color: var(--cyan-bright);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(90deg, var(--cyan-bright), #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 18px;
+      opacity: 0.85;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero p.sub {
+      font-size: 15px;
+      opacity: 0.65;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--cyan);
+      color: white;
+      padding: 16px 36px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(0,161,219,0.4);
+    }
+    .cta-btn:hover {
+      background: var(--cyan-bright);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,161,219,0.5);
+    }
+    .cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: white;
+      padding: 16px 36px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17px;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: all 0.2s;
+    }
+    .cta-secondary:hover { border-color: white; }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section-header h2 {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Two-Tier Cards */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 60px 0;
+    }
+    .tier-card {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid var(--gray-200);
+      background: white;
+      transition: box-shadow 0.3s, transform 0.2s;
+    }
+    .tier-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    .tier-card.premium { border-color: var(--amber); }
+    .tier-card.standard { border-color: var(--cyan); }
+    .tier-card-header {
+      padding: 32px 28px 24px;
+      text-align: center;
+    }
+    .tier-card.premium .tier-card-header {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: white;
+    }
+    .tier-card.standard .tier-card-header {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: white;
+    }
+    .tier-badge {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .tier-card.premium .tier-badge {
+      background: rgba(245,158,11,0.2);
+      color: var(--amber);
+    }
+    .tier-card.standard .tier-badge {
+      background: rgba(0,197,224,0.2);
+      color: var(--cyan-bright);
+    }
+    .tier-card-header h3 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .tier-card-header .tagline {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+    .tier-card-header .price-block {
+      margin-bottom: 8px;
+    }
+    .tier-card-header .price {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .tier-card-header .price-period {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    .tier-card-header .setup {
+      font-size: 13px;
+      opacity: 0.6;
+      margin-top: 12px;
+    }
+    .tier-card-body {
+      padding: 28px;
+    }
+    .tier-card-body h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tier-card-body h4 .icon { font-size: 20px; }
+    .automation-list {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+    .automation-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .automation-list li:last-child { border-bottom: none; }
+    .automation-list .check {
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .automation-list .name {
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+    .automation-list .desc {
+      color: var(--gray-600);
+      font-size: 13px;
+      display: block;
+      margin-top: 2px;
+    }
+    .tier-card-body .cta-full {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .tier-card.premium .cta-full {
+      background: var(--amber);
+      color: var(--navy);
+    }
+    .tier-card.premium .cta-full:hover {
+      background: #e5900a;
+    }
+    .tier-card.standard .cta-full {
+      background: var(--cyan);
+      color: white;
+    }
+    .tier-card.standard .cta-full:hover {
+      background: var(--cyan-bright);
+    }
+
+    /* Detail Tabs/Accordion — What's Included */
+    .included-section {
+      margin: 80px 0;
+    }
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .included-card {
+      padding: 28px;
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      background: white;
+    }
+    .included-card .emoji { font-size: 28px; margin-bottom: 12px; }
+    .included-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .included-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+    .included-card .tier-avail {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .tag-premium {
+      background: var(--amber-light);
+      color: #92400e;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .tag-standard {
+      background: #e0f7ff;
+      color: var(--teal);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .tag-both {
+      background: var(--green-bg);
+      color: #166534;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+      margin: 80px 0;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      font-size: 14px;
+    }
+    .comparison-table thead th {
+      background: var(--navy);
+      color: white;
+      padding: 16px 20px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .comparison-table thead th:first-child { width: 30%; }
+    .comparison-table thead th:nth-child(2) {
+      background: #1a1a2e;
+      border-left: 2px solid rgba(255,255,255,0.1);
+    }
+    .comparison-table thead th:nth-child(3) {
+      background: var(--navy-light);
+    }
+    .comparison-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: top;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table .row-label {
+      font-weight: 600;
+      color: var(--gray-800);
+      background: var(--gray-50);
+    }
+    .comparison-table td:nth-child(2) {
+      background: #fafafa;
+      border-left: 2px solid var(--gray-100);
+    }
+
+    /* Trust Bar */
+    .trust-bar {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin: 50px 0;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+    .trust-item .check { color: var(--green); font-weight: 700; font-size: 20px; }
+
+    /* FAQ */
+    .faq-section {
+      margin: 80px 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--gray-200);
+      padding: 20px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--gray-200); }
+    .faq-item h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .faq-item p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Final CTA */
+    .final-cta {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--gray-50);
+      border-radius: 20px;
+      margin: 60px 0;
+    }
+    .final-cta h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .final-cta p {
+      color: var(--gray-600);
+      margin-bottom: 24px;
+      font-size: 17px;
+    }
+    .final-cta .phone {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 16px 0;
+    }
+    .final-cta .email-link {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .final-cta .email-link:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-400);
+      font-size: 14px;
+      border-top: 1px solid var(--gray-200);
+    }
+    footer span { color: var(--cyan); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .hero { padding: 50px 24px; }
+      .hero h1 { font-size: 30px; }
+      .tier-grid { grid-template-columns: 1fr; }
+      .tier-card-header .price { font-size: 38px; }
+      .comparison-table { font-size: 12px; }
+      .comparison-table td,
+      .comparison-table thead th { padding: 10px 12px; }
+      .trust-bar { flex-direction: column; gap: 14px; align-items: center; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+    }
+
+    @media (max-width: 480px) {
+      .included-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="../brand/logo-nav.png" alt="Systack" class="nav-logo-img" width="40" height="40">
+      <div class="nav-logo-text">Sy<span>Stack</span>.net</div>
+    </a>
+    <div class="nav-menu">
+      <a href="/">Home</a>
+      <a href="../niches/food/">Food</a>
+      <a href="../niches/services/">Services</a>
+      <a href="/services/" class="active">AI Automation</a>
+    </div>
+    <a href="tel:+15012746231" class="nav-cta">📞 Get Started</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-badge">✨ New — AI Automation Pipelines</div>
+      <h1>AI Automation That<br><span class="highlight">Actually Runs Your Business</span></h1>
+      <p>Not AI consulting. Named, deployed automations that process invoices, extract documents, classify data, and handle customer inquiries.</p>
+      <p class="sub">Your choice: 100% private on-premises, or cloud-managed for speed and scale.</p>
+      <div class="hero-ctas">
+        <a href="#tiers" class="cta-btn">Compare Tiers</a>
+        <a href="tel:+15012746231" class="cta-secondary">Book a Demo</a>
+      </div>
+    </div>
+
+    <!-- TIER CARDS -->
+    <div id="tiers">
+      <div class="section-header">
+        <h2>Two Ways to Automate. One Standard.</h2>
+        <p>Choose the infrastructure that matches your privacy requirements, budget, and scale.</p>
+      </div>
+
+      <div class="tier-grid">
+
+        <!-- PREMIUM -->
+        <div class="tier-card premium">
+          <div class="tier-card-header">
+            <div class="tier-badge">🔒 Premium</div>
+            <h3>Systack Private</h3>
+            <p class="tagline">100% Private AI Automation. Your data never leaves your building.</p>
+            <div class="price-block">
+              <div class="price">$799</div>
+              <div class="price-period">per month</div>
+            </div>
+            <div class="setup">+ $4,500 setup · Hardware from $6,500</div>
+          </div>
+          <div class="tier-card-body">
+            <h4><span class="icon">🛡️</span> Included Automations</h4>
+            <ul class="automation-list">
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Private Document Extraction Pipeline</span>
+                  <span class="desc">Scanned PDFs, contracts, medical records → structured data. Zero cloud exposure.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Automated Invoice Processing System</span>
+                  <span class="desc">Classify, extract, route, push to QuickBooks/Xero — all on-premises.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Self-Hosted Customer Support Automations</span>
+                  <span class="desc">Auto-draft responses to routine client emails. Human reviews, then sends.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Local Data Entry Elimination System</span>
+                  <span class="desc">Watch folders/inboxes → extract → populate CRM, EHR, or practice software.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Private Knowledge Base Search</span>
+                  <span class="desc">Natural-language search across your internal documents. Answers sourced from your files only.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Automated Compliance Audit Trail</span>
+                  <span class="desc">Every AI action logged. Full chain of custody. Audit-ready.</span>
+                </div>
+              </li>
+            </ul>
+            <h4>⚡ Service & Support</h4>
+            <ul class="automation-list">
+              <li><span class="check">✓</span><div><span class="name">White-glove hardware install + network config</span></div></li>
+              <li><span class="check">✓</span><div><span class="name">4-hour support SLA (business hours)</span></div></li>
+              <li><span class="check">✓</span><div><span class="name">Quarterly model updates + prompt tuning</span></div></li>
+              <li><span class="check">✓</span><div><span class="name">99.5% uptime SLA</span></div></li>
+            </ul>
+            <a href="tel:+15012746231" class="cta-full">Book a Demo →</a>
+          </div>
+        </div>
+
+        <!-- STANDARD -->
+        <div class="tier-card standard">
+          <div class="tier-card-header">
+            <div class="tier-badge">⚡ Standard</div>
+            <h3>Systack Accelerate</h3>
+            <p class="tagline">High-Speed AI Automation. Managed infrastructure. Scale on demand.</p>
+            <div class="price-block">
+              <div class="price">$249</div>
+              <div class="price-period">per month</div>
+            </div>
+            <div class="setup">+ $2,500 setup · No hardware required</div>
+          </div>
+          <div class="tier-card-body">
+            <h4><span class="icon">🚀</span> Included Automations</h4>
+            <ul class="automation-list">
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Automated Invoice Processing System</span>
+                  <span class="desc">PDF/email/scan → extract → classify → push to accounting. Sub-2s inference.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Self-Hosted Customer Support Automations</span>
+                  <span class="desc">Auto-classify + draft responses for common inquiries. Human reviews and sends.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Local Data Entry Elimination System</span>
+                  <span class="desc">Monitor email/webhooks → extract → populate CRM, ERP, or database.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Automated Lead Qualification Pipeline</span>
+                  <span class="desc">Score and route incoming leads. High-intent flagged. Tire-kickers auto-nurtured.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Document Classification &amp; Routing Engine</span>
+                  <span class="desc">Auto-sort incoming docs by type. Route to correct department or folder.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check">✓</span>
+                <div>
+                  <span class="name">Scheduled Report Generator</span>
+                  <span class="desc">Auto-generate daily/weekly summaries. Delivered to Slack, email, or Sheets.</span>
+                </div>
+              </li>
+            </ul>
+            <h4>⚡ Service & Support</h4>
+            <ul class="automation-list">
+              <li><span class="check">✓</span><div><span class="name">Remote setup — live in 3–5 business days</span></div></li>
+              <li><span class="check">✓</span><div><span class="name">Same-business-day support response</span></div></li>
+              <li><span class="check">✓</span><div><span class="name">Continuous model tuning + prompt optimization</span></div></li>
+              <li><span class="check">✓</span><div><span class="name">99.9% uptime SLA · Auto-scaling GPU</span></div></li>
+            </ul>
+            <a href="tel:+15012746231" class="cta-full">Get a Free Assessment →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <div class="trust-item"><span class="check">✓</span> No long-term contract</div>
+        <div class="trust-item"><span class="check">✓</span> Cancel anytime</div>
+        <div class="trust-item"><span class="check">✓</span> Live in 1–2 weeks</div>
+        <div class="trust-item"><span class="check">✓</span> Pays for itself in month one</div>
+      </div>
+    </div>
+
+    <!-- WHAT'S INCLUDED -->
+    <div class="included-section">
+      <div class="section-header">
+        <h2>What's Included in Every Deployment</h2>
+        <p>Beyond the automations. The infrastructure, training, and support that makes it work.</p>
+      </div>
+      <div class="included-grid">
+
+        <div class="included-card">
+          <div class="emoji">🔧</div>
+          <h3>Infrastructure Setup</h3>
+          <p>Full hardware or cloud provisioning. Network configuration, VPN tunneling, model deployment, and integration wiring. You approve. We build.</p>
+          <div class="tier-avail"><span class="tag-both">Both Tiers</span></div>
+        </div>
+
+        <div class="included-card">
+          <div class="emoji">🤖</div>
+          <h3>Model Selection &amp; Tuning</h3>
+          <p>We select, quantize, and tune the right models for your workload. llama3, mistral, command-r — matched to your tasks and hardware.</p>
+          <div class="tier-avail"><span class="tag-both">Both Tiers</span></div>
+        </div>
+
+        <div class="included-card">
+          <div class="emoji">🔌</div>
+          <h3>Integration Wiring</h3>
+          <p>Connect to QuickBooks, Xero, Salesforce, HubSpot, Google Workspace, Slack, and your existing stack. Data flows where it should.</p>
+          <div class="tier-avail"><span class="tag-both">Both Tiers</span></div>
+        </div>
+
+        <div class="included-card">
+          <div class="emoji">👥</div>
+          <h3>Team Training</h3>
+          <p>Live sessions with your team. What the automations do. How to review outputs. What to watch for. Your staff controls the final action.</p>
+          <div class="tier-avail"><span class="tag-both">Both Tiers</span></div>
+        </div>
+
+        <div class="included-card">
+          <div class="emoji">📊</div>
+          <h3>Usage Dashboard</h3>
+          <p>See every automation run — volumes, success rates, time saved. Know exactly what your system is doing and what it's saving you.</p>
+          <div class="tier-avail"><span class="tag-standard">Standard</span><span class="tag-premium">Premium</span></div>
+        </div>
+
+        <div class="included-card">
+          <div class="emoji">🔄</div>
+          <h3>Ongoing Optimization</h3>
+          <p>We tune prompts, update models, and adjust workflows as your business changes. The system gets better every quarter.</p>
+          <div class="tier-avail"><span class="tag-both">Both Tiers</span></div>
+        </div>
+
+        <div class="included-card">
+          <div class="emoji">🛡️</div>
+          <h3>Security Hardening</h3>
+          <p>Firewall rules, access controls, encryption at rest and in transit. Private tier gets full air-gap option. Compliance-ready configuration.</p>
+          <div class="tier-avail"><span class="tag-premium">Premium Enhanced</span><span class="tag-standard">Standard</span></div>
+        </div>
+
+        <div class="included-card">
+          <div class="emoji">📋</div>
+          <h3>Audit &amp; Compliance Logging</h3>
+          <p>Every AI action timestamped, logged, and attributable. Know who reviewed what. Full chain of custody. SOC 2 and HIPAA audit support.</p>
+          <div class="tier-avail"><span class="tag-premium">Premium</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="comparison-section">
+      <div class="section-header">
+        <h2>Side-by-Side Comparison</h2>
+        <p>Every detail. No surprises.</p>
+      </div>
+      <div style="overflow-x: auto;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>🔒 Systack Private</th>
+              <th>⚡ Systack Accelerate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Data Location</td>
+              <td>On-premises, optionally air-gapped</td>
+              <td>Secure cloud GPU, VPN tunnel</td>
+            </tr>
+            <tr>
+              <td class="row-label">Privacy Level</td>
+              <td>Absolute — zero external exposure</td>
+              <td>High — encrypted transit + rest</td>
+            </tr>
+            <tr>
+              <td class="row-label">Compliance</td>
+              <td>HIPAA, PCI, attorney-client ready</td>
+              <td>SOC 2 compliant infrastructure</td>
+            </tr>
+            <tr>
+              <td class="row-label">Primary Models</td>
+              <td>llama3-70b, command-r</td>
+              <td>llama3-8b, mistral-7b, mixtral</td>
+            </tr>
+            <tr>
+              <td class="row-label">Inference Speed</td>
+              <td>~3–8 seconds</td>
+              <td>Sub-2 seconds</td>
+            </tr>
+            <tr>
+              <td class="row-label">Hardware</td>
+              <td>Client-owned Mac Studio / Linux + RTX 4090</td>
+              <td>Systack-managed cloud (RunPod/Lambda)</td>
+            </tr>
+            <tr>
+              <td class="row-label">Hardware Cost</td>
+              <td>$6,500–$9,500 (you own it)</td>
+              <td>$0</td>
+            </tr>
+            <tr>
+              <td class="row-label">Setup Fee</td>
+              <td>$4,500 one-time</td>
+              <td>$2,500 one-time</td>
+            </tr>
+            <tr>
+              <td class="row-label">Monthly Fee</td>
+              <td>$799/mo</td>
+              <td>$249/mo</td>
+            </tr>
+            <tr>
+              <td class="row-label">Annual Discount</td>
+              <td>$699/mo (save $1,200/yr)</td>
+              <td>$199/mo (save $600/yr)</td>
+            </tr>
+            <tr>
+              <td class="row-label">Support Response</td>
+              <td>4-hour SLA (business hours)</td>
+              <td>Same business day</td>
+            </tr>
+            <tr>
+              <td class="row-label">Onboarding Time</td>
+              <td>1–2 weeks (white-glove)</td>
+              <td>3–5 business days (remote)</td>
+            </tr>
+            <tr>
+              <td class="row-label">Scaling</td>
+              <td>Hardware-limited (upgradable)</td>
+              <td>Auto-scaling cloud GPU</td>
+            </tr>
+            <tr>
+              <td class="row-label">Uptime SLA</td>
+              <td>99.5%</td>
+              <td>99.9%</td>
+            </tr>
+            <tr>
+              <td class="row-label">Best For</td>
+              <td>Law firms, medical, finance, government</td>
+              <td>E-commerce, real estate, marketing, SMBs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is this AI consulting?</h3>
+        <p>No. Systack does not sell "AI strategy" or "AI readiness assessments." We sell <strong>named, deployed automations</strong> that process invoices, extract data, classify documents, and respond to customers. You get working systems, not slide decks.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What's the difference between this and ChatGPT/Claude?</h3>
+        <p>ChatGPT and Claude are cloud-hosted general-purpose chatbots. Your data goes to their servers. Systack Private runs entirely on your hardware with zero external data transmission. Systack Accelerate runs on private cloud instances behind encrypted tunnels. Neither shares your data with foundation model companies. And neither is a chatbot — they're purpose-built automation pipelines.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do I need technical staff to run this?</h3>
+        <p>No. Systack manages everything. For Private tier, we install the hardware, configure the network, and maintain the models remotely. For Accelerate, there's nothing on-site. You interact with reviewed outputs — emails, extracted data, classified documents — not with models or servers.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I switch between tiers?</h3>
+        <p>Yes. Start with Accelerate, prove ROI, then move to Private when privacy requirements or volume justifies it. Setup fees are credited toward upgrade if done within 6 months.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What automations are NOT included?</h3>
+        <p>We don't automate client-facing chat without human review. We don't automate legal advice, medical diagnosis, or financial recommendations. We don't build public-facing AI chatbots. We don't train custom models from scratch.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How long until I see results?</h3>
+        <p>Private tier: 2–3 weeks from contract to live automations. Accelerate tier: 1 week. Most clients report significant time savings within the first month.</p>
+      </div>
+    </div>
+
+    <!-- FINAL CTA -->
+    <div class="final-cta">
+      <h2>Ready to See What AI Automation Actually Looks Like?</h2>
+      <p>A 30-minute call. We learn your workflows. You learn what's possible. Zero pressure.</p>
+      <div class="phone">📞 (501) 274-6231</div>
+      <p style="margin-bottom:20px;">
+        <a href="mailto:support@systack.net" class="email-link">support@systack.net</a>
+      </p>
+      <a href="tel:+15012746231" class="cta-btn">Book a Demo</a>
+      <a href="mailto:support@systack.net?subject=Free%20Assessment%20Request" class="cta-secondary" style="color:var(--navy);border-color:var(--gray-400);">Get a Free Assessment</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p><span>⬡</span> SyStack.net — AI Automation That Runs Your Business</p>
+    <p>Named automations. Deployed in weeks. Your data, your rules.</p>
+  </footer>
+
+</body>
+</html>

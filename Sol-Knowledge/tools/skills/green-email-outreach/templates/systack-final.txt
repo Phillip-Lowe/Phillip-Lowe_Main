@@ -1,0 +1,16 @@
+Subject: Re: {company} — last try
+
+Hi {first_name},
+
+I don't want to clutter your inbox, so this is my last note.
+
+If automating {company}'s workflow is something you're considering down the road,
+feel free to reach out anytime. No pressure at all.
+
+Best of luck with everything,
+{sender_name}
+{sender_title}
+
+---
+Systack Automation | systack.net
+This email was sent to {email}. If you don't want to hear from us, reply STOP.

@@ -1,0 +1,10 @@
+{
+  "n8nUrl": "https://n8n.systack.net",
+  "n8nApiKey": "",
+  "alertEmail": "green@systack.net",
+  "webhookUrl": "",
+  "checkInterval": 300000,
+  "maxExecutions": 50,
+  "includeSuccessful": false,
+  "trackingFile": "execution-log.csv"
+}

@@ -1,0 +1,46 @@
+{
+  "name": "Day 2 - SQLite3 Allowlist Test",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "test-manual",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Test if sqlite3 module is allowlisted\nconst sqlite3 = require('sqlite3');\n\nreturn [{\n  json: {\n    sqlite3_works: true,\n    module_loaded: !!sqlite3,\n    module_type: typeof sqlite3,\n    test_passed: true\n  }\n}];"
+      },
+      "id": "test-code",
+      "name": "Test SQLite3",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Test SQLite3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

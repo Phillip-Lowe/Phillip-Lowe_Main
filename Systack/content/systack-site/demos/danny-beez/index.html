@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../brand/apple-touch-icon.png">  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danny Beez — The Jerk Palace | Order Online</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #001a2d;
+      --navy-light: #002845;
+      --teal: #007da9;
+      --cyan: #00a1db;
+      --cyan-bright: #00c5e0;
+      --gold: #f0c040;
+      --gold-light: #fef3c7;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --red: #ef4444;
+      --green: #22c55e;
+      --green-bg: #f0fdf4;
+      --red-bg: #fff5f5;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+    }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-text {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+    }
+    .nav-cta {
+      background: var(--cyan);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal); }
+
+    /* Header */
+    header { text-align: center; padding: 40px 0 20px; }
+    .brand-name {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .brand-name span { color: var(--cyan); }
+    .brand-tagline {
+      font-size: 16px;
+      color: var(--gray-600);
+      margin-top: 8px;
+    }
+    .flag { font-size: 28px; margin: 0 4px; vertical-align: middle; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, #003a5c 100%);
+      color: white;
+      padding: 60px 40px;
+      border-radius: 20px;
+      margin: 30px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0,197,224,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(90deg, var(--gold), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--cyan);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(0,161,219,0.4);
+    }
+    .cta-btn:hover {
+      background: var(--cyan-bright);
+      transform: translateY(-1px);
+    }
+    .cta-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .cta-gold:hover {
+      background: #fbbf24;
+      transform: translateY(-1px);
+    }
+
+    /* Section */
+    .section { padding: 50px 0; }
+    .section h2 {
+      font-size: 32px;
+      margin-bottom: 16px;
+      text-align: center;
+      color: var(--navy);
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--gray-600);
+      margin-bottom: 36px;
+      font-size: 17px;
+    }
+
+    /* Menu */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .menu-item {
+      padding: 24px;
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s;
+    }
+    .menu-item:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .menu-item .emoji { font-size: 36px; margin-bottom: 10px; display: block; }
+    .menu-item h3 { font-size: 18px; margin-bottom: 6px; color: var(--navy); }
+    .menu-item p { font-size: 14px; color: var(--gray-600); margin-bottom: 12px; }
+    .menu-item .price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+    .menu-item .tag {
+      display: inline-block;
+      background: var(--gold-light);
+      color: #92400e;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* Order Steps */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+    }
+    .step {
+      text-align: center;
+      padding: 24px;
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--gray-200);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--cyan);
+      color: white;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .step h3 { font-size: 16px; margin-bottom: 6px; color: var(--navy); }
+    .step p { font-size: 14px; color: var(--gray-600); }
+
+    /* Catering */
+    .catering {
+      background: var(--gold-light);
+      border-left: 5px solid var(--gold);
+      padding: 30px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .catering h3 { font-size: 22px; margin-bottom: 12px; color: var(--navy); }
+    .catering p { font-size: 15px; color: var(--gray-600); margin-bottom: 16px; }
+    .catering ul { margin: 12px 0 12px 20px; }
+    .catering li { padding: 4px 0; font-size: 15px; color: var(--gray-600); }
+
+    /* Delivery Notice */
+    .delivery-note {
+      background: var(--green-bg);
+      border-left: 5px solid var(--green);
+      padding: 24px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .delivery-note h3 { font-size: 18px; margin-bottom: 8px; color: var(--navy); }
+    .delivery-note p { font-size: 15px; color: var(--gray-600); }
+
+    /* Story */
+    .story {
+      background: var(--gray-50);
+      padding: 40px;
+      border-radius: 16px;
+      margin: 30px 0;
+    }
+    .story h3 { font-size: 24px; margin-bottom: 16px; color: var(--navy); }
+    .story p { font-size: 16px; color: var(--gray-600); margin-bottom: 12px; line-height: 1.7; }
+    .story .quote {
+      font-style: italic;
+      border-left: 4px solid var(--cyan);
+      padding-left: 20px;
+      margin: 20px 0;
+      color: var(--gray-800);
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--navy);
+      color: white;
+      padding: 50px 40px;
+      border-radius: 16px;
+      text-align: center;
+      margin: 40px 0;
+    }
+    .cta-section h2 { color: white; margin-bottom: 12px; }
+    .cta-section p { font-size: 17px; opacity: 0.9; margin-bottom: 24px; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: var(--gray-400);
+      font-size: 14px;
+    }
+    footer a { color: var(--cyan); text-decoration: none; }
+
+    /* Demo badge */
+    .demo-badge {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 13px;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 28px; }
+      .hero-sub { font-size: 16px; }
+      .hero-btns { flex-direction: column; }
+      .cta-btn, .cta-gold { width: 100%; text-align: center; }
+      .brand-name { font-size: 32px; }
+      .steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-badge">🎯 DEMO — Built by Systack</div>
+
+  <div class="container">
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-logo">
+        <span class="flag">🇧🇸</span>
+        <span class="nav-logo-text">Danny Beez</span>
+      </div>
+      <a href="#order" class="nav-cta">Order Now</a>
+    </nav>
+
+    <!-- Header -->
+    <header>
+      <div class="brand-name">Danny <span>Beez</span> <span class="flag">🇧🇸</span></div>
+      <div class="brand-tagline">The Jerk Palace — Bahamian Pride On A Plate</div>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>The <span class="highlight">Quesadilla Girl</span> Goes Digital</h1>
+      <div class="hero-sub">Order pickup, delivery, or catering — all in one place.</div>
+      <div class="hero-btns">
+        <a href="#menu" class="cta-btn">🍽️ View Menu & Order</a>
+        <a href="#catering" class="cta-gold">🎉 Book Catering</a>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="section" id="menu">
+      <h2>Menu</h2>
+      <div class="section-sub">Fresh. Flavorful. Bahamian. Order online and skip the line.</div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <span class="tag">🔥 VIRAL HIT</span>
+          <span class="emoji">🌯</span>
+          <h3>Jerk Chicken Quesadilla</h3>
+          <p>Slow-smoked jerk chicken, melted cheese, peppers, and Danny's secret sauce. The one that went viral.</p>
+          <div class="price">$14</div>
+        </div>
+        <div class="menu-item">
+          <span class="tag">BEST SELLER</span>
+          <span class="emoji">🍗</span>
+          <h3>Jerk Chicken Plate</h3>
+          <p>Authentic Bahamian jerk chicken with rice, peas, and plantains.</p>
+          <div class="price">$16</div>
+        </div>
+        <div class="menu-item">
+          <span class="emoji">🥩</span>
+          <h3>Pulled Pork Sandwich</h3>
+          <p>20 years in the making. Slow-smoked pulled pork on a toasted bun with coleslaw.</p>
+          <div class="price">$13</div>
+        </div>
+        <div class="menu-item">
+          <span class="emoji">🌮</span>
+          <h3>Jerk Chicken Tacos</h3>
+          <p>Three soft tacos with jerk chicken, pineapple salsa, and cilantro lime crema.</p>
+          <div class="price">$12</div>
+        </div>
+        <div class="menu-item">
+          <span class="emoji">🍟</span>
+          <h3>Loaded Jerk Fries</h3>
+          <p>Crispy fries topped with jerk chicken, cheese sauce, jalapeños, and island spices.</p>
+          <div class="price">$11</div>
+        </div>
+        <div class="menu-item">
+          <span class="emoji">🥗</span>
+          <h3>Island Salad Bowl</h3>
+          <p>Grilled chicken or pork on mixed greens with mango, avocado, and citrus vinaigrette.</p>
+          <div class="price">$13</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Order -->
+    <div class="section">
+      <h2>How It Works</h2>
+      <div class="section-sub">No app to download. No account needed. Order in 60 seconds.</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Pick Your Food</h3>
+          <p>Choose from the full menu above.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Choose Pickup or Delivery</h3>
+          <p>Pick up at the truck or get it brought to you.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Pay Online</h3>
+          <p>Card, Apple Pay, Google Pay — done.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Get a Text</h3>
+          <p>You'll know exactly when it's ready.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery -->
+    <div class="delivery-note">
+      <h3>🚚 Delivery Available</h3>
+      <p>We route delivery through our trusted local carrier partners. You set the delivery zone and fee. We handle the rest — no DoorDash or UberEats taking 30% of your check.</p>
+    </div>
+
+    <!-- Catering -->
+    <div class="catering" id="catering">
+      <h3>🎉 Catering & Events</h3>
+      <p><strong>Feed the whole party.</strong> Danny Beez brings the island to your office, wedding, block party, or corporate event.</p>
+      <ul>
+        <li>🌯 Full Jerk Chicken Quesadilla bar (the viral favorite)</li>
+        <li>🍗 Classic Bahamian jerk chicken plates</li>
+        <li>🥩 Pulled pork & smoked meats</li>
+        <li>🌮 Build-your-own taco station</li>
+        <li>📍 We come to you — truck or drop-off</li>
+      </ul>
+      <p style="margin-top: 12px;"><strong>Request a quote:</strong> Fill out the form below and Danny will get back to you within 24 hours.</p>
+      <div style="margin-top: 16px;">
+        <a href="#" class="cta-btn" onclick="alert('Demo: Catering form would open here. Danny gets notified instantly via text + email.')">Request Catering Quote</a>
+      </div>
+    </div>
+
+    <!-- Story -->
+    <div class="story">
+      <h3>From Nassau to Little Rock</h3>
+      <p>
+        Danielle Johnson — better known as <strong>Danny Beez</strong> — was born and raised in The Bahamas with deep roots in Exuma and Nassau. 
+        After losing her grandmother, she turned grief into purpose, honoring the woman who first taught her to cook.
+      </p>
+      <div class="quote">
+        "It all started with the love for my grandma. Every time I cook, it's like I feel like she's right there on my shoulder."
+      </div>
+      <p>
+        When COVID shut down the hospitality industry, Danny packed two duffel bags, saved $5,000, and moved to Little Rock. 
+        She hustled. She worked. And she built a food truck with her own two hands.
+      </p>
+      <div class="quote">
+        "I saved five thousand dollars, packed my whole life up into two duffel bags, took that leap. I bought me a car. Had two thousand left, and then I had to go hit the streets. Working, working, working, hustling."
+      </div>
+      <p>
+        Then one video changed everything — a jerk chicken quesadilla went viral on TikTok. Now Danny's phone rings all day. 
+        She's the first Bahamian catering company and food truck in Arkansas, and she's putting The Bahamas on the map one plate at a time.
+      </p>
+      <div class="quote">
+        "I want people to know that The Bahamas is here. We're not only a beautiful vacation spot — we're deep-rooted, and we actually have talented, passionate individuals over here."
+      </div>
+      <p>
+        <strong>🇧🇸 Bahamian flag on the truck. Passion on every plate. This is Danny Beez.</strong>
+      </p>
+    </div>
+
+    <!-- Social / Contact -->
+    <div class="section">
+      <h2>Find the Truck</h2>
+      <div class="section-sub">Follow Danny on social to see where she's parked today.</div>
+      <div class="steps">
+        <div class="step">
+          <span style="font-size: 28px;">📸</span>
+          <h3>Instagram</h3>
+          <p>@dannybeezlr</p>
+        </div>
+        <div class="step">
+          <span style="font-size: 28px;">🎵</span>
+          <h3>TikTok</h3>
+          <p>@dannybeez</p>
+        </div>
+        <div class="step">
+          <span style="font-size: 28px;">📘</span>
+          <h3>Facebook</h3>
+          <p>Danny Beez</p>
+        </div>
+        <div class="step">
+          <span style="font-size: 28px;">📍</span>
+          <h3>Location</h3>
+          <p>Little Rock, AR</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="cta-section">
+      <h2>Ready to Order?</h2>
+      <p>Skip the DM. Skip the "did you get my message?" Just click, order, and eat.</p>
+      <div class="hero-btns">
+        <a href="#menu" class="cta-btn">Order Pickup</a>
+        <a href="#catering" class="cta-gold">Book Catering</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>Built just for you by <strong>Phillip (Green)</strong> — Your local food truck tech guy. I saw your story and had to build this.</p>
+      <p style="margin-top: 8px;"><a href="tel:+15012746231">(501) 274-6231</a> · <a href="mailto:support@systack.net">support@systack.net</a> · <a href="https://systack.net">systack.net</a></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+{
+  "id": "O5pskm9G1zZFu7rS",
+  "name": "Green Systems \u2014 Service Business Lead Scraper",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "trigger-01",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const searchConfigs = [\n  { type: 'beauty_salon', label: 'Salon/Barber' },\n  { type: 'car_repair', label: 'Auto Shop' },\n  { type: 'plumber', label: 'Plumber' },\n  { type: 'electrician', label: 'Electrician' },\n  { type: 'general_contractor', label: 'Contractor' }\n];\n\nconst location = '34.7465,-92.2896';\nconst radius = 20000;\n\nreturn searchConfigs.map(config => ({\n  json: {\n    ...config,\n    location,\n    radius\n  }\n}));\n``"
+      },
+      "id": "search-01",
+      "name": "Search Service Businesses",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nif (items[0]?.json?._empty) return [];\n\nconst apiKey = $env.GOOGLE_MAPS_API_KEY || '';\nconst enriched = [];\n\nfor (const item of items) {\n  const lead = { ...item.json };\n\n  if (!lead.place_id) {\n    enriched.push({ json: lead }); // keep item\n    continue;\n  }\n\n  try {\n    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${lead.place_id}&fields=website,formatted_phone_number,opening_hours,editorial_summary&key=${apiKey}`;\n\n    const response = await fetch(url);\n    const data = await response.json();\n\n    if (data.result) {\n      lead.website = data.result.website || '';\n      lead.phone = data.result.formatted_phone_number || '';\n      lead.opening_hours =\n        data.result.opening_hours?.weekday_text?.join(' | ') || '';\n      lead.description =\n        data.result.editorial_summary?.overview || '';\n    }\n  } catch (e) {\n    // silent fail\n  }\n\n  enriched.push({ json: lead });\n}\n\nreturn enriched;"
+      },
+      "id": "details-01",
+      "name": "Get Business Details",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = items || .all();\nconst scored = [];\n\nfor (const item of items) {\n  const lead = item.json;\n  let score = 0;\n  let signals = [];\n  \n  // Reviews = demand (0-25)\n  if (lead.review_count >= 100) { score += 25; signals.push('High demand (100+ reviews)'); }\n  else if (lead.review_count >= 50) { score += 20; signals.push('Good demand (50+ reviews)'); }\n  else if (lead.review_count >= 20) { score += 15; signals.push('Established (20+ reviews)'); }\n  else { score += 10; signals.push('Some reviews'); }\n  \n  // Rating = quality (0-15)\n  if (lead.rating >= 4.5) { score += 15; signals.push('Excellent rating'); }\n  else if (lead.rating >= 4.0) { score += 12; signals.push('Good rating'); }\n  else if (lead.rating >= 3.5) { score += 8; signals.push('Decent rating'); }\n  \n  // Has website = cares about presence (0-15)\n  if (lead.website) {\n    score += 15;\n    signals.push('Has website');\n    \n    // Check for booking keywords on website (basic heuristic)\n    const website = lead.website.toLowerCase();\n    if (website.includes('book') || website.includes('schedule') || website.includes('appointment')) {\n      score -= 10; // Already has some booking system\n      signals.push('May have booking already (check)');\n    }\n  } else {\n    score += 20; // No website = bigger opportunity\n    signals.push('NO website - high friction');\n  }\n  \n  // Phone listed but no online booking = friction (0-20)\n  if (lead.phone && !lead.website) {\n    score += 20;\n    signals.push('Phone only - high friction');\n  } else if (lead.phone) {\n    score += 10;\n    signals.push('Phone listed');\n  }\n  \n  // Category fit (0-15)\n  const highValueCategories = ['Salon/Barber', 'Auto Shop', 'Contractor', 'Plumber', 'Electrician', 'Roofer'];\n  if (highValueCategories.includes(lead.category)) {\n    score += 15;\n    signals.push('High-value category');\n  } else {\n    score += 10;\n    signals.push('Service category');\n  }\n  \n  // Cap at 100\n  score = Math.min(score, 100);\n  \n  // Determine stage\n  let stage = 'New';\n  if (score >= 80) stage = 'Hot';\n  else if (score >= 65) stage = 'Warm';\n  else if (score >= 50) stage = 'Qualified';\n  \n  lead.score = score;\n  lead.stage = stage;\n  lead.signals = signals.join('; ');\n  lead.created_date = new Date().toISOString();\n  lead.owner = 'Phillip';\n  lead.source = 'Google Maps Service Scraper';\n  \n  scored.push({ json: lead });\n}\n\nreturn scored;"
+      },
+      "id": "score-01",
+      "name": "Score Service Leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = items || .all();\nconst hot = [];\nconst warm = [];\nconst other = [];\n\nfor (const item of items) {\n  const lead = item.json;\n  if (lead.score >= 80) hot.push(item);\n  else if (lead.score >= 65) warm.push(item);\n  else other.push(item);\n}\n\n// Save to SQLite for CRM\nconst fs = require('fs');\nconst dbPath = '/home/node/.n8n-files/sybridge-crm.db';\n\n// Return summary\nconst summary = {\n  total: items.length,\n  hot: hot.length,\n  warm: warm.length,\n  other: other.length,\n  top_leads: hot.slice(0, 5).map(l => ({ name: l.json.name, score: l.json.score, category: l.json.category }))\n};\n\nreturn [{ json: summary, all_leads: items }];"
+      },
+      "id": "filter-01",
+      "name": "Filter and Summarize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "Plowe95@yahoo.com",
+        "subject": "=\ud83c\udfaf Service Lead Scrape Complete: {{ .total }} found",
+        "message": "=Service Business Lead Scrape Complete!\n\nFound {{ .total }} businesses in Little Rock area\n\n\ud83d\udd25 HOT (80+): {{ .hot }}\n\ud83c\udf21\ufe0f WARM (65-79): {{ .warm }}\n\ud83d\udccb OTHER: {{ .other }}\n\nTOP LEADS:\n{{ .top_leads.map(l => ).join(\n) }}\n\nCheck CRM for full list.\n\n\u2014 SOL \ud83d\udef0\ufe0f",
+        "options": {}
+      },
+      "id": "gmail-01",
+      "name": "Send Summary Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1264,
+        304
+      ],
+      "webhookId": "5fd2c462-539f-4e53-8631-5258289b9afd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "mR3GfNMrhIPM1swf",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Search Service Businesses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Service Businesses": {
+      "main": [
+        [
+          {
+            "node": "Get Business Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Business Details": {
+      "main": [
+        [
+          {
+            "node": "Score Service Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Service Leads": {
+      "main": [
+        [
+          {
+            "node": "Filter and Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter and Summarize": {
+      "main": [
+        [
+          {
+            "node": "Send Summary Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "AdAM0770d3pJTrWt",
+    "timezone": "America/Chicago"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        0
+      ]
+    }
+  },
+  "meta": {},
+  "tags": [],
+  "versionId": "9e29a9ba-26e5-418d-a1c4-e7ce5c77fd98",
+  "triggerCount": 1,
+  "pinData": {}
+}

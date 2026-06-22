@@ -1,0 +1,62 @@
+[
+  {
+    "step": "identity_files_generated",
+    "status": "completed",
+    "output": "Created 7 workspace files: SOUL.md, AGENTS.md, USER.md, MEMORY.md, TOOLS.md, HEARTBEAT.md, IDENTITY.md",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "client_record_created",
+    "status": "completed",
+    "output": "Created client-record.json with tier=business, model=qwen2.5:14b",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "deployment_record_created",
+    "status": "completed",
+    "output": "Created deployment-record.json with test_mode=true, status=delivered",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "vps_provisioning",
+    "status": "simulated",
+    "output": "TEST MODE: Simulated Vultr vhp-4c-16gb in ord region. No real VPS created.",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "tailscale_join",
+    "status": "simulated",
+    "output": "TEST MODE: Simulated Tailscale join. No real device added.",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "ollama_install",
+    "status": "simulated",
+    "output": "TEST MODE: Simulated Ollama install + qwen2.5:14b pull.",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "n8n_install",
+    "status": "simulated",
+    "output": "TEST MODE: Simulated n8n Docker deployment on port 5678.",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "template_deployment",
+    "status": "simulated",
+    "output": "TEST MODE: Simulated private template import (booking, onboarding, invoice).",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "health_check",
+    "status": "simulated",
+    "output": "TEST MODE: All services simulated as healthy.",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  },
+  {
+    "step": "client_notification",
+    "status": "simulated",
+    "output": "TEST MODE: Email notification logged but not sent.",
+    "timestamp": "2026-06-17T06:45:00-05:00"
+  }
+]

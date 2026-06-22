@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="See our work — real systems built for real businesses. Case studies, metrics, and live examples.">
+  <meta property="og:title" content="Our Work — Systems Built for Real Businesses">
+  <meta property="og:description" content="Real projects. Real metrics. Real businesses running our systems 24/7.">
+  <meta property="og:url" content="https://systack.net/work/">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/brand/favicon-16.png">
+  <link rel="stylesheet" href="/assets/css/systack.css?v=14">
+  <title>Our Work — Case Studies | Systack.net</title>
+<style>
+  .case-detail {
+    background: white; padding: 50px; border-radius: 20px; border: 1px solid var(--gray-200); margin: 30px 0;
+  }
+  .case-detail-header { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+  .case-detail-logo { width: 70px; height: 70px; background: var(--navy); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 28px; }
+  .case-detail-meta h2 { font-size: 28px; margin-bottom: 6px; }
+  .case-detail-meta p { color: var(--gray-600); font-size: 15px; }
+  .case-detail-meta .tags { margin-top: 8px; }
+  .tag {
+    display: inline-block; background: var(--gray-100); padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; color: var(--gray-600); margin-right: 6px;
+  }
+  .problem-solution {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;
+  }
+  .problem-box {
+    background: var(--red-bg); padding: 30px; border-radius: 14px; border-left: 5px solid var(--red);
+  }
+  .solution-box {
+    background: var(--green-bg); padding: 30px; border-radius: 14px; border-left: 5px solid var(--green);
+  }
+  .problem-box h3, .solution-box h3 { font-size: 18px; margin-bottom: 16px; }
+  .problem-box ul, .solution-box ul { list-style: none; }
+  .problem-box li, .solution-box li { padding: 8px 0; font-size: 15px; }
+  .problem-box li::before { content: "✗"; color: var(--red); margin-right: 10px; }
+  .solution-box li::before { content: "✓"; color: var(--green); margin-right: 10px; }
+  .metrics-highlight {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 30px 0;
+  }
+  .metric-highlight-card { background: var(--gray-50); padding: 30px; border-radius: 12px; text-align: center; }
+  .metric-highlight-value { font-size: 32px; font-weight: 800; color: var(--cyan); }
+  .metric-highlight-desc { font-size: 13px; color: var(--gray-600); margin-top: 8px; }
+  .tech-stack {
+    display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0;
+  }
+  .tech-item {
+    background: var(--navy); color: white; padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500;
+  }
+  .case-quote {
+    background: #fffbf0; padding: 40px; border-radius: 16px; margin: 30px 0; border-left: 5px solid #f59e0b;
+  }
+  .case-quote blockquote { font-size: 20px; font-style: italic; margin-bottom: 16px; }
+  .case-quote cite { font-size: 14px; font-weight: 600; color: var(--gray-600); font-style: normal; }
+  @media (max-width: 768px) {
+    .problem-solution, .metrics-highlight { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav>
+    <div class="nav-logo">
+      <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="/brand/logo-nav.png" alt="Systack" class="nav-logo-img" width="40" height="40">
+        <div class="nav-logo-text">Sy<span>Stack</span>.net</div>
+      </a>
+    </div>
+    <div class="nav-menu">
+      <a href="/">Home</a>
+      <a href="/services">Business Systems</a>
+      <a href="/saos/">SAOS</a>
+      <a href="/work/" class="active">Our Work</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <a href="/contact" class="nav-cta">Get Started</a>
+  </nav>
+
+  <div class="page-header">
+    <h1>Our Work</h1>
+    <p>Real projects. Real metrics. Real businesses running our systems.</p>
+  </div>
+
+  <!-- Utopia Deli Case Study -->
+  <div class="case-detail">
+    <div class="case-detail-header">
+      <div class="case-detail-logo">U</div>
+      <div class="case-detail-meta">
+        <h2>Utopia Deli</h2>
+        <p>Local deli in Little Rock, AR • Online ordering system with payment processing</p>
+        <div class="tags">
+          <span class="tag">Online Ordering</span>
+          <span class="tag">Payment Processing</span>
+          <span class="tag">Kitchen Notifications</span>
+          <span class="tag">Square Integration</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="problem-solution">
+      <div class="problem-box">
+        <h3>❌ The Problem</h3>
+        <ul>
+          <li>No online ordering — customers had to call</li>
+          <li>Phone orders led to errors and long hold times</li>
+          <li>Kitchen staff manually wrote down every order</li>
+          <li>No payment upfront — customers sometimes didn't show</li>
+          <li>Busy lunch rush meant missed calls = lost revenue</li>
+        </ul>
+      </div>
+      <div class="solution-box">
+        <h3>✅ What We Built</h3>
+        <ul>
+          <li>Custom online order form — branded to the deli</li>
+          <li>Full menu with modifiers and options</li>
+          <li>Square payment integration — pay when ordering</li>
+          <li>Kitchen notification — orders appear in the queue with all other orders</li>
+          <li>Order confirmation sent to customer</li>
+          <li>All orders logged in Google Sheets</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metrics-highlight">
+      <div class="metric-highlight-card">
+        <div class="metric-highlight-value">~60s</div>
+        <div class="metric-highlight-desc">Average order time from open to paid</div>
+      </div>
+      <div class="metric-highlight-card">
+        <div class="metric-highlight-value">3.2%</div>
+        <div class="metric-highlight-desc">Payment fee (vs 20%+ on delivery apps)</div>
+      </div>
+      <div class="metric-highlight-card">
+        <div class="metric-highlight-value">24/7</div>
+        <div class="metric-highlight-desc">Orders accepted even when closed</div>
+      </div>
+      <div class="metric-highlight-card">
+        <div class="metric-highlight-value">2 days</div>
+        <div class="metric-highlight-desc">From kickoff to live orders</div>
+      </div>
+    </div>
+
+    <p style="margin: 20px 0;"><strong>Technology Stack:</strong></p>
+    <div class="tech-stack">
+      <span class="tech-item">HTML/CSS/JS</span>
+      <span class="tech-item">Square API</span>
+      <span class="tech-item">n8n Workflows</span>
+      <span class="tech-item">Email Notifications</span>
+      <span class="tech-item">Google Sheets</span>
+      <span class="tech-item">Cloudflare Tunnel</span>
+    </div>
+
+    <div class="case-quote">
+      <blockquote>
+        "We needed online ordering fast. They built it in a weekend, and customers started using it immediately. The payment integration means no more no-shows, and orders show up in the kitchen queue right alongside all our other orders — no extra steps, no missed tickets."
+      </blockquote>
+      <cite>— Utopia Deli Owner, Little Rock, AR</cite>
+    </div>
+  </div>
+
+  <!-- Coming Soon / Placeholder for more case studies -->
+  <div class="section">
+    <h2>More Coming Soon</h2>
+    <p class="section-sub">We're working on new projects. Check back for more case studies.</p>
+    <div class="features">
+      <div class="feature" style="text-align:center; opacity:0.7;">
+        <span class="emoji">📸</span>
+        <h3>Photography Studio</h3>
+        <p>Booking system with session packages and deposit collection</p>
+      </div>
+      <div class="feature" style="text-align:center; opacity:0.7;">
+        <span class="emoji">💇</span>
+        <h3>Salon/Barber</h3>
+        <p>Time-slot booking with service add-ons and recurring appointments</p>
+      </div>
+      <div class="feature" style="text-align:center; opacity:0.7;">
+        <span class="emoji">🧑‍💼</span>
+        <h3>Personal Agent Clients</h3>
+        <p>Individuals using AI agents for daily task management</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-cta">
+    <h2>Have a Similar Problem?</h2>
+    <p>We build systems for service businesses. Tell us what you need.</p>
+    <div class="contact-section">
+      <a href="/contact" class="cta-btn">Start Your Project</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <div class="brand-mark" style="width:28px;height:28px;border-radius:6px;">
+        <img src="/brand/logo-header.png" alt="Systack" width="28" height="28">
+      </div>
+      <p>SyStack.net — Systems & Agents That Work For You</p>
+    </div>
+    <div class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/services">Business Systems</a>
+      <a href="/saos/">SAOS</a>
+      <a href="/work/">Our Work</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="contact-section">
+      <a href="mailto:support@systack.net" class="email-primary" style="font-size:16px;">✉️ support@systack.net</a>
+      <span class="phone-secondary">📞 (501) 274-6231</span>
+    </div>
+    <p class="footer-bottom">© 2026 Systack. Systems that run while you sleep.</p>
+  </footer>
+
+</div>
+</body>
+</html>

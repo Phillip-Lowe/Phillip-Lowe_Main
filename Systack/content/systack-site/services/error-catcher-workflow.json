@@ -1,0 +1,40 @@
+{
+  "name": "Error Catcher — Master",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "error-trigger-1",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format the error into a readable notification\nconst err = $input.first().json;\n\nconst payload = {\n  subject: `⚠️ n8n Error: ${err.workflow?.name || 'Unknown Workflow'}`,\n  text: `🚨 n8n Workflow Error\n\n📋 Workflow: ${err.workflow?.name || 'Unknown'}\n🔧 Failed Node: ${err.node || 'Unknown'}\n❌ Error: ${err.error?.message || err.message || 'No message'}\n⏰ Time: ${err.execution?.startedAt || new Date().toISOString()}\n🔗 Execution ID: ${err.execution?.id || 'N/A'}\n\nFull error payload:\n${JSON.stringify(err, null, 2)}\n`\n};\n\nreturn [{ json: payload }];"
+      },
+      "id": "format-error",
+      "name": "Format Error Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Format Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}

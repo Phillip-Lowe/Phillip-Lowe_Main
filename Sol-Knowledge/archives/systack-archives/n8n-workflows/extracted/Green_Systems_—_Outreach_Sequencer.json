@@ -1,0 +1,156 @@
+{
+  "id": "gdQQYtAzX14iQz1m",
+  "name": "Green Systems \u2014 Outreach Sequencer",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger-01",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const filtered = [];\nfor (const item of items) {\n  if (!item.json._empty) {\n    filtered.push(item);\n  }\n}\nreturn filtered.length > 0 ? filtered : [{ json: { _empty: true } }];"
+      },
+      "id": "leads-01",
+      "name": "Load and Filter Leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const filtered = [];\nfor (const item of items) {\n  if (!item.json._empty) {\n    filtered.push(item);\n  }\n}\nreturn filtered.length > 0 ? filtered : [{ json: { _empty: true } }];"
+      },
+      "id": "filter-empty-01",
+      "name": "Filter \u2014 Skip If Empty",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const lead = ;\nconst subject = `Quick question about ${lead.name}'s pickup orders`;\nconst body = `Hi there,\n\nI'm Phillip from Green Systems, a Little Rock-based automation company. I help local restaurants stop paying delivery platforms for pickup orders.\n\nI noticed ${lead.name} has customers ordering pickup through DoorDash. That means you're paying 15-30% commission on orders your customers are already driving to pick up.\n\nWe built a simple online ordering system for a local deli that:\n- Takes /bin/zsh in platform fees on pickup orders\n- Lets customers order directly from your menu\n- Sends payment links instantly via Square\n- Keeps customer emails for future marketing\n\nThe result: They stopped paying commission on pickup and now own the customer relationship.\n\nThis isn't a delivery replacement. Keep DoorDash for delivery. But for pickup? That's your margin.\n\nWant to see how it works? I'll send you a 2-minute demo - no sales pitch, just showing what's possible.\n\nBest,\nPhillip Lowe\nGreen Systems`;\nreturn [{ json: { ...lead, outreach: { sequence_day: 0, channel: 'Email', subject, body, status: 'Draft', created_at: new Date().toISOString() } } }];"
+      },
+      "id": "code-draft-01",
+      "name": "Code \u2014 Draft Cold Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "Plowe95@yahoo.com",
+        "subject": "=\ud83d\udcdd Outreach Draft: {{ .name }}",
+        "message": "=Outreach draft for {{ .name }} ready.\n\nSUBJECT: {{ .outreach.subject }}\n\nBODY: {{ .outreach.body }}\n\nActions: SEND {{ .place_id }} or SKIP {{ .place_id }}",
+        "options": {}
+      },
+      "id": "gmail-alert-01",
+      "name": "Gmail \u2014 Alert Green",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1060,
+        300
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "mR3GfNMrhIPM1swf",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "97779d8d-bb43-474f-92cb-3d26b3e8163d"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Load and Filter Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load and Filter Leads": {
+      "main": [
+        [
+          {
+            "node": "Filter \u2014 Skip If Empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter \u2014 Skip If Empty": {
+      "main": [
+        [
+          {
+            "node": "Code \u2014 Draft Cold Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code \u2014 Draft Cold Email": {
+      "main": [
+        [
+          {
+            "node": "Gmail \u2014 Alert Green",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "AdAM0770d3pJTrWt",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "America/Chicago"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        0
+      ]
+    }
+  },
+  "meta": {},
+  "tags": [],
+  "versionId": "8116d533-e6b4-471b-a85d-1a9426df9c07",
+  "triggerCount": 1,
+  "pinData": {}
+}

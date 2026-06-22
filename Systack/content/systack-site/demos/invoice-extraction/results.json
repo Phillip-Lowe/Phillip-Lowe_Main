@@ -1,0 +1,119 @@
+[
+  {
+    "id": "inv-001",
+    "name": "Acme Office Supplies",
+    "model": "qwen2.5-coder:7b",
+    "valid_json": true,
+    "extracted": {
+      "total_amount": "1656.87",
+      "invoice_date": "April 15, 2024",
+      "vendor_name": "Acme Office Supplies, Inc.",
+      "invoice_number": "INV-2024-0842",
+      "line_items": [
+        {
+          "description": "Laser Printer Toner (Black)",
+          "quantity": 3,
+          "unit_price": "45.00",
+          "total": "135.00"
+        },
+        {
+          "description": "Ergonomic Office Chair",
+          "quantity": 2,
+          "unit_price": "299.50",
+          "total": "599.00"
+        },
+        {
+          "description": "Standing Desk (48\" Walnut)",
+          "quantity": 1,
+          "unit_price": "489.50",
+          "total": "489.50"
+        },
+        {
+          "description": "Wireless Keyboard & Mouse Set",
+          "quantity": 4,
+          "unit_price": "32.00",
+          "total": "128.00"
+        },
+        {
+          "description": "USB-C Docking Station",
+          "quantity": 2,
+          "unit_price": "78.00",
+          "total": "156.00"
+        }
+      ]
+    },
+    "raw_response": "```json\n{\n  \"total_amount\": \"1656.87\",\n  \"invoice_date\": \"April 15, 2024\",\n  \"vendor_name\": \"Acme Office Supplies, Inc.\",\n  \"invoice_number\": \"INV-2024-0842\",\n  \"line_items\": [\n    {\n      \"description\": \"Laser Printer Toner (Black)\",\n      \"quantity\": 3,\n      \"unit_price\": \"45.00\",\n      \"total\": \"135.00\"\n    },\n    {\n      \"description\": \"Ergonomic Office Chair\",\n      \"quantity\": 2,\n      \"unit_price\": \"299.50\",\n      \"total\": \"599.00\"\n    },\n    {\n      \"description\": \"Standing Desk (48\\\" Walnut)\",\n      \"quantity\": 1,\n      \"unit_price\": \"489.50\",\n      \"total\": \"489.50\"\n    },\n    {\n      \"description\": \"Wireless Keyboard & Mouse Set\",\n      \"quantity\": 4,\n      \"unit_price\": \"32.00\",\n      \"total\": \"128.00\"\n    },\n    {\n      \"description\": \"USB-C Docking Station\",\n      \"quantity\": 2,\n      \"unit_price\": \"78.00\",\n      \"total\": \"156.00\"\n    }\n  ]\n}\n```"
+  },
+  {
+    "id": "inv-002",
+    "name": "CloudSync SaaS Invoice",
+    "model": "qwen2.5-coder:7b",
+    "valid_json": true,
+    "extracted": {
+      "total_amount": "1212.75",
+      "invoice_date": "2025-03-01",
+      "vendor_name": "CloudSync Technologies",
+      "invoice_number": "CS-2025-00391",
+      "line_items": [
+        {
+          "description": "Business Pro Plan - Annual",
+          "quantity": "1 user",
+          "unit_price": "$960.00",
+          "total": "$960.00"
+        },
+        {
+          "description": "Additional Storage (500 GB)",
+          "quantity": "1 pack",
+          "unit_price": "$120.00",
+          "total": "$120.00"
+        },
+        {
+          "description": "Priority Support Add-on",
+          "quantity": "1 license",
+          "unit_price": "$180.00",
+          "total": "$180.00"
+        }
+      ]
+    },
+    "raw_response": "```json\n{\n  \"total_amount\": \"1212.75\",\n  \"invoice_date\": \"2025-03-01\",\n  \"vendor_name\": \"CloudSync Technologies\",\n  \"invoice_number\": \"CS-2025-00391\",\n  \"line_items\": [\n    {\n      \"description\": \"Business Pro Plan - Annual\",\n      \"quantity\": \"1 user\",\n      \"unit_price\": \"$960.00\",\n      \"total\": \"$960.00\"\n    },\n    {\n      \"description\": \"Additional Storage (500 GB)\",\n      \"quantity\": \"1 pack\",\n      \"unit_price\": \"$120.00\",\n      \"total\": \"$120.00\"\n    },\n    {\n      \"description\": \"Priority Support Add-on\",\n      \"quantity\": \"1 license\",\n      \"unit_price\": \"$180.00\",\n      \"total\": \"$180.00\"\n    }\n  ]\n}\n```"
+  },
+  {
+    "id": "inv-003",
+    "name": "Jake's Plumbing Services",
+    "model": "qwen2.5-coder:7b",
+    "valid_json": true,
+    "extracted": {
+      "total_amount": "580.00",
+      "invoice_date": "May 8, 2024",
+      "vendor_name": "Jake's Plumbing & Heating",
+      "invoice_number": "4521",
+      "line_items": [
+        {
+          "description": "Kitchen sink leak repair",
+          "quantity": "2 hrs",
+          "unit_price": "85.00",
+          "total": "170.00"
+        },
+        {
+          "description": "New faucet installation (Moen)",
+          "quantity": "1 unit",
+          "unit_price": "140.00",
+          "total": "140.00"
+        },
+        {
+          "description": "Drain snaking (main line)",
+          "quantity": "1 job",
+          "unit_price": "225.00",
+          "total": "225.00"
+        },
+        {
+          "description": "Pipe sealant & fittings",
+          "quantity": "misc",
+          "unit_price": "45.00",
+          "total": "45.00"
+        }
+      ]
+    },
+    "raw_response": "```json\n{\n  \"total_amount\": \"580.00\",\n  \"invoice_date\": \"May 8, 2024\",\n  \"vendor_name\": \"Jake's Plumbing & Heating\",\n  \"invoice_number\": \"4521\",\n  \"line_items\": [\n    {\n      \"description\": \"Kitchen sink leak repair\",\n      \"quantity\": \"2 hrs\",\n      \"unit_price\": \"85.00\",\n      \"total\": \"170.00\"\n    },\n    {\n      \"description\": \"New faucet installation (Moen)\",\n      \"quantity\": \"1 unit\",\n      \"unit_price\": \"140.00\",\n      \"total\": \"140.00\"\n    },\n    {\n      \"description\": \"Drain snaking (main line)\",\n      \"quantity\": \"1 job\",\n      \"unit_price\": \"225.00\",\n      \"total\": \"225.00\"\n    },\n    {\n      \"description\": \"Pipe sealant & fittings\",\n      \"quantity\": \"misc\",\n      \"unit_price\": \"45.00\",\n      \"total\": \"45.00\"\n    }\n  ]\n}\n```"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "client_id": "TEST-001",
+  "stripe_customer_id": "test_cus_TEST001",
+  "stripe_subscription_id": "test_sub_TEST001",
+  "email": "test-001@example.com",
+  "name": "Test Client",
+  "business_name": "Test Business Inc.",
+  "industry": "technology",
+  "tier": "business",
+  "status": "active",
+  "agent_name": "SAOS-TEST-001",
+  "model": "qwen2.5:14b",
+  "created_at": "2026-06-17T06:45:00-05:00",
+  "updated_at": "2026-06-17T06:45:00-05:00"
+}

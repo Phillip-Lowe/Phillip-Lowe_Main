@@ -1,0 +1,183 @@
+{
+  "name": "Utopia Deli — Email Unsubscribe",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "unsubscribe",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-unsub",
+      "name": "Unsubscribe Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const email = ($input.first().json.query?.email || $input.first().json.email || '').toLowerCase().trim();\nconst returnUrl = 'https://order.theutopiadeli.com/unsubscribe-confirm.html';\n\nreturn [{\n  json: {\n    email: email,\n    return_url: returnUrl,\n    valid: email.includes('@')\n  }\n}];"
+      },
+      "id": "extract-email",
+      "name": "Extract Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "looseType": false
+          },
+          "conditions": [
+            {
+              "id": "cond-valid",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-valid",
+      "name": "Valid Email?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE contacts SET unsubscribed_email = true, updated_at = NOW() WHERE LOWER(email) = LOWER('{{ $json.email }}') RETURNING id, name, email, unsubscribed_email"
+      },
+      "id": "update-contact",
+      "name": "Unsubscribe Contact",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [850, 200],
+      "credentials": {
+        "postgres": {
+          "id": "iVuy7e5WTC05Hqwe",
+          "name": "Systack Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO message_logs (contact_id, channel, message_type, content, status, sent_at) SELECT id, 'email', 'opt-out-handler', 'Email unsubscribe via link', 'processed', NOW() FROM contacts WHERE LOWER(email) = LOWER('{{ $json.email }}')"
+      },
+      "id": "log-unsub",
+      "name": "Log Unsubscribe",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [1050, 200],
+      "credentials": {
+        "postgres": {
+          "id": "iVuy7e5WTC05Hqwe",
+          "name": "Systack Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "statusCode": 200,
+        "contentType": "text/html",
+        "responseBody": "<html><head><title>Unsubscribed</title><style>body{font-family:sans-serif;text-align:center;padding:40px;}h1{color:#590B3F;}</style></head><body><h1>👋 You're unsubscribed.</h1><p>You've been removed from Utopia Deli's email list.</p><p>Changed your mind? <a href='mailto:theutopiadelilittlerock@gmail.com'>Email us</a>.</p><p><a href='https://order.theutopiadeli.com/pickup-order/'>← Back to ordering</a></p></body></html>"
+      },
+      "id": "respond-success",
+      "name": "Success Page",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "statusCode": 400,
+        "contentType": "text/html",
+        "responseBody": "<html><head><title>Error</title></head><body><h1>Invalid Request</h1><p>Please provide a valid email address.</p></body></html>"
+      },
+      "id": "respond-error",
+      "name": "Error Page",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 450]
+    }
+  ],
+  "connections": {
+    "Unsubscribe Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Email": {
+      "main": [
+        [
+          {
+            "node": "Valid Email?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valid Email?": {
+      "main": [
+        [
+          {
+            "node": "Unsubscribe Contact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsubscribe Contact": {
+      "main": [
+        [
+          {
+            "node": "Log Unsubscribe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Unsubscribe": {
+      "main": [
+        [
+          {
+            "node": "Success Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "America/Chicago"
+  }
+}

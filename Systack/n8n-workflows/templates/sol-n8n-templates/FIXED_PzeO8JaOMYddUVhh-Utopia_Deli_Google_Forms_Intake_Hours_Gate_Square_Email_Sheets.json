@@ -1,0 +1,305 @@
+{
+  "name": "Utopia Deli \u2013 Google Forms Intake \u2192 Hours Gate \u2192 Square \u2192 Email \u2192 Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "utopia-deli-pickup",
+        "options": {
+          "responseData": {
+            "values": [
+              {
+                "name": "status",
+                "value": "ok"
+              }
+            ]
+          }
+        }
+      },
+      "id": "07468561-9f60-4878-9c9b-5120607cc2bb",
+      "name": "GForms Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -1088,
+        128
+      ],
+      "webhookId": "a161cdbd-2dd3-404c-b920-7c43ce64f85f"
+    },
+    {
+      "parameters": {
+        "language": "JavaScript",
+        "jsCode": "\n// Access headers/body\nconst secret = $env.SHARED_SECRET || '';\nconst hdr = $json.headers || {};\nconst got = (hdr['x-shared-secret'] || hdr['X-Shared-Secret'] || hdr['x-shared-secret'.toLowerCase()]);\nif (secret && got !== secret) {\n  throw new Error('Unauthorized: shared secret mismatch');\n}\n\n// Pass through body (Google Forms Apps Script posts JSON fields)\nconst body = $json.body || $json;\n\n// coerce numeric quantities if provided\nfunction num(x){\n  const v = (x==null? '' : String(x).trim());\n  if (!v) return 0; const n = parseInt(v,10); return isNaN(n)?0:n;\n}\n\nreturn [{ json: {\n  ...body,\n  sub_qty: num(body.sub_qty),\n  smallbite_qty: num(body.smallbite_qty),\n  fries_qty: num(body.fries_qty),\n  drink_qty: num(body.drink_qty)\n}}];\n"
+      },
+      "id": "62802bd9-3ba1-431d-ae32-a626647be31b",
+      "name": "Verify Secret + Normalize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "language": "JavaScript",
+        "jsCode": "\nconst f = $json;\nconst TIMEZONE = $env.TIMEZONE || 'America/Chicago';\nconst OPEN = ($env.HOURS_OPEN || '09:00').split(':').map(Number);\nconst CLOSE = ($env.HOURS_CLOSE || '23:00').split(':').map(Number);\nconst TAX_RATE = parseFloat($env.TAX_RATE || '0.10825');\n\nfunction nowInTZ(tz){ const d=new Date(); return new Date(d.toLocaleString('en-US',{timeZone:tz})); }\nfunction minutes(d){ return d.getHours()*60 + d.getMinutes(); }\n\nconst ct = nowInTZ(TIMEZONE);\nconst in_hours = (minutes(ct) >= (OPEN[0]*60+OPEN[1]) && minutes(ct) < (CLOSE[0]*60+CLOSE[1]));\n\n// Price map (cents)\nconst PRICE = {\n  \"Cowboy Chik\u2019n\": 1300,\n  \"Philly Chsteek\": 1300,\n  \"Chik\u2019n Club Sub\": 1300,\n  \"Chik\u2019n Fried Chik\u2019n\": 1300,\n  \"Chik\u2019n Poppers ($10)\": 1000,\n  \"Korean Popper ($12)\": 1200,\n  \"Dumpling Taco ($10)\": 1000,\n  \"Rocktown Bourbon Bites ($12)\": 1200,\n  \"Chik\u2019n Sliders ($13)\": 1300,\n  \"Loaded Bacon Fries ($13)\": 1300,\n  \"Philly Fries ($13)\": 1300,\n  \"Chik\u2019n or Stek Fries ($13)\": 1300,\n  \"Garlic Parm Fries ($14)\": 1400,\n  \"Just Fries ($5)\": 500,\n  \"Water ($2)\": 200,\n  \"Sea Moss Lemonade ($6)\": 600\n};\n\nlet items = [];\nfunction push(name, qty){\n  if (!name) return;\n  const key = Object.keys(PRICE).find(k => k.startsWith(name)) || name;\n  const amount = PRICE[key] || 0;\n  const q = qty>0? qty : 0;\n  if (q>0) items.push({ name: key, quantity: q, base_price_money: { amount, currency: 'USD' } });\n}\n\npush(f.sub_choice, f.sub_qty);\npush(f.smallbite_choice, f.smallbite_qty);\npush(f.fries_choice, f.fries_qty);\n\nif (f.drink_type){\n  const drinkName = f.drink_type; // already includes price in map keys\n  const q = f.drink_qty>0? f.drink_qty:0;\n  if (q>0) items.push({ name: drinkName + (f.lemonade_flavor? ` \u2013 ${f.lemonade_flavor}`:''), quantity: q, base_price_money: { amount: PRICE[drinkName]||0, currency:'USD' } });\n}\n\nconst subtotal = items.reduce((s,i)=> s + i.base_price_money.amount * i.quantity, 0);\nconst tax = Math.round(subtotal * TAX_RATE);\nconst total = subtotal + tax;\n\nreturn [{ json: {\n  ...f,\n  ct_iso: ct.toISOString(),\n  in_hours,\n  items,\n  subtotal,\n  tax,\n  total,\n  idempotency_key: f.order_id || $uuid()\n}}];\n"
+      },
+      "id": "6ce4b3e1-f2fb-4161-bf5a-4851d70e933a",
+      "name": "Hours Gate + Build Order",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.in_hours}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "76b0fb58-913e-4698-96a8-7c6891656721",
+      "name": "Open Hours?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+        "jsonParameters": true,
+        "options": {},
+        "headerParametersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{$env.SQUARE_ACCESS_TOKEN}}\"}"
+      },
+      "id": "c0006786-2022-4dd8-9668-185a56419c1e",
+      "name": "Create Square Payment Link",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "payment_link_url",
+              "value": "={{$json.body.payment_link.url || $json.url || $json.payment_link_url}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2bf249d6-00a8-47a3-b7a4-22b3eebfd227",
+      "name": "Extract Payment Link",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{$env.FROM_EMAIL || 'noreply@utopiadeli.local'}}",
+        "toEmail": "={{$json.customer_email}}",
+        "subject": "Your Utopia Deli order \u2013 payment link",
+        "text": "=Hey {{$json.customer_name}},\nYour order total is ${{$json.total/100}}.\nPay securely here: {{$json.payment_link_url}}\nWe\u2019ll start cooking as soon as payment clears.\n\u2014 The Utopia Deli",
+        "options": {}
+      },
+      "id": "7b0f3e26-529e-4679-860b-b46277414c45",
+      "name": "Email Payment Link",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        480,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "append",
+        "sheetId": "REPLACE_WITH_SPREADSHEET_ID",
+        "range": "Orders!A:Z",
+        "options": {
+          "valueInputMode": "RAW"
+        }
+      },
+      "id": "1fb53ded-ecd4-4b46-be4d-e814e60e5844",
+      "name": "Sheets \u2013 Append Order",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        720,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "R1QxH6TI5hND6F1t",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{$env.FROM_EMAIL || 'noreply@utopiadeli.local'}}",
+        "toEmail": "={{$json.customer_email}}",
+        "subject": "We\u2019re closed \u2013 your order will be processed at opening",
+        "text": "=Thanks {{$json.customer_name}}! We\u2019re currently closed; your order will be queued and you\u2019ll receive a payment link when we open at {{$env.HOURS_OPEN || '09:00'}} CT.",
+        "options": {}
+      },
+      "id": "7090a481-43e5-4fea-9266-c4bb572852b7",
+      "name": "Email \u2013 Closed",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        0,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "append",
+        "sheetId": "REPLACE_WITH_SPREADSHEET_ID",
+        "range": "OrderQueue!A:Z",
+        "options": {
+          "valueInputMode": "RAW"
+        }
+      },
+      "id": "2bf36971-b275-4fee-992f-700297bdbc20",
+      "name": "Sheets \u2013 Append Queue",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        240,
+        288
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "R1QxH6TI5hND6F1t",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "GForms Webhook": {
+      "main": [
+        [
+          {
+            "node": "Verify Secret + Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Secret + Normalize": {
+      "main": [
+        [
+          {
+            "node": "Hours Gate + Build Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hours Gate + Build Order": {
+      "main": [
+        [
+          {
+            "node": "Open Hours?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open Hours?": {
+      "main": [
+        [
+          {
+            "node": "Create Square Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email \u2013 Closed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Square Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Extract Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Email Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Sheets \u2013 Append Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email \u2013 Closed": {
+      "main": [
+        [
+          {
+            "node": "Sheets \u2013 Append Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": null,
+  "id": "79b819b6-c725-4b8f-af17-f237788cdc1a",
+  "versionId": "9f22e14e-a3da-4f79-9e36-bbbdc764326d"
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "inv-001",
+    "name": "Acme Office Supplies",
+    "text": "INVOICE\n\nAcme Office Supplies, Inc.\n123 Commerce Blvd, Suite 400\nSpringfield, IL 62704\n\nInvoice #: INV-2024-0842\nDate: April 15, 2024\n\nBill To:\nGreen Solutions LLC\n42 Innovation Drive\nAustin, TX 78701\n\n---\n\nItem                          Qty    Unit Price    Total\nLaser Printer Toner (Black)     3       $45.00      $135.00\nErgonomic Office Chair          2      $299.50      $599.00\nStanding Desk (48\" Walnut)      1      $489.50      $489.50\nWireless Keyboard & Mouse Set   4       $32.00      $128.00\nUSB-C Docking Station           2       $78.00      $156.00\n\n---\n\nSubtotal:                                  $1,507.50\nTax (8.25%):                                $124.37\nShipping:                                    $25.00\n\nTOTAL DUE:                                $1,656.87\n\nPayment terms: Net 30\nPlease remit payment to: accounts@acmeofficesupplies.com"
+  },
+  {
+    "id": "inv-002",
+    "name": "CloudSync SaaS Invoice",
+    "text": "CloudSync Technologies\nSubscription Invoice\n\nInvoice # CS-2025-00391\nIssued: 2025-03-01\nDue: 2025-03-15\n\nCustomer: Green Solutions LLC\nPlan: Business Pro Annual\n\n---\n\nDescription                        Quantity    Unit Price    Amount\nBusiness Pro Plan - Annual           1 user      $960.00     $960.00\nAdditional Storage (500 GB)        1 pack       $120.00     $120.00\nPriority Support Add-on            1 license     $180.00     $180.00\n\nSubtotal:                                           $1,260.00\nDiscount (10% early renewal):                         -$126.00\nSales Tax (TX 6.25%):                                 $78.75\n\nTotal Amount Charged:                               $1,212.75\n\nBilled to card ending in 4242\nCloudSync Technologies | 555 Market St, San Francisco, CA 94105"
+  },
+  {
+    "id": "inv-003",
+    "name": "Jake's Plumbing Services",
+    "text": "Jake's Plumbing & Heating\nService Invoice #4521\nDate: May 8, 2024\n\nCustomer: Phillip Lowe\nProperty: 742 Evergreen Terrace\n\nWork Performed:\n\n- Kitchen sink leak repair              2 hrs @ $85/hr   = $170.00\n- New faucet installation (Moen)        1 unit @ $140   = $140.00\n- Drain snaking (main line)             1 job @ $225    = $225.00\n- Pipe sealant & fittings               misc @ $45     = $45.00\n\nLabor Total:        $170.00\nParts Total:        $410.00\n\nGrand Total:        $580.00\n\nPayment due upon receipt.\nThank you for your business!\nJake's Plumbing & Heating | (555) 234-5678"
+  }
+]

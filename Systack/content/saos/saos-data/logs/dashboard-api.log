@@ -1,0 +1,76 @@
+🚀 SAOS Dashboard API starting on port 8765
+   Endpoints:
+   - GET /api/status   (fleet overview)
+   - GET /api/clients  (client list)
+   - GET /api/tasks    (task history)
+   - GET /api/health   (health check)
+ * Serving Flask app 'api'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8765
+ * Running on http://192.168.1.248:8765
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [17/Jun/2026 05:51:36] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:51:53] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:51:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:52:45] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:52:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:53:28] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:53:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:53:31] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:53:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:53:32] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:53:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:54:02] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:54:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:54:32] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:54:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:54:46] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:54:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:55:02] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:55:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:55:32] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:55:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:56:02] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:56:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:56:32] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:56:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:57:15] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:57:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:58:20] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:58:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:59:23] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 05:59:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:01:58] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:01:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:02:44] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:02:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:05:44] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:05:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:08:44] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:08:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:10:54] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:10:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:13:30] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:13:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:13:31] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:13:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:50:51] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:50:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:51:21] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:51:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:51:52] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:51:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:52:22] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:52:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:52:52] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:52:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:53:22] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:53:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:53:52] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:53:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:56:25] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:56:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:58:02] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [17/Jun/2026 06:58:02] "GET /api/status HTTP/1.1" 200 -

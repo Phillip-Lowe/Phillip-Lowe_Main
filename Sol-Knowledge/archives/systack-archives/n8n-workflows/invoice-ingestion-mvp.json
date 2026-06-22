@@ -1,0 +1,190 @@
+{
+  "name": "Invoice Ingestion MVP — SOL + Ollama Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "filters": {
+          "q": "has:attachment filename:pdf"
+        }
+      },
+      "id": "gmail-trigger",
+      "name": "Gmail: Invoice Emails",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "gmail-invoice-trigger",
+      "credentials": {
+        "gmailApi": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Download attachment and save to temp folder\nconst items = $input.all();\nconst fs = require('fs');\nconst path = require('path');\n\nconst results = [];\nfor (const item of items) {\n  const attachment = item.json.attachments?.[0];\n  if (!attachment) continue;\n  \n  const tmpDir = '/tmp/n8n-invoices';\n  if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });\n  \n  const filePath = path.join(tmpDir, `${Date.now()}_${attachment.filename}`);\n  const buffer = Buffer.from(attachment.data, 'base64');\n  fs.writeFileSync(filePath, buffer);\n  \n  results.push({\n    json: {\n      file_path: filePath,\n      source_email: item.json.from,\n      subject: item.json.subject,\n      filename: attachment.filename\n    }\n  });\n}\nreturn results;"
+      },
+      "id": "save-attachment",
+      "name": "Save PDF Attachment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:9000/invoice/extract",
+        "sendBody": true,
+        "contentType": "json",
+        "body": {
+          "file_path": "={{ $json.file_path }}",
+          "source_email": "={{ $json.source_email }}",
+          "use_vision": true,
+          "vision_model": "kimi-k2.6:cloud"
+        }
+      },
+      "id": "sol-webhook",
+      "name": "SOL: Extract Invoice",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse SOL response\nconst response = $input.first().json;\nif (response.status === 'success') {\n  return [{\n    json: {\n      vendor_name: response.extracted_data.vendor_name,\n      invoice_number: response.extracted_data.invoice_number,\n      invoice_date: response.extracted_data.invoice_date,\n      total_amount: response.extracted_data.total_amount,\n      line_items: JSON.stringify(response.extracted_data.line_items),\n      source_email: response.source_email,\n      extraction_method: response.extraction_method\n    }\n  }];\n} else {\n  throw new Error(`Extraction failed: ${response.message}`);\n}"
+      },
+      "id": "parse-response",
+      "name": "Parse Extraction Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "A",
+              "value": "={{ $json.invoice_number }}"
+            },
+            {
+              "column": "B",
+              "value": "={{ $json.vendor_name }}"
+            },
+            {
+              "column": "C",
+              "value": "={{ $json.invoice_date }}"
+            },
+            {
+              "column": "D",
+              "value": "={{ $json.total_amount }}"
+            },
+            {
+              "column": "E",
+              "value": "={{ $json.line_items }}"
+            },
+            {
+              "column": "F",
+              "value": "={{ $json.source_email }}"
+            },
+            {
+              "column": "G",
+              "value": "={{ $now }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "google-sheets",
+      "name": "Write to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [1050, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CRED_ID",
+          "name": "Google Sheets Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "to": "={{ $json.source_email }}",
+        "subject": "Invoice Received: {{ $json.invoice_number }}",
+        "message": "We received your invoice from {{ $json.vendor_name }} for ${{ $json.total_amount }}. It's being processed."
+      },
+      "id": "confirmation-email",
+      "name": "Send Confirmation Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1050, 500],
+      "credentials": {
+        "gmailApi": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail Account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Gmail: Invoice Emails": {
+      "main": [
+        [
+          {
+            "node": "Save PDF Attachment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save PDF Attachment": {
+      "main": [
+        [
+          {
+            "node": "SOL: Extract Invoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SOL: Extract Invoice": {
+      "main": [
+        [
+          {
+            "node": "Parse Extraction Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Extraction Result": {
+      "main": [
+        [
+          {
+            "node": "Write to Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Confirmation Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "active": false
+}

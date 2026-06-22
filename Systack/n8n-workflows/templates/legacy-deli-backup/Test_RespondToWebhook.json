@@ -1,0 +1,1 @@
+[{"parameters":{"httpMethod":"POST","path":"test-respond","responseMode":"lastNode"},"id":"webhook-node","type":"n8n-nodes-base.webhook","name":"Webhook","position":[250,300],"webhookId":"69110550-635a-4856-9cda-b69d83dad400"},{"parameters":{},"id":"respond-node","type":"n8n-nodes-base.respondToWebhook","name":"Respond","position":[460,300]}]

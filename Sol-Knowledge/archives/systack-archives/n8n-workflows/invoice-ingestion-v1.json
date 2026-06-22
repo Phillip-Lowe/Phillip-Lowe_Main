@@ -1,0 +1,224 @@
+{
+  "name": "Invoice Ingestion v1 — Gmail → SOL → SQLite",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "filters": {
+          "q": "has:attachment filename:pdf"
+        },
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "id": "gmail-trigger",
+      "name": "Gmail: Invoice Emails",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "gmail-invoice-trigger",
+      "credentials": {
+        "gmailApi": {
+          "id": "GMAIL_OAUTH_CRED_ID",
+          "name": "Gmail OAuth Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Save PDF attachment(s) to /tmp/n8n-invoices/\nconst items = $input.all();\nconst fs = require('fs');\nconst path = require('path');\n\nconst results = [];\nfor (const item of items) {\n  const attachments = item.json.attachments || [];\n  for (const attachment of attachments) {\n    if (!attachment.filename?.toLowerCase().endsWith('.pdf')) continue;\n    \n    const tmpDir = '/tmp/n8n-invoices';\n    if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });\n    \n    const safeName = attachment.filename.replace(/[^a-zA-Z0-9._-]/g, '_');\n    const filePath = path.join(tmpDir, `${Date.now()}_${safeName}`);\n    \n    let buffer;\n    if (attachment.data) {\n      buffer = Buffer.from(attachment.data, 'base64');\n    } else if (attachment.contentBytes) {\n      buffer = Buffer.from(attachment.contentBytes, 'base64');\n    } else {\n      console.warn('No attachment data found for', attachment.filename);\n      continue;\n    }\n    \n    fs.writeFileSync(filePath, buffer);\n    \n    results.push({\n      json: {\n        file_path: filePath,\n        source_email: item.json.from || item.json.sender,\n        subject: item.json.subject,\n        filename: attachment.filename,\n        message_id: item.json.id\n      }\n    });\n  }\n}\nreturn results.length > 0 ? results : [{ json: { error: 'No PDF attachments found' } }];"
+      },
+      "id": "save-attachment",
+      "name": "Save PDF Attachment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:9000/invoice/extract",
+        "sendBody": true,
+        "contentType": "json",
+        "body": {
+          "file_path": "={{ $json.file_path }}",
+          "source_email": "={{ $json.source_email }}"
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "sol-webhook",
+      "name": "SOL: Extract Invoice",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse SOL webhook response and prepare for SQLite insert\nconst response = $input.first().json;\n\nif (response.status === 'error') {\n  throw new Error(`Extraction failed: ${response.message}`);\n}\n\nif (response.status !== 'success' || !response.extracted_data) {\n  throw new Error('Unexpected response format from SOL webhook');\n}\n\nconst data = response.extracted_data;\n\nreturn [{\n  json: {\n    invoice_number: data.invoice_number || 'UNKNOWN',\n    vendor_name: data.vendor_name || 'UNKNOWN',\n    invoice_date: data.invoice_date || null,\n    total_amount: typeof data.total_amount === 'number' ? data.total_amount : null,\n    line_items: JSON.stringify(data.line_items || []),\n    source_email: response.source_email || $input.first().json.source_email,\n    file_path: response.file_path || $input.first().json.file_path,\n    extraction_method: response.extraction_method || 'vision',\n    extracted_at: new Date().toISOString(),\n    processed: 0\n  }\n}];"
+      },
+      "id": "parse-response",
+      "name": "Parse Extraction Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "database": "/data/systack-invoices.db",
+        "query": "INSERT INTO invoices (invoice_number, vendor_name, invoice_date, total_amount, line_items, source_email, file_path, extraction_method, extracted_at, processed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "parameters": {
+          "values": [
+            {
+              "name": "invoice_number",
+              "value": "={{ $json.invoice_number }}"
+            },
+            {
+              "name": "vendor_name",
+              "value": "={{ $json.vendor_name }}"
+            },
+            {
+              "name": "invoice_date",
+              "value": "={{ $json.invoice_date }}"
+            },
+            {
+              "name": "total_amount",
+              "value": "={{ $json.total_amount }}"
+            },
+            {
+              "name": "line_items",
+              "value": "={{ $json.line_items }}"
+            },
+            {
+              "name": "source_email",
+              "value": "={{ $json.source_email }}"
+            },
+            {
+              "name": "file_path",
+              "value": "={{ $json.file_path }}"
+            },
+            {
+              "name": "extraction_method",
+              "value": "={{ $json.extraction_method }}"
+            },
+            {
+              "name": "extracted_at",
+              "value": "={{ $json.extracted_at }}"
+            },
+            {
+              "name": "processed",
+              "value": "={{ $json.processed }}"
+            }
+          ]
+        }
+      },
+      "id": "sqlite-insert",
+      "name": "SQLite: Insert Invoice",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1050, 300],
+      "credentials": {
+        "sqlite": {
+          "id": "SQLITE_CRED_ID",
+          "name": "SQLite DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "to": "={{ $('Parse Extraction Result').item.json.source_email }}",
+        "subject": "Invoice Received: {{ $('Parse Extraction Result').item.json.invoice_number }}",
+        "message": "We have received and processed your invoice.\n\nVendor: {{ $('Parse Extraction Result').item.json.vendor_name }}\nInvoice Number: {{ $('Parse Extraction Result').item.json.invoice_number }}\nAmount: ${{ $('Parse Extraction Result').item.json.total_amount }}\n\nThank you.",
+        "options": {}
+      },
+      "id": "confirmation-email",
+      "name": "Send Confirmation Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1250, 300],
+      "credentials": {
+        "gmailApi": {
+          "id": "GMAIL_OAUTH_CRED_ID",
+          "name": "Gmail OAuth Account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Gmail: Invoice Emails": {
+      "main": [
+        [
+          {
+            "node": "Save PDF Attachment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save PDF Attachment": {
+      "main": [
+        [
+          {
+            "node": "SOL: Extract Invoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SOL: Extract Invoice": {
+      "main": [
+        [
+          {
+            "node": "Parse Extraction Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Extraction Result": {
+      "main": [
+        [
+          {
+            "node": "SQLite: Insert Invoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQLite: Insert Invoice": {
+      "main": [
+        [
+          {
+            "node": "Send Confirmation Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "ERROR_WORKFLOW_ID",
+    "timezone": "America/Chicago",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "tags": ["invoice", "sol", "sqlite"],
+  "active": false
+}

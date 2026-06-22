@@ -1,0 +1,254 @@
+{
+  "name": "Systack Website Downtime Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// List of services to monitor\nconst services = [\n  { name: 'n8n.systack.net', url: 'https://n8n.systack.net/healthz', timeout: 10000 },\n  { name: 'systack.net', url: 'https://systack.net', timeout: 10000 },\n  { name: 'utopia-deli.com', url: 'https://www.utopia-deli.com', timeout: 10000 },\n  { name: 'n8n.systack.net/webhook', url: 'https://n8n.systack.net/webhook-test', timeout: 10000 }\n];\n\nreturn services.map(s => ({ json: s }));"
+      },
+      "name": "Services List",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [200, 0]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "name": "Loop Services",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [400, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.url }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "name": "Check Service",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [600, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "name": "Status OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [800, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const service = items[0].json;\nconst checkTime = new Date().toISOString();\nreturn [{\n  json: {\n    service_name: service.name,\n    url: service.url,\n    status: 'UP',\n    status_code: 200,\n    response_time_ms: service.responseTime || 0,\n    checked_at: checkTime,\n    alert_needed: false\n  }\n}];"
+      },
+      "name": "Log Success",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, -100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const error = items[0].json.error || {};\nconst service = items[0].json;\nconst checkTime = new Date().toISOString();\nreturn [{\n  json: {\n    service_name: service.name,\n    url: service.url,\n    status: 'DOWN',\n    status_code: error.statusCode || 0,\n    error_message: error.message || 'Unknown error',\n    checked_at: checkTime,\n    alert_needed: true\n  }\n}];"
+      },
+      "name": "Log Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 100]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jF85_1dx9WBETfhQyda2nnnKzzvTgzSbQ_uqcgArpm0",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Systack_Monitoring",
+          "mode": "list",
+          "cachedResultName": "Systack_Monitoring"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "service_name": "={{ $json.service_name }}",
+            "status": "={{ $json.status }}",
+            "status_code": "={{ $json.status_code }}",
+            "response_time_ms": "={{ $json.response_time_ms }}",
+            "error_message": "={{ $json.error_message }}",
+            "checked_at": "={{ $json.checked_at }}"
+          }
+        }
+      },
+      "name": "Log to Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1200, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.alert_needed }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "name": "Alert Needed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1400, 0]
+    },
+    {
+      "parameters": {
+        "credentials": {
+          "smtp": {
+            "id": "ZOvYr6kSP7zE8tBv",
+            "name": "deli gmail"
+          }
+        },
+        "fromEmail": "alerts@systack.net",
+        "toEmail": "plowe95@yahoo.com",
+        "subject": "=🚨 ALERT: {{ $json.service_name }} is DOWN",
+        "message": "=Service {{ $json.service_name }} ({{ $json.url }}) is DOWN.\n\nStatus: {{ $json.status }}\nStatus Code: {{ $json.status_code }}\nError: {{ $json.error_message }}\nTime: {{ $json.checked_at }}\n\nPlease investigate immediately.",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "name": "Send Alert Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1600, -100]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "channel": "systack-alerts",
+        "text": "=:warning: *ALERT*: `{{ $json.service_name }}` is DOWN\n• URL: {{ $json.url }}\n• Status: {{ $json.status_code }}\n• Error: {{ $json.error_message }}\n• Time: {{ $json.checked_at }}",
+        "options": {}
+      },
+      "name": "Send Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [1600, 100]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [{ "node": "Services List", "type": "main", "index": 0 }]
+      ]
+    },
+    "Services List": {
+      "main": [
+        [{ "node": "Loop Services", "type": "main", "index": 0 }]
+      ]
+    },
+    "Loop Services": {
+      "main": [
+        [
+          { "node": "Check Service", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Check Service": {
+      "main": [
+        [{ "node": "Status OK?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Status OK?": {
+      "main": [
+        [
+          { "node": "Log Success", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Log Failure", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Log Success": {
+      "main": [
+        [{ "node": "Log to Sheets", "type": "main", "index": 0 }]
+      ]
+    },
+    "Log Failure": {
+      "main": [
+        [{ "node": "Log to Sheets", "type": "main", "index": 0 }]
+      ]
+    },
+    "Log to Sheets": {
+      "main": [
+        [{ "node": "Alert Needed?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Alert Needed?": {
+      "main": [
+        [
+          { "node": "Send Alert Email", "type": "main", "index": 0 },
+          { "node": "Send Slack Alert", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "pinData": {},
+  "versionId": "monitoring-v1"
+}

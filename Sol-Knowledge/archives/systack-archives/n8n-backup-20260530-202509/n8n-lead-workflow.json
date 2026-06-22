@@ -1,0 +1,90 @@
+{
+  "name": "SAOS Lead Capture + Score + Log",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "saos-lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "saos-lead"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lead Scoring Logic\nconst lead = $input.first().json;\nlet score = 0;\nconst reasons = [];\n\n// Industry scoring\nconst industryScores = {\n  food: 25,\n  legal: 30,\n  medical: 35,\n  other: 15\n};\nif (lead.industry) {\n  score += industryScores[lead.industry] || 15;\n  reasons.push(`${lead.industry} industry (+${industryScores[lead.industry] || 15})`);\n}\n\n// Fleet size scoring\nconst fleetScores = {\n  solo: 10,\n  business: 25,\n  enterprise: 40\n};\nif (lead.fleet_size) {\n  score += fleetScores[lead.fleet_size] || 10;\n  reasons.push(`${lead.fleet_size} fleet size (+${fleetScores[lead.fleet_size] || 10})`);\n}\n\n// Message quality (has specific use case)\nif (lead.message && lead.message.length > 20) {\n  score += 15;\n  reasons.push('Detailed use case provided (+15)');\n}\n\n// Phone provided (higher intent than email-only)\nif (lead.phone && lead.phone.length > 9) {\n  score += 10;\n  reasons.push('Phone provided (+10)');\n}\n\n// Business name provided\nif (lead.business_name && lead.business_name.length > 2) {\n  score += 5;\n  reasons.push('Business name provided (+5)');\n}\n\n// Determine tier\nlet tier = 'cold';\nif (score >= 70) tier = 'hot';\nelse if (score >= 50) tier = 'warm';\nelse if (score >= 30) tier = 'mild';\n\n// Determine recommended product\nlet recommendedProduct = 'SAOS Solo Agent';\nif (lead.fleet_size === 'business') recommendedProduct = 'SAOS Business Fleet';\nif (lead.fleet_size === 'enterprise') recommendedProduct = 'SAOS Enterprise Fleet';\nif (lead.industry === 'medical' || lead.industry === 'legal') recommendedProduct = 'SAOS Business Fleet';\n\nreturn [{\n  json: {\n    ...lead,\n    lead_score: score,\n    lead_tier: tier,\n    score_reasons: reasons,\n    recommended_product: recommendedProduct,\n    source: 'SAOS Website Lead Form',\n    submitted_at: new Date().toISOString(),\n    status: 'new'\n  }\n}];"
+      },
+      "id": "score",
+      "name": "Score Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Insert lead into CRM database\nconst lead = $input.first().json;\n\nconst query = `\n  INSERT INTO leads (\n    name, business_name, email, phone, industry, fleet_size, message,\n    lead_score, lead_tier, recommended_product, source, submitted_at, status\n  ) VALUES (\n    '${lead.name || ''}',\n    '${lead.business_name || ''}',\n    '${lead.email || ''}',\n    '${lead.phone || ''}',\n    '${lead.industry || ''}',\n    '${lead.fleet_size || ''}',\n    '${(lead.message || '').replace(/'/g, \"''\")}',\n    ${lead.lead_score || 0},\n    '${lead.lead_tier || 'cold'}',\n    '${lead.recommended_product || 'SAOS Solo Agent'}',\n    '${lead.source || 'website'}',\n    '${lead.submitted_at}',\n    'new'\n  )\n`;\n\nreturn [{\n  json: {\n    ...lead,\n    db_query: query\n  }\n}];"
+      },
+      "id": "db-insert",
+      "name": "Log to CRM DB",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond to Web",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Score Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Lead": {
+      "main": [
+        [
+          {
+            "node": "Log to CRM DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to CRM DB": {
+      "main": [
+        [
+          {
+            "node": "Respond to Web",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [],
+  "versionId": null
+}

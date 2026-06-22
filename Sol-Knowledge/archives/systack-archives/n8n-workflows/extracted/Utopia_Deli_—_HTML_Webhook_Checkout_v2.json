@@ -1,0 +1,547 @@
+{
+  "id": "752408b1-01ac-42cc-a7ba-a934e8ffee66",
+  "name": "Utopia Deli \u2014 HTML Webhook Checkout v2",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "utopia-deli-order-v2",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger-html",
+      "name": "Webhook \u2014 HTML Order",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        304
+      ],
+      "webhookId": "utopia-deli-order-v2-webhook"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "customer.name",
+              "value": "={{$json.body.Name?.trim()}}"
+            },
+            {
+              "name": "customer.email",
+              "value": "={{$json.body.Email?.toLowerCase().trim()}}"
+            },
+            {
+              "name": "customer.phone",
+              "value": "={{$json.body.Phone?.trim()}}"
+            },
+            {
+              "name": "geo.city",
+              "value": "={{$json.body.City?.trim()}}"
+            },
+            {
+              "name": "geo.county",
+              "value": "={{$json.body.County?.trim()}}"
+            },
+            {
+              "name": "order_input.entree",
+              "value": "={{$json.body.Entree?.trim()}}"
+            },
+            {
+              "name": "order_input.notes",
+              "value": "={{$json.body.Notes ?? ''}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-normalize-html",
+      "name": "Set \u2014 Normalize",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { data: [ [0,'12:30','19:30','TRUE'], [1,'12:30','19:30','TRUE'], [2,'12:30','19:30','TRUE'], [3,'12:30','19:30','TRUE'], [4,'12:30','19:30','TRUE'], [5,'12:30','19:30','TRUE'], [6,'12:30','19:30','FALSE'] ] } }];"
+      },
+      "id": "sheets-hours-html",
+      "name": "Google Sheets \u2014 Read Open_Hours",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nfunction getChicagoNow() {\n  const fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hourCycle: 'h23', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit', weekday:'short' });\n  const parts = Object.fromEntries(fmt.formatToParts(new Date()).map(p => [p.type, p.value]));\n  const map = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };\n  return { hour: +parts.hour, minute: +parts.minute, dow: map[parts.weekday] };\n}\nfunction parseHM(s){ const [h,m] = String(s).split(':').map(Number); return {h,m}; }\nconst rows = $json.data || $json.rows || [];\nlet data = [];\nif (Array.isArray(rows) && rows.length) {\n  if (Array.isArray(rows[0])) {\n    for (const r of rows) data.push({ dow:+r[0], open_local:r[1], close_local:r[2], is_open:String(r[3]).toUpperCase() });\n  } else if (typeof rows[0] === 'object') {\n    data = rows.map(r => ({ dow:+r.dow, open_local:r.open_local, close_local:r.close_local, is_open:String(r.is_open).toUpperCase() }));\n  }\n}\nconst now = getChicagoNow();\nconst today = data.find(r => r.dow === now.dow);\nif (!today || today.is_open !== 'TRUE') return [{ json: { isOpen:true, reason:'OK (forced open for testing)', window:today || null } }];\nconst o = parseHM(today.open_local), c = parseHM(today.close_local);\nconst nowMin = now.hour*60 + now.minute, openMin = o.h*60 + o.m, closeMin = c.h*60 + c.m;\nconst inWindow = nowMin >= openMin && nowMin <= closeMin;\nreturn [{ json: { isOpen: true, reason: inWindow ? 'OK' : 'OK (forced open for testing)', window: today } }];\n"
+      },
+      "id": "func-hours-html",
+      "name": "Function \u2014 Check Open Hours",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.isOpen === true}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "if-open-html",
+      "name": "IF \u2014 Open?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "false"
+            },
+            {
+              "name": "title",
+              "value": "We're currently closed"
+            },
+            {
+              "name": "message",
+              "value": "Utopia Deli serves Monday\u2013Saturday, 12:30 PM\u20137:30 PM (CT). Please come back during open hours."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "error-closed-html",
+      "name": "Set \u2014 Error Closed",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        2640,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "value1": "={{$json.order_input?.entree}}",
+        "rules": {
+          "rules": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        },
+        "fallbackOutput": 0
+      },
+      "id": "switch-entree-html",
+      "name": "Switch \u2014 Entr\u00e9e Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        2640,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { data: [ ['SKU_COWBOY', \"Cowboy Chik'n Sandwich\", 1295, 'SQ_COWBOY', 'TRUE'], ['SKU_CLUB', \"Chik'n Club Sub\", 1195, 'SQ_CLUB', 'TRUE'], ['SKU_FRIED', \"Chik'n Fried Chik'n Sub\", 1095, 'SQ_FRIED', 'TRUE'], ['SKU_POPPERS', \"Chik'n Poppers\", 895, 'SQ_POPPERS', 'TRUE'], ['SKU_KOREAN', 'Korean Pork Dumpling Tacos', 1395, 'SQ_KOREAN', 'TRUE'], ['SKU_PHILLY', 'Philly Sub', 1250, 'SQ_PHILLY', 'TRUE'], ['SKU_SLIDERS', \"Rocktown Bourbon Chik'n Sliders\", 1350, 'SQ_SLIDERS', 'TRUE'] ] } }];"
+      },
+      "id": "sheets-menu-html",
+      "name": "Google Sheets \u2014 Read Menu_Catalog",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst selected = [];\nconst priceRx = /\\+\\$(\\d+(?:\\.\\d{1,2})?)$/;\nfor (const [k,v] of Object.entries($json)) {\n  if (!v) continue; const label = String(v).trim(); if (!label.startsWith('[')) continue;\n  const tag = label.match(/^\\[([A-Z0-9_]+)\\|([A-Z0-9_]+)\\]/i); if (!tag) continue;\n  const group = tag[1].toUpperCase(), mod = tag[2].toUpperCase();\n  const pm = label.match(priceRx); const price_cents = pm ? Math.round(parseFloat(pm[1])*100) : 0;\n  selected.push({ group, mod, label, price_cents });\n}\nreturn [{ json: { modifiers: selected } }];\n"
+      },
+      "id": "func-mods-html",
+      "name": "Function \u2014 Collect Modifiers",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst normalize = s => String(s).trim().replace(/\u2019/g, \"'\").toLowerCase();\nconst entreeTitle = $item(0).$node['Set \u2014 Normalize'].json['order_input.entree'];\nconst rows = $item(0).$node['Google Sheets \u2014 Read Menu_Catalog'].json.data || [];\nlet entree = null;\nfor (const r of rows) {\n  const [sku,title,price_cents,square_id,is_active] = r;\n  if (normalize(title)===normalize(entreeTitle) && String(is_active).toUpperCase()==='TRUE') { entree={sku,title,price_cents:+price_cents,square_catalog_object_id:square_id}; break; }\n}\nif (!entree) return [{ json: { error: 'Selected entr\u00e9e unavailable' } }];\nconst mods = $item(0).$node['Function \u2014 Collect Modifiers'].json.modifiers || [];\nconst qty=1; const entreePrice=+entree.price_cents; const modsTotal = mods.reduce((s,m)=>s+ +(m.price_cents||0), 0);\nconst subtotal = (entreePrice + modsTotal) * qty;\nconst line_items=[{ sku:entree.sku, title:entree.title, quantity:qty, unit_price_cents:entreePrice, amount_cents:entreePrice*qty, modifiers:mods }];\nfor (const m of mods) if ((m.price_cents||0)>0) line_items.push({ sku:`MOD_${m.group}_${m.mod}`, title:m.label.replace(/\\[.*?\\]\\s*/, ''), quantity:1, unit_price_cents:+m.price_cents, amount_cents:+m.price_cents });\nreturn [{ json: { entree, order_calc: { line_items, subtotal_cents: subtotal } } }];\n"
+      },
+      "id": "func-price-html",
+      "name": "Function \u2014 Build Price",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        3360,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst rate = 9.75;\nconst subtotal = $item(0).$node['Function \u2014 Build Price'].json.order_calc.subtotal_cents;\nconst tax = Math.round(subtotal*(rate/100));\nconst total = subtotal + tax;\nreturn [{ json: { pricing: { rate_percent: rate, subtotal_cents: subtotal, tax_cents: tax, total_cents: total } } }];\n"
+      },
+      "id": "func-tax-html",
+      "name": "Function \u2014 Compute Tax & Totals",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        3840,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+        "jsonParameters": true,
+        "options": {},
+        "headerParametersJson": "{\"Authorization\": \"Bearer EAAAl9TLpX2zwyyw4VIs6-yXwYSXPgwXgnLr53HP3LSvLz46nkkiithk3unnr21s\", \"Content-Type\": \"application/json\"}"
+      },
+      "id": "square-html",
+      "name": "Square \u2014 Create Payment Link",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        4080,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "mergeByPosition"
+      },
+      "id": "merge-square-html",
+      "name": "Merge \u2014 After Square",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        4320,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "true"
+            },
+            {
+              "name": "square_link",
+              "value": "={{$json.payment_link?.url || $json.url || $json.data?.url}}"
+            },
+            {
+              "name": "subtotal_cents",
+              "value": "={{$item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.subtotal_cents}}"
+            },
+            {
+              "name": "tax_cents",
+              "value": "={{$item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.tax_cents}}"
+            },
+            {
+              "name": "total_cents",
+              "value": "={{$item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.total_cents}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-confirm-html",
+      "name": "Set \u2014 Confirmation",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        4560,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst row = [\n  new Date().toISOString(),\n  $item(0).$node['Set \u2014 Normalize'].json['customer.name'],\n  $item(0).$node['Set \u2014 Normalize'].json['customer.email'],\n  $item(0).$node['Set \u2014 Normalize'].json['customer.phone'],\n  $item(0).$node['Set \u2014 Normalize'].json['geo.city'],\n  $item(0).$node['Set \u2014 Normalize'].json['geo.county'],\n  $item(0).$node['Function \u2014 Build Price'].json.entree.sku,\n  JSON.stringify($item(0).$node['Function \u2014 Collect Modifiers'].json.modifiers||[]),\n  $item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.subtotal_cents,\n  $item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.tax_cents,\n  $item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.total_cents,\n  $item(0).$node['Set \u2014 Confirmation'].json.square_link,\n  'pending_payment'\n];\nreturn [{ json: { gs_append: [row] } }];\n"
+      },
+      "id": "func-log-html",
+      "name": "Function \u2014 Build Orders_Log Row",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        5040,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "true"
+            },
+            {
+              "name": "message",
+              "value": "We sent your payment link. Check your email (SMS if needed)."
+            },
+            {
+              "name": "square_link",
+              "value": "={{$item(0).$node['Set \u2014 Confirmation'].json.square_link}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-final-html",
+      "name": "Set \u2014 Final Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        5520,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "respond-webhook-html",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        5760,
+        592
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook \u2014 HTML Order": {
+      "main": [
+        [
+          {
+            "node": "Set \u2014 Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set \u2014 Normalize": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets \u2014 Read Open_Hours",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets \u2014 Read Open_Hours": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Check Open Hours",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Check Open Hours": {
+      "main": [
+        [
+          {
+            "node": "IF \u2014 Open?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF \u2014 Open?": {
+      "main": [
+        [
+          {
+            "node": "Switch \u2014 Entr\u00e9e Router",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set \u2014 Error Closed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch \u2014 Entr\u00e9e Router": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets \u2014 Read Menu_Catalog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets \u2014 Read Menu_Catalog": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Collect Modifiers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Collect Modifiers": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Build Price",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Build Price": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Compute Tax & Totals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Compute Tax & Totals": {
+      "main": [
+        [
+          {
+            "node": "Square \u2014 Create Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Square \u2014 Create Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Merge \u2014 After Square",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge \u2014 After Square": {
+      "main": [
+        [
+          {
+            "node": "Set \u2014 Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set \u2014 Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Build Orders_Log Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Build Orders_Log Row": {
+      "main": [
+        [
+          {
+            "node": "Set \u2014 Final Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set \u2014 Error Closed": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set \u2014 Final Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "AdAM0770d3pJTrWt",
+    "timezone": "America/Chicago"
+  },
+  "staticData": null,
+  "meta": {},
+  "tags": [],
+  "versionId": "8532b636-d866-4b9c-9be3-f3fc013d4537",
+  "triggerCount": 1,
+  "pinData": {}
+}

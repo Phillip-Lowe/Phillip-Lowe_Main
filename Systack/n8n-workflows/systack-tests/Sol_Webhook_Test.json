@@ -1,0 +1,1 @@
+[{"id":"1","name":"Webhook","type":"n8n-nodes-base.webhook","parameters":{"httpMethod":"POST","path":"sol-test","responseMode":"lastNode"},"position":[250,300],"webhookId":"sol-test-webhook"},{"id":"2","name":"NoOp","type":"n8n-nodes-base.noOp","parameters":{},"position":[450,300]}]

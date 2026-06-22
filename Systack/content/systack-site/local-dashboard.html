@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="brand/apple-touch-icon.png">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Systack Local Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e1a;
+            color: #e0e6ed;
+            min-height: 100vh;
+        }
+        .header {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #10b981;
+        }
+        .header .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .card h2 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+        .card .subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        .log {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .log-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #1e293b;
+        }
+        .log-item:last-child {
+            border-bottom: none;
+        }
+        .log-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 0.35rem;
+            flex-shrink: 0;
+        }
+        .log-icon.info { background: #3b82f6; }
+        .log-icon.success { background: #10b981; }
+        .log-icon.warning { background: #f59e0b; }
+        .log-icon.error { background: #ef4444; }
+        .log-content {
+            flex: 1;
+        }
+        .log-title {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        .log-meta {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        .log-detail {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 0.25rem;
+            font-family: monospace;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-processing { background: #dbeafe; color: #1e40af; }
+        .badge-completed { background: #d1fae5; color: #065f46; }
+        .badge-error { background: #fee2e2; color: #991b1b; }
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-primary { background: #10b981; color: white; }
+        .btn-secondary { background: #374151; color: #e0e6ed; }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th {
+            text-align: left;
+            padding: 0.75rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            border-bottom: 1px solid #1e293b;
+        }
+        .table td {
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid #1e293b;
+        }
+        .table tr:hover {
+            background: #1e293b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚡ Systack Local Dashboard</h1>
+        <div class="status">
+            <div class="status-dot"></div>
+            <span>System Online</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Metrics -->
+        <div class="grid">
+            <div class="card">
+                <h2>Today</h2>
+                <div class="value" id="today-count">0</div>
+                <div class="subtitle">Automation runs</div>
+            </div>
+            <div class="card">
+                <h2>Active Alerts</h2>
+                <div class="value" id="alert-count" style="color: #f59e0b;">0</div>
+                <div class="subtitle">Require attention</div>
+            </div>
+            <div class="card">
+                <h2>Pending</h2>
+                <div class="value" id="pending-count">0</div>
+                <div class="subtitle">Items in queue</div>
+            </div>
+            <div class="card">
+                <h2>Success Rate</h2>
+                <div class="value" id="success-rate">100%</div>
+                <div class="subtitle">Last 24 hours</div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+            <h2>Recent Activity</h2>
+            <div class="log" id="activity-log">
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <p>No activity yet. Waiting for automations...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Items -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <h2>Pending Review</h2>
+            <table class="table" id="pending-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>ID</th>
+                        <th>From</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #64748b;">
+                            No pending items
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard state
+        const state = {
+            activities: [],
+            pending: [],
+            alerts: [],
+            todayCount: 0
+        };
+
+        // API endpoints (will be configured per client)
+        const API = {
+            n8n: 'http://localhost:5678/api/v1',  // Local n8n
+            ollama: 'http://localhost:11434/api'    // Local Ollama
+        };
+
+        // Activity log types
+        const ACTIVITY_TYPES = {
+            booking: { icon: 'success', label: 'Booking' },
+            invoice: { icon: 'success', label: 'Invoice' },
+            onboard: { icon: 'success', label: 'Onboard' },
+            error: { icon: 'error', label: 'Error' },
+            warning: { icon: 'warning', label: 'Warning' },
+            info: { icon: 'info', label: 'Info' }
+        };
+
+        // Add activity to log
+        function addActivity(type, title, detail, metadata = {}) {
+            const activity = {
+                id: Date.now() + Math.random(),
+                type,
+                title,
+                detail,
+                timestamp: new Date(),
+                ...metadata
+            };
+            state.activities.unshift(activity);
+            if (state.activities.length > 50) state.activities.pop();
+            renderActivities();
+        }
+
+        // Render activity log
+        function renderActivities() {
+            const log = document.getElementById('activity-log');
+            if (state.activities.length === 0) return;
+
+            log.innerHTML = state.activities.map(a => {
+                const typeInfo = ACTIVITY_TYPES[a.type] || ACTIVITY_TYPES.info;
+                const time = a.timestamp.toLocaleTimeString('en-US', { 
+                    hour: '2-digit', minute: '2-digit' 
+                });
+                return `
+                    <div class="log-item">
+                        <div class="log-icon ${typeInfo.icon}"></div>
+                        <div class="log-content">
+                            <div class="log-title">${a.title}</div>
+                            <div class="log-meta">${time} • ${typeInfo.label}</div>
+                            ${a.detail ? `<div class="log-detail">${a.detail}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Poll n8n for execution data
+        async function pollN8n() {
+            try {
+                // This would be a real API call in production
+                // For now, we'll use a demo mode
+                console.log('Polling n8n...');
+            } catch (e) {
+                console.error('n8n poll failed:', e);
+            }
+        }
+
+        // Poll Ollama for model status
+        async function pollOllama() {
+            try {
+                const res = await fetch(`${API.ollama}/tags`);
+                if (res.ok) {
+                    const data = await res.json();
+                    // Update model status
+                }
+            } catch (e) {
+                console.error('Ollama poll failed:', e);
+            }
+        }
+
+        // Update metrics
+        function updateMetrics() {
+            document.getElementById('today-count').textContent = state.todayCount;
+            document.getElementById('alert-count').textContent = state.alerts.length;
+            document.getElementById('pending-count').textContent = state.pending.length;
+        }
+
+        // Initialize dashboard
+        function init() {
+            updateMetrics();
+
+            // Poll every 30 seconds
+            setInterval(() => {
+                pollN8n();
+                pollOllama();
+            }, 30000);
+
+            // Demo: simulate activity after 3 seconds
+            setTimeout(() => {
+                addActivity('booking', 'New booking #BK-123456', 'From: John Smith, $47.50, Pickup: 2:30 PM');
+                state.todayCount++;
+                updateMetrics();
+            }, 3000);
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

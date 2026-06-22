@@ -1,0 +1,19 @@
+Subject: Re: {company} — following up
+
+Hi {first_name},
+
+Just circling back on my note from earlier this week. I know things get busy,
+but I didn't want to miss the chance to connect.
+
+We recently helped a similar business automate their booking system and saw
+a 40% reduction in no-shows. I think {company} could see similar results.
+
+Open to a quick call this week or next?
+
+Best,
+{sender_name}
+{sender_title}
+
+---
+Systack Automation | systack.net
+This email was sent to {email}. If you don't want to hear from us, reply STOP.

@@ -1,0 +1,96 @@
+{
+  "id": "885d9b40-c67e-4fd3-9094-5f6dcddb284a",
+  "name": "Utopia Deli \u2014 Minimal Checkout",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "utopia-deli-checkout-minimal",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-minimal",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "a27449ac-359d-4e00-a414-46dc514ccc82"
+    },
+    {
+      "parameters": {
+        "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "json",
+        "json": true,
+        "body": "={{ {\"idempotency_key\": .format(\"YYYY-MM-DD-HH-mm-ss\") + \"-\" + Math.random().toString(36).substring(2,8), \"quick_pay\": {\"name\": \"Utopia Deli Order\", \"price_money\": {\"amount\": .total_cents || 1000, \"currency\": \"USD\"}} }",
+        "options": {},
+        "headerParametersJson": "{\"Authorization\": \"Bearer {{.SQUARE_PROD_ACCESS_TOKEN}}\", \"Content-Type\": \"application/json\"}"
+      },
+      "id": "square-payment",
+      "name": "Square Payment Link",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={\"ok\": true, \"message\": \"Check your email for payment link\", \"square_link\": .body?.payment_link?.url || .body?.url}"
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        650,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Square Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Square Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateId": null
+  },
+  "tags": [],
+  "versionId": "61558073-4c62-4624-896a-4b0ac3d5fd2d",
+  "triggerCount": 0,
+  "pinData": null
+}

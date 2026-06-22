@@ -1,0 +1,677 @@
+{
+  "name": "Utopia Deli HTML Order v2 \u2014 CLEAN EXTRACT",
+  "nodes": [
+    {
+      "id": "bff75b3f-a6d5-458e-a487-5bf00a3099f7",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        1416
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "utopia-deli-html-order-v1",
+        "responseMode": "responseNode",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "credentials": {},
+      "webhookId": "21a8e9e5-77cb-4e68-9bb1-58e1720abb61"
+    },
+    {
+      "id": "87706c42-ca60-4c62-bcc2-4a0f2daae292",
+      "name": "Validate JSON",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        240,
+        1416
+      ],
+      "parameters": {
+        "functionCode": "let input = items[0].json.body || items[0].json;\n\nconst required = [\n  \"customer_name\",\n  \"email\",\n  \"phone\",\n  \"order_items\",\n  \"subtotal\",\n  \"tax\",\n  \"total\"\n];\n\nfor (const field of required) {\n  if (!input[field]) {\n    throw new Error(`Missing field: ${field}`);\n  }\n}\n\nreturn [{ json: input }];"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "372127bf-2293-4ee1-846d-aa32c4e99eba",
+      "name": "Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        1656
+      ],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "credentials": {}
+    },
+    {
+      "id": "8af142be-e099-46c4-b377-363f05748b14",
+      "name": "NORMALIZE_TO_CART_STATE",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        464,
+        1464
+      ],
+      "parameters": {
+        "functionCode": "const input = $json;\n\nconst cart_items = input.order_items.map(item => ({\n  display_name: item.name,\n  quantity: item.qty,\n  base_price_cents: Math.round(Number(item.price) * 100),\n  variant_price_cents: 0,\n  modifiers: [],\n  line_total_cents:\n    Math.round(Number(item.price) * 100) * item.qty\n}));\n\nconst now = new Date();\n\nreturn {\n  cart_id: \"HTML-\" + now.getTime(),\n\n  status: \"OPEN\",\n\n  customer_email: input.email,\n  customer_name: input.customer_name,\n  customer_phone: input.phone,\n\n  cart_items,\n  cart_items_json: JSON.stringify(cart_items),\n\n  subtotal_cents: Math.round(input.subtotal * 100),\n  tax_cents: Math.round(input.tax * 100),\n  total_cents: Math.round(input.total * 100),\n\n  source: \"html_webhook\"\n};"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "aa759bbf-07f3-44d0-b775-0cd5d0a1be79",
+      "name": "Validate Total",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        1464
+      ],
+      "parameters": {
+        "jsCode": "if (\n  $json.total_cents !==\n  ($json.subtotal_cents + $json.tax_cents)\n) {\n  throw new Error(\n    `TOTAL_MISMATCH: subtotal (${ $json.subtotal_cents }) + tax (${ $json.tax_cents }) != total (${ $json.total_cents })`\n  );\n}\n\nreturn $json;\n``"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "3e7076b9-a745-4d61-8d52-bf21775293d7",
+      "name": "Cart Rehydration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        1464
+      ],
+      "parameters": {
+        "jsCode": "const input = $json;\n\n// ----------------------------------\n// Guard\n// ----------------------------------\nif (!input.cart_items_json) {\n  throw new Error(\"Missing cart_items_json for cart rehydration\");\n}\n\nlet cart_items;\n\ntry {\n  cart_items = JSON.parse(input.cart_items_json);\n} catch {\n  throw new Error(\"cart_items_json is not valid JSON\");\n}\n\nif (!Array.isArray(cart_items)) {\n  throw new Error(\"cart_items_json must parse to an array\");\n}\n\n// ----------------------------------\n// Output hydrated cart\n// ----------------------------------\nreturn {\n  ...input,\n  cart_items\n};"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "6ab6ad46-fdad-43e3-8442-c592b520c2cd",
+      "name": "Square Line\u2011Item Builder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        1464
+      ],
+      "parameters": {
+        "jsCode": "const input = $json;\n\n// ----------------------------------\n// Guards\n// ----------------------------------\nif (!Array.isArray(input.cart_items) || input.cart_items.length === 0) {\n  throw new Error(\"WKFL-4: cart_items missing or empty\");\n}\n\nconst square_line_items = [];\n\ninput.cart_items.forEach(item => {\n  const quantity = String(item.quantity || 1);\n\n  if (\n    !Number.isInteger(item.base_price_cents) ||\n    item.base_price_cents <= 0\n  ) {\n    throw new Error(`Invalid base_price_cents for ${item.display_name}`);\n  }\n\n  // \u2705 Main line item (BASE PRICE ONLY)\n  const line_item = {\n    name: item.display_name,\n    quantity,\n    base_price_money: {\n      amount: item.base_price_cents,\n      currency: \"USD\"\n    },\n    modifiers: []\n  };\n\n  // \u2705 Modifiers (protein, add-ons, take-offs)\n  if (Array.isArray(item.modifiers)) {\n    item.modifiers.forEach(mod => {\n      const deltaCents = Math.round(\n        Number(mod.price_delta || 0) * 100\n      );\n\n      line_item.modifiers.push({\n        name: mod.mod_name,\n        base_price_money: {\n          amount: deltaCents, // 0 allowed\n          currency: \"USD\"\n        }\n      });\n    });\n  }\n\n  square_line_items.push(line_item);\n});\n\n// ----------------------------------\n// Output\n// ----------------------------------\nreturn {\n  ...input,\n  square_line_items\n};"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "0cc00122-ad52-49c1-83f1-f5e994d740d1",
+      "name": "Build Square Line Items With Tax",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        1464
+      ],
+      "parameters": {
+        "jsCode": "const input = $json;\n\n// Ensure existing line items exist\nif (!Array.isArray(input.square_line_items)) {\n  throw new Error(\"square_line_items is missing or not an array\");\n}\n\n// Ensure tax exists\nif (!Number.isInteger(input.tax_cents) || input.tax_cents <= 0) {\n  throw new Error(\"tax_cents is missing or invalid\");\n}\n\n// Clone the existing line items (do not mutate original)\nconst square_line_items_with_tax = [\n  ...input.square_line_items,\n\n  {\n    name: \"Tax\",\n    quantity: \"1\",\n    base_price_money: {\n      amount: input.tax_cents,\n      currency: \"USD\"\n    }\n  }\n];\n\nreturn {\n  ...input,\n\n  // \u2705 new payload for Square\n  square_line_items_with_tax\n};"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "c6b9a52b-1f22-47b8-a0ee-52cd21d37b3c",
+      "name": "cart_html BUILDER",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1584,
+        1464
+      ],
+      "parameters": {
+        "jsCode": "const input = $json;\n\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// Resolve cart_items safely (live or committed)\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nlet cart_items = input.cart_items;\n\nif (!Array.isArray(cart_items)) {\n  if (typeof input.cart_items_json === \"string\") {\n    try {\n      cart_items = JSON.parse(input.cart_items_json);\n    } catch {\n      throw new Error(\"cart_items_json is invalid JSON\");\n    }\n  }\n}\n\nif (!Array.isArray(cart_items)) {\n  throw new Error(\"cart_html builder requires cart_items or cart_items_json\");\n}\n\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// Helpers\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nconst money = cents =>\n  `$${(Number(cents || 0) / 100).toFixed(2)}`;\n\n// \u2705 TAKE\u2011OFF detector (semantic convention)\nconst isTakeOff = mod =>\n  typeof mod?.mod_name === \"string\" &&\n  /^(no |no-|hold |hold-)/i.test(mod.mod_name.trim());\n\n// \u2705 Note sanitizer (defensive; notes are trusted today,\n// but this future\u2011proofs rendering)\nconst sanitizeText = txt =>\n  String(txt).replace(/[<>]/g, \"\");\n\n// Brand tokens (email + HTML safe)\nconst BRAND_MUTED = \"#555\";\nconst BRAND_SUBTLE = \"#777\";\n\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// Build cart rows\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nlet rows = \"\";\n\ncart_items.forEach((item, idx) => {\n  const qty = Number(item.quantity || 1);\n\n  const baseUnitCents =\n    Number(item.base_price_cents || 0) +\n    Number(item.variant_price_cents || 0);\n\n  const baseDisplayCents = baseUnitCents * qty;\n\n  const modifiers = Array.isArray(item.modifiers) ? item.modifiers : [];\n\n  // \u2705 IDENTIFIERS (protein / choice, $0)\n  const identifiers = modifiers.filter(\n    m => !isTakeOff(m) && Number(m.price_delta) === 0\n  );\n\n  // \u2705 TAKE\u2011OFFS\n  const takeoffs = modifiers.filter(isTakeOff);\n\n  // \u2705 ADD\u2011ONS\n  const addons = modifiers.filter(\n    m => !isTakeOff(m) && Number(m.price_delta) > 0\n  );\n\n  // Spacer between items\n  if (idx > 0) {\n    rows += `\n      <tr>\n        <td colspan=\"2\" style=\"padding-top:14px;\"></td>\n      </tr>\n    `;\n  }\n\n  // \u2500\u2500 ITEM HEADER \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  rows += `\n    <tr>\n      <td>\n        <strong>${qty > 1 ? `${qty} \u00d7 ` : \"\"}${item.display_name}</strong>\n      </td>\n      <td style=\"text-align:right;\">\n        <strong>${money(baseDisplayCents)}</strong>\n      </td>\n    </tr>\n  `;\n\n  // \u2500\u2500 IDENTIFIERS (FIRST) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  identifiers.forEach(m => {\n    rows += `\n      <tr>\n        <td style=\"padding-left:24px; font-style:italic;\">\n          ${m.mod_name}\n        </td>\n        <td></td>\n      </tr>\n    `;\n  });\n\n  // \u2500\u2500 TAKE OFF \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  if (takeoffs.length > 0) {\n    rows += `\n      <tr>\n        <td colspan=\"2\"\n            style=\"padding-left:24px;\n                   font-size:11px;\n                   font-weight:600;\n                   color:${BRAND_MUTED};\n                   padding-top:4px;\">\n          TAKE OFF\n        </td>\n      </tr>\n    `;\n  }\n\n  takeoffs.forEach(m => {\n    rows += `\n      <tr>\n        <td style=\"padding-left:24px; font-style:italic; color:${BRAND_MUTED};\">\n          ${m.mod_name}\n        </td>\n        <td></td>\n      </tr>\n    `;\n  });\n\n  // \u2500\u2500 ADD\u2011ONS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  if (addons.length > 0) {\n    rows += `\n      <tr>\n        <td colspan=\"2\"\n            style=\"padding-left:24px;\n                   font-size:11px;\n                   font-weight:600;\n                   color:${BRAND_MUTED};\n                   padding-top:6px;\">\n          ADD\u2011ONS\n        </td>\n      </tr>\n    `;\n  }\n\n  addons.forEach(m => {\n    rows += `\n      <tr>\n        <td style=\"padding-left:24px;\">\n          + ${m.mod_name}\n        </td>\n        <td style=\"text-align:right;\">\n          ${money(Number(m.price_delta) * 100)}\n        </td>\n      </tr>\n    `;\n  });\n\n  // \u2500\u2500 ITEM\u2011SCOPED NOTES (MODEL 3) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  if (item.notes && String(item.notes).trim()) {\n    const safeNote = sanitizeText(item.notes);\n\n    rows += `\n      <tr>\n        <td colspan=\"2\"\n            style=\"padding-left:24px;\n                   font-style:italic;\n                   color:${BRAND_MUTED};\n                   padding-top:6px;\">\n          Notes: ${safeNote}\n        </td>\n      </tr>\n    `;\n  }\n\n  // \u2500\u2500 ITEM TOTAL (ONLY IF ADD\u2011ONS EXIST) \u2500\u2500\u2500\u2500\u2500\n  if (addons.length > 0) {\n    rows += `\n      <tr>\n        <td style=\"padding-left:24px; font-weight:600;\">\n          Item total\n        </td>\n        <td style=\"text-align:right; font-weight:600;\">\n          ${money(item.line_total_cents)}\n        </td>\n      </tr>\n    `;\n  }\n});\n\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// Final cart HTML\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nconst cart_html = `\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n  ${rows}\n\n  <tr><td colspan=\"2\"><hr></td></tr>\n\n  <tr>\n    <td><strong>Subtotal</strong></td>\n    <td style=\"text-align:right;\"><strong>${money(input.subtotal_cents)}</strong></td>\n  </tr>\n\n  <tr>\n    <td>Tax</td>\n    <td style=\"text-align:right;\">${money(input.tax_cents)}</td>\n  </tr>\n\n  <tr>\n    <td style=\"padding-top:10px;\"><strong>Total</strong></td>\n    <td style=\"padding-top:10px; text-align:right;\"><strong>${money(input.total_cents)}</strong></td>\n  </tr>\n</table>\n`;\n\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n// Output\n// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nreturn {\n  ...input,\n  cart_html,\n};\n"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "43015669-9021-4f71-9c6e-67aa965cb9b4",
+      "name": "Required\u2011Fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2032,
+        1392
+      ],
+      "parameters": {
+        "jsCode": "const missing = [];\n\nif (!$json.customer_email) missing.push(\"customer_email\");\nif (!$json.payment_link_url && !$json.create_payment_link) {\n  // payment_link_url may be created later, but at least intent must exist\n  missing.push(\"payment_link_url or payment link creation step\");\n}\nif (!$json.cart_html) missing.push(\"cart_html\");\n\nif (missing.length) {\n  throw new Error(\n    `WKFL-4 PRECONDITION FAILED: missing ${missing.join(\", \")}`\n  );\n}\n\nreturn $json;"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "87645006-cd52-4b15-b5da-28215ab9234d",
+      "name": "create_payment_link = true",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1808,
+        1392
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f4b94f73-8d9e-4881-87ae-9b5eed6db241",
+              "name": "create_payment_link",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "credentials": {}
+    },
+    {
+      "id": "8a09d277-3292-4181-9d87-ae38d843669d",
+      "name": "Create Payment Link (Square API)1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2256,
+        1392
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Square-Version",
+              "value": "2026-01-22"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "body": "={{ JSON.stringify({\n  idempotency_key: $execution.id,\n  order: {\n    location_id: \"J4B6A3X6RYA63\",\n    reference_id: String($json.cart_id),\n    line_items: $json.square_line_items_with_tax,\n    note: \"Sales tax calculated externally and included as a line item.\\nSource: Utopia Deli Custom Ordering System\",\n    metadata: {\n      subtotal_cents: String($json.subtotal_cents),\n      tax_cents: String($json.tax_cents),\n      tax_rate_percent: \"9.52\",\n      tax_handling: \"manual_line_item\",\n      order_system: \"utopia_deli_custom\"\n    }\n  },\n  checkout_options: {\n    redirect_url: \"https://www.theutopiadeli.com/payment-confirmed\"\n  }\n}) }}",
+        "options": {}
+      },
+      "credentials": {}
+    },
+    {
+      "id": "ee520f96-1c04-442e-9361-534e4a68d3eb",
+      "name": "Merge Payment Link and HTML",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2480,
+        1464
+      ],
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "credentials": {}
+    },
+    {
+      "id": "e7d4a6b1-b475-4abd-bf64-5939ff4e8316",
+      "name": "Extract Row Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        2704,
+        1464
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "payment_link_url",
+              "value": "={{ $json.payment_link.url }}"
+            },
+            {
+              "name": "=payment_link_id",
+              "value": "={{ $json.payment_link.id }}"
+            },
+            {
+              "name": "square_order_id",
+              "value": "={{ $json.square_order_id }}"
+            },
+            {
+              "name": "updated_at",
+              "value": "={{ $json.updated_at }}"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": false
+        }
+      },
+      "credentials": {}
+    },
+    {
+      "id": "3d09c793-6afe-408f-ba25-bd695fc6ee27",
+      "name": "Email Template",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3152,
+        1464
+      ],
+      "parameters": {
+        "jsCode": "return {\n  ...$json,\n  confirmation_email_template: `\n<div style=\"\n  font-family: Arial, sans-serif;\n  max-width:600px;\n  margin:auto;\n  background:#FBF6F6;\n  padding:24px;\n\">\n\n  <!-- Logo -->\n  <div style=\"text-align:center;margin-bottom:24px;\">\n    <a href=\"https://www.theutopiadeli.com\" target=\"_blank\" style=\"text-decoration:none;\">\n      <img\n        src=\"https://cdn.shopify.com/s/files/1/0763/5042/3270/files/TheUtopiaDeliLogo_menu.png?v=1774974380\"\n        alt=\"The Utopia Deli\"\n        style=\"max-width:220px;height:auto;border:none;\"\n      />\n    </a>\n  </div>\n\n  <!-- Headline -->\n  <p style=\"\n    color:#590B3F;\n    font-size:26px;\n    font-weight:700;\n    line-height:1.35;\n    margin:0 0 18px 0;\n  \">\n    We will begin preparing your order once we receive your payment.\n  </p>\n\n  <!-- Slogan -->\n  <p style=\"\n    font-style:italic;\n    color:#754681;\n    font-size:16px;\n    margin:0 0 22px 0;\n  \">\n    The Utopia Deli. It\u2019s just good food.\n  </p>\n\n  <!-- Instruction -->\n  <p style=\"\n    color:#1F1B1D;\n    font-size:14px;\n    margin:0 0 20px 0;\n  \">\n    Please review your order and complete your secure payment below:\n  </p>\n\n  <!-- Order Summary -->\n  <h3 style=\"\n    color:#590B3F;\n    margin-top:32px;\n    margin-bottom:12px;\n    font-size:18px;\n  \">\n    Order Summary\n  </h3>\n\n  __CART_HTML__\n\n  <hr style=\"border:none;border-top:1px solid #E6E1E1;margin:24px 0;\">\n\n  <!-- CTA -->\n  <div style=\"margin:24px 0;text-align:center;\">\n    __PAYMENT_LINK__\n  </div>\n\n  <!-- Footer -->\n  <p style=\"\n    margin-top:12px;\n    font-size:12px;\n    color:#8A8585;\n    text-align:center;\n    line-height:1.6;\n  \">\n\n    \u00a9 __CURRENT_YEAR__<br/>\n\n    <a href=\"https://www.theutopiadeli.com\"\n       target=\"_blank\"\n       style=\"color:#590B3F;text-decoration:none;font-weight:600;\">\n      The Utopia Deli\n    </a><br/>\n\n    Pickup Order \u00b7 801 S Chester St,<br/>\n    Little Rock, AR 72202<br/>\n\n    <a href=\"tel:+15015515944\" style=\"color:#8A8585;text-decoration:none;\">\n      +1 (501) 551\u20115944\n    </a>\n    &nbsp;\u00b7&nbsp;\n    <a href=\"mailto:theutopiadelilittlerock@gmail.com\"\n       style=\"color:#8A8585;text-decoration:none;\">\n      theutopiadelilittlerock@gmail.com\n    </a>\n\n  </p>\n\n</div>\n`\n};"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "a1967c1f-638b-4b9a-a3e7-ad4b187b57f3",
+      "name": "Get business contact",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3376,
+        1464
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "934c70de-988e-4d60-8ef1-a5705cddb438",
+              "name": "business_address",
+              "value": "801 S Chester St, Little Rock, AR 72202",
+              "type": "string"
+            },
+            {
+              "id": "18e9d07b-7f5a-4ff6-947b-c49a7d0db6b8",
+              "name": "business_phone",
+              "value": "+1 (501) 551-5944",
+              "type": "string"
+            },
+            {
+              "id": "cbf4134f-6d8f-4053-abc0-14aa472c6cde",
+              "name": "business_email",
+              "value": "theutopiadelilittlerock@gmail.com",
+              "type": "string"
+            },
+            {
+              "id": "671692a8-bfa2-4267-abb3-9dc6ab6bbf01",
+              "name": "current_year",
+              "value": "={{ $now.toFormat('yyyy') }}",
+              "type": "string"
+            },
+            {
+              "id": "a4088832-b980-4136-b47c-cecdd045e7c4",
+              "name": "final_email_html",
+              "value": "={{ $json.cart_html }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "credentials": {}
+    },
+    {
+      "id": "3d521b56-6030-4f3d-89b9-fd1f60896b45",
+      "name": "FINAL EMAIL COMPOSER",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3600,
+        1464
+      ],
+      "parameters": {
+        "jsCode": "// ===============================\n// FINAL EMAIL COMPOSER (PAYMENT)\n// ===============================\n\n// ---- Validate template ----\nif (\n  !$json.confirmation_email_template ||\n  typeof $json.confirmation_email_template !== 'string'\n) {\n  throw new Error('\u274c Final Email Composer: Missing confirmation_email_template');\n}\n\n// ---- Validate cart HTML ----\nif (\n  !$json.cart_html ||\n  typeof $json.cart_html !== 'string'\n) {\n  throw new Error('\u274c Final Email Composer: Missing cart_html');\n}\n\n// ---- Validate payment link URL ----\nif (\n  !$json.payment_link ||\n  typeof $json.payment_link !== 'object' ||\n  typeof $json.payment_link.url !== 'string'\n) {\n  throw new Error('\u274c Final Email Composer: Missing payment_link.url');\n}\n\n// ---- Extract values ----\nconst paymentLinkUrl = $json.payment_link.url;\nconst currentYear = new Date().getFullYear();\n\n// ---- Inject placeholders ----\nlet finalEmailHtml = $json.confirmation_email_template;\n\nfinalEmailHtml = finalEmailHtml.replace(/__CART_HTML__/g, $json.cart_html);\nfinalEmailHtml = finalEmailHtml.replace(\n  /__PAYMENT_LINK__/g,\n  `<a href=\"${paymentLinkUrl}\" style=\"\n    background:#8C2F39;\n    color:#ffffff;\n    padding:14px 24px;\n    border-radius:24px;\n    text-decoration:none;\n    font-weight:bold;\n    display:inline-block;\n  \">Complete Payment</a>`\n);\nfinalEmailHtml = finalEmailHtml.replace(/__CURRENT_YEAR__/g, String(currentYear));\n\n// ---- Sanity check ----\nconst unresolvedTokens = finalEmailHtml.match(/__[^_]+__/g);\nif (unresolvedTokens) {\n  throw new Error(\n    `\u274c Final Email Composer: Unresolved placeholders found: ${unresolvedTokens.join(', ')}`\n  );\n}\n\n// ---- Output ----\nreturn {\n  ...$json,\n  final_email_html: finalEmailHtml,\n};"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "f61e37c3-1387-49b5-b2d3-bc79f30d6cf6",
+      "name": "Send Payment Link Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        3824,
+        1464
+      ],
+      "parameters": {
+        "fromEmail": "theutopiadelilittlerock@gmail.com",
+        "toEmail": "={{ $json.customer_email }}",
+        "subject": "Your Utopia Deli secure checkout link",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "credentials": {
+        "smtp": {
+          "id": "ZOvYr6kSP7zE8tBv",
+          "name": "deli gmail"
+        }
+      }
+    },
+    {
+      "id": "a5e8dbf8-5b94-4b04-8f88-453c0cc9259b",
+      "name": "PREP_RESPONSE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        240,
+        272
+      ],
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    order_id: items[0].json.order_id,\n    payment_url: items[0].json.payment_url\n  }\n}];"
+      },
+      "credentials": {}
+    },
+    {
+      "id": "eb4679d7-341b-4183-bef0-8d28b64f0983",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        2928,
+        1464
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, order_id: $json.order_id, payment_url: $json.payment_url, payment_link: $json.payment_url, message: \"Order received! Complete payment to confirm.\" } }}",
+        "options": {}
+      },
+      "credentials": {},
+      "webhookId": "utopia-deli-html-order-v2"
+    },
+    {
+      "id": "191f9336-2a79-4e43-961a-ad93a2e484ca",
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        464,
+        1704
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: false, error: $json.error || \"Validation failed\" }) }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "credentials": {},
+      "webhookId": "utopia-deli-html-order-v2"
+    }
+  ],
+  "connections": {
+    "bff75b3f-a6d5-458e-a487-5bf00a3099f7": {
+      "main": [
+        [
+          {
+            "node": "87706c42-ca60-4c62-bcc2-4a0f2daae292",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "87706c42-ca60-4c62-bcc2-4a0f2daae292": {
+      "main": [
+        [
+          {
+            "node": "372127bf-2293-4ee1-846d-aa32c4e99eba",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "372127bf-2293-4ee1-846d-aa32c4e99eba": {
+      "main": [
+        [
+          {
+            "node": "8af142be-e099-46c4-b377-363f05748b14",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "191f9336-2a79-4e43-961a-ad93a2e484ca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8af142be-e099-46c4-b377-363f05748b14": {
+      "main": [
+        [
+          {
+            "node": "aa759bbf-07f3-44d0-b775-0cd5d0a1be79",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "aa759bbf-07f3-44d0-b775-0cd5d0a1be79": {
+      "main": [
+        [
+          {
+            "node": "3e7076b9-a745-4d61-8d52-bf21775293d7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3e7076b9-a745-4d61-8d52-bf21775293d7": {
+      "main": [
+        [
+          {
+            "node": "6ab6ad46-fdad-43e3-8442-c592b520c2cd",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6ab6ad46-fdad-43e3-8442-c592b520c2cd": {
+      "main": [
+        [
+          {
+            "node": "0cc00122-ad52-49c1-83f1-f5e994d740d1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "0cc00122-ad52-49c1-83f1-f5e994d740d1": {
+      "main": [
+        [
+          {
+            "node": "c6b9a52b-1f22-47b8-a0ee-52cd21d37b3c",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "87645006-cd52-4b15-b5da-28215ab9234d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "c6b9a52b-1f22-47b8-a0ee-52cd21d37b3c": {
+      "main": [
+        [
+          {
+            "node": "ee520f96-1c04-442e-9361-534e4a68d3eb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "87645006-cd52-4b15-b5da-28215ab9234d": {
+      "main": [
+        [
+          {
+            "node": "43015669-9021-4f71-9c6e-67aa965cb9b4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "43015669-9021-4f71-9c6e-67aa965cb9b4": {
+      "main": [
+        [
+          {
+            "node": "8a09d277-3292-4181-9d87-ae38d843669d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a09d277-3292-4181-9d87-ae38d843669d": {
+      "main": [
+        [
+          {
+            "node": "ee520f96-1c04-442e-9361-534e4a68d3eb",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ee520f96-1c04-442e-9361-534e4a68d3eb": {
+      "main": [
+        [
+          {
+            "node": "e7d4a6b1-b475-4abd-bf64-5939ff4e8316",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e7d4a6b1-b475-4abd-bf64-5939ff4e8316": {
+      "main": [
+        [
+          {
+            "node": "3d09c793-6afe-408f-ba25-bd695fc6ee27",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3d09c793-6afe-408f-ba25-bd695fc6ee27": {
+      "main": [
+        [
+          {
+            "node": "a1967c1f-638b-4b9a-a3e7-ad4b187b57f3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a1967c1f-638b-4b9a-a3e7-ad4b187b57f3": {
+      "main": [
+        [
+          {
+            "node": "3d521b56-6030-4f3d-89b9-fd1f60896b45",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3d521b56-6030-4f3d-89b9-fd1f60896b45": {
+      "main": [
+        [
+          {
+            "node": "f61e37c3-1387-49b5-b2d3-bc79f30d6cf6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "f61e37c3-1387-49b5-b2d3-bc79f30d6cf6": {
+      "main": [
+        [
+          {
+            "node": "a5e8dbf8-5b94-4b04-8f88-453c0cc9259b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a5e8dbf8-5b94-4b04-8f88-453c0cc9259b": {
+      "main": [
+        [
+          {
+            "node": "eb4679d7-341b-4183-bef0-8d28b64f0983",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": []
+}

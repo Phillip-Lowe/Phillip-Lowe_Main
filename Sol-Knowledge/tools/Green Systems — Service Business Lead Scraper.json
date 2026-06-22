@@ -1,0 +1,126 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const configs = [\n  { type: 'beauty_salon', label: 'Salon/Barber' },\n  { type: 'car_repair', label: 'Auto Shop' },\n  { type: 'plumber', label: 'Plumber' },\n  { type: 'electrician', label: 'Electrician' },\n  { type: 'general_contractor', label: 'Contractor' }\n];\n\nreturn configs.map(c => ({\n  json: {\n    type: c.type,\n    label: c.label,\n    location: '34.7465,-92.2896',\n    radius: 20000\n  }\n}));"
+      },
+      "id": "build",
+      "name": "Build Search Configs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "location", "value": "={{ $json.location }}" },
+            { "name": "radius", "value": "={{ $json.radius }}" },
+            { "name": "type", "value": "={{ $json.type }}" },
+            { "name": "key", "value": "YOUR_GOOGLE_API_KEY" }
+          ]
+        }
+      },
+      "id": "search",
+      "name": "Google Places Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [600, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = [];\n\nfor (const item of $input.all()) {\n  const results = item.json.results || [];\n\n  for (const place of results) {\n    out.push({\n      json: {\n        place_id: place.place_id,\n        name: place.name,\n        address: place.vicinity,\n        rating: place.rating || 0,\n        review_count: place.user_ratings_total || 0\n      }\n    });\n  }\n}\n\nreturn out;"
+      },
+      "id": "parse",
+      "name": "Parse Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [800, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const seen = new Set();\nconst unique = [];\n\nfor (const item of $input.all()) {\n  if (!seen.has(item.json.place_id)) {\n    seen.add(item.json.place_id);\n    unique.push(item);\n  }\n}\n\nreturn unique;"
+      },
+      "id": "dedupe",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const scored = [];\n\nfor (const item of $input.all()) {\n  const lead = item.json;\n  let score = 0;\n\n  if (lead.review_count >= 100) score += 25;\n  else if (lead.review_count >= 50) score += 20;\n  else if (lead.review_count >= 20) score += 15;\n\n  if (lead.rating >= 4.5) score += 15;\n  else if (lead.rating >= 4.0) score += 12;\n\n  if (!lead.address) score += 10;\n\n  lead.score = Math.min(score, 100);\n\n  scored.push({ json: lead });\n}\n\nreturn scored;"
+      },
+      "id": "score",
+      "name": "Score Leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst hot = items.filter(i => i.json.score >= 80);\nconst warm = items.filter(i => i.json.score >= 60);\n\nreturn [{\n  json: {\n    total: items.length,\n    hot: hot.length,\n    warm: warm.length,\n    top: hot.slice(0, 5).map(l => ({ name: l.json.name, score: l.json.score }))\n  }\n}];"
+      },
+      "id": "summary",
+      "name": "Summarize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1400, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "YOUR_EMAIL",
+        "subject": "Lead Scrape Complete ({{$json.total}} found)",
+        "message": "Found {{$json.total}} leads\n\n🔥 Hot: {{$json.hot}}\n🌡 Warm: {{$json.warm}}\n\nTop Leads:\n{{$json.top.map(l => l.name + ' (' + l.score + ')').join('\\n')}}"
+      },
+      "id": "email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1600, 300]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [[{ "node": "Build Search Configs", "type": "main", "index": 0 }]]
+    },
+    "Build Search Configs": {
+      "main": [[{ "node": "Google Places Search", "type": "main", "index": 0 }]]
+    },
+    "Google Places Search": {
+      "main": [[{ "node": "Parse Results", "type": "main", "index": 0 }]]
+    },
+    "Parse Results": {
+      "main": [[{ "node": "Remove Duplicates", "type": "main", "index": 0 }]]
+    },
+    "Remove Duplicates": {
+      "main": [[{ "node": "Score Leads", "type": "main", "index": 0 }]]
+    },
+    "Score Leads": {
+      "main": [[{ "node": "Summarize", "type": "main", "index": 0 }]]
+    },
+    "Summarize": {
+      "main": [[{ "node": "Send Email", "type": "main", "index": 0 }]]
+    }
+  }
+}

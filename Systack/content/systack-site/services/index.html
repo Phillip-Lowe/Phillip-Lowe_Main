@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop Handling Bookings Manually — Systack</title>
+  <meta name="description" content="We set up simple systems that let customers book, pay, and get confirmations automatically. See how it works with a live example.">
+  <style>
+    :root {
+      --navy: #001a2d;
+      --navy-light: #002845;
+      --teal: #0d9488;
+      --cyan: #00a1db;
+      --cyan-bright: #00c5e0;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --green: #22c55e;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .nav {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .nav-logo span { color: var(--teal); }
+    .nav-links a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: var(--gray);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--navy); }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 80px 24px 40px;
+      max-width: 720px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 40px;
+    }
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .header p {
+      font-size: 18px;
+      opacity: 0.85;
+      margin-bottom: 24px;
+    }
+    .header a {
+      color: var(--cyan-bright);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .header a:hover { text-decoration: underline; }
+
+    /* Content sections */
+    .section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+    .section-alt {
+      background: white;
+      border-radius: 20px;
+      margin: 0 auto 40px;
+      padding: 40px;
+      max-width: 800px;
+    }
+    .section h2 {
+      font-size: 28px;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .section p {
+      color: var(--gray-600);
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .pain-item {
+      padding: 16px 20px;
+      background: #fef2f2;
+      border-left: 4px solid var(--red);
+      border-radius: 8px;
+      font-size: 16px;
+      color: var(--dark);
+    }
+    .solution-list {
+      list-style: none;
+      margin: 24px 0;
+    }
+    .solution-list li {
+      padding: 12px 0;
+      font-size: 16px;
+      color: var(--dark);
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .solution-list li:last-child { border-bottom: none; }
+    .solution-list li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: bold;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Proof block */
+    .proof-block {
+      background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+      border: 2px solid var(--green);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+    .proof-block h3 {
+      font-size: 24px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .proof-block .live-badge {
+      display: inline-block;
+      background: var(--green);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .proof-block a {
+      display: inline-block;
+      color: var(--cyan);
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 12px 0;
+    }
+    .proof-block a:hover { text-decoration: underline; }
+    .proof-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+      text-align: left;
+    }
+    .proof-features div {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    /* Offer block */
+    .offer-block {
+      background: white;
+      border: 2px solid var(--cyan);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+    .offer-block h3 {
+      font-size: 24px;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .offer-block p {
+      color: var(--gray-600);
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    /* CTA */
+    .cta-block {
+      text-align: center;
+      padding: 60px 24px;
+      background: var(--navy);
+      color: white;
+      border-radius: 20px;
+      margin: 40px auto;
+      max-width: 800px;
+    }
+    .cta-block h2 {
+      color: white;
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .cta-block p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: opacity 0.2s;
+      margin: 8px;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), var(--cyan));
+      color: white;
+    }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.3);
+      color: white;
+      background: transparent;
+    }
+    .btn-outline:hover {
+      border-color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Service cards (secondary) */
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 40px auto;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid #e2e8f0;
+    }
+    .service-card h3 {
+      font-size: 18px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+    .service-card .price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .service-card .price span {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    @media (max-width: 640px) {
+      .header h1 { font-size: 28px; }
+      .proof-features { grid-template-columns: 1fr; }
+      .section-alt { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-logo">Sy<span>Stack</span></div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/services">Services</a>
+      <a href="/work">Work</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- 1. HEADER -->
+  <section class="header">
+    <h1>Stop Handling Bookings and Orders Manually.</h1>
+    <p>We set up simple systems that let customers book, pay, and get confirmations automatically.</p>
+    <p style="font-size: 14px; opacity: 0.7;">See a live system running right now:</p>
+    <a href="https://order.theutopiadeli.com" target="_blank">order.theutopiadeli.com →</a>
+  </section>
+
+  <!-- 2. PAIN -->
+  <div class="section">
+    <h2>Most Service Businesses Lose Time To:</h2>
+    <div class="pain-grid">
+      <div class="pain-item">Constant back-and-forth messages</div>
+      <div class="pain-item">Manual booking or order tracking</div>
+      <div class="pain-item">Missed or delayed responses</div>
+      <div class="pain-item">Customers who never follow through</div>
+      <div class="pain-item">Slow replies during busy hours</div>
+      <div class="pain-item">Missed orders or scheduling issues</div>
+    </div>
+    <p>If any of these sound familiar, you're exactly who we built this for.</p>
+  </div>
+
+  <!-- 3. SOLUTION -->
+  <div class="section-alt">
+    <h2>Here's What We Set Up:</h2>
+    <p>A simple system that handles the entire customer flow — so you don't have to.</p>
+    <ul class="solution-list">
+      <li>Customers book or order directly through your branded page</li>
+      <li>Payment collected upfront (no chasing invoices)</li>
+      <li>Confirmations sent automatically via SMS and email</li>
+      <li>Reminders sent before the appointment so they actually show up</li>
+      <li>No manual processing required — it runs 24/7</li>
+      <li>Everything logs to your dashboard so you can see what's happening</li>
+    </ul>
+    <p><strong>You get the booking notification. They get confirmation. Nothing falls through the cracks.</strong></p>
+  </div>
+
+  <!-- 4. PROOF -->
+  <div class="proof-block">
+    <span class="live-badge">● LIVE RIGHT NOW</span>
+    <h3>Utopia Deli Ordering System</h3>
+    <a href="https://order.theutopiadeli.com" target="_blank">order.theutopiadeli.com →</a>
+    <p>We built and operate the complete online ordering system for this deli.<br>Customers order, pay, and get confirmations — all automatically.</p>
+    <div class="proof-features">
+      <div>✓ Orders placed in ~60 seconds</div>
+      <div>✓ Payments handled automatically</div>
+      <div>✓ Runs 24/7 without manual input</div>
+      <div>✓ 3.2% processing fee (vs 20%+ on platforms)</div>
+    </div>
+  </div>
+
+  <!-- 5. OFFER -->
+  <div class="offer-block">
+    <h3>Want to See How This Would Work For Your Business?</h3>
+    <p>We can set up a simple version for you to test with real customers. No pressure — just something you can try and see if it works for you.</p>
+    <p style="font-size: 14px; color: var(--gray);">Most businesses see results in the first week.</p>
+  </div>
+
+  <!-- 6. CTA -->
+  <div class="cta-block">
+    <h2>Ready to Stop Doing Busy Work?</h2>
+    <p>Tell us what you need. We'll map your system in 15 minutes.</p>
+    <a href="/contact" class="btn btn-primary">Book a 15-Minute Call</a>
+    <a href="mailto:support@systack.net" class="btn btn-outline">Message Us</a>
+    <p style="font-size: 13px; opacity: 0.6; margin-top: 16px;">No obligation. No sales pitch. Just a conversation.</p>
+  </div>
+
+  <!-- Secondary services (advanced) -->
+  <div class="section" style="text-align: center;">
+    <h2 style="font-size: 22px; color: var(--gray);">Also Available</h2>
+    <p class="section-sub" style="font-size: 14px;">For businesses that need more than booking systems</p>
+  </div>
+  <div class="service-cards">
+    <div class="service-card">
+      <h3>📄 Invoice Extractor</h3>
+      <p>Forward any invoice PDF. We extract vendor, line items, totals, and tax automatically.</p>
+      <div class="price">$1,500 <span>setup + $149/mo</span></div>
+      <a href="/services/invoice-extractor.html" style="color: var(--cyan); font-weight: 600; text-decoration: none; display: inline-block; margin-top: 12px;">Try Demo →</a>
+    </div>
+    <div class="service-card">
+      <h3>🍽️ Catering Lead System</h3>
+      <p>Multi-step catering form with automatic lead scoring and instant email responses.</p>
+      <div class="price">$2,000 <span>setup + $199/mo</span></div>
+      <a href="/contact" style="color: var(--cyan); font-weight: 600; text-decoration: none; display: inline-block; margin-top: 12px;">Get Started →</a>
+    </div>
+  </div>
+
+  <footer style="text-align: center; padding: 40px 24px; color: var(--gray); font-size: 14px; border-top: 1px solid #e2e8f0; margin-top: 40px;">
+    <p>© 2026 Systack. Systems that run while you sleep.</p>
+    <p style="margin-top: 8px;"><a href="mailto:support@systack.net" style="color: var(--cyan); text-decoration: none;">support@systack.net</a> · 📞 (501) 274-6231</p>
+  </footer>
+</body>
+</html>

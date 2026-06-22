@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head><title>SOL Dashboard</title><meta charset=utf-8><meta http-equiv=refresh content=10>
+<style>
+body{font-family:monospace;background:#0a0a0a;color:#e0e0e0;padding:20px}
+h1{color:#00ff88} h2{color:#00ccff;border-bottom:1px solid #333;padding:5px 0}
+.card{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:15px;margin:10px 0}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.85em;font-weight:bold}
+.status-done{background:#00ff88;color:#000} .status-pending{background:#ffaa00;color:#000}
+.status-running{background:#00aaff;color:#fff} .status-failed{background:#ff4444;color:#fff}
+.status-idle{background:#00ff88;color:#000} .status-busy{background:#00aaff;color:#fff}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th{text-align:left;padding:8px;color:#00ccff;border-bottom:1px solid #333}
+td{padding:8px;border-bottom:1px solid #222;font-size:.9em}
+.mono{font-family:monospace;font-size:.85em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+</style>
+</head>
+<body>
+<h1>🤖 SOL Orchestrator</h1>
+<p>Last updated: 
+2026-06-09 07:08:20 CDT
+</p>
+<h2>📊 Tasks</h2><div class=grid>
+<div class=card><span class="badge status-pending">PENDING</span>: <b>0</b></div>
+<div class=card><span class="badge status-running">RUNNING</span>: <b>0</b></div>
+<div class=card><span class="badge status-done">DONE</span>: <b>4</b></div>
+<div class=card><span class="badge status-failed">FAILED</span>: <b>0</b></div>
+<div class=card><span class="badge status-dead">DEAD</span>: <b>0</b></div>
+</div>
+<h2>🤖 Agents</h2><div class=grid>
+<div class=card>
+<b>ASSEMBLY</b> <span class="badge status-idle">IDLE</span><br>
+Task: None | Done: 4 | Failed: 0<br>
+<span class=mono style=color:#ffaa00>n8n, workflows, credentials</span>
+</div>
+<div class=card>
+<b>CHATTY</b> <span class="badge status-idle">IDLE</span><br>
+Task: None | Done: 0 | Failed: 0<br>
+<span class=mono style=color:#ffaa00>communication, onboarding, content</span>
+</div>
+<div class=card>
+<b>CODY</b> <span class="badge status-idle">IDLE</span><br>
+Task: None | Done: 0 | Failed: 0<br>
+<span class=mono style=color:#ffaa00>coding, voice, streaming</span>
+</div>
+<div class=card>
+<b>GENI</b> <span class="badge status-idle">IDLE</span><br>
+Task: None | Done: 0 | Failed: 0<br>
+<span class=mono style=color:#ffaa00>image_gen, video_gen, creative</span>
+</div>
+<div class=card>
+<b>PESSI</b> <span class="badge status-idle">IDLE</span><br>
+Task: None | Done: 0 | Failed: 0<br>
+<span class=mono style=color:#ffaa00>security, validation, risk</span>
+</div>
+<div class=card>
+<b>SOL</b> <span class="badge status-idle">IDLE</span><br>
+Task: None | Done: 0 | Failed: 0<br>
+<span class=mono style=color:#ffaa00>orchestration, execution, synthesis</span>
+</div>
+<div class=card>
+<b>VALI</b> <span class="badge status-idle">IDLE</span><br>
+Task: None | Done: 0 | Failed: 0<br>
+<span class=mono style=color:#ffaa00>testing, validation, quality</span>
+</div>
+</div>
+<h2>📋 Recent Tasks</h2><table><tr><th>ID</th><th>Type</th><th>Status</th><th>Agent</th><th>Prio</th><th>Updated</th></tr>
+<tr>
+<td class=mono>#4</td><td>VALIDATE</td>
+<td><span class="badge status-done">DONE</span></td>
+<td class=mono>ASSEMBLY</td><td>7</td>
+<td class=mono>06:59:27</td>
+</tr>
+<tr>
+<td class=mono>#2</td><td>RESEARCH</td>
+<td><span class="badge status-done">DONE</span></td>
+<td class=mono>ASSEMBLY</td><td>8</td>
+<td class=mono>06:59:22</td>
+</tr>
+<tr>
+<td class=mono>#3</td><td>BUILD</td>
+<td><span class="badge status-done">DONE</span></td>
+<td class=mono>ASSEMBLY</td><td>9</td>
+<td class=mono>06:59:17</td>
+</tr>
+<tr>
+<td class=mono>#1</td><td>RESEARCH</td>
+<td><span class="badge status-done">DONE</span></td>
+<td class=mono>ASSEMBLY</td><td>8</td>
+<td class=mono>06:49:06</td>
+</tr>
+</table>
+<h2>⚙️ Model Token Limits</h2><div class=grid>
+<div class=card>
+<b style=color:#ffaa00>llama3.2:3b</b><br>
+Context: 128K | Prompt Limit: 16K | Size: 2.0GB
+</div>
+<div class=card>
+<b style=color:#ffaa00>qwen2.5-coder:7b</b><br>
+Context: 32K | Prompt Limit: 8K | Size: 4.7GB
+</div>
+<div class=card>
+<b style=color:#ffaa00>llama3.1:8b</b><br>
+Context: 128K | Prompt Limit: 16K | Size: 4.9GB
+</div>
+</div></body></html>

@@ -1,0 +1,836 @@
+{
+  "name": "Utopia Deli \u2014 Full Checkout (Modifiers + Validation)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "utopia-deli-checkout",
+        "formTitle": "Utopia Deli \u2014 Checkout",
+        "options": {}
+      },
+      "id": "fccca71e-9f57-49fe-ab65-781c3aa37ffb",
+      "name": "Form Trigger",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1216,
+        272
+      ],
+      "webhookId": "82cac48e-4c5f-4fe5-9604-9f1f11344702"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "customer.name",
+              "value": "={{$json['Name']?.trim()}}"
+            },
+            {
+              "name": "customer.email",
+              "value": "={{$json['Email']?.toLowerCase().trim()}}"
+            },
+            {
+              "name": "customer.phone",
+              "value": "={{$json['Phone']?.trim()}}"
+            },
+            {
+              "name": "geo.city",
+              "value": "={{$json['City']?.trim()}}"
+            },
+            {
+              "name": "geo.county",
+              "value": "={{$json['County']?.trim()}}"
+            },
+            {
+              "name": "order_input.entree",
+              "value": "={{$json['Entree']?.trim()}}"
+            },
+            {
+              "name": "order_input.notes",
+              "value": "={{$json['Notes'] ?? ''}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5eccdc95-00fc-4a70-897d-4cd705ecf86d",
+      "name": "Set \u2014 Normalize",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://emailvalidation.abstractapi.com/v1/?api_key=' + $env.ABSTRACTAPI_EMAIL_KEY + '&email=' + $json.customer.email}}",
+        "options": {}
+      },
+      "id": "aae96092-06f6-4fd7-8bf6-11bd9460c817",
+      "name": "AbstractAPI Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "mergeByPosition"
+      },
+      "id": "c40e3a47-efa6-43bd-a28e-840de377214a",
+      "name": "Merge \u2014 After Email Validation",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json['deliverability']}}",
+              "value2": "DELIVERABLE"
+            }
+          ],
+          "boolean": [
+            {
+              "value1": "={{$json.is_disposable_email?.value === false}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "8695a344-0123-4246-b55c-371e810d70f0",
+      "name": "IF \u2014 Email Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "false"
+            },
+            {
+              "name": "title",
+              "value": "Invalid email"
+            },
+            {
+              "name": "message",
+              "value": "Please enter a valid email address."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a53fcb9b-5b6b-45fb-b130-71578cd2d44b",
+      "name": "Set \u2014 Error Invalid Email",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://phonevalidation.abstractapi.com/v1/?api_key=' + $env.ABSTRACTAPI_PHONE_KEY + '&phone=' + $json.customer.phone + '&country=US'}}",
+        "options": {}
+      },
+      "id": "48034fb4-a2db-4cf6-abf6-df7a6e41c92b",
+      "name": "AbstractAPI Phone",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        0,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "mergeByPosition"
+      },
+      "id": "c1155717-c28f-49b4-a7d8-582773269169",
+      "name": "Merge \u2014 After Phone Validation",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        240,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.valid === true}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "d98d25c9-c5c0-48d6-a782-05be3aaac4c7",
+      "name": "IF \u2014 Phone Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        480,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "false"
+            },
+            {
+              "name": "title",
+              "value": "Invalid phone number"
+            },
+            {
+              "name": "message",
+              "value": "Please enter a valid US phone number."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bfb6b128-6fcf-41ca-9e77-77eb62806ee1",
+      "name": "Set \u2014 Error Invalid Phone",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        720,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "range": "Open_Hours!A:D",
+        "options": {}
+      },
+      "id": "c9067626-4bd2-4ac6-bb35-fe10a1026b46",
+      "name": "Google Sheets \u2014 Read Open_Hours",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        720,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\n// America/Chicago hours gate from Open_Hours\nfunction getChicagoNow() {\n  const fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hourCycle: 'h23', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit', weekday:'short' });\n  const parts = Object.fromEntries(fmt.formatToParts(new Date()).map(p => [p.type, p.value]));\n  const map = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };\n  return { hour: +parts.hour, minute: +parts.minute, dow: map[parts.weekday] };\n}\nfunction parseHM(s){ const [h,m] = String(s).split(':').map(Number); return {h,m}; }\nconst rows = $json.data || $json.rows || [];\nlet data = [];\nif (Array.isArray(rows) && rows.length) {\n  if (Array.isArray(rows[0])) {\n    for (const r of rows) data.push({ dow:+r[0], open_local:r[1], close_local:r[2], is_open:String(r[3]).toUpperCase() });\n  } else if (typeof rows[0] === 'object') {\n    data = rows.map(r => ({ dow:+r.dow, open_local:r.open_local, close_local:r.close_local, is_open:String(r.is_open).toUpperCase() }));\n  }\n}\nconst now = getChicagoNow();\nconst today = data.find(r => r.dow === now.dow);\nif (!today || today.is_open !== 'TRUE') return [{ json: { isOpen:false, reason:'Closed today', window:null } }];\nconst o = parseHM(today.open_local), c = parseHM(today.close_local);\nconst nowMin = now.hour*60 + now.minute, openMin = o.h*60 + o.m, closeMin = c.h*60 + c.m;\nconst inWindow = nowMin >= openMin && nowMin <= closeMin;\nreturn [{ json: { isOpen: inWindow, reason: inWindow ? 'OK' : `Open ${today.open_local}\u2013${today.close_local}`, window: today } }];\n"
+      },
+      "id": "54d343c8-9b0e-47e9-b14f-769659684d5e",
+      "name": "Function \u2014 Check Open Hours",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        992,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.isOpen === true}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "c03598a6-1a3c-46a5-a90a-03da04e91d26",
+      "name": "IF \u2014 Open?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "false"
+            },
+            {
+              "name": "title",
+              "value": "We\u2019re currently closed"
+            },
+            {
+              "name": "message",
+              "value": "Utopia Deli serves Monday\u2013Saturday, 12:30 PM\u20137:30 PM (CT). Please come back during open hours."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c815cdf0-5c02-44f4-8a86-44703cc5fd42",
+      "name": "Set \u2014 Error Closed",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "value1": "={{$json.order_input?.entree}}",
+        "rules": {
+          "rules": []
+        },
+        "fallbackOutput": 0
+      },
+      "id": "1f9fdb6f-aa51-4e50-95c1-e8cc2ec92e80",
+      "name": "Switch \u2014 Entr\u00e9e Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "range": "Menu_Catalog!A:E",
+        "options": {}
+      },
+      "id": "8817b4ad-dd37-4f3a-8ca8-3e2e68cc0410",
+      "name": "Google Sheets \u2014 Read Menu_Catalog",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        1712,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\n// Labels like [GROUP|MOD] Label +$x.xx\nconst selected = [];\nconst priceRx = /\\+\\$(\\d+(?:\\.\\d{1,2})?)$/;\nfor (const [k,v] of Object.entries($json)) {\n  if (!v) continue; const label = String(v).trim(); if (!label.startsWith('[')) continue;\n  const tag = label.match(/^\\[([A-Z0-9_]+)\\|([A-Z0-9_]+)\\]/i); if (!tag) continue;\n  const group = tag[1].toUpperCase(), mod = tag[2].toUpperCase();\n  const pm = label.match(priceRx); const price_cents = pm ? Math.round(parseFloat(pm[1])*100) : 0;\n  selected.push({ group, mod, label, price_cents });\n}\nreturn [{ json: { modifiers: selected } }];\n"
+      },
+      "id": "1d1bb413-f889-4b5c-b2d6-1525f83cfea6",
+      "name": "Function \u2014 Collect Modifiers",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1952,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\n// Build entr\u00e9e + modifiers\nconst entreeTitle = $item(0).$node[\"Set \u2014 Normalize\"].json[\"order_input.entree\"];\nconst rows = $item(0).$node[\"Google Sheets \u2014 Read Menu_Catalog\"].json.data || [];\nlet entree = null; // rows: [sku, title, price_cents, square_id, is_active]\nfor (const r of rows) {\n  const [sku,title,price_cents,square_id,is_active] = r;\n  if (String(title).trim()===String(entreeTitle).trim() && String(is_active).toUpperCase()==='TRUE') { entree={sku,title,price_cents:+price_cents,square_catalog_object_id:square_id}; break; }\n}\nif (!entree) return [{ json: { error: 'Selected entr\u00e9e unavailable' } }];\nconst mods = $item(0).$node[\"Function \u2014 Collect Modifiers\"].json.modifiers || [];\nconst qty=1; const entreePrice=+entree.price_cents; const modsTotal = mods.reduce((s,m)=>s+ +(m.price_cents||0), 0);\nconst subtotal = (entreePrice + modsTotal) * qty;\nconst line_items=[{ sku:entree.sku, title:entree.title, quantity:qty, unit_price_cents:entreePrice, amount_cents:entreePrice*qty, modifiers:mods }];\nfor (const m of mods) if ((m.price_cents||0)>0) line_items.push({ sku:`MOD_${m.group}_${m.mod}`, title:m.label.replace(/\\[.*?\\]\\s*/, ''), quantity:1, unit_price_cents:+m.price_cents, amount_cents:+m.price_cents });\nreturn [{ json: { entree, order_calc: { line_items, subtotal_cents: subtotal } } }];\n"
+      },
+      "id": "514c9c37-ef37-49c3-8171-43fdb20f898d",
+      "name": "Function \u2014 Build Price",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        2192,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "range": "City_Rates!A:D",
+        "options": {}
+      },
+      "id": "ef0399f3-7ab5-4ae3-be04-f9e443751f7c",
+      "name": "Google Sheets \u2014 Read City_Rates",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        2432,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst city = $item(0).$node[\"Set \u2014 Normalize\"].json[\"geo.city\"]; \nconst county = $item(0).$node[\"Set \u2014 Normalize\"].json[\"geo.county\"]; \nconst rows = $json.data || [];\nlet rate = 0; \nfor (const r of rows) { \n  const [rcity, rcounty, pct] = r; \n  if (String(rcity).trim().toLowerCase()===String(city).trim().toLowerCase() && String(rcounty).trim().toLowerCase()===String(county).trim().toLowerCase()) { rate=+pct||0; break; } \n}\nconst subtotal = $item(0).$node[\"Function \u2014 Build Price\"].json.order_calc.subtotal_cents; \nconst tax = Math.round(subtotal*(rate/100)); \nconst total = subtotal + tax;\nreturn [{ json: { pricing: { rate_percent: rate, subtotal_cents: subtotal, tax_cents: tax, total_cents: total } } }];\n"
+      },
+      "id": "a1631e69-3f16-471b-85d3-907528c1a921",
+      "name": "Function \u2014 Compute Tax & Totals",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        2672,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+        "jsonParameters": true,
+        "options": {},
+        "headerParametersJson": "{\"Authorization\": \"Bearer {{$env.SQUARE_ACCESS_TOKEN}}\", \"Content-Type\": \"application/json\"}"
+      },
+      "id": "ff2f8708-36b1-49b6-b795-ba20ea9b0d1a",
+      "name": "Square \u2014 Create Payment Link",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        2912,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "mergeByPosition"
+      },
+      "id": "2f7e23c4-55d0-48ab-8071-8fbc4cfe5ed3",
+      "name": "Merge \u2014 After Square",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        3152,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "true"
+            },
+            {
+              "name": "square_link",
+              "value": "={{$json.payment_link?.url || $json.url || $json.data?.url}}"
+            },
+            {
+              "name": "subtotal_cents",
+              "value": "={{$item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.subtotal_cents}}"
+            },
+            {
+              "name": "tax_cents",
+              "value": "={{$item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.tax_cents}}"
+            },
+            {
+              "name": "total_cents",
+              "value": "={{$item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.total_cents}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6fcc06dc-fa43-44b8-8cef-e4e9f176ffab",
+      "name": "Set \u2014 Confirmation",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        3392,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "orders@utopiadeli.com",
+        "toEmail": "={{$item(0).$node['Set \u2014 Normalize'].json['customer.email']}}",
+        "subject": "Your Utopia Deli payment link",
+        "text": "={{'Tap to pay: ' + $json.square_link}}",
+        "options": {}
+      },
+      "id": "bb1ecfd6-1eec-47d1-8184-d0ab03f23387",
+      "name": "Email \u2014 Send Confirmation",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        3632,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.twilio.com/2010-04-01/Accounts/YOUR_TWILIO_SID/Messages.json",
+        "options": {}
+      },
+      "id": "c5dd5b41-88b5-45cc-9598-0e3f35e6d43f",
+      "name": "SMS \u2014 Fallback (Twilio)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        3872,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst row = [\n  new Date().toISOString(),\n  $item(0).$node['Set \u2014 Normalize'].json['customer.name'],\n  $item(0).$node['Set \u2014 Normalize'].json['customer.email'],\n  $item(0).$node['Set \u2014 Normalize'].json['customer.phone'],\n  $item(0).$node['Set \u2014 Normalize'].json['geo.city'],\n  $item(0).$node['Set \u2014 Normalize'].json['geo.county'],\n  $item(0).$node['Function \u2014 Build Price'].json.entree.sku,\n  JSON.stringify($item(0).$node['Function \u2014 Collect Modifiers'].json.modifiers||[]),\n  $item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.subtotal_cents,\n  $item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.tax_cents,\n  $item(0).$node['Function \u2014 Compute Tax & Totals'].json.pricing.total_cents,\n  $item(0).$node['Set \u2014 Confirmation'].json.square_link,\n  'pending_payment'\n];\nreturn [{ json: { gs_append: [row] } }];\n"
+      },
+      "id": "db8113ba-fedc-453e-9d4e-ae5060bcef17",
+      "name": "Function \u2014 Build Orders_Log Row",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        3872,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "range": "Orders_Log!A:Z",
+        "options": {
+          "valueInputMode": "RAW"
+        }
+      },
+      "id": "2efb7a5e-e70e-466f-9e69-dc09a35e1949",
+      "name": "Google Sheets \u2014 Append Orders_Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        4112,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ok",
+              "value": "true"
+            },
+            {
+              "name": "message",
+              "value": "We sent your payment link. Check your email (SMS if needed)."
+            },
+            {
+              "name": "square_link",
+              "value": "={{$item(0).$node['Set \u2014 Confirmation'].json.square_link}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a4301081-a17d-4ebf-aa92-721337cd9885",
+      "name": "Set \u2014 Final Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        4352,
+        544
+      ]
+    }
+  ],
+  "connections": {
+    "Form Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set \u2014 Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set \u2014 Normalize": {
+      "main": [
+        [
+          {
+            "node": "AbstractAPI Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AbstractAPI Email": {
+      "main": [
+        [
+          {
+            "node": "Merge \u2014 After Email Validation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge \u2014 After Email Validation": {
+      "main": [
+        [
+          {
+            "node": "IF \u2014 Email Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF \u2014 Email Valid?": {
+      "main": [
+        [
+          {
+            "node": "AbstractAPI Phone",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set \u2014 Error Invalid Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AbstractAPI Phone": {
+      "main": [
+        [
+          {
+            "node": "Merge \u2014 After Phone Validation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge \u2014 After Phone Validation": {
+      "main": [
+        [
+          {
+            "node": "IF \u2014 Phone Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF \u2014 Phone Valid?": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets \u2014 Read Open_Hours",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set \u2014 Error Invalid Phone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets \u2014 Read Open_Hours": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Check Open Hours",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Check Open Hours": {
+      "main": [
+        [
+          {
+            "node": "IF \u2014 Open?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF \u2014 Open?": {
+      "main": [
+        [
+          {
+            "node": "Switch \u2014 Entr\u00e9e Router",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set \u2014 Error Closed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch \u2014 Entr\u00e9e Router": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets \u2014 Read Menu_Catalog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets \u2014 Read Menu_Catalog": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Collect Modifiers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Collect Modifiers": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Build Price",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Build Price": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets \u2014 Read City_Rates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets \u2014 Read City_Rates": {
+      "main": [
+        [
+          {
+            "node": "Function \u2014 Compute Tax & Totals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Compute Tax & Totals": {
+      "main": [
+        [
+          {
+            "node": "Square \u2014 Create Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Square \u2014 Create Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Merge \u2014 After Square",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge \u2014 After Square": {
+      "main": [
+        [
+          {
+            "node": "Set \u2014 Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set \u2014 Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Email \u2014 Send Confirmation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Function \u2014 Build Orders_Log Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email \u2014 Send Confirmation": {
+      "main": [
+        [
+          {
+            "node": "SMS \u2014 Fallback (Twilio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function \u2014 Build Orders_Log Row": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets \u2014 Append Orders_Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets \u2014 Append Orders_Log": {
+      "main": [
+        [
+          {
+            "node": "Set \u2014 Final Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": null,
+  "id": "68e94271-09a5-4c8e-9518-e3bb2891ea62",
+  "versionId": "997c3733-cd3a-4cd5-9130-ffece1967a36"
+}

@@ -1,0 +1,27 @@
+Hi Jacqueline! 👋
+
+**Percy is installed and working!** You can chat with him from your phone or laptop.
+
+**Right now:** Percy responds but takes 1-2 minutes (the server needs more memory).
+
+**Tomorrow:** Phillip will upgrade the server memory. Then Percy will respond in seconds!
+
+**How to use Percy:**
+1. Open the Tailscale app (make sure it says "Connected")
+2. Open your browser
+3. Go to: https://percy-mcdonalds.taildd162e.ts.net/
+4. Click "Connect" — no password needed!
+5. Type your message and send
+
+**What Percy can help with:**
+- Schedules and reminders
+- Drafting emails (you approve before sending)
+- Research and questions
+- Note-taking
+
+**Your cost:** $40/month after upgrade (was $20, now $40 for better performance)
+**Systack setup:** FREE
+
+If you have any issues, text Phillip!
+
+— Percy 🍟

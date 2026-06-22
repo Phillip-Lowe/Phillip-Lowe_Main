@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="brand/apple-touch-icon.png">  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Start with our 2-minute discovery questionnaire. We assess your needs before proposing a solution.">
+  <link rel="stylesheet" href="/assets/css/systack.css?v=14">
+  <title>Discovery Questionnaire — Systack.net</title>
+<style>
+  .quiz-container {
+    max-width: 700px; margin: 40px auto; background: white; padding: 40px;
+    border-radius: 16px; border: 1px solid var(--gray-200);
+  }
+  .quiz-step { display: none; }
+  .quiz-step.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .quiz-progress {
+    height: 6px; background: var(--gray-200); border-radius: 3px; margin-bottom: 30px; overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%; background: var(--cyan); border-radius: 3px; transition: width 0.3s ease;
+  }
+  .question { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--navy); }
+  .option {
+    display: block; padding: 16px 20px; margin-bottom: 12px; border: 2px solid var(--gray-200);
+    border-radius: 12px; cursor: pointer; transition: all 0.2s; font-size: 15px;
+  }
+  .option:hover { border-color: var(--cyan); background: var(--gray-50); }
+  .option.selected { border-color: var(--cyan); background: var(--green-bg); }
+  .quiz-nav {
+    display: flex; justify-content: space-between; margin-top: 30px; gap: 12px;
+  }
+  .quiz-btn {
+    padding: 14px 28px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;
+    border: none; transition: all 0.2s;
+  }
+  .quiz-btn-primary { background: var(--cyan); color: white; }
+  .quiz-btn-primary:hover { background: var(--cyan-bright); }
+  .quiz-btn-secondary { background: var(--gray-200); color: var(--navy); }
+  .quiz-btn-secondary:hover { background: var(--gray-300); }
+  .quiz-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .result-tier {
+    background: var(--green-bg); border: 2px solid var(--green); border-radius: 16px;
+    padding: 30px; text-align: center; margin-top: 20px;
+  }
+  .result-tier h3 { font-size: 24px; margin-bottom: 12px; color: var(--navy); }
+  .result-tier .price { font-size: 36px; font-weight: 800; color: var(--cyan); }
+  .result-tier .price-note { font-size: 14px; color: var(--gray-600); margin-bottom: 16px; }
+  @media (max-width: 768px) {
+    .quiz-container { margin: 20px; padding: 24px; }
+    .question { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav>
+    <div class="nav-logo">
+      <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="/brand/logo-nav.png" alt="Systack" class="nav-logo-img" width="40" height="40">
+        <div class="nav-logo-text">Sy<span>Stack</span>.net</div>
+      </a>
+    </div>
+    <div class="nav-menu">
+      <a href="/">Home</a>
+      <a href="/services">Business Systems</a>
+      <a href="/work/">Our Work</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <a href="/contact" class="nav-cta">Get Started</a>
+  </nav>
+
+  <div class="page-header">
+    <h1>Discovery Questionnaire</h1>
+    <p>2 minutes. Helps us recommend the right solution and avoid surprises.</p>
+  </div>
+
+  <div class="quiz-container">
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <!-- Step 1: Data Type -->
+    <div class="quiz-step active" data-step="1">
+      <div class="question">What types of data will your agent handle?</div>
+      <label class="option" data-value="public"><strong>Public info</strong> — general knowledge, customer-facing content</label>
+      <label class="option" data-value="internal"><strong>Internal data</strong> — schedules, employee info, business docs</label>
+      <label class="option" data-value="confidential"><strong>Confidential</strong> — financials, client lists, contracts</label>
+      <label class="option" data-value="restricted"><strong>Restricted</strong> — HIPAA, legal privilege, classified</label>
+    </div>
+
+    <!-- Step 2: Local Only -->
+    <div class="quiz-step" data-step="2">
+      <div class="question">Does any data need to stay on your premises?</div>
+      <label class="option" data-value="yes"><strong>Yes</strong> — cannot leave our network/servers</label>
+      <label class="option" data-value="no"><strong>No</strong> — cloud storage is acceptable</label>
+      <label class="option" data-value="not-sure"><strong>Not sure</strong> — need guidance</label>
+    </div>
+
+    <!-- Step 3: Compliance -->
+    <div class="quiz-step" data-step="3">
+      <div class="question">Any regulatory compliance requirements?</div>
+      <label class="option" data-value="hipaa">HIPAA (healthcare)</label>
+      <label class="option" data-value="sox">SOX (financial reporting)</label>
+      <label class="option" data-value="gdpr">GDPR (EU data protection)</label>
+      <label class="option" data-value="pci">PCI-DSS (payment card data)</label>
+      <label class="option" data-value="none">None of the above</label>
+    </div>
+
+    <!-- Step 4: Users -->
+    <div class="quiz-step" data-step="4">
+      <div class="question">How many people will use this agent?</div>
+      <label class="option" data-value="1">1 user (personal assistant)</label>
+      <label class="option" data-value="2-5">2-5 users (small team)</label>
+      <label class="option" data-value="6-20">6-20 users (department)</label>
+      <label class="option" data-value="20+">20+ users (organization)</label>
+    </div>
+
+    <!-- Step 5: Volume -->
+    <div class="quiz-step" data-step="5">
+      <div class="question">Expected daily conversation volume?</div>
+      <label class="option" data-value="light">< 10 conversations/day</label>
+      <label class="option" data-value="moderate">10-50 conversations/day</label>
+      <label class="option" data-value="heavy">50+ conversations/day</label>
+    </div>
+
+    <!-- Step 6: Budget -->
+    <div class="quiz-step" data-step="6">
+      <div class="question">What's your monthly budget range?</div>
+      <label class="option" data-value="50-100">$50-100/month</label>
+      <label class="option" data-value="100-200">$100-200/month</label>
+      <label class="option" data-value="200-500">$200-500/month</label>
+      <label class="option" data-value="enterprise">Enterprise (custom)</label>
+    </div>
+
+    <!-- Step 7: Timeline -->
+    <div class="quiz-step" data-step="7">
+      <div class="question">When do you need this operational?</div>
+      <label class="option" data-value="asap">ASAP (this week)</label>
+      <label class="option" data-value="1month">Within 1 month</label>
+      <label class="option" data-value="3months">Within 3 months</label>
+      <label class="option" data-value="exploring">Exploring options — no rush</label>
+    </div>
+
+    <!-- Step 8: Contact -->
+    <div class="quiz-step" data-step="8">
+      <div class="question">Your contact info (we'll send the recommendation)</div>
+      <div style="margin-top:16px;">
+        <input type="text" id="quizName" placeholder="Your name" style="width:100%;padding:12px;margin-bottom:12px;border:2px solid var(--gray-200);border-radius:10px;font-size:15px;">
+        <input type="email" id="quizEmail" placeholder="Email address" style="width:100%;padding:12px;margin-bottom:12px;border:2px solid var(--gray-200);border-radius:10px;font-size:15px;">
+        <input type="text" id="quizBusiness" placeholder="Business name (optional)" style="width:100%;padding:12px;border:2px solid var(--gray-200);border-radius:10px;font-size:15px;">
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="quiz-step" data-step="result">
+      <div class="question">Your Recommendation</div>
+      <div id="quizResult"></div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="quiz-btn quiz-btn-secondary" id="prevBtn" onclick="prevStep()" style="visibility:hidden;">Back</button>
+      <button class="quiz-btn quiz-btn-primary" id="nextBtn" onclick="nextStep()">Next</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <div class="brand-mark" style="width:28px;height:28px;border-radius:6px;">
+        <img src="/brand/logo-header.png" alt="Systack" width="28" height="28">
+      </div>
+      <p>SyStack.net — Systems & Agents That Work For You</p>
+    </div>
+    <div class="footer-nav">
+      <a href="/services">Business Systems</a>
+      <a href="/work/">Our Work</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 8;
+const answers = {};
+
+function updateProgress() {
+  const pct = ((currentStep - 1) / totalSteps) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+function showStep(n) {
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.quiz-step[data-step="${n}"]`)?.classList.add('active');
+  document.getElementById('prevBtn').style.visibility = n > 1 ? 'visible' : 'hidden';
+  document.getElementById('nextBtn').textContent = n === totalSteps ? 'Get Recommendation' : 'Next';
+  updateProgress();
+}
+
+function nextStep() {
+  if (currentStep === totalSteps) {
+    submitQuiz();
+    return;
+  }
+  currentStep++;
+  showStep(currentStep);
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
+// Option selection
+document.querySelectorAll('.option').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const step = this.closest('.quiz-step');
+    step.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    this.classList.add('selected');
+    answers[step.dataset.step] = this.dataset.value;
+  });
+});
+
+function calculateTier() {
+  let score = 0;
+  if (answers['6'] === '50-100') score += 1;
+  if (answers['6'] === '100-200') score += 2;
+  if (answers['6'] === '200-500') score += 3;
+  if (answers['6'] === 'enterprise') score += 4;
+  if (answers['4'] === '6-20') score += 1;
+  if (answers['4'] === '20+') score += 2;
+  if (answers['5'] === 'moderate') score += 1;
+  if (answers['5'] === 'heavy') score += 2;
+  if (answers['1'] === 'confidential' || answers['1'] === 'restricted') score += 2;
+  if (answers['2'] === 'yes') score += 2;
+
+  if (score <= 2) return { tier: 'Bronze', price: '$70', desc: '4GB VPS, qwen2.5:3b, basic tasks', setup: '$200' };
+  if (score <= 5) return { tier: 'Silver', price: '$130', desc: '8GB VPS, qwen2.5:7b, business data', setup: '$350' };
+  if (score <= 8) return { tier: 'Gold', price: '$220', desc: '16GB VPS, qwen2.5:14b, heavy use', setup: '$500' };
+  return { tier: 'Platinum/Custom', price: 'Custom', desc: 'On-premise or air-gapped, custom spec', setup: 'Quote' };
+}
+
+async function submitQuiz() {
+  const name = document.getElementById('quizName').value;
+  const email = document.getElementById('quizEmail').value;
+  const business = document.getElementById('quizBusiness').value;
+
+  if (!name || !email) {
+    alert('Please fill in your name and email');
+    return;
+  }
+
+  const rec = calculateTier();
+  
+  // Send to webhook
+  const payload = {
+    name, email, business,
+    source: 'discovery-questionnaire',
+    answers,
+    recommended_tier: rec.tier,
+    recommended_price: rec.price,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fetch('https://utopia-api.systack.net/webhook/systack-lead-capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) { /* silently fail, not critical */ }
+
+  // Show result
+  document.getElementById('quizResult').innerHTML = `
+    <div class="result-tier">
+      <h3>${rec.tier} Tier</h3>
+      <div class="price">${rec.price}<span style="font-size:16px;font-weight:400;">/mo</span></div>
+      <div class="price-note">${rec.desc}</div>
+      <div class="price-note">Setup: ${rec.setup}</div>
+      <p style="margin-top:16px;font-size:14px;color:var(--gray-600);">
+        We've sent this recommendation to ${email}.<br>
+        Phillip will follow up within 4 hours to discuss your specific needs.
+      </p>
+      <a href="/contact" class="cta-btn" style="margin-top:20px;display:inline-block;">Book a Call</a>
+    </div>
+  `;
+
+  currentStep = 'result';
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.quiz-step[data-step="result"]').classList.add('active');
+  document.getElementById('progressBar').style.width = '100%';
+  document.querySelector('.quiz-nav').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

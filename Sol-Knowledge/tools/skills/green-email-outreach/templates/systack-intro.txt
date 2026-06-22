@@ -1,0 +1,17 @@
+Subject: {company} — quick question about your online presence
+
+Hi {first_name},
+
+I came across {company} and noticed {pain_point}. We help businesses like yours 
+build automated systems that save hours every week — things like automated 
+scheduling, payment processing, and follow-ups.
+
+Would it make sense to chat for 10 minutes this week?
+
+Best,
+{sender_name}
+{sender_title}
+
+---
+Systack Automation | systack.net
+This email was sent to {email}. If you don't want to hear from us, reply STOP.

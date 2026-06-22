@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice Pipeline — SyStack</title>
+<style>
+:root {
+  --navy: #001a2d;
+  --navy-light: #002845;
+  --teal: #007da9;
+  --cyan: #00a1db;
+  --cyan-bright: #00c5e0;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-600: #475569;
+  --gray-800: #1e293b;
+  --green: #22c55e;
+  --red: #ef4444;
+  --amber: #f59e0b;
+  --purple: #8b5cf6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  line-height: 1.5;
+}
+/* Header */
+.header {
+  background: var(--navy);
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.header h1 { font-size: 1.3rem; font-weight: 700; }
+.header .brand { display: flex; align-items: center; gap: 12px; }
+.header .brand img { height: 28px; }
+.header .live { font-size: .75rem; background: var(--green); color: white; padding: 2px 10px; border-radius: 12px; }
+/* Layout */
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+/* Metric Cards */
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.metric-card {
+  background: white; border-radius: 12px; padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08); border: 1px solid var(--gray-200);
+  transition: transform .15s, box-shadow .15s;
+}
+.metric-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+.metric-card .label { font-size: .8rem; color: var(--gray-600); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+.metric-card .value { font-size: 1.8rem; font-weight: 700; color: var(--navy); }
+.metric-card .sub { font-size: .8rem; color: var(--gray-400); margin-top: 4px; }
+.metric-card.green .value { color: var(--green); }
+.metric-card.red .value { color: var(--red); }
+.metric-card.amber .value { color: var(--amber); }
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid var(--gray-200); }
+.tab {
+  padding: 10px 20px; border: none; background: none; cursor: pointer;
+  font-size: .9rem; font-weight: 600; color: var(--gray-600);
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: color .15s, border-color .15s;
+}
+.tab:hover { color: var(--navy); }
+.tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+/* Filters */
+.filters { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+.filters input, .filters select {
+  padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: 8px;
+  font-size: .85rem; background: white; color: var(--gray-800);
+}
+.filters input:focus, .filters select:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,161,219,.15); }
+.filters input { min-width: 200px; }
+.btn {
+  padding: 8px 16px; border: none; border-radius: 8px; font-size: .85rem; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.btn-primary { background: linear-gradient(135deg, var(--cyan), var(--cyan-bright)); color: white; }
+.btn-primary:hover { background: linear-gradient(135deg, var(--teal), var(--cyan)); }
+.btn-outline { background: white; border: 1px solid var(--gray-200); color: var(--gray-600); }
+.btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+/* Table */
+.table-wrap { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); border: 1px solid var(--gray-200); }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 12px 16px; font-size: .8rem; color: var(--gray-600); text-transform: uppercase; letter-spacing: .5px; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); cursor: pointer; user-select: none; }
+th:hover { color: var(--cyan); }
+th .sort-arrow { font-size: .7rem; margin-left: 4px; }
+td { padding: 10px 16px; font-size: .85rem; border-bottom: 1px solid var(--gray-100); }
+tr:hover { background: var(--gray-50); }
+tr.clickable { cursor: pointer; }
+tr.clickable:hover { background: #e0f7ff; }
+/* Badges */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: .75rem; font-weight: 600; }
+.badge-paid { background: #dcfce7; color: #166534; }
+.badge-unpaid { background: #fef3c7; color: #92400e; }
+.badge-ar { background: #dbeafe; color: #1e40af; }
+.badge-ap { background: #fce7f3; color: #9d174d; }
+.badge-review { background: #f3e8ff; color: #6b21a8; }
+/* Pagination */
+.pagination { display: flex; gap: 8px; align-items: center; justify-content: center; padding: 16px; }
+.pagination button { padding: 6px 12px; border: 1px solid var(--gray-200); border-radius: 6px; background: white; cursor: pointer; font-size: .85rem; }
+.pagination button:hover { border-color: var(--cyan); }
+.pagination button:disabled { opacity: .4; cursor: default; }
+.pagination .current { font-weight: 700; color: var(--cyan); }
+/* Detail Modal */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.5); z-index: 200; justify-content: center; align-items: center; }
+.modal-overlay.open { display: flex; }
+.modal {
+  background: white; border-radius: 16px; max-width: 800px; width: 90%; max-height: 85vh;
+  overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+.modal-header {
+  background: var(--navy); color: white; padding: 20px 24px; border-radius: 16px 16px 0 0;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.modal-header h2 { font-size: 1.1rem; }
+.modal-close { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 4px 8px; }
+.modal-body { padding: 24px; }
+.modal-body .section { margin-bottom: 20px; }
+.modal-body .section h3 { font-size: .9rem; color: var(--gray-600); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; border-bottom: 1px solid var(--gray-200); padding-bottom: 4px; }
+.modal-body .kv { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; font-size: .85rem; }
+.modal-body .kv dt { color: var(--gray-600); font-weight: 500; }
+.modal-body .kv dd { color: var(--gray-800); }
+/* Aging */
+.aging-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.aging-card { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.08); border: 1px solid var(--gray-200); }
+.aging-card .label { font-size: .8rem; color: var(--gray-600); margin-bottom: 4px; }
+.aging-card .value { font-size: 1.5rem; font-weight: 700; }
+.aging-card .count { font-size: .8rem; color: var(--gray-400); }
+.aging-card.current .value { color: var(--green); }
+.aging-card.warn .value { color: var(--amber); }
+.aging-card.danger .value { color: var(--red); }
+/* Vendors */
+.vendor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.vendor-card { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08); border: 1px solid var(--gray-200); }
+.vendor-card .name { font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.vendor-card .stats { font-size: .85rem; color: var(--gray-600); }
+/* Loading */
+.loading { text-align: center; padding: 40px; color: var(--gray-400); }
+.spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--gray-200); border-top-color: var(--cyan); border-radius: 50%; animation: spin .6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* Empty */
+.empty { text-align: center; padding: 60px 20px; color: var(--gray-400); }
+.empty .icon { font-size: 3rem; margin-bottom: 12px; }
+/* Toast */
+.toast { position: fixed; bottom: 20px; right: 20px; background: var(--navy); color: white; padding: 12px 20px; border-radius: 8px; font-size: .85rem; z-index: 300; opacity: 0; transform: translateY(10px); transition: all .3s; }
+.toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">
+    <span style="font-weight:700;font-size:1.2rem;">SyStack</span>
+    <span style="color:var(--gray-400);">|</span>
+    <span>Invoice Pipeline</span>
+  </div>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <span class="live">● LIVE</span>
+    <span id="clock" style="font-size:.85rem;color:var(--gray-400);"></span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Metrics -->
+  <div class="metrics" id="metrics">
+    <div class="metric-card"><div class="label">Total Invoices</div><div class="value" id="m-total">—</div><div class="sub">processed</div></div>
+    <div class="metric-card green"><div class="label">Accounts Receivable</div><div class="value" id="m-ar">—</div><div class="sub" id="m-ar-count">—</div></div>
+    <div class="metric-card red"><div class="label">Accounts Payable</div><div class="value" id="m-ap">—</div><div class="sub" id="m-ap-count">—</div></div>
+    <div class="metric-card"><div class="label">Net Position</div><div class="value" id="m-net">—</div><div class="sub">AR − AP</div></div>
+    <div class="metric-card amber"><div class="label">Pending Review</div><div class="value" id="m-review">—</div><div class="sub">needs attention</div></div>
+    <div class="metric-card"><div class="label">Last 7 Days</div><div class="value" id="m-week">—</div><div class="sub">invoices processed</div></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-tab="invoices">📋 Invoices</button>
+    <button class="tab" data-tab="aging">⏳ Aging Report</button>
+    <button class="tab" data-tab="vendors">🏢 Vendors</button>
+  </div>
+
+  <!-- Invoices Tab -->
+  <div id="tab-invoices">
+    <div class="filters">
+      <input type="text" id="filter-search" placeholder="🔍 Search vendor, invoice #, file…" oninput="debounceLoad()">
+      <select id="filter-status" onchange="loadInvoices()">
+        <option value="">All Statuses</option>
+        <option value="PAID">Paid</option>
+        <option value="UNPAID">Unpaid</option>
+      </select>
+      <button class="btn btn-outline" onclick="exportCSV()">📥 Export CSV</button>
+      <span style="margin-left:auto;font-size:.85rem;color:var(--gray-600);" id="invoice-count"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortBy('id')">ID <span class="sort-arrow" id="sort-id"></span></th>
+            <th onclick="sortBy('vendor')">Vendor <span class="sort-arrow" id="sort-vendor"></span></th>
+            <th onclick="sortBy('invoice_date')">Date <span class="sort-arrow" id="sort-invoice_date"></span></th>
+            <th onclick="sortBy('invoice_number')">Invoice # <span class="sort-arrow" id="sort-invoice_number"></span></th>
+            <th onclick="sortBy('total')">Total <span class="sort-arrow" id="sort-total"></span></th>
+            <th>Direction</th>
+            <th>Status</th>
+            <th onclick="sortBy('processed_at')">Processed <span class="sort-arrow" id="sort-processed_at"></span></th>
+          </tr>
+        </thead>
+        <tbody id="invoice-tbody"></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <!-- Aging Tab -->
+  <div id="tab-aging" style="display:none;">
+    <div class="aging-grid" id="aging-grid"></div>
+  </div>
+
+  <!-- Vendors Tab -->
+  <div id="tab-vendors" style="display:none;">
+    <div class="vendor-grid" id="vendor-grid"></div>
+  </div>
+
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Invoice Detail</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──
+const API = 'http://localhost:8766';
+let currentTab = 'invoices';
+let currentPage = 1;
+let currentSort = 'processed_at';
+let currentSortDir = 'DESC';
+let debounceTimer;
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded', () => {
+  loadSummary();
+  loadInvoices();
+  updateClock();
+  setInterval(updateClock, 30000);
+  setInterval(loadSummary, 60000);
+
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => switchTab(t.dataset.tab));
+  });
+});
+
+function updateClock() {
+  document.getElementById('clock').textContent = new Date().toLocaleString('en-US', {timeZone:'America/Chicago', hour:'numeric', minute:'2-digit', second:'2-digit'}) + ' CDT';
+}
+
+// ── Tabs ──
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.getElementById('tab-invoices').style.display = tab === 'invoices' ? '' : 'none';
+  document.getElementById('tab-aging').style.display = tab === 'aging' ? '' : 'none';
+  document.getElementById('tab-vendors').style.display = tab === 'vendors' ? '' : 'none';
+  if (tab === 'aging') loadAging();
+  if (tab === 'vendors') loadVendors();
+}
+
+// ── Summary ──
+async function loadSummary() {
+  try {
+    const r = await fetch(`${API}/api/summary`);
+    const d = await r.json();
+    document.getElementById('m-total').textContent = d.total_invoices;
+    document.getElementById('m-ar').textContent = '$' + fmtMoney(d.ar_total);
+    document.getElementById('m-ar-count').textContent = d.ar_count + ' invoices';
+    document.getElementById('m-ap').textContent = '$' + fmtMoney(d.ap_total);
+    document.getElementById('m-ap-count').textContent = d.ap_count + ' invoices';
+    const net = d.net_position;
+    const netEl = document.getElementById('m-net');
+    netEl.textContent = (net >= 0 ? '+' : '') + '$' + fmtMoney(Math.abs(net));
+    netEl.style.color = net >= 0 ? 'var(--green)' : 'var(--red)';
+    document.getElementById('m-review').textContent = d.pending_review;
+    document.getElementById('m-week').textContent = d.last_7_days;
+  } catch(e) { console.error('Summary load failed:', e); }
+}
+
+// ── Invoices ──
+async function loadInvoices() {
+  const tbody = document.getElementById('invoice-tbody');
+  tbody.innerHTML = '<tr><td colspan="8" class="loading"><div class="spinner"></div></td></tr>';
+
+  const search = document.getElementById('filter-search').value;
+  const status = document.getElementById('filter-status').value;
+  const params = new URLSearchParams({page: currentPage, per_page: 25, sort_by: currentSort, sort_dir: currentSortDir});
+  if (search) params.set('search', search);
+  if (status) params.set('status', status);
+
+  try {
+    const r = await fetch(`${API}/api/invoices?${params}`);
+    const d = await r.json();
+    document.getElementById('invoice-count').textContent = `${d.total} invoices · Page ${d.page}/${d.total_pages}`;
+
+    if (d.invoices.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" class="empty"><div class="icon">📭</div>No invoices found</td></tr>';
+    } else {
+      tbody.innerHTML = d.invoices.map(inv => `
+        <tr class="clickable" onclick="openDetail(${inv.id})">
+          <td style="font-family:monospace;color:var(--cyan);">#${inv.id}</td>
+          <td><b>${esc(inv.vendor || '—')}</b></td>
+          <td>${esc(inv.invoice_date || '—')}</td>
+          <td style="font-family:monospace;">${esc(inv.invoice_number || '—')}</td>
+          <td style="font-weight:600;">${inv.total ? '$'+fmtMoney(inv.total) : '—'}</td>
+          <td>${directionBadge(inv.direction)}</td>
+          <td>${statusBadge(inv.payment_status)}</td>
+          <td style="font-size:.8rem;color:var(--gray-600);">${fmtDate(inv.processed_at)}</td>
+        </tr>
+      `).join('');
+    }
+
+    renderPagination(d);
+    updateSortArrows();
+  } catch(e) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty"><div class="icon">⚠️</div>Failed to load. Is the API running?</td></tr>';
+  }
+}
+
+function renderPagination(d) {
+  const pg = document.getElementById('pagination');
+  if (d.total_pages <= 1) { pg.innerHTML = ''; return; }
+  let html = `<button ${d.page <= 1 ? 'disabled' : ''} onclick="goPage(${d.page - 1})">← Prev</button>`;
+  for (let p = 1; p <= d.total_pages; p++) {
+    if (p === 1 || p === d.total_pages || Math.abs(p - d.page) <= 2) {
+      html += `<button onclick="goPage(${p})" ${p === d.page ? 'class="current"' : ''}>${p}</button>`;
+    } else if (p === 2 || p === d.total_pages - 1) {
+      html += '<span style="color:var(--gray-400);">…</span>';
+    }
+  }
+  html += `<button ${d.page >= d.total_pages ? 'disabled' : ''} onclick="goPage(${d.page + 1})">Next →</button>`;
+  pg.innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; loadInvoices(); }
+function sortBy(field) {
+  if (currentSort === field) { currentSortDir = currentSortDir === 'ASC' ? 'DESC' : 'ASC'; }
+  else { currentSort = field; currentSortDir = 'DESC'; }
+  currentPage = 1;
+  loadInvoices();
+}
+function updateSortArrows() {
+  document.querySelectorAll('.sort-arrow').forEach(el => el.textContent = '');
+  const arrow = document.getElementById(`sort-${currentSort}`);
+  if (arrow) arrow.textContent = currentSortDir === 'ASC' ? '↑' : '↓';
+}
+function debounceLoad() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => { currentPage = 1; loadInvoices(); }, 300);
+}
+
+// ── Detail Modal ──
+async function openDetail(id) {
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal-title').textContent = `Invoice #${id}`;
+  document.getElementById('modal-body').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  try {
+    const r = await fetch(`${API}/api/invoices/${id}`);
+    const d = await r.json();
+    if (!d || d.error) {
+      document.getElementById('modal-body').innerHTML = '<p style="color:var(--red);">Invoice not found</p>';
+      return;
+    }
+    const inv = d.invoice;
+    const norm = d.normalized || {};
+    const items = d.items || [];
+
+    document.getElementById('modal-body').innerHTML = `
+      <div class="section"><h3>Invoice Info</h3>
+        <dl class="kv">
+          <dt>Vendor</dt><dd><b>${esc(inv.vendor || '—')}</b></dd>
+          <dt>Invoice #</dt><dd style="font-family:monospace;">${esc(inv.invoice_number || '—')}</dd>
+          <dt>Date</dt><dd>${esc(inv.invoice_date || '—')}</dd>
+          <dt>File</dt><dd>${esc(inv.file_name || '—')}</dd>
+          <dt>Source</dt><dd>${esc(inv.source || '—')}</dd>
+          <dt>Processed</dt><dd>${fmtDate(inv.processed_at)}</dd>
+        </dl>
+      </div>
+      <div class="section"><h3>Financials</h3>
+        <dl class="kv">
+          <dt>Subtotal</dt><dd>${inv.subtotal ? '$'+fmtMoney(inv.subtotal) : '—'}</dd>
+          <dt>Tax</dt><dd>${inv.tax ? '$'+fmtMoney(inv.tax) : '—'}</dd>
+          <dt>Total</dt><dd style="font-weight:700;font-size:1.1rem;">${inv.total ? '$'+fmtMoney(inv.total) : '—'}</dd>
+          <dt>Direction</dt><dd>${directionBadge(norm.direction)}</dd>
+          <dt>Status</dt><dd>${statusBadge(norm.payment_status)}</dd>
+          <dt>Confidence</dt><dd>${norm.confidence_score ? (norm.confidence_score*100).toFixed(0)+'%' : '—'}</dd>
+        </dl>
+      </div>
+      ${norm.entity_issuer_name ? `
+      <div class="section"><h3>Entities</h3>
+        <dl class="kv">
+          <dt>Issuer</dt><dd>${esc(norm.entity_issuer_name)}</dd>
+          <dt>Receiver</dt><dd>${esc(norm.entity_receiver_name || '—')}</dd>
+        </dl>
+      </div>` : ''}
+      ${items.length > 0 ? `
+      <div class="section"><h3>Line Items (${items.length})</h3>
+        <table style="width:100%;">
+          <thead><tr><th>Item</th><th style="text-align:right;">Price</th></tr></thead>
+          <tbody>
+            ${items.map(it => `<tr><td>${esc(it.item_name || '—')}</td><td style="text-align:right;font-family:monospace;">${it.price ? '$'+fmtMoney(it.price) : '—'}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      </div>` : ''}
+    `;
+  } catch(e) {
+    document.getElementById('modal-body').innerHTML = '<p style="color:var(--red);">Failed to load detail</p>';
+  }
+}
+
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── Aging ──
+async function loadAging() {
+  document.getElementById('aging-grid').innerHTML = '<div class="loading" style="grid-column:1/-1;"><div class="spinner"></div></div>';
+  try {
+    const r = await fetch(`${API}/api/aging`);
+    const d = await r.json();
+    const colors = {'current':'current','30_60':'warn','60_90':'warn','90_plus':'danger'};
+    document.getElementById('aging-grid').innerHTML = Object.entries(d).map(([k,v]) => `
+      <div class="aging-card ${colors[k] || ''}">
+        <div class="label">${v.label}</div>
+        <div class="value">${v.total ? '$'+fmtMoney(v.total) : '$0'}</div>
+        <div class="count">${v.count} invoices</div>
+      </div>
+    `).join('');
+  } catch(e) {
+    document.getElementById('aging-grid').innerHTML = '<div class="empty" style="grid-column:1/-1;">Failed to load aging report</div>';
+  }
+}
+
+// ── Vendors ──
+async function loadVendors() {
+  document.getElementById('vendor-grid').innerHTML = '<div class="loading" style="grid-column:1/-1;"><div class="spinner"></div></div>';
+  try {
+    const r = await fetch(`${API}/api/vendors`);
+    const vendors = await r.json();
+    if (vendors.length === 0) {
+      document.getElementById('vendor-grid').innerHTML = '<div class="empty" style="grid-column:1/-1;"><div class="icon">🏢</div>No vendors found</div>';
+      return;
+    }
+    document.getElementById('vendor-grid').innerHTML = vendors.map(v => `
+      <div class="vendor-card">
+        <div class="name">${esc(v.vendor)}</div>
+        <div class="stats">
+          ${v.invoice_count} invoices · $${fmtMoney(v.total_spend || 0)} total<br>
+          <span style="font-size:.8rem;color:var(--gray-400);">First: ${esc(v.first_seen || '—')} · Last: ${esc(v.last_seen || '—')}</span>
+        </div>
+      </div>
+    `).join('');
+  } catch(e) {
+    document.getElementById('vendor-grid').innerHTML = '<div class="empty" style="grid-column:1/-1;">Failed to load vendors</div>';
+  }
+}
+
+// ── Export ──
+function exportCSV() {
+  window.open(`${API}/api/export/csv`, '_blank');
+  showToast('CSV export started');
+}
+
+// ── Helpers ──
+function fmtMoney(n) { return Number(n || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function fmtDate(d) { if (!d) return '—'; return new Date(d).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit'}); }
+function esc(s) { if (!s) return '—'; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function directionBadge(d) {
+  if (d === 'INBOUND' || d === 'AR') return '<span class="badge badge-ar">AR</span>';
+  if (d === 'OUTBOUND' || d === 'AP') return '<span class="badge badge-ap">AP</span>';
+  return '—';
+}
+function statusBadge(s) {
+  if (s === 'PAID') return '<span class="badge badge-paid">PAID</span>';
+  if (s === 'UNPAID') return '<span class="badge badge-unpaid">UNPAID</span>';
+  return '—';
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>

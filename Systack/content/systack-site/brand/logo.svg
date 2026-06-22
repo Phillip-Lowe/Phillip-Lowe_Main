@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00c5e0" />
+      <stop offset="50%" stop-color="#00a1db" />
+      <stop offset="100%" stop-color="#007da9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer hexagon -->
+  <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" 
+           fill="url(#logoGrad)" 
+           stroke="#001a2d" 
+           stroke-width="3" 
+           stroke-linejoin="round"/>
+
+  <!-- Inner white layer outline -->
+  <polygon points="40,18 60,30 60,50 40,62 20,50 20,30" 
+           fill="none" 
+           stroke="#ffffff" 
+           stroke-width="2.5" 
+           stroke-linejoin="round"
+           opacity="0.35"/>
+
+  <!-- Center "S" stack shape -->
+  <polygon points="40,28 52,35 52,42 40,49 28,42 28,35" 
+           fill="#ffffff" 
+           opacity="0.9"
+           stroke="#ffffff" 
+           stroke-width="0.5"
+           stroke-linejoin="round"/>
+
+  <!-- Bottom stack line -->
+  <polygon points="40,52 52,45 52,50 40,57 28,50 28,45" 
+           fill="#ffffff" 
+           opacity="0.5"
+           stroke-linejoin="round"/>
+</svg>

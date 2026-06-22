@@ -1,0 +1,16 @@
+{
+  "maxPages": 50,
+  "delayMs": 1500,
+  "userAgent": "GreenBot/1.0 (+https://green.example.com/bot)",
+  "selectors": {
+    "name": "h1, .business-name, [data-testid='business-name']",
+    "phone": "a[href^='tel:'], .phone, [data-testid='phone']",
+    "email": "a[href^='mailto:'], .email",
+    "address": ".address, [data-testid='address']",
+    "rating": ".rating, [data-testid='rating']",
+    "review_count": ".review-count, [data-testid='review-count']"
+  },
+  "enrichment": "none",
+  "hunterApiKey": "",
+  "apolloApiKey": ""
+}

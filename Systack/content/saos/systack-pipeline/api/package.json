@@ -1,0 +1,13 @@
+{
+  "name": "systack-pipeline-api",
+  "version": "1.0.0",
+  "description": "Lightweight SQLite upsert API for Systack CRM leads",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.0.0"
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "name": "SyStack Auto-Release Unconfirmed Slots",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -260,
+        140
+      ],
+      "id": "af1742db-cfc1-4802-85b0-f96e03be2e5d",
+      "name": "Every 5 Minutes"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM bookings WHERE confirmed = false AND status NOT IN ('released','cancelled','completed','no_show') AND appointment_time IS NOT NULL AND appointment_time \u003e NOW() AND appointment_time \u003c= NOW() + INTERVAL '30 minutes';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        -60,
+        140
+      ],
+      "id": "4a96ec8e-ad5f-4f7a-b398-a0fb0098deb5",
+      "name": "Find Unconfirmed Due",
+      "credentials": {
+        "postgres": {
+          "id": "f7KCtdq2AawiCT59",
+          "name": "Bookings Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "24011740-cf51-44f5-a951-0f96420426f5",
+              "leftValue": "={{ $json.length }}",
+              "rightValue": "0",
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        140,
+        140
+      ],
+      "id": "186f24a1-c9b6-41f8-a238-9afcf6fe5b28",
+      "name": "Has Results?"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const rows = $input.first().json;\nconst items = [];\nfor (const row of rows) {\n  items.push({\n    json: row\n  });\n}\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        360,
+        120
+      ],
+      "id": "a19eddf6-e744-40fc-abe6-a2b7c9bb946a",
+      "name": "Split Rows"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE bookings SET status = 'released', updated_at = NOW() WHERE id = {{ $('Split Rows').item.json.id }} AND confirmed = false AND status = 'booked';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        560,
+        120
+      ],
+      "id": "cf0d1c67-4372-41ca-80b8-06948a075316",
+      "name": "Mark Released",
+      "credentials": {
+        "postgres": {
+          "id": "f7KCtdq2AawiCT59",
+          "name": "Bookings Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "=Slot released: {{ $('Split Rows').item.json.customer_name }}",
+        "message": "=The following unconfirmed booking has been auto-released:\n\nCustomer: {{ $('Split Rows').item.json.customer_name }}\nService: {{ $('Split Rows').item.json.service }}\nAppointment: {{ $('Split Rows').item.json.appointment_time }}\nBooking ID: {{ $('Split Rows').item.json.id }}\n\nSlot is now available for rebooking."
+      },
+      "type": "n8n-nodes-base.sendEmail",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        120
+      ],
+      "id": "cd91a206-54f0-42a9-b1ec-4ba8f774d209",
+      "name": "Notify Customer Slot Released",
+      "credentials": {
+        "smtp": {
+          "id": "Nuv462Kz1r1z2TQ5",
+          "name": "SOL Systack SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        960,
+        120
+      ],
+      "id": "9986d33e-fb76-4369-909e-e49133c91286",
+      "name": "Done (Log)"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        140,
+        320
+      ],
+      "id": "35a58a56-26e1-4195-9529-dd07427058eb",
+      "name": "No Action"
+    }
+  ],
+  "connections": {
+    "Every 5 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Find Unconfirmed Due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Unconfirmed Due": {
+      "main": [
+        [
+          {
+            "node": "Has Results?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Results?": {
+      "main": [
+        [
+          {
+            "node": "Split Rows",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Rows": {
+      "main": [
+        [
+          {
+            "node": "Mark Released",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Released": {
+      "main": [
+        [
+          {
+            "node": "Notify Customer Slot Released",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Customer Slot Released": {
+      "main": [
+        [
+          {
+            "node": "Done (Log)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "tags": [],
+  "pinData": {}
+}

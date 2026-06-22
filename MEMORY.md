@@ -265,6 +265,7 @@ Build → deploy → breaks → remember too late → fix → repeat.
 | 2026-06-10 | n8n IF node | Filename string match | `"Phone bill .pdf"` failed `endsWith ".pdf"` |
 | 2026-06-10 | n8n IMAP | Shallow MIME parsing | IMAP default mode missed nested attachments |
 | 2026-06-11 | Postgres DB | Bookings in wrong database | Created `bookings` in `invoice_pipeline` instead of dedicated `systack_noshow` |
+| 2026-06-22 | VPS Provisioning | Assumed failure during cloud-init | "Connection refused" was just Ollama downloading; SSH worked fine once cloud-init finished |
 
 ### Checklist (copy before builds)
 ```

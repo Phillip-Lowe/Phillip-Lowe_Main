@@ -1,0 +1,58 @@
+{
+  "id": "AdAM0770d3pJTrWt",
+  "name": "Error Catcher \u2014 Master",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "error-trigger-1",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format error into readable notification\nconst err = $input.first().json;\n\nconst payload = {\n  subject: `\u26a0\ufe0f n8n Error: ${err.workflow?.name || \"Unknown\"}`,\n  text: `\ud83d\udea8 n8n Workflow Error\n\n\ud83d\udccb Workflow: ${err.workflow?.name || \"Unknown\"}\n\ud83d\udd27 Failed Node: ${err.node || \"Unknown\"}\n\u274c Error: ${err.error?.message || err.message || \"No message\"}\n\u23f0 Time: ${err.execution?.startedAt || new Date().toISOString()}\n\ud83d\udd17 Execution ID: ${err.execution?.id || \"N/A\"}\n\nFull error payload:\n${JSON.stringify(err, null, 2)}`\n};\nreturn [{ json: payload }];"
+      },
+      "id": "format-error-1",
+      "name": "Format Error Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Format Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "timezone": "America/Chicago"
+  },
+  "staticData": null,
+  "meta": {},
+  "tags": [],
+  "versionId": "dfa7af88-c702-4030-b488-b693d3a13dbe",
+  "triggerCount": 0,
+  "pinData": null
+}

@@ -1,0 +1,349 @@
+{
+  "id": "B0XmnaAd9MmYVoLF",
+  "name": "Green Systems \u2014 Lead Scraper (Little Rock Restaurants)",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 23
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger-01",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "location",
+              "value": "34.7465,-92.2896"
+            },
+            {
+              "name": "radius",
+              "value": "15000"
+            },
+            {
+              "name": "type",
+              "value": "restaurant"
+            },
+            {
+              "name": "key",
+              "value": "={{$env.GOOGLE_MAPS_API_KEY}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-maps-01",
+      "name": "Google Maps API \u2014 Search Restaurants",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $json.results || [];\nconst restaurants = results.map(place => ({\n  place_id: place.place_id,\n  name: place.name,\n  address: place.vicinity,\n  rating: place.rating || 0,\n  review_count: place.user_ratings_total || 0,\n  types: place.types?.join(', ') || '',\n  lat: place.geometry?.location?.lat,\n  lng: place.geometry?.location?.lng\n}));\nreturn restaurants.map(r => ({ json: r }));"
+      },
+      "id": "code-extract-01",
+      "name": "Code \u2014 Extract Restaurants",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        752,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://maps.googleapis.com/maps/api/place/details/json?place_id=' + $json.place_id + '&fields=website,formatted_phone_number&key=' + $env.GOOGLE_MAPS_API_KEY}}",
+        "options": {}
+      },
+      "id": "http-details-01",
+      "name": "Google Maps API \u2014 Get Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        944,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const detail = $json.result || {};\nconst restaurant = $input.first().json;\nreturn [{ json: {\n  ...restaurant,\n  website: detail.website || '',\n  phone: detail.formatted_phone_number || ''\n} }];"
+      },
+      "id": "code-merge-01",
+      "name": "Code \u2014 Merge Details",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{$json.website}}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "http-website-01",
+      "name": "HTTP Request \u2014 Check Website",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1344,
+        544
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const restaurant = $input.first().json;\nconst html = $json.data || '';\nconst htmlLower = html.toLowerCase();\n\nconst hasOrderOnline = /order.*online|online.*order|order.*now/i.test(htmlLower);\nconst hasDoordash = /doordash|door dash/i.test(htmlLower);\nconst hasUbereats = /uber\\s*eats|ubereats/i.test(htmlLower);\nconst hasGrubhub = /grubhub|grub hub/i.test(htmlLower);\nconst hasSquare = /square|squareup/i.test(htmlLower);\nconst hasToast = /toasttab|toast/i.test(htmlLower);\nconst hasChownow = /chownow|chow now/i.test(htmlLower);\n\nlet score = 0;\nlet reasons = [];\n\nif (restaurant.website) {\n  score += 1;\n  reasons.push('has_website');\n}\n\nif (!hasOrderOnline) {\n  score += 2;\n  reasons.push('no_online_ordering');\n}\n\nif (hasDoordash || hasUbereats || hasGrubhub) {\n  score += 1;\n  reasons.push('on_third_party_platforms');\n}\n\nif (restaurant.rating >= 3.5) {\n  score += 1;\n  reasons.push('good_rating');\n}\n\nif (restaurant.phone) {\n  score += 1;\n  reasons.push('has_phone');\n}\n\nlet category = 'Skip';\nif (score >= 4) category = 'Qualified';\nelse if (score >= 2) category = 'Research';\n\nreturn [{ json: {\n  ...restaurant,\n  website_analysis: {\n    has_order_online: hasOrderOnline,\n    has_doordash: hasDoordash,\n    has_ubereats: hasUbereats,\n    has_grubhub: hasGrubhub,\n    has_square: hasSquare,\n    has_toast: hasToast,\n    has_chownow: hasChownow\n  },\n  score,\n  score_reasons: reasons,\n  category,\n  stage: 'New',\n  owner: 'Green',\n  created_date: new Date().toISOString(),\n  source: 'google_maps_scraper'\n} }];"
+      },
+      "id": "code-score-01",
+      "name": "Code \u2014 Score Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1552,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{$env.SALES_CRM_SHEET_ID}}",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 0,
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "sheets-crm-01",
+      "name": "Google Sheets \u2014 Add to CRM",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1744,
+        544
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lBiz4oVDTCYNGIqc",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-qualified",
+              "leftValue": "={{ $json.category }}",
+              "rightValue": "Qualified",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "if-qualified-01",
+      "name": "IF \u2014 Qualified?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "loudgreen1@gmail.com",
+        "subject": "Qualified leads for SyBridege.io",
+        "message": "Here are your leads.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2000,
+        336
+      ],
+      "id": "1ae21c53-f61c-43d7-a400-f0c091adcfd5",
+      "name": "Send a message",
+      "webhookId": "cb68dbb4-110b-431f-b4d7-429a3eb7ea08",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "mR3GfNMrhIPM1swf",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Maps API \u2014 Search Restaurants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Maps API \u2014 Search Restaurants": {
+      "main": [
+        [
+          {
+            "node": "Code \u2014 Extract Restaurants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code \u2014 Extract Restaurants": {
+      "main": [
+        [
+          {
+            "node": "Google Maps API \u2014 Get Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Maps API \u2014 Get Details": {
+      "main": [
+        [
+          {
+            "node": "Code \u2014 Merge Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code \u2014 Merge Details": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request \u2014 Check Website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request \u2014 Check Website": {
+      "main": [
+        [
+          {
+            "node": "Code \u2014 Score Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code \u2014 Score Lead": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets \u2014 Add to CRM",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "IF \u2014 Qualified?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF \u2014 Qualified?": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "AdAM0770d3pJTrWt",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "America/Chicago"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": [],
+  "versionId": "257328d0-fb51-4f37-8882-4e7eb1d4e7fe",
+  "triggerCount": 0,
+  "pinData": {}
+}

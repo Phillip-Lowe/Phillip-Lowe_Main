@@ -1,0 +1,11 @@
+{
+  "maxPerDay": 25,
+  "delayBetweenMs": 3000,
+  "dripDays": [3, 7],
+  "suppressionFile": "suppression.txt",
+  "trackingFile": "send-log.csv",
+  "from": "Green <green@systack.net>",
+  "defaultTemplate": "Hi {first_name}, I wanted to reach out about {company}.",
+  "senderName": "Green",
+  "senderTitle": "Systack Automation"
+}

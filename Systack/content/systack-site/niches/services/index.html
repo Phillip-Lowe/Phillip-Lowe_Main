@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SyStack.net — Automated Booking &amp; Payment Systems for Any Business</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../../brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../brand/apple-touch-icon.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #001a2d;
+      --navy-light: #002845;
+      --teal: #007da9;
+      --cyan: #00a1db;
+      --cyan-bright: #00c5e0;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --red: #ef4444;
+      --green: #22c55e;
+      --green-bg: #f0fdf4;
+      --red-bg: #fff5f5;
+      --purple: #8b5cf6;
+      --purple-bg: #f5f3ff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+    }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+    .nav-logo-text {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+    }
+    .nav-cta {
+      background: var(--cyan);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal); }
+
+    /* Header / Brand */
+    header { text-align: center; padding: 60px 0 20px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .brand-mark {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,161,219,0.3);
+    }
+    .brand-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-text { text-align: left; }
+    .brand-name {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .brand-name span { color: var(--cyan); }
+    .brand-tagline {
+      font-size: 15px;
+      color: var(--gray-600);
+      margin-top: 4px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, #003a5c 100%);
+      color: white;
+      padding: 70px 60px;
+      border-radius: 20px;
+      margin: 40px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0,197,224,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(90deg, var(--cyan-bright), #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-pain {
+      font-size: 16px;
+      opacity: 0.7;
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--cyan);
+      color: white;
+      padding: 16px 36px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17px;
+      margin: 8px;
+      transition: all 0.2s;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 14px rgba(0,161,219,0.4);
+    }
+    .cta-btn:hover {
+      background: var(--cyan-bright);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,161,219,0.5);
+    }
+    .cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: white;
+      padding: 16px 36px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17px;
+      border: 2px solid rgba(255,255,255,0.3);
+      margin: 8px;
+      transition: all 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-secondary:hover { border-color: white; }
+
+    /* Sections */
+    .section { padding: 60px 0; }
+    .section h2 {
+      font-size: 34px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--navy);
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--gray-600);
+      margin-bottom: 40px;
+      font-size: 18px;
+    }
+
+    /* Business Types Grid */
+    .biz-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+    }
+    .biz-card {
+      padding: 24px;
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--gray-200);
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .biz-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .biz-card .emoji { font-size: 36px; margin-bottom: 12px; display: block; }
+    .biz-card h3 { font-size: 16px; margin-bottom: 6px; color: var(--navy); }
+    .biz-card p { font-size: 13px; color: var(--gray-600); }
+
+    /* Before/After */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 30px 0;
+    }
+    .before {
+      background: var(--red-bg);
+      padding: 30px;
+      border-radius: 14px;
+      border-left: 5px solid var(--red);
+    }
+    .after {
+      background: var(--green-bg);
+      padding: 30px;
+      border-radius: 14px;
+      border-left: 5px solid var(--green);
+    }
+    .before h3, .after h3 { font-size: 18px; margin-bottom: 16px; }
+    .before ul, .after ul { list-style: none; }
+    .before li, .after li { padding: 8px 0; font-size: 15px; }
+    .before li::before { content: "✗"; color: var(--red); margin-right: 10px; }
+    .after li::before { content: "✓"; color: var(--green); margin-right: 10px; }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: var(--purple-bg);
+      border-left: 5px solid var(--purple);
+      padding: 28px;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+    .highlight-box p { font-size: 16px; color: var(--purple); }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .feature {
+      padding: 28px;
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--gray-200);
+      transition: box-shadow 0.2s;
+    }
+    .feature:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .feature .emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+    .feature h3 { font-size: 17px; margin-bottom: 8px; color: var(--navy); }
+    .feature p { font-size: 14px; color: var(--gray-600); }
+
+    /* Demo Booking Card */
+    .demo {
+      background: var(--navy);
+      color: white;
+      padding: 40px;
+      border-radius: 16px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .demo h3 { font-size: 24px; margin-bottom: 20px; }
+    .booking-mockup {
+      background: white;
+      color: var(--gray-800);
+      padding: 28px;
+      border-radius: 12px;
+      max-width: 420px;
+      margin: 20px auto;
+      text-align: left;
+    }
+    .booking-mockup h4 { font-size: 16px; margin-bottom: 16px; }
+    .booking-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 14px;
+    }
+    .booking-item .addon { color: var(--green); font-size: 12px; font-weight: 600; }
+    .booking-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      font-weight: 700;
+      font-size: 18px;
+      border-top: 2px solid var(--gray-800);
+      margin-top: 10px;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .pricing-card {
+      padding: 36px 28px;
+      border: 2px solid var(--gray-200);
+      border-radius: 16px;
+      text-align: center;
+      background: white;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--cyan);
+      background: #f8fdff;
+      box-shadow: 0 8px 24px rgba(0,161,219,0.12);
+    }
+    .best-value {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--cyan), var(--teal));
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 18px;
+      border-radius: 20px;
+    }
+    .pricing-card h3 { font-size: 22px; margin-bottom: 8px; color: var(--navy); }
+    .price { font-size: 42px; font-weight: 800; color: var(--navy); }
+    .price-period { font-size: 14px; color: var(--gray-400); }
+    .pricing-card .who {
+      font-size: 13px;
+      color: var(--gray-600);
+      margin: 14px 0;
+      padding: 10px;
+      background: var(--gray-50);
+      border-radius: 8px;
+    }
+    .pricing-card ul { list-style: none; margin: 20px 0; text-align: left; }
+    .pricing-card li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 14px;
+    }
+    .pricing-card li:before { content: "✓"; color: var(--green); margin-right: 10px; }
+
+    /* Risk Killers */
+    .risk-killers {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin: 36px 0;
+      flex-wrap: wrap;
+    }
+    .risk-killer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+    .risk-killer .check { color: var(--green); font-weight: 700; font-size: 20px; }
+
+    /* Testimonial */
+    .testimonial {
+      background: #fffbf0;
+      padding: 40px;
+      border-radius: 16px;
+      margin: 30px 0;
+      border-left: 5px solid #f59e0b;
+    }
+    .testimonial blockquote { font-size: 20px; font-style: italic; margin-bottom: 16px; }
+    .testimonial cite { font-size: 14px; font-weight: 600; color: var(--gray-600); font-style: normal; }
+
+    /* Final CTA */
+    .final-cta { text-align: center; padding: 60px 0; }
+    .final-cta h2 { font-size: 34px; margin-bottom: 16px; color: var(--navy); }
+    .final-cta p { color: var(--gray-600); margin-bottom: 24px; font-size: 18px; }
+    .final-cta .phone { font-size: 22px; font-weight: 700; color: var(--navy); margin: 16px 0; }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--gray-400);
+      font-size: 14px;
+      border-top: 1px solid var(--gray-200);
+      margin-top: 40px;
+    }
+    footer span { color: var(--cyan); }
+
+    .nav-menu { display: flex; gap: 22px; }
+    .nav-menu a { color: var(--gray-600); text-decoration: none; font-weight: 500; font-size: 14px; transition: color 0.2s; }
+    .nav-menu a:hover { color: var(--cyan); }
+    .nav-menu a[href="../services/"] { color: var(--navy); font-weight: 700; }
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .before-after, .pricing-grid { grid-template-columns: 1fr; }
+      .hero { padding: 50px 24px; }
+      .hero h1 { font-size: 30px; }
+      .hero-sub { font-size: 18px; }
+      .risk-killers { flex-direction: column; align-items: center; gap: 12px; }
+      .brand-name { font-size: 28px; }
+      .section h2 { font-size: 26px; }
+      .biz-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="../../brand/logo-nav.png" alt="SyStack" class="nav-logo-img" width="40" height="40">
+      <div class="nav-logo-text">Sy<span>Stack</span>.net</div>
+    </div>
+    <div class="nav-menu">
+      <a href="../../">Home</a>
+      <a href="../food/">Food</a>
+      <a href="../services/">Services</a>
+    </div>
+    <a href="tel:+15012746231" class="nav-cta">📞 Get Started</a>
+  </nav>
+
+  <!-- BRAND HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-mark"><img src="../../brand/logo-header.png" alt="SyStack" width="56" height="56"></div>
+      <div class="brand-text">
+        <div class="brand-name">Sy<span>Stack</span>.net</div>
+        <div class="brand-tagline">Automated Booking &amp; Payment Systems for Any Business</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Stop Losing Customers<br>to <span class="highlight">Phone Tag</span></h1>
+    <p class="hero-sub">Your customers want to book and pay. Right now. Without the back-and-forth.</p>
+    <p class="hero-pain">Turn your services into an instant booking system — customers select, pay, and confirm in under 60 seconds.</p>
+    <a href="tel:+15012746231" class="cta-btn">📞 Call to Get Started</a>
+    <a href="#pricing" class="cta-secondary">See Plans &amp; Pricing</a>
+  </div>
+
+  <!-- WHO THIS IS FOR -->
+  <div class="section">
+    <h2>If You Take Bookings or Payments, This Works For You</h2>
+    <div class="biz-grid">
+      <div class="biz-card">
+        <span class="emoji">💇</span>
+        <h3>Salon / Barber</h3>
+        <p>Haircuts, color, styling</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🚗</span>
+        <h3>Auto Shop</h3>
+        <p>Oil change, brake jobs</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🏠</span>
+        <h3>Cleaning Service</h3>
+        <p>House, deep clean</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">📸</span>
+        <h3>Photography</h3>
+        <p>Sessions, prints</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">💼</span>
+        <h3>Consulting</h3>
+        <p>Hourly, packages</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">💪</span>
+        <h3>Trainer / Coach</h3>
+        <p>Sessions, packages</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🔨</span>
+        <h3>Contractor</h3>
+        <p>Estimates, deposits</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🎉</span>
+        <h3>Event Planner</h3>
+        <p>Packages, deposits</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">📚</span>
+        <h3>Tutoring</h3>
+        <p>Sessions, recurring</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🌿</span>
+        <h3>Lawn Care</h3>
+        <p>Mowing, landscaping</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🐕</span>
+        <h3>Dog Services</h3>
+        <p>Grooming, walking</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">💆</span>
+        <h3>Massage / Spa</h3>
+        <p>Sessions, packages</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🎨</span>
+        <h3>Tattoo / Art</h3>
+        <p>Design, consultation</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🚐</span>
+        <h3>Mobile Detailing</h3>
+        <p>Vehicle, location</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🍽️</span>
+        <h3>Catering</h3>
+        <p>Events, packages</p>
+      </div>
+      <div class="biz-card">
+        <span class="emoji">🎯</span>
+        <h3>+ Any Service</h3>
+        <p>If you take payments</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE FRICTION PROBLEM -->
+  <div class="section">
+    <h2>The Hidden Cost of Phone Tag</h2>
+    <p class="section-sub">Every missed call is a customer who found someone else.</p>
+    <div class="before-after">
+      <div class="before">
+        <h3>❌ BEFORE — Manual Booking</h3>
+        <ul>
+          <li>Customer calls. You're busy. No answer.</li>
+          <li>Customer texts. You reply 2 hours later.</li>
+          <li>"Are you free Tuesday?" Back-and-forth begins.</li>
+          <li>"How much for XYZ?" You explain again.</li>
+          <li>They want to book but need to "check their schedule"</li>
+          <li>They never call back. You lost them.</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h3>✅ AFTER — SyStack System</h3>
+        <ul>
+          <li>Customer clicks your link</li>
+          <li>Sees your services, prices, availability</li>
+          <li>Selects service + adds options</li>
+          <li>Pays deposit via Square</li>
+          <li>Gets confirmation instantly</li>
+          <li>Shows up at scheduled time. Done.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATFORM VS DIRECT -->
+  <div class="section">
+    <div class="highlight-box">
+      <p><strong>Already on Thumbtack, StyleSeat, or similar?</strong> Keep them for discovery. But direct bookings through SyStack mean you keep 97% instead of 80%. That's <em>your</em> revenue.</p>
+    </div>
+    <h2>Platform Fees Are a Forever Tax</h2>
+    <p class="section-sub">Here's what happens when a $100 booking goes through a platform vs. direct.</p>
+    <div class="before-after">
+      <div class="before">
+        <h3>❌ Platform Booking — $100 Service</h3>
+        <ul>
+          <li>Customer pays $100</li>
+          <li>Platform takes $20 (20%)</li>
+          <li>You get $80</li>
+          <li>You don't get the customer's email</li>
+          <li>Customer belongs to the platform</li>
+          <li>Next time, they book there again</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h3>✅ SyStack Direct — $100 Service</h3>
+        <ul>
+          <li>Customer pays $100</li>
+          <li>Square fee: ~$3.20 (3.2%)</li>
+          <li><strong>You keep $96.80</strong></li>
+          <li>You own the customer email</li>
+          <li>They bookmark YOUR page</li>
+          <li>Next time? Direct to you.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT CUSTOMERS SEE -->
+  <div class="section">
+    <h2>What Your Customers See</h2>
+    <p class="section-sub">Clean. Simple. They book and pay in under 60 seconds.</p>
+    <div class="demo">
+      <h3>📱 Live Booking View</h3>
+      <div class="booking-mockup">
+        <h4>📅 Booking Summary — [Your Business]</h4>
+        <div class="booking-item">
+          <span>Service: Deep House Cleaning</span>
+          <span>$150.00</span>
+        </div>
+        <div class="booking-item">
+          <span>&nbsp;&nbsp;+ Add Window Cleaning</span>
+          <span>$45.00</span>
+        </div>
+        <div class="booking-item">
+          <span>&nbsp;&nbsp;+ Eco-Friendly Products</span>
+          <span>$15.00</span>
+        </div>
+        <div class="booking-item">
+          <span><span class="addon">Scheduled: Friday, 2:00 PM</span></span>
+          <span></span>
+        </div>
+        <div class="booking-total">
+          <span>Total (with deposit)</span>
+          <span>$105.00</span>
+        </div>
+        <p style="font-size:13px;color:#94a3b8;margin-top:14px;">Customer taps "Pay Now" → Square checkout → Confirmation sent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section">
+    <h2>More Than a Form — A Revenue System</h2>
+    <p class="section-sub">Your system doesn't just take bookings. It grows them.</p>
+    <div class="features">
+      <div class="feature">
+        <span class="emoji">💳</span>
+        <h3>Instant Payment</h3>
+        <p>Deposits collected upfront. Full balance later. No chasing checks.</p>
+      </div>
+      <div class="feature">
+        <span class="emoji">➕</span>
+        <h3>Smart Add-ons</h3>
+        <p>"Add premium option?" "Rush fee?" Suggested at the right moment.</p>
+      </div>
+      <div class="feature">
+        <span class="emoji">📅</span>
+        <h3>Time Slots</h3>
+        <p>Customers pick from YOUR available windows. No double-booking.</p>
+      </div>
+      <div class="feature">
+        <span class="emoji">📊</span>
+        <h3>Track Everything</h3>
+        <p>Full booking data in Google Sheets. See your best services, days, and revenue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section" id="pricing">
+    <h2>Pick the Plan That Matches Your Day</h2>
+    <p class="section-sub">Not features. Real outcomes for your real business.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Solo Operator</h3>
+        <div class="price">$149</div>
+        <div class="price-period">per month</div>
+        <div class="who">✓ Less than 20 bookings/week. Freelancers, side-hustles, solo pros.</div>
+        <ul>
+          <li>Clean branded booking form</li>
+          <li>Square direct checkout</li>
+          <li>Email confirmations</li>
+          <li>Basic add-ons &amp; pricing</li>
+          <li>Booking log in Google Sheets</li>
+          <li>Email support</li>
+        </ul>
+        <p style="font-size:13px;color:var(--gray-400);margin-top:14px;">Setup: $1,500 one-time</p>
+      </div>
+      <div class="pricing-card featured">
+        <div class="best-value">BEST VALUE</div>
+        <h3>Growing Business</h3>
+        <div class="price">$249</div>
+        <div class="price-period">per month</div>
+        <div class="who">✓ 20–100 bookings/week. Established services, busy schedules.</div>
+        <ul>
+          <li>Everything in Solo Operator</li>
+          <li>Smart upsells (premium options, rush)</li>
+          <li>Deposit collection</li>
+          <li>Time slot management</li>
+          <li>Priority support</li>
+          <li>Monthly service edits included</li>
+        </ul>
+        <p style="font-size:13px;color:var(--gray-400);margin-top:14px;">Setup: $3,500 one-time</p>
+      </div>
+      <div class="pricing-card">
+        <h3>Full Operation</h3>
+        <div class="price">$449</div>
+        <div class="price-period">per month</div>
+        <div class="who">✓ 100+ bookings/week. Multi-location, high-volume, teams.</div>
+        <ul>
+          <li>Everything in Growing Business</li>
+          <li>Multiple staff/location support</li>
+          <li>Custom integrations</li>
+          <li>Dedicated account manager</li>
+          <li>Quarterly optimization reviews</li>
+          <li>White-label options</li>
+        </ul>
+        <p style="font-size:13px;color:var(--gray-400);margin-top:14px;">Setup: Custom quote</p>
+      </div>
+    </div>
+
+    <div class="risk-killers">
+      <div class="risk-killer"><span class="check">✓</span> No contract</div>
+      <div class="risk-killer"><span class="check">✓</span> Cancel anytime</div>
+      <div class="risk-killer"><span class="check">✓</span> Live in 2–3 days</div>
+      <div class="risk-killer"><span class="check">✓</span> Pays for itself in one busy week</div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="testimonial">
+    <blockquote>
+      "I was losing 3–4 bookings a week because I couldn't answer texts during appointments. Now clients book themselves, pay deposits online, and show up prepared. My no-show rate dropped from 30% to under 5%."
+    </blockquote>
+    <cite>— Independent Barber, Little Rock, AR</cite>
+  </div>
+
+  <div class="testimonial">
+    <blockquote>
+      "Parents used to email asking about tutoring packages, then disappear. Now they see everything on the form, pay for a session pack, and book immediately. I went from chasing leads to prepping lessons."
+    </blockquote>
+    <cite>— Private Tutor, Online + In-Person</cite>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta">
+    <h2>Ready to Stop Losing Customers?</h2>
+    <p>Talk to a real person. No forms, no bots. Just a quick conversation about your setup.</p>
+    <div class="phone">📞 (501) 274-6231</div>
+    <p style="color:var(--gray-400);font-size:14px;margin-top:12px;">Or text "BOOKING SYSTEM" and we'll call you back.</p>
+    <a href="tel:+15012746231" class="cta-btn">Call Now — Let's Talk</a>
+  </div>
+
+  <footer>
+    <p><span>⬡</span> SyStack.net — Automated Booking &amp; Payment Systems for Any Business</p>
+    <p>Built by operators who believe your revenue should be yours.</p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand/apple-touch-icon.png">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAOS — Your AI Agent Fleet, Ready to Work</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Hero */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 50%, #009952 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-size: 22px;
+            color: #a0a0b0;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: #00ff88;
+            color: #0a0a0f;
+        }
+        .btn-primary:hover {
+            background: #00dd77;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.3);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #e0e0e0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-secondary:hover {
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+        /* Demo */
+        .demo-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .demo-phone {
+            max-width: 360px;
+            margin: 0 auto;
+            background: #1a1a2e;
+            border-radius: 40px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+        }
+        .chat-bubble {
+            background: #00ff88;
+            color: #0a0a0f;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin: 8px 0;
+            text-align: left;
+            font-size: 14px;
+        }
+        .chat-bubble.user {
+            background: #2a2a3e;
+            color: #e0e0e0;
+            text-align: right;
+        }
+        /* Features */
+        .features {
+            padding: 80px 0;
+        }
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-4px);
+        }
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        .card p {
+            color: #a0a0b0;
+            font-size: 16px;
+        }
+        /* Pricing */
+        .pricing {
+            padding: 80px 0;
+            background: linear-gradient(180deg, #0a0a0f 0%, #12121f 100%);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .price-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        .price-card.popular {
+            border-color: #00ff88;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.1);
+        }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00ff88;
+            color: #0a0a0f;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .price-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        .price span {
+            font-size: 16px;
+            color: #a0a0b0;
+            font-weight: 400;
+        }
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 15px;
+        }
+        .features-list li:before {
+            content: "✓";
+            color: #00ff88;
+            margin-right: 10px;
+            font-weight: 700;
+        }
+        /* Footer */
+        .footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 16px;
+        }
+        .footer p {
+            color: #606070;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">🦞 Powered by OpenClaw</div>
+            <h1>SAOS</h1>
+            <p class="hero-sub">Your AI Agent Fleet, Ready to Work.<br>One platform. Multiple agents. Zero management.</p>
+            <div class="cta-group">
+                <a href="#pricing" class="btn btn-primary">Get Your Fleet — $299/mo</a>
+                <a href="#demo" class="btn btn-secondary">See Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <h2 class="section-title">Your Customers Text. Your Agents Work.</h2>
+            <div class="demo-phone">
+                <div class="chat-bubble user">Hey, can I order a #3 combo with extra sauce?</div>
+                <div class="chat-bubble">Got it! #3 combo, extra sauce. Anything else?</div>
+                <div class="chat-bubble user">That's it. When's it ready?</div>
+                <div class="chat-bubble">Order sent! Estimated 12 minutes. See you soon!</div>
+            </div>
+            <p style="margin-top: 30px; color: #a0a0b0; font-size: 18px;">
+                Orders go straight to your email or POS. No app needed.<br>
+                Your customers already know how to text.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">What Your Fleet Does</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🛰️</div>
+                    <h3>Fleet Command</h3>
+                    <p>One SAOS instance runs multiple agents — order taker, invoice processor, lead qualifier — all coordinated by your command agent.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3>Text-to-Order</h3>
+                    <p>Customers text your business number. The agent takes the order, confirms details, and sends it to your kitchen or inbox.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📄</div>
+                    <h3>Invoice Intelligence</h3>
+                    <p>Forward invoices to your agent. It reads, categorizes, and routes them for approval — no manual data entry.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Lead Qualification</h3>
+                    <p>Your agent scrapes, scores, and briefs you on new leads every morning. You wake up to warm prospects.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+                    <h3>Self-Hosted Privacy</h3>
+                    <p>Your data never leaves your control. No third-party AI companies reading your customer conversations.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>15-Minute Setup</h3>
+                    <p>We configure everything. You get a working number. Your customers start texting. Business as usual.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Fleet</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Solo Agent</h3>
+                    <div class="price">$149<span>/mo</span></div>
+                    <p style="color: #a0a0b0; margin-bottom: 20px;">One agent. One job.</p>
+                    <ul class="features-list">
+                        <li>1 AI agent (your choice)</li>
+                        <li>WhatsApp or SMS number</li>
+                        <li>Basic order/inquiry handling</li>
+                        <li>Email notifications</li>
+                        <li>Standard support</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/test_solo" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+                </div>
+                <div class="price-card popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <h3>Business Fleet</h3>
+                    <div class="price">$299<span>/mo</span></div>
+                    <p style="color: #a0a0b0; margin-bottom: 20px;">3 agents. Full coverage.</p>
+                    <ul class="features-list">
+                        <li>3 AI agents working together</li>
+                        <li>Order + Invoice + Lead agents</li>
+                        <li>WhatsApp + SMS + WebChat</li>
+                        <li>Daily morning briefings</li>
+                        <li>Priority support</li>
+                        <li>Fleet Command dashboard</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/test_fleet" class="btn btn-primary" style="width: 100%;">Get Your Fleet</a>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$799<span>/mo</span></div>
+                    <p style="color: #a0a0b0; margin-bottom: 20px;">Custom everything.</p>
+                    <ul class="features-list">
+                        <li>Unlimited agents</li>
+                        <li>Custom agent development</li>
+                        <li>API integrations (POS, CRM, etc.)</li>
+                        <li>White-label option</li>
+                        <li>Dedicated support line</li>
+                        <li>SLA guarantee</li>
+                    </ul>
+                    <a href="mailto:sol.liaison@systack.net?subject=SAOS Enterprise Inquiry" class="btn btn-secondary" style="width: 100%;">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">SAOS by Systack</div>
+            <p>Built in Little Rock, Arkansas. Deployed anywhere.</p>
+            <p style="margin-top: 8px;">sol.liaison@systack.net</p>
+        </div>
+    </footer>
+</body>
+</html>

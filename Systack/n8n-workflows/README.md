@@ -1,0 +1,134 @@
+# Systack n8n Workflows Backup
+
+Backup of all n8n workflows for Systack and clients.
+
+**Last Updated:** Sat Jun 20 06:00:01 CDT 2026
+
+## Active Workflows
+
+- ✅ CDA Booking-Confirmed
+- ✅ CDA Booking
+- ✅ CDA No-Show Reminder Scheduler - 24HR
+- ✅ CDA No-Show Reminder Scheduler - 2HR
+- ✅ Error Catcher  Master
+- ✅ Error Catcher  Master v2
+- ✅ Green Systems  Lead Scraper Little Rock Restaurants
+- ✅ Green Systems  Outreach Sequencer
+- ✅ Green Systems  Service Business Lead Scraper
+- ✅ Invoice Email Pipeline
+- ✅ My workflow 2
+- ✅ SAOS Client Provisioning Pipeline
+- ✅ SAOS Enterprise  Configure Fleet
+- ✅ SAOS Enterprise  Stripe Checkout Webhook
+- ✅ SAOS Lead Capture  Score  Log
+- ✅ SAOS VPS Ready Notification
+- ✅ SOL Morning Briefing
+- ✅ SyStack Auto-Release Unconfirmed Slots v2
+- ✅ SyStack Booking
+- ✅ SyStack Booking Website Demo
+- ✅ SyStack No-Show Reminder Scheduler - 24HR
+- ✅ SyStack No-Show Reminder Scheduler - 2HR
+- ✅ Systack Booking-Confirmed
+- ✅ Systack Booking Confirmed Website Demo
+- ✅ Systack Lead Scraper  PostgreSQL CRM
+- ✅ Systack Private  Invoice Email Pipeline
+- ✅ TEST - Utopia Deli Message to Phillip
+- ✅ TEST v2 - Utopia Deli Linear
+- ✅ Test-Basic-v4
+- ✅ Test-Code-HTTP
+- ✅ Test-HTTP-Explicit
+- ✅ Test-IF-Validation
+- ✅ Test-LastNode
+- ✅ Test-Minimal-v4
+- ✅ Test-No-Hours
+- ✅ Test-SQLite
+- ✅ Test-SQLite2
+- ✅ Test-Simple-Code
+- ✅ Test-Simple-Response
+- ✅ Test-Square-Direct
+- ✅ Test-Square-Only
+- ✅ Test-Square-Only2
+- ✅ Test-Utopia-v4
+- ✅ Test-Webhook-Data-Structure
+- ✅ Test RespondToWebhook
+- ✅ Utopia-Deli-Simple-Checkout-v4
+- ✅ Utopia Deli HTML Order v1
+- ✅ Utopia Deli HTML Order v1 FRANKENSTEIN
+- ✅ Utopia Deli HTML Order v2 CLEAN 17 NODES
+- ✅ Utopia Deli  Catering Lead Scoring
+- ✅ Utopia Deli  Google Forms Intake  Hours Gate  Square  Email  Sheets
+- ✅ Utopia Deli  HTML Order Adapter v1
+- ✅ Utopia Deli  HTML Order Fleet Canon
+- ✅ Utopia Deli  HTML Order Webhook v1
+- ✅ Utopia Deli  Order v4 Fleet Updated Hours
+- ✅ Utopia Deli  Payment Confirmed Email
+- ✅ Utopia Order Success
+
+## Inactive/Archived Workflows
+
+- ❌ Add Another Item
+- ❌ Cart Renderer  Router
+- ❌ Constraint Evaluator Master
+- ❌ Contact  Item  Cart
+- ❌ Custom Constraint Validation
+- ❌ Deli Online Order Disable Square Payment Link on Payment Completed
+- ❌ Error Catcher  Master
+- ❌ Green Systems  Lead Scraper Little Rock Restaurants
+- ❌ Green Systems  Outreach Sequencer
+- ❌ Green Systems  Service Business Lead Scraper
+- ❌ Invoice Validation with Constraint Evaluator
+- ❌ MOD 1  Streetwear Daily RSS Aggregator v1
+- ❌ My workflow
+- ❌ Order Received
+- ❌ SOL-Checkout-Proxy
+- ❌ SOL-Test-Webhook-sqlite3
+- ❌ SOL-Test-sqlite3-Fixed
+- ❌ SOL Morning Briefing
+- ❌ Schedule Conflict Detection
+- ❌ Sol Blog Post Simple
+- ❌ Sol Blog Post Webhook
+- ❌ Sol Test Workflow
+- ❌ Sol Webhook Test
+- ❌ Square Refund  Void Confirmation  ONLINE ORDERS
+- ❌ SyStack Free No-Show Test System - Postgres SMTP
+- ❌ Systack Lead Scraper  PostgreSQL CRM
+- ❌ Systack Private  Client Onboarding
+- ❌ Systack Private  Generic Booking System
+- ❌ Systack Private  Invoice Email Pipeline
+- ❌ Systack  Client Onboarding Sequence
+- ❌ Systack  Generic Booking System Template
+- ❌ Systack  Invoice Email Pipeline
+- ❌ Test-Basic-v4
+- ❌ Test-Both-Paths
+- ❌ Test-Code-HTTP
+- ❌ Test-HTTP-Explicit
+- ❌ Test-IF-Validation
+- ❌ Test-LastNode
+- ❌ Test-Minimal-v4
+- ❌ Test-No-Hours
+- ❌ Test-SQLite
+- ❌ Test-SQLite2
+- ❌ Test-Simple-Code
+- ❌ Test-Simple-Response
+- ❌ Test-Square-Direct
+- ❌ Test-Square-Only
+- ❌ Test-Square-Only2
+- ❌ Test-Utopia-v4
+- ❌ Test-Webhook-Data-Structure
+- ❌ Utopia-Deli-Simple-Checkout-v4
+- ❌ Utopia-Deli-Simple-Checkout
+- ❌ Utopia Deli HTML Order v2  CART STATE Aligned
+- ❌ Utopia Deli Online Order Unused Payment Link deletion
+- ❌ Utopia Deli  Email Unsubscribe
+- ❌ Utopia Deli  Full Checkout Modifiers  Validation
+- ❌ Utopia Deli  Full Order Flow Sheets Config
+- ❌ Utopia Deli  Google Forms Intake  Hours Gate  Square  Email  Sheets
+- ❌ Utopia Deli  HTML Checkout v3 Local API
+- ❌ Utopia Deli  HTML Order Adapter v1
+- ❌ Utopia Deli  HTML Order Fleet Canon
+- ❌ Utopia Deli  HTML Webhook Checkout v2
+- ❌ Utopia Deli  Menu Form Only Alt Schema
+- ❌ Utopia Deli  Minimal Checkout
+- ❌ Utopia Deli  Order v4 Fleet Updated Hours
+- ❌ Utopia Deli  Twilio STOP Handler
+- ❌ Utopia Deli  Weekly Messaging

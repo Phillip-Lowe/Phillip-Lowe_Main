@@ -1,0 +1,28 @@
+{
+  "extracted_at": "2026-06-01T16:21:51.978177",
+  "database": "/Users/philliplowe/.openclaw/workspaces/sol/n8n-backup-20260530-202509/database.sqlite",
+  "count": 21,
+  "workflows": [
+    "Add Another Item",
+    "Cart Renderer + Router",
+    "Contact + Item + Cart",
+    "Deli Online Order Disable Square Payment Link on Payment Completed",
+    "Error Catcher \u2014 Master",
+    "Green Systems \u2014 Lead Scraper (Little Rock Restaurants)",
+    "Green Systems \u2014 Outreach Sequencer",
+    "Green Systems \u2014 Service Business Lead Scraper",
+    "MOD 1 \u2014 Streetwear Daily (RSS Aggregator) v1",
+    "Order Received",
+    "SOL Morning Briefing",
+    "Square Refund / Void Confirmation \u2192 ONLINE_ORDERS",
+    "Systack Lead Scraper \u2014 PostgreSQL CRM",
+    "Utopia Deli Online Order Unused Payment Link deletion",
+    "Utopia Deli \u2013 Full Order Flow (Sheets Config)",
+    "Utopia Deli \u2013 Menu Form Only (Alt Schema)",
+    "Utopia Deli \u2014 HTML Checkout v3 (Local API)",
+    "Utopia Deli \u2014 HTML Webhook Checkout v2",
+    "Utopia Deli \u2014 Minimal Checkout",
+    "Utopia-Deli-Simple-Checkout-v4",
+    "Utopia-Deli-Simple-Checkout-v4"
+  ]
+}

@@ -1,0 +1,393 @@
+{
+  "name": "Utopia Deli \u2014 Weekly Messaging",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cron",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "trigger-mon",
+      "name": "Monday 9AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cron",
+              "expression": "0 9 * * 3"
+            }
+          ]
+        }
+      },
+      "id": "trigger-wed",
+      "name": "Wednesday 9AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        650,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cron",
+              "expression": "0 10 * * 5"
+            }
+          ]
+        }
+      },
+      "id": "trigger-fri",
+      "name": "Friday 10AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "campaign_day",
+              "value": "monday"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-mon",
+      "name": "Set Monday",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        250,
+        250
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "campaign_day",
+              "value": "wednesday"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-wed",
+      "name": "Set Wednesday",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        650,
+        250
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "campaign_day",
+              "value": "friday"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-fri",
+      "name": "Set Friday",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        250
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, name, email, phone, unsubscribed_email, unsubscribed_sms FROM contacts WHERE (email IS NOT NULL AND email != '' AND unsubscribed_email = false) OR (phone IS NOT NULL AND phone != '' AND unsubscribed_sms = false)"
+      },
+      "id": "fetch-contacts",
+      "name": "Fetch Contacts",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        650,
+        400
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "iVuy7e5WTC05Hqwe",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const day = $input.first().json.campaign_day;\n\nconst templates = {\n  monday: {\n    email_subject: \"\ud83c\udf71 This week at Utopia + meal prep is open\",\n    email_body: \"Hey y'all \ud83e\udd0d\\n\\nWe're open this week at:\\n\ud83d\udccd 801 S Chester\\n\\n\ud83c\udf71 Meal prep is available now\\nOrders close Wednesday at 12PM\\nPickup is Thursday\\n\\n\ud83c\udf89 We also have catering openings this week\\n\\nhttps://order.theutopiadeli.com/pickup-order/\\n\\nWe appreciate all the support \u2014 see y'all soon.\",\n    sms_body: \"Hey y'all \ud83e\udd0d We're open this week at 801 S Chester. Meal prep available \u2014 orders close Wed 12PM, pickup Thu. Catering openings too. order.theutopiadeli.com\"\n  },\n  wednesday: {\n    email_subject: \"\u23f0 Meal prep closes today at 12PM\",\n    email_body: \"Meal prep closes TODAY at 12PM \ud83e\udd0d\\nPickup Thursday at the deli.\\n\\nEverything is made fresh based on orders \u2014 grab yours before the cutoff.\\n\\nhttps://order.theutopiadeli.com/pickup-order/\",\n    sms_body: \"Meal prep closes TODAY at 12PM \ud83e\udd0d Pickup Thu at the deli. Made fresh \u2014 grab yours: order.theutopiadeli.com\"\n  },\n  friday: {\n    email_subject: \"Weekend special + behind the scenes at Utopia\",\n    email_body: \"Hey y'all,\\n\\nEvery Thursday morning, we're in the kitchen by 4am prepping meal prep boxes. Not because we have to \u2014 because we committed to everyone who ordered before Wednesday noon.\\n\\nWeekend special: [INSERT SPECIAL] \u2014 available Fri-Sat while it lasts.\\n\\nAppreciate you,\\nThe Utopia Deli\\n\\nhttps://order.theutopiadeli.com/pickup-order/\",\n    sms_body: \"Weekend special coming \ud83e\udd0d Plus we're in the kitchen by 4am every Thursday making your meal prep boxes. Come see us: order.theutopiadeli.com\"\n  }\n};\n\nconst template = templates[day] || templates.monday;\nconst results = [];\n\nfor (const item of $input.all()) {\n  const c = item.json;\n  \n  if (c.email && !c.unsubscribed_email) {\n    results.push({\n      json: {\n        contact_id: c.id,\n        channel: 'email',\n        to: c.email,\n        subject: template.email_subject,\n        body: template.email_body,\n        campaign_day: day\n      }\n    });\n  }\n  \n  if (c.phone && !c.unsubscribed_sms) {\n    results.push({\n      json: {\n        contact_id: c.id,\n        channel: 'sms',\n        to: c.phone,\n        body: template.sms_body,\n        campaign_day: day\n      }\n    });\n  }\n}\n\nreturn results;"
+      },
+      "id": "compose",
+      "name": "Compose Messages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        650,
+        550
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "looseType": false
+          },
+          "conditions": [
+            {
+              "id": "cond-email",
+              "leftValue": "={{ $json.channel }}",
+              "rightValue": "email",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "route-email",
+      "name": "Email?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        650,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "sendHtml": false,
+        "sendText": true,
+        "subject": "={{ $json.subject }}",
+        "text": "={{ $json.body }}",
+        "toAddresses": "={{ $json.to }}"
+      },
+      "id": "send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        350,
+        850
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "jL1iF7fhyhTe5tCp",
+          "name": "PLOWE Systack SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "create",
+        "from": "TWILIO_FROM_NUMBER",
+        "to": "={{ $json.to }}",
+        "body": "={{ $json.body }}"
+      },
+      "id": "send-sms",
+      "name": "Send SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        950,
+        850
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CREDENTIAL_ID",
+          "name": "Twilio \u2014 Utopia Deli"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO message_logs (contact_id, channel, message_type, content, status, sent_at) VALUES ({{ $json.contact_id }}, '{{ $json.channel }}', '{{ $json.campaign_day }}', '{{ $json.body.replace(/'/g, \"''\") }}', 'sent', NOW())"
+      },
+      "id": "log-send",
+      "name": "Log Send",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        650,
+        1050
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "iVuy7e5WTC05Hqwe",
+          "name": "Postgres account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Monday 9AM": {
+      "main": [
+        [
+          {
+            "node": "Set Monday",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wednesday 9AM": {
+      "main": [
+        [
+          {
+            "node": "Set Wednesday",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Friday 10AM": {
+      "main": [
+        [
+          {
+            "node": "Set Friday",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Monday": {
+      "main": [
+        [
+          {
+            "node": "Fetch Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Wednesday": {
+      "main": [
+        [
+          {
+            "node": "Fetch Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Friday": {
+      "main": [
+        [
+          {
+            "node": "Fetch Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Contacts": {
+      "main": [
+        [
+          {
+            "node": "Compose Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose Messages": {
+      "main": [
+        [
+          {
+            "node": "Email?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email?": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Log Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send SMS": {
+      "main": [
+        [
+          {
+            "node": "Log Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "America/Chicago"
+  }
+}

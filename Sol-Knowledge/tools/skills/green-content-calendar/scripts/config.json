@@ -1,0 +1,7 @@
+{
+  "frequency": "weekly",
+  "contentTypes": ["blog", "social", "email"],
+  "topicsPerWeek": 3,
+  "outputFormat": "markdown",
+  "openaiApiKey": ""
+}

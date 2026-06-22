@@ -1,0 +1,1 @@
+[{"parameters":{"options":{}},"id":"imap-trigger","name":"Invoice Email Trigger","type":"n8n-nodes-base.emailReadImap","typeVersion":2,"position":[256,304],"credentials":{"imap":{"id":"BkJFuI8Dvb3MYRys","name":"IMAP account"}}}]

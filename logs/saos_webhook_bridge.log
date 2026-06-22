@@ -1,0 +1,9 @@
+[2026-06-22 08:12:18] SAOS Webhook Bridge started on port 8767
+[2026-06-22 08:12:18] Log file: /Users/philliplowe/.openclaw/workspaces/sol/logs/saos_webhook_bridge.log
+[2026-06-22 08:12:20] 127.0.0.1 - "GET / HTTP/1.1" 200 -
+[2026-06-22 08:12:25] Received webhook: {"client_id":"test-123","tier":"business","email":"test@example.com","agent_name":"Percy","client_name":"Test Corp","contact_name":"Test User"}
+[2026-06-22 08:12:25] Parsed: client_id=test-123, tier=business, email=test@example.com
+[2026-06-22 08:12:25] WARNING: No Vultr API key found, using test mode
+[2026-06-22 08:12:25] Running: /Library/Developer/CommandLineTools/usr/bin/python3 /Users/philliplowe/.openclaw/workspaces/sol/Systack/content/saos/saos-data/scripts/provision_pipeline.py --client-id test-123 --tier business --email test@example.com --agent-name Percy --client-name Test Corp --contact-name Test User --test-mode
+[2026-06-22 08:12:25] Pipeline started with PID 35633
+[2026-06-22 08:12:25] 127.0.0.1 - "POST / HTTP/1.1" 200 -

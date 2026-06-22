@@ -1,0 +1,363 @@
+{
+  "id": "8b4d5980-154d-4488-a369-366c2ac33254",
+  "name": "Utopia Deli \u2013 Menu Form Only (Alt Schema)",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "d2d399ca-c07d-43ce-a5ca-32dad03fee1d",
+        "formTitle": "The Utopia Deli \u2013 Order",
+        "formDescription": "Place your order. Hours: 9:00 AM \u2013 11:00 PM CT. Outside hours, we\u2019ll queue your order for opening.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "="
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "32c98fda-7af6-4d19-9f20-3eba0075cc9e",
+      "name": "Order Form (Form Trigger)",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1792,
+        416
+      ],
+      "webhookId": "d2d399ca-c07d-43ce-a5ca-32dad03fee1d"
+    },
+    {
+      "parameters": {
+        "language": "JavaScript",
+        "jsCode": "\n// Read form input\nconst f = $json;\n\n// Config (env with fallbacks)\nconst TIMEZONE = {{$json.config.timezone}};\nconst OPEN = {{$json.config.hours_open}};\n'09:00').split(':').map(Number);\nconst CLOSE = ($env.HOURS_CLOSE || '23:00').split(':').map(Number);\nconst TAX_RATE = parseFloat($env.TAX_RATE || '0.10825'); // example default\n\n// Helpers\nfunction nowInTZ(tz){\n  const d = new Date();\n  return new Date(d.toLocaleString('en-US', { timeZone: tz }));\n}\nfunction minutes(date){ return date.getHours()*60 + date.getMinutes(); }\n\n// Current time in CT\nconst ct = nowInTZ(TIMEZONE);\nconst openMin = OPEN[0]*60 + OPEN[1];\nconst closeMin = CLOSE[0]*60 + CLOSE[1];\nconst curMin = minutes(ct);\nconst in_hours = curMin >= openMin && curMin < closeMin;\n\n// Price map (cents)\nconst PRICE = {\n  // Subs ($13)\n  \"Cowboy Chik\u2019n\": 1300,\n  \"Philly Chsteek\": 1300,\n  \"Chik\u2019n Club Sub\": 1300,\n  \"Chik\u2019n Fried Chik\u2019n\": 1300,\n  // Small Bites\n  \"Chik\u2019n Poppers ($10)\": 1000,\n  \"Korean Popper ($12)\": 1200,\n  \"Dumpling Taco ($10)\": 1000,\n  \"Rocktown Bourbon Bites ($12)\": 1200,\n  \"Chik\u2019n Sliders ($13)\": 1300,\n  // Fries\n  \"Loaded Bacon Fries ($13)\": 1300,\n  \"Philly Fries ($13)\": 1300,\n  \"Chik\u2019n or Stek Fries ($13)\": 1300,\n  \"Garlic Parm Fries ($14)\": 1400,\n  \"Just Fries ($5)\": 500,\n  // Drinks\n  \"Water ($2)\": 200,\n  \"Sea Moss Lemonade ($6)\": 600\n};\n\nlet items = [];\nfunction pushIfSelected(nameKey, qtyKey){\n  const name = f[nameKey];\n  const qty = parseInt(f[qtyKey] || '0', 10) || 0;\n  if (name && qty > 0){\n    // Normalize key for price lookup\n    const priceKey = Object.keys(PRICE).find(k => k.startsWith(name));\n    const amount = PRICE[priceKey] || 0;\n    items.push({\n      name: name,\n      quantity: qty,\n      base_price_money: { amount, currency: 'USD' }\n    });\n  }\n}\n\npushIfSelected('sub_choice','sub_qty');\npushIfSelected('smallbite_choice','smallbite_qty');\npushIfSelected('fries_choice','fries_qty');\n\n// Drinks\nif (f.drink_type){\n  const qty = parseInt(f.drink_qty || '0', 10) || 0;\n  if (qty > 0){\n    const name = f.drink_type; // flavor optional\n    items.push({\n      name: name + (f.lemonade_flavor ? ` \u2013 ${f.lemonade_flavor}` : ''),\n      quantity: qty,\n      base_price_money: { amount: PRICE[name] || 0, currency: 'USD' }\n    });\n  }\n}\n\n// Compute totals\nconst subtotal = items.reduce((s,i)=> s + i.base_price_money.amount * i.quantity, 0);\nconst tax = Math.round(subtotal * TAX_RATE);\nconst total = subtotal + tax;\n\nreturn {\n  ...f,\n  ct_iso: ct.toISOString(),\n  in_hours,\n  items,\n  subtotal,\n  tax,\n  total,\n  idempotency_key: $json.order_id || $uuid(),\n};\n"
+      },
+      "id": "1b12ed24-acdd-4778-a1c8-b344faa2e23b",
+      "name": "Compute Hours & Build Order",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -1248,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.in_hours}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "1d4cca2c-9f94-4d4e-8820-0a8f32be27cf",
+      "name": "Open Hours?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1056,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "={\n  \"idempotency_key\": \"={{$json.idempotency_key}}\",\n  \"order\": {\n    \"location_id\": \"={{$json.config.square_location_id}}\",\n    \"line_items\": \"={{$json.items}}\"\n  }\n}",
+        "headerParametersJson": "={\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer {{$json.config.square_access_token}}\"\n}"
+      },
+      "id": "b7391b1e-5ace-487c-bd52-c38a1467295a",
+      "name": "Create Square Payment Link",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "payment_link_url",
+              "value": "={{$json.body.payment_link.url || $json.url || $json.payment_link_url}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3602c11a-7e4f-464d-8fec-e594c66e93b0",
+      "name": "Extract Payment Link",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "append",
+        "sheetId": "{{$json.config.sheet_id}}",
+        "range": "Orders!A:Z",
+        "options": {
+          "valueInputMode": "RAW"
+        }
+      },
+      "id": "ff3a3d22-84d5-4140-8335-0906609ec1cc",
+      "name": "Sheets \u2013 Append Order",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "append",
+        "sheetId": "{{$json.config.sheet_id}}",
+        "range": "OrderQueue!A:Z",
+        "options": {
+          "valueInputMode": "RAW"
+        }
+      },
+      "id": "4c4aaebc-0e8d-46ce-8c77-94731f724cf5",
+      "name": "Sheets \u2013 Append to Queue",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        672
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -336,
+        352
+      ],
+      "id": "d6b72fb4-c5d2-403b-b85d-c6a88f64717e",
+      "name": "Send a message",
+      "webhookId": "1eb1a310-46ee-455d-a333-f23ab6017dac"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -768,
+        720
+      ],
+      "id": "e5d8fe1e-6f97-42dd-89b1-af0473e88900",
+      "name": "Send a message1",
+      "webhookId": "1eb1a310-46ee-455d-a333-f23ab6017dac"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1i2sYz8yImw1QPUJTsMsejmR04Ojbr9RAat8E4leIgZU",
+          "mode": "list",
+          "cachedResultName": "N8N Sales Tax Calculator",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i2sYz8yImw1QPUJTsMsejmR04Ojbr9RAat8E4leIgZU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Config",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i2sYz8yImw1QPUJTsMsejmR04Ojbr9RAat8E4leIgZU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1648,
+        512
+      ],
+      "id": "b4f6593c-60bc-4f56-9813-f57cd5fdcb71",
+      "name": "Get row(s) in sheet"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---------- Inputs ----------\nconst f = $json;                     // form fields (must be present on the same item)\nconst cfg = $json.config || {};      // injected by your Config Normalizer step\n\n// ---------- Config (from Google Sheet) ----------\nconst TIMEZONE = cfg.timezone || 'America/Chicago';\n\n// Convert \"HH:MM\" -> [HH, MM]\nfunction hhmmParts(s) {\n  const [h, m] = (s || '').toString().trim().split(':').map(n => parseInt(n, 10));\n  return [isFinite(h) ? h : 9, isFinite(m) ? m : 0];\n}\nconst OPEN  = hhmmParts(cfg.hours_open  || '09:00');\nconst CLOSE = hhmmParts(cfg.hours_close || '23:00');\n\n// Tax rate comes as decimal (e.g., 0.065). Fallback 0.\nconst TAX_RATE = Number(cfg.tax_rate ?? 0) || 0;\n\n// ---------- Helpers ----------\nfunction nowInTZ(tz) {\n  const d = new Date();\n  return new Date(d.toLocaleString('en-US', { timeZone: tz }));\n}\nfunction minutes(date) { return date.getHours() * 60 + date.getMinutes(); }\n\n// ---------- Hours Gate ----------\nconst ct = nowInTZ(TIMEZONE);\nconst openMin  = OPEN[0]  * 60 + OPEN[1];\nconst closeMin = CLOSE[0] * 60 + CLOSE[1];\nconst curMin   = minutes(ct);\nconst in_hours = (curMin >= openMin && curMin < closeMin);\n\n// ---------- Price Map (cents) ----------\nconst PRICE = {\n  // Subs ($13)\n  \"Cowboy Chik\u2019n\": 1300,\n  \"Philly Chsteek\": 1300,\n  \"Chik\u2019n Club Sub\": 1300,\n  \"Chik\u2019n Fried Chik\u2019n\": 1300,\n  // Small Bites\n  \"Chik\u2019n Poppers ($10)\": 1000,\n  \"Korean Popper ($12)\": 1200,\n  \"Dumpling Taco ($10)\": 1000,\n  \"Rocktown Bourbon Bites ($12)\": 1200,\n  \"Chik\u2019n Sliders ($13)\": 1300,\n  // Fries\n  \"Loaded Bacon Fries ($13)\": 1300,\n  \"Philly Fries ($13)\": 1300,\n  \"Chik\u2019n or Stek Fries ($13)\": 1300,\n  \"Garlic Parm Fries ($14)\": 1400,\n  \"Just Fries ($5)\": 500,\n  // Drinks\n  \"Water ($2)\": 200,\n  \"Sea Moss Lemonade ($6)\": 600\n};\n\nlet items = [];\nfunction pushIfSelected(nameKey, qtyKey) {\n  const name = f[nameKey];\n  const qty = parseInt(f[qtyKey] || '0', 10) || 0;\n  if (name && qty > 0) {\n    const priceKey = Object.keys(PRICE).find(k => k.startsWith(name));\n    const amount = PRICE[priceKey] || 0;\n    items.push({\n      name,\n      quantity: qty,\n      base_price_money: { amount, currency: 'USD' }\n    });\n  }\n}\n\npushIfSelected('sub_choice', 'sub_qty');\npushIfSelected('smallbite_choice', 'smallbite_qty');\npushIfSelected('fries_choice', 'fries_qty');\n\n// Drinks (optional flavor suffix)\nif (f.drink_type) {\n  const qty = parseInt(f.drink_qty || '0', 10) || 0;\n  if (qty > 0) {\n    const name = f.drink_type;\n    items.push({\n      name: name + (f.lemonade_flavor ? ` \u2013 ${f.lemonade_flavor}` : ''),\n      quantity: qty,\n      base_price_money: { amount: PRICE[name] || 0, currency: 'USD' }\n    });\n  }\n}\n\n// ---------- Totals ----------\nconst subtotal = items.reduce((s, i) => s + i.base_price_money.amount * i.quantity, 0);\nconst tax      = Math.round(subtotal * TAX_RATE);\nconst total    = subtotal + tax;\n\n// ---------- Return ----------\nreturn {\n  ...f,\n  ct_iso: ct.toISOString(),\n  in_hours,\n  items,\n  subtotal,\n  tax,\n  total,\n  idempotency_key: $json.order_id || $uuid(),\n  config: cfg, // keep config available to downstream nodes\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1472,
+        624
+      ],
+      "id": "e0c15d9f-aaa6-4c60-bb3e-7bc73b722f83",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "path": "99189063-640b-460f-a998-5a3710491233",
+        "formTitle": "The Utopia Deli \u2014 Order",
+        "formDescription": "Hours: 9:00 AM \u2013 11:00 PM CT. Orders outside hours are queued for opening.",
+        "options": {}
+      },
+      "id": "51dd8463-8c3d-411d-94ee-0162ee2b8b80",
+      "name": "Order Form (Form Trigger)1",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1376,
+        304
+      ],
+      "webhookId": "99189063-640b-460f-a998-5a3710491233"
+    },
+    {
+      "parameters": {
+        "path": "e70d345d-a80d-41f2-9939-90ba98ec879b",
+        "formTitle": "The Utopia Deli \u2014 Order",
+        "formDescription": "Hours: 9:00 AM \u2013 11:00 PM CT. Orders outside hours are queued for opening.",
+        "options": {}
+      },
+      "id": "aabf548c-6b82-42ae-8a7d-bd26ed8f76f0",
+      "name": "Order Form (Form Trigger)2",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        640
+      ],
+      "webhookId": "e70d345d-a80d-41f2-9939-90ba98ec879b"
+    }
+  ],
+  "connections": {
+    "Order Form (Form Trigger)": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Hours & Build Order": {
+      "main": [
+        [
+          {
+            "node": "Open Hours?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open Hours?": {
+      "main": [
+        [
+          {
+            "node": "Create Square Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Square Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Extract Payment Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Payment Link": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Sheets \u2013 Append Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Sheets \u2013 Append to Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Compute Hours & Build Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": [],
+  "versionId": "e9013981-4814-4d60-8d62-851f1fe7cc3a",
+  "triggerCount": 0,
+  "pinData": {}
+}

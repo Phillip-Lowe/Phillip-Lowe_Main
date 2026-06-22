@@ -1,0 +1,220 @@
+{
+  "name": "Utopia Deli — Twilio STOP Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "twilio-sms-inbound",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-inbound",
+      "name": "SMS Inbound Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = ($input.first().json.Body || '').trim().toUpperCase();\nconst from = $input.first().json.From || '';\n\nlet action = 'unknown';\nlet reply = '';\n\nif (body === 'STOP' || body === 'UNSUBSCRIBE') {\n  action = 'unsubscribe';\n  reply = \"You've been unsubscribed from Utopia Deli texts. Reply START to resubscribe.\";\n} else if (body === 'START' || body === 'SUBSCRIBE') {\n  action = 'subscribe';\n  reply = \"Welcome back! You're now subscribed to Utopia Deli updates.\";\n} else if (body === 'HELP') {\n  action = 'help';\n  reply = \"Utopia Deli: Reply STOP to opt out, START to opt in. Questions? Call (501) 551-5944.\";\n} else if (body.startsWith('STOP')) {\n  action = 'unsubscribe';\n  reply = \"You've been unsubscribed from Utopia Deli texts.\";\n}\n\nreturn [{\n  json: {\n    from_phone: from,\n    body: body,\n    action: action,\n    reply: reply,\n    needs_update: action === 'unsubscribe' || action === 'subscribe'\n  }\n}];"
+      },
+      "id": "parse-keyword",
+      "name": "Parse Keyword",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "looseType": false
+          },
+          "conditions": [
+            {
+              "id": "cond-needs-update",
+              "leftValue": "={{ $json.needs_update }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-action",
+      "name": "Needs Update?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE contacts SET unsubscribed_sms = {{ $json.action == 'unsubscribe' ? 'true' : 'false' }}, updated_at = NOW() WHERE phone = '{{ $json.from_phone }}' RETURNING id, name, email, phone, unsubscribed_sms"
+      },
+      "id": "update-db",
+      "name": "Update Contact",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [850, 200],
+      "credentials": {
+        "postgres": {
+          "id": "iVuy7e5WTC05Hqwe",
+          "name": "Systack Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO message_logs (contact_id, channel, message_type, content, status, sent_at) VALUES ({{ $json.id || 'NULL' }}, 'sms', 'opt-out-handler', '{{ $json.body }}', 'processed', NOW())"
+      },
+      "id": "log-optout",
+      "name": "Log Opt-Out",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [1050, 200],
+      "credentials": {
+        "postgres": {
+          "id": "iVuy7e5WTC05Hqwe",
+          "name": "Systack Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "create",
+        "from": "+18887614092",
+        "to": "={{ $json.from_phone }}",
+        "body": "={{ $json.reply }}"
+      },
+      "id": "send-confirmation",
+      "name": "Send Confirmation",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [1250, 300],
+      "credentials": {
+        "twilioApi": {
+          "id": "Vv7vlxlkKbYCuWqr",
+          "name": "Twilio — Utopia Deli (API Key)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "statusCode": 200,
+        "headers": {"Content-Type": "text/xml"},
+        "contentType": "string",
+        "responseBody": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response/>"
+      },
+      "id": "respond-empty",
+      "name": "Twilio Empty Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 450]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO message_logs (contact_id, channel, message_type, content, status, sent_at) VALUES (NULL, 'sms', 'opt-out-handler-unknown', '{{ $json.body }}', 'ignored', NOW())"
+      },
+      "id": "log-unknown",
+      "name": "Log Unknown",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [850, 450],
+      "credentials": {
+        "postgres": {
+          "id": "iVuy7e5WTC05Hqwe",
+          "name": "Systack Postgres account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "SMS Inbound Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse Keyword",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Keyword": {
+      "main": [
+        [
+          {
+            "node": "Needs Update?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs Update?": {
+      "main": [
+        [
+          {
+            "node": "Update Contact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Unknown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Contact": {
+      "main": [
+        [
+          {
+            "node": "Log Opt-Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Opt-Out": {
+      "main": [
+        [
+          {
+            "node": "Send Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Unknown": {
+      "main": [
+        [
+          {
+            "node": "Twilio Empty Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "America/Chicago"
+  }
+}
