@@ -415,6 +415,103 @@
             margin: 0 auto;
         }
 
+        /* ── Document Cards ── */
+        .doc-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.2s;
+        }
+        .doc-card:hover {
+            border-color: var(--border-hover);
+        }
+        .doc-card.locked {
+            opacity: 0.5;
+        }
+        .doc-icon {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+        .doc-body {
+            flex: 1;
+        }
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .doc-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .doc-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        .doc-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .doc-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #007da9;
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .btn-locked {
+            background: rgba(255,255,255,0.03);
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            cursor: not-allowed;
+        }
+        .locked-notice {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--amber);
+            margin-top: 8px;
+        }
+
         /* ── Loading ── */
         .loading-pulse {
             text-align: center;
@@ -465,6 +562,7 @@
         <a href="#overview" class="nav-link active" data-tab="overview">Overview</a>
         <a href="#agents" class="nav-link" data-tab="agents">Agents</a>
         <a href="#tasks" class="nav-link" data-tab="tasks">Tasks</a>
+        <a href="#documents" class="nav-link" data-tab="documents">Documents</a>
         <a href="#account" class="nav-link" data-tab="account">Account</a>
     </div>
     <div class="nav-right">
@@ -523,6 +621,17 @@
         </div>
         <div id="tasks-table-container">
             <div class="loading-pulse">Loading tasks...</div>
+        </div>
+    </div>
+
+    <!-- Documents Tab -->
+    <div id="tab-documents" class="tab-content" style="display:none;">
+        <div class="page-header">
+            <h1>📚 Your Documents</h1>
+            <p>Service manuals, deployment guides, and reference materials for your tier</p>
+        </div>
+        <div id="documents-container">
+            <!-- Documents loaded dynamically based on client tier -->
         </div>
     </div>
 
@@ -597,6 +706,7 @@ async function loadAll() {
         renderOverview(fleet, client, tasks);
         renderAgents(fleet.agents || []);
         renderTasks(tasks, client);
+        renderDocuments(client);
         renderAccount(client, fleet);
 
         // Update nav
@@ -812,6 +922,93 @@ function renderTaskTable(tasks) {
                 `).join('')}
             </tbody>
         </table>`;
+}
+
+// ── Documents Tab ──
+function renderDocuments(client) {
+    const tier = (client && client.tier) || 'business';
+    const isEnterprise = tier === 'enterprise';
+    
+    const businessDocs = [
+        {
+            icon: '📖',
+            title: 'SyStack Service Manual',
+            badge: 'PDF',
+            badgeClass: 'pdf',
+            desc: 'Complete overview of your SAOS deployment. Covers 7-agent fleet capabilities, security practices, support channels, and FAQs.',
+            meta: ['📄 12 pages', '🔄 v1.0 — June 2026'],
+            href: 'https://systack.net/docs/client/SyStack-Service-Manual-Client-v1.0.pdf'
+        },
+        {
+            icon: '📋',
+            title: 'SAOS Quick Start Guide',
+            badge: 'WEB',
+            badgeClass: 'html',
+            desc: 'Step-by-step setup for your 7-agent fleet. Covers Tailscale connection, first task creation, and common troubleshooting.',
+            meta: ['📄 Online', '🔄 Updated regularly'],
+            href: 'https://systack.net/saos/'
+        }
+    ];
+    
+    const enterpriseDocs = [
+        {
+            icon: '🚀',
+            title: 'Enterprise Deployment Guide',
+            badge: 'PDF',
+            badgeClass: 'pdf',
+            desc: 'Technical guide for on-premise SAOS deployments. Covers hardware requirements, network configuration, security hardening, and maintenance procedures.',
+            meta: ['📄 18 pages', '🔄 v1.0 — June 2026'],
+            href: 'https://systack.net/docs/client/SyStack-Enterprise-Deployment-Guide-v1.0.pdf'
+        }
+    ];
+    
+    const renderDocCard = (doc, locked) => `
+        <div class="doc-card ${locked ? 'locked' : ''}">
+            <div class="doc-icon">${doc.icon}</div>
+            <div class="doc-body">
+                <div class="doc-title">
+                    ${doc.title}
+                    <span class="badge ${doc.badgeClass}">${doc.badge}</span>
+                </div>
+                <div class="doc-desc">${doc.desc}</div>
+                <div class="doc-meta">${doc.meta.map(m => `&lt;span&gt;${m}&lt;/span&gt;`).join('')}</div>
+                <div class="doc-actions">
+                    ${locked 
+                        ? `<span class="btn btn-locked">🔒 Enterprise Required</span>
+                           <div class="locked-notice">🔒 Upgrade to Enterprise Fleet to access this document</div>`
+                        : `<a href="${doc.href}" class="btn btn-primary" target="_blank">📥 ${doc.badge === 'WEB' ? 'View Guide' : 'Download PDF'}</a>`
+                    }
+                </div>
+            </div>
+        </div>
+    `;
+    
+    let html = `
+        <div class="section">
+            <div class="section-header">
+                <h2>📦 Included with Your Plan</h2>
+                <span class="badge" style="background:rgba(245,158,11,0.15);color:#f59e0b;">${isEnterprise ? 'Enterprise' : 'Business'} Fleet</span>
+            </div>
+    `;
+    
+    businessDocs.forEach(doc => {
+        html += renderDocCard(doc, false);
+    });
+    
+    html += `</div>
+        <div class="section" style="margin-top:32px;">
+            <div class="section-header">
+                <h2>🔒 Enterprise Only</h2>
+            </div>
+    `;
+    
+    enterpriseDocs.forEach(doc => {
+        html += renderDocCard(doc, !isEnterprise);
+    });
+    
+    html += '</div>';
+    
+    document.getElementById('documents-container').innerHTML = html;
 }
 
 // ── Account Tab ──

@@ -13,8 +13,8 @@ import io
 from pathlib import Path
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-# Add workspace to path so we can import
-sys.path.insert(0, '/Users/philliplowe/.openclaw/workspaces/sol')
+# Add current directory to path for local imports
+sys.path.insert(0, str(Path(__file__).parent))
 from invoice_parser_production import process_pdf
 from invoice_db import init_db
 
@@ -244,6 +244,6 @@ def run_server(port=8765):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=3000)
+    parser.add_argument("port", nargs="?", type=int, default=9001, help="Port to run on (default: 9001)")
     args = parser.parse_args()
     run_server(args.port)

@@ -178,3 +178,13 @@ Traceback (most recent call last):
   File "/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser/invoice_api.py", line 19, in <module>
     from invoice_db import init_db
 ModuleNotFoundError: No module named 'invoice_db'
+usage: invoice_api.py [-h] [--port PORT]
+invoice_api.py: error: unrecognized arguments: 9001
+usage: invoice_api.py [-h] [--port PORT]
+invoice_api.py: error: unrecognized arguments: 9001
+usage: invoice_api.py [-h] [--port PORT]
+invoice_api.py: error: unrecognized arguments: 9001
+usage: invoice_api.py [-h] [--port PORT]
+invoice_api.py: error: unrecognized arguments: 9001
+usage: invoice_api.py [-h] [--port PORT]
+invoice_api.py: error: unrecognized arguments: 9001

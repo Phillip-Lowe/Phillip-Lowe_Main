@@ -381,6 +381,6 @@ def run_server(port=8766):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=8766)
+    parser.add_argument("port", nargs="?", type=int, default=8766, help="Port to run on (default: 8766)")
     args = parser.parse_args()
     run_server(args.port)
