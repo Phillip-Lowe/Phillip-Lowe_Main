@@ -64,3 +64,14 @@
    Auth: ?client_id= query param or X-Client-ID header
  * Serving Flask app 'api'
  * Debug mode: off
+🛰️  SAOS Customer Portal API starting on port 8768
+   Endpoints:
+   - GET /api/portal/status   (client fleet overview)
+   - GET /api/portal/tasks    (client task history)
+   - GET /api/portal/agents   (agent fleet status)
+   - GET /api/portal/client   (account details)
+   - GET /api/portal/health   (health check)
+
+   Auth: ?client_id= query param or X-Client-ID header
+ * Serving Flask app 'api'
+ * Debug mode: off

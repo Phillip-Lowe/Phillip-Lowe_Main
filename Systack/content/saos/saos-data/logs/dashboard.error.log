@@ -949,3 +949,20 @@ Port 8765 is in use by another program. Either identify and stop that program, o
 [33mPress CTRL+C to quit[0m
 127.0.0.1 - - [22/Jun/2026 10:51:58] "GET / HTTP/1.1" 200 -
 127.0.0.1 - - [22/Jun/2026 10:52:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:53:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:53:20] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:53:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:53:50] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:53:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:54:20] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:54:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:54:50] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:54:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:55:21] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:55:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:55:51] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:55:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:56:21] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:56:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:56:55] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 10:56:55] "GET /api/status HTTP/1.1" 200 -
