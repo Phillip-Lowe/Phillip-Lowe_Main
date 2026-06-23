@@ -1,53 +1,61 @@
 # Utopia Deli Weekly Email Campaign — Production Notes
 
-**Date:** 2026-06-22  
-**Status:** ✅ Base templates complete — needs weekly content updates
-**File:** `email-campaign/utopia-deli-all-days.js`
+**Date:** 2026-06-23 (Updated)  
+**Status:** ✅ PRODUCTION LIVE — Successfully sent to ~300 recipients
+**Files:**
+- Master: `email-campaign/utopia-deli-5day-campaign.js`
+- Legacy: `email-campaign/utopia-deli-all-days.js`
 
 ---
 
-## 📧 What's Built
-
-Single n8n Function node with all 7 days:
+## 📧 What's Built (5-Day Campaign)
 
 | Day | Subject | Focus |
 |-----|---------|-------|
-| Monday | 🍱 Meal Prep is Open | Opens meal prep window |
-| Tuesday | 🎉 Planning an Event? | Catering push |
-| Wednesday | ⏰ Closes Today at Noon | Final hours urgency |
-| Thursday | 🍱 Meal Prep Reopens at 8PM | Reopen + order online menu |
-| Friday | Weekend at Utopia 🍽️ | Weekend kickoff |
-| Saturday | 🙌 We're Open Today! | Day-of reminder |
-| Sunday | 📋 This Week's Menu + Monday Lunch | Preview + lunch tease |
+| Monday | 🍽️ We're Open + Meal Prep Closes Wed | Walk-up open + meal prep urgency |
+| Tuesday | 🎉 Planning an Event? | Catering push with real images |
+| Wednesday | ⏰ Closes Today at Noon | Final hours + we're open |
+| Thursday | 📦 Pick Up Your Bowls | Pickup reminder + walk-up + catering |
+| Friday | 🍱 New Week Fresh Bowls | New meal prep week + weekend hours |
 
 **Schedule:**
 - Meal prep orders: Close Wed 12:00 PM → Reopen Thu 8:00 PM → Pickup Thu 12:30–7:30
-- Order online: Monday–Saturday 12:30 PM – 7:30 PM
+- Walk-up: Monday–Saturday 12:30 PM – 7:30 PM
+
+**Production Deployment:**
+- **Test send:** 2026-06-23 10:28 CDT — SUCCESS
+- **Production send:** 2026-06-23 10:30 CDT — SUCCESS (after fixing SMTP throttle)
 
 ---
 
-## ⚠️ KNOWN ISSUES (Needs Fixing Weekly)
+## ⚠️ SMTP THROTTLE LESSON (CRITICAL)
 
-### Images — Many Are Placeholders or Wrong
+**Problem:** "Sent too many" error during bulk send
+**Cause:** Gmail SMTP rate limits
+**Fix:** Changed n8n delay from 10 seconds → 20 seconds between sends
+**Result:** Campaign completed successfully
 
-| Day | Image # | Current | What It Should Be |
-|-----|---------|---------|-------------------|
-| **Monday** | 0 | `Deli Meal Prep Plate 1.jpg` | Need actual meal prep hero shot |
-| **Monday** | 1 | `mealprep-mediterranean.jpg` | Verify this is current bowl photo |
-| **Monday** | 2-3 | Various meal prep | ✅ Likely OK but verify weekly |
-| **Tuesday** | 0 | `Deli Catering Salad.jpg` | ✅ Catering OK |
-| **Tuesday** | 1 | `Deli Catering Fruit Salad.jpg` | ✅ Catering OK |
-| **Tuesday** | 2 | `cowboy_chicken.webp` | ❌ This is a menu item, not catering |
-| **Wednesday** | 0-2 | `mealprep-smokey-taco.jpg`, etc. | ✅ Likely OK but verify weekly |
-| **Thursday** | 0 | `meal-mediterranean-harvest.jpg` | ❌ This is a bowl photo, not "reopening" hero |
-| **Thursday** | 1-3 | Menu items (Philly, fries, poppers) | ✅ These are fine for walk-up section |
-| **Friday** | 0 | `Deli Happy customer lady.jpg` | ✅ Lifestyle/vibe OK |
-| **Friday** | 1-5 | Menu items | ✅ Likely OK |
-| **Saturday** | 0-3 | Menu items | ✅ Likely OK |
-| **Sunday** | 0 | `meal-mediterranean-harvest.jpg` | ❌ Need "menu preview" hero shot |
-| **Sunday** | 1-2 | Menu items for Monday lunch | ✅ Fine |
+**Rule:** Always use 20s+ delay for lists >200 contacts. Test with small batches first.
 
-### Descriptions — Need Real Copy Weekly
+---
+
+## 📊 Current Bowl Lineup (7 Bowls)
+
+| Bowl | Description | Calories | Image? |
+|------|-------------|----------|--------|
+| Mediterranean Harvest Bowl | Lemon herb quinoa, crispy oregano chickpeas, cucumber tomato salad, hummus, tahini drizzle, pickled red onion | 500 | ✅ |
+| Thai Peanut Crunch Bowl | Jasmine rice, crispy peanut tofu, sesame cabbage slaw, sweet chili peanut drizzle | 490 | ✅ |
+| Eggplant Parmesan | Parmesan crusted eggplant layered with homemade marinara, topped with fresh basil | 530 | ✅ |
+| Cajun Red Beans & Dirty Rice Bowl | Dirty rice, Cajun beans, peppers & onions, green onion garnish | 460 | ✅ |
+| Street Corn Taco Bowl | Cilantro lime rice, chipotle lentil crumble, roasted corn, black beans, pickled onions, chipotle crema | 470 | ❌ (no image yet) |
+| Nashville Hot Lentil Bowl | Garlic rice, Nashville hot lentils, roasted broccoli, ranch drizzle | 480 | ❌ (no image yet) |
+| Loaded BBQ Potato Bowl | Roasted potatoes, BBQ lentil crumble, broccoli, smoked cheeze sauce, green onions | 510 | ❌ (no image yet) |
+
+**Missing images:** 3 bowls need photos. Currently showing only bowls with images in emails.
+
+---
+
+## 📝 Weekly Update Checklist
 
 | Day | Issue |
 |-----|-------|
