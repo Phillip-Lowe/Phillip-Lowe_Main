@@ -999,3 +999,6 @@ Port 8765 is in use by another program. Either identify and stop that program, o
 127.0.0.1 - - [23/Jun/2026 03:33:28] "GET /api/status HTTP/1.1" 200 -
 127.0.0.1 - - [23/Jun/2026 03:35:42] "GET /api/clients HTTP/1.1" 200 -
 127.0.0.1 - - [23/Jun/2026 03:35:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [23/Jun/2026 10:33:34] "[36mGET / HTTP/1.1[0m" 304 -
+127.0.0.1 - - [23/Jun/2026 10:33:34] "GET /api/clients HTTP/1.1" 200 -
+127.0.0.1 - - [23/Jun/2026 10:33:34] "GET /api/status HTTP/1.1" 200 -

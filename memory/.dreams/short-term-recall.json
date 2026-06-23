@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-23T09:10:52.605Z",
+  "updatedAt": "2026-06-23T15:45:20.417Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:45:74": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:45:74",
@@ -27906,19 +27906,21 @@
       "endLine": 47,
       "source": "memory",
       "snippet": "# Meal Prep Page Update — 2026-06-11 ## Changes Made ### 1. Real Meal Photos Added Copied 7 images from `utopia-deli-revamp/images/Meal Prep/` to `catering/images/` with descriptive names: | File | Food Item | |------|-----------| | `meal-buffalo-chickpea.jpg` | Buffalo Chickpea Ranch Bowl | | `meal-teriyaki-tofu.jpg` | Teriyaki Tofu Bowl | | `meal-red-lentil-masala.jpg` | Red Lentil Coconut Masala | | `meal-peanut-ginger.jpg` | Peanut Ginger Bowl | | `meal-cajun-northern-beans.jpg` | Cajun Northern Beans & Rice | | `meal-rainbow-bbq-tofu.jpg` | Rainbow BBQ Tofu Wild Rice | | `dessert-raspberry-mousse.jpg` | Raspberry Dark Chocolate Mousse | ### 2. Menu Items Updated (`catering-form.js`)",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.0263264149427413,
+      "totalScore": 1.4783497154712677,
       "maxScore": 0.5141550421714782,
       "firstRecalledAt": "2026-06-22T11:05:33.026Z",
-      "lastRecalledAt": "2026-06-22T23:18:03.466Z",
+      "lastRecalledAt": "2026-06-23T11:24:17.831Z",
       "queryHashes": [
         "f08937e13a10",
-        "41fbfa365c97"
+        "41fbfa365c97",
+        "7265c06b1ca2"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "utopia-deli-revamp/images/meal",
@@ -28009,13 +28011,13 @@
       "endLine": 82,
       "source": "memory",
       "snippet": "systack-site/saos/index.html (+47 lines, Extended Capabilities + pricing) fleet/sol.md (created) fleet/oracle.md (created) fleet/atlas.md (created) fleet/vali.md (created) fleet/pessi.md (created) fleet/assembly.md (created) SAOS-FOUNDATION-SPEC.md (updated fleet + loop) MEMORY.md (added entry) ``` ### Next Actions - [ ] Activate CODY (fix cron jobs) - [ ] Create CHATTY onboarding sequence - [ ] Create first GENI marketing asset - [ ] Add Engagement Engine Stripe product/button - [ ] Update other s",
-      "recallCount": 8,
+      "recallCount": 9,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.9215117752552033,
+      "totalScore": 4.4097992986440655,
       "maxScore": 0.5012653529644012,
       "firstRecalledAt": "2026-06-22T11:13:18.300Z",
-      "lastRecalledAt": "2026-06-22T16:26:24.810Z",
+      "lastRecalledAt": "2026-06-23T14:05:17.481Z",
       "queryHashes": [
         "59f09408f7c3",
         "a9058b82e1f7",
@@ -28024,10 +28026,12 @@
         "562f060b9d0e",
         "38f39c6ead88",
         "0df9a74ac2a4",
-        "bfd63fe0087c"
+        "bfd63fe0087c",
+        "05d12ae5d87d"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "systack-site/saos/index.html",
@@ -28466,20 +28470,22 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# SAOS Enterprise — Session Wrap-Up + Next Steps **Date:** 2026-06-19 14:19 CDT **Session End:** Complete --- ## What Was Built Today | Component | Status | |-----------|--------| | Enterprise onboarding form | ✅ Deployed to systack.net/saos/onboard.html | | Business tier provisioning | ✅ Verified end-to-end | | Enterprise tier provisioning | ✅ Verified end-to-end | | Plan configuration | ✅ Updated (8 cores both tiers) | | PDF documentation | ✅ Updated with new specs | | Webhook endpoint | ✅ Active (n8n) | | Execution poller | ✅ Running | | Bridge | ✅ Running | --- ## Next Steps / TODO ### 🔴 High Priority (Next Session) | # | Task | Notes | |---|------|-------| | 1 | **Request Vultr",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.519612842798233,
-      "maxScore": 0.5147435277700424,
+      "totalScore": 2.2460832435489158,
+      "maxScore": 0.726470400750683,
       "firstRecalledAt": "2026-06-22T12:54:55.300Z",
-      "lastRecalledAt": "2026-06-22T16:19:24.028Z",
+      "lastRecalledAt": "2026-06-23T14:05:17.479Z",
       "queryHashes": [
         "6d544f140602",
         "a9058b82e1f7",
-        "0bf37512a57c"
+        "0bf37512a57c",
+        "52d1860012ac"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "wrap-up",
@@ -28565,20 +28571,24 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 05:45 CDT ## SAOS Build Day: Orchestrator + Provisioning + JURIS **User directive:** \"Save this whole session everywhere Wiki and everything\" --- ## What Was Built ### 1. SAOS Orchestrator Daemon (Persistent) - **File:** `orchestrator-daemon.py` - **Status:** Running via launchd (PID 70691) - **Function:** Polls task_queue every 10s, dispatches to all 10 fleet agents - **Tables:** `task_queue`, `agent_state`, `execution_log`, `message_bus` - **LaunchAgent:** `~/Library/LaunchAgents/net.systack.orchestrator.plist` ### 2. Client Provisioning Pipeline - **n8n Workflow:** \"SAOS Client Provisioning Pipeline\" (ID: 8567a376-834f-4794-9b4b-46a7b57cc34e) - **Status:** ACT",
-      "recallCount": 3,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.4637620568275451,
-      "maxScore": 0.5056337356567383,
+      "totalScore": 3.158039984015017,
+      "maxScore": 0.7434366970334347,
       "firstRecalledAt": "2026-06-22T12:54:55.300Z",
-      "lastRecalledAt": "2026-06-22T15:03:25.399Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
       "queryHashes": [
         "6d544f140602",
         "a9058b82e1f7",
-        "5e49fc029968"
+        "5e49fc029968",
+        "52d1860012ac",
+        "05d12ae5d87d",
+        "d411177a8ee8"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "2026-06-17-session-complete.md",
@@ -28728,20 +28738,22 @@
       "endLine": 55,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 05:51 CDT ## SAOS Repo Separation + Dashboard Fix **User directive:** \"Save this in all places\" + \"SAOS dashboard is down\" --- ## What Happened 1. **Repo Separation:** Moved SAOS code from `utopia-deli-order` to new `systack-saas` repo 2. **Gateway Restart:** User restarted OpenClaw gateway 3. **Dashboard Down:** `orchestrator-daemon.py` was running (PID 70691) but dashboard API (port 8765) was dead 4. **Root Cause:** Files moved to `/tmp/systack-saas-init/` — running from wrong location --- ## Fix Applied **Dashboard restarted from systack-saas repo:** ```bash cd /tmp/systack-saas-init/dashboard mkdir -p ../logs nohup python3 api.py --port 8765 >../logs/dashbo",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.459307473897934,
+      "totalScore": 1.9596181780099868,
       "maxScore": 0.507765918970108,
       "firstRecalledAt": "2026-06-22T12:56:41.003Z",
-      "lastRecalledAt": "2026-06-22T16:30:35.929Z",
+      "lastRecalledAt": "2026-06-23T14:05:17.481Z",
       "queryHashes": [
         "a9058b82e1f7",
         "5e49fc029968",
-        "1eef78824650"
+        "1eef78824650",
+        "05d12ae5d87d"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "gateway",
@@ -28761,19 +28773,21 @@
       "endLine": 58,
       "source": "memory",
       "snippet": "# SAOS Enterprise Tier — Complete Build Record **Date:** 2026-06-19 **Session:** SOL + Phillip Lowe **Status:** ✅ PRODUCTION READY **Classification:** SYSTACK INTERNAL / CLIENT DELIVERABLE --- ## Deliverables | File | Size | Purpose | |------|------|---------| | `scripts/provision_enterprise.py` | 19.4 KB | Multi-region VPS deployment | | `scripts/generate_dashboard.py` | 22.2 KB | White-label dashboard generator | | `docs/SyStack-Enterprise-Deployment-Guide-v1.0.pdf` | 245 KB | Deployment guide | | `docs/SyStack-Enterprise-Deployment-Guide.md` | 5.8 KB | Editable source | | `dashboards/demo-corp/` | 8 KB | Demo dashboard | ## Enterprise Specs | Spec | Enterprise | Enterprise XL | |----",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.0019508361816405,
+      "totalScore": 1.4479707241058348,
       "maxScore": 0.5011764198541641,
       "firstRecalledAt": "2026-06-22T12:56:41.003Z",
-      "lastRecalledAt": "2026-06-22T12:56:44.104Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
       "queryHashes": [
         "a9058b82e1f7",
-        "6511cd4c3daa"
+        "6511cd4c3daa",
+        "d411177a8ee8"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "scripts/provision-enterprise.py",
@@ -28926,19 +28940,21 @@
       "endLine": 75,
       "source": "memory",
       "snippet": "| Section | Content | Purpose | |---------|---------|---------| | **About SyStack** | Mission, vision, values | Brand identity | | **What Is SAOS** | Concept, benefits, diagram | Education | | **Service Plans** | Prices ($49-$299+), specs, features | Sales enablement | | **Products** | Invoice automation, ordering, no-shows | Product catalog | | **Security** | Encryption, VPN, compliance | Trust building | | **Getting Started** | 7-step onboarding | Expectation setting | | **Support** | Response times, SLA | Confidence | | **FAQ** | 7 common questions | Objection handling | | **Glossary** | SAOS, agent, workflow, n8n | Education | --- ## Comparison | Metric | Internal Manual | Client Manu",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9859790712594985,
+      "totalScore": 1.4367879956960676,
       "maxScore": 0.5018335610628127,
       "firstRecalledAt": "2026-06-22T12:59:23.404Z",
-      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
       "queryHashes": [
         "29dec0aeab22",
-        "e8384534b191"
+        "e8384534b191",
+        "d411177a8ee8"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "no-shows",
@@ -28991,19 +29007,21 @@
       "endLine": 77,
       "source": "memory",
       "snippet": "| SAOS Personal+ Annual | $999/yr | Yearly | Save $189 | ### SAOS Business (Self-Managed Teams) | Product | Price | Billing | What It Is | |---------|-------|---------|-----------| | SAOS Business Fleet | $299/mo | Monthly | Team automation | | SAOS Enterprise Fleet | $799/mo | Monthly | On-premise option | ## Stripe Buttons Status ### ✅ Already Created | Button ID | Product | Price | |-----------|---------|-------| | `buy_btn_1TfU451WicviTxiig1l8JYjR` | SAOS Solo (DEPRECATED) | $149 | | `buy_btn_1TfU3M1WicviTxiilXTJNolL` | SAOS Business Fleet | $299 | | `buy_btn_1TfU1m1WicviTxiikPepeQO4` | SAOS Enterprise Fleet | $799 | ### ❌ Need to Create (11 products) 1. Systack Private Monthly — $7",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.0037163034081458,
+      "totalScore": 1.5203274890780447,
       "maxScore": 0.5318498209118843,
       "firstRecalledAt": "2026-06-22T12:59:23.404Z",
-      "lastRecalledAt": "2026-06-22T13:57:51.012Z",
+      "lastRecalledAt": "2026-06-23T14:05:17.479Z",
       "queryHashes": [
         "29dec0aeab22",
-        "cfdda1c56971"
+        "cfdda1c56971",
+        "52d1860012ac"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "2026-06-06-pricing-alignment.md",
@@ -29354,19 +29372,21 @@
       "endLine": 156,
       "source": "memory",
       "snippet": "- `dashboard/api.py` — NEW - `dashboard/index.html` — NEW - `n8n/saas-provisioning-workflow.json` — NEW - `scripts/generate-identity.py` — NEW - `SAOS-PROVISIONING-BUILD-PLAN.md` — NEW - `fleet/juris.md` — NEW - `systack-site/saos/index.html` — MODIFIED - `~/.openclaw/openclaw.json` — MODIFIED (added \"juris\" to allowAgents) --- ## Next Steps (Not Done Tonight) 1. Vultr API integration for auto-VPS provisioning 2. Stripe webhook test with test mode 3. Client dashboard authentication 4. JURIS workspace identity files (SOUL, AGENTS, USER, MEMORY, TOOLS) --- *Session saved 2026-06-17 05:45 CDT* *User directive: \"Save this whole session everywhere Wiki and everything\"* *Pushed to GitHub:",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9453176140785217,
+      "totalScore": 1.4325125098228453,
       "maxScore": 0.49605380594730375,
       "firstRecalledAt": "2026-06-22T15:03:25.399Z",
-      "lastRecalledAt": "2026-06-22T16:20:42.451Z",
+      "lastRecalledAt": "2026-06-23T14:05:17.481Z",
       "queryHashes": [
         "5e49fc029968",
-        "a2bd8bf5f629"
+        "a2bd8bf5f629",
+        "05d12ae5d87d"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "2026-06-17-session-complete.md",
@@ -29728,16 +29748,17 @@
       "endLine": 63,
       "source": "memory",
       "snippet": "# Session — 2026-06-09 17:15 CDT ## Utopia Deli Invoice API Setup **Status:** ✅ COMPLETE — Deli Invoice API created and tested ### What Was Built **New API Endpoint:** `http://127.0.0.1:9002/extract` - File: `deli_invoice_api.py` - Port: 9002 - Database: Postgres `utopia_deli` - User: `systack` / `Systack2026!CRM` ### Database Setup **Database recreated:** `utopia_deli` (was deleted during June 8 cleanup) **Tables created:** - `deli_invoices` — Main invoice data (with JSONB items column) - `deli_invoice_items` — Line items linked by invoice_id **Schema:** `public` ### For n8n Workflow **In your \"Utopia Deli — Invoice Email Pipeline\" workflow:** Update the HTTP Request node: - **Old",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.8689099907875061,
-      "maxScore": 0.4406175196170807,
+      "totalScore": 1.3690953373908996,
+      "maxScore": 0.5001853466033935,
       "firstRecalledAt": "2026-06-22T15:30:32.104Z",
-      "lastRecalledAt": "2026-06-23T09:02:36.776Z",
+      "lastRecalledAt": "2026-06-23T10:25:27.489Z",
       "queryHashes": [
         "5bd586bac336",
-        "08d334a1742d"
+        "08d334a1742d",
+        "e138c4131535"
       ],
       "recallDays": [
         "2026-06-22",
@@ -29890,18 +29911,20 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# 2026-06-08 — Invoice Parser Build Complete (Except Email Trigger) ## Time: 00:17 CDT ## Status: Parser working, email blocked by Gmail auth ## What Was Accomplished ### Parser (9 Formats) 1. All 7 synthetic PDFs pass ✅ 2. AT&T utility bill (real PDF from iCloud) passes ✅ 3. Scanned/image PDF with OCR fallback passes ✅ ### Infrastructure - API server: localhost:9001 via launchd - Cloudflare tunnel: invoices.systack.net - Database: 119 records, backup saved - OCR: Tesseract + pytesseract installed ### n8n - Logged into n8n UI via API (plowe95@yahoo.com / 123GreeN23!) - Created IMAP credential: xBT92arTjBY66ccE - Updated workflow qnsBnLIWQ1Sky68D with IMAP credential - Activation FAILED:",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4817755877971649,
+      "totalScore": 0.902305468916893,
       "maxScore": 0.4817755877971649,
       "firstRecalledAt": "2026-06-22T15:38:53.339Z",
-      "lastRecalledAt": "2026-06-22T15:38:53.339Z",
+      "lastRecalledAt": "2026-06-23T12:12:44.996Z",
       "queryHashes": [
-        "a2cfb50fe8be"
+        "a2cfb50fe8be",
+        "628eb4df9098"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "backup",
@@ -30171,18 +30194,21 @@
       "endLine": 76,
       "source": "memory",
       "snippet": "## Business Direction - No longer scoped to Utopia Deli specifically - Generic system ready to deploy for any business - Potential clients: businesses that receive vendor invoices via email (not Square users) ## Files Updated - `deli_invoice_api.py` — Full rewrite with new schema and email format ## Database Migration Required ```sql -- Run this in Postgres to migrate existing data -- (or just create new tables) CREATE TABLE IF NOT EXISTS invoices ( id SERIAL PRIMARY KEY, file_name TEXT, vendor TEXT, invoice_date TEXT, invoice_number TEXT, subtotal NUMERIC(10,2), tax NUMERIC(10,2), total NUMERIC(10,2), raw_text TEXT, parsed_json JSONB, items JSON",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.49739151597023007,
-      "maxScore": 0.49739151597023007,
+      "totalScore": 1.4269755631685257,
+      "maxScore": 0.49829532504081725,
       "firstRecalledAt": "2026-06-22T15:39:58.991Z",
-      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-06-23T10:25:27.489Z",
       "queryHashes": [
-        "478fcdea11fd"
+        "478fcdea11fd",
+        "05b00dde09aa",
+        "e138c4131535"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "deli-invoice-api.py",
@@ -30233,18 +30259,20 @@
       "endLine": 50,
       "source": "memory",
       "snippet": "# 2026-06-08 — Postgres CRM Database Created ## What Was Done ### Postgres Setup Complete - **Host:** localhost:5432 - **Database:** crm - **User:** systack - **Password:** Systack2026!CRM - **Owner:** philliplowe ### Tables Created **invoices** | Column | Type | Notes | |--------|------|-------| | id | SERIAL | Primary key | | invoice_id | VARCHAR(50) | Unique identifier | | from_email | VARCHAR(255) | Sender email | | subject | VARCHAR(500) | Email subject | | received_at | TIMESTAMP | When received | | pdf_filename | VARCHAR(255) | Original filename | | vendor | VARCHAR(255) | Extracted vendor name | | invoice_number | VARCHAR(50) | Invoice number | | invoice_date | DATE | Invoice dat",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.48582833409309384,
+      "totalScore": 0.9320098578929901,
       "maxScore": 0.48582833409309384,
       "firstRecalledAt": "2026-06-22T15:39:58.991Z",
-      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-06-23T12:13:31.480Z",
       "queryHashes": [
-        "478fcdea11fd"
+        "478fcdea11fd",
+        "bb92784285dd"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "2026-06-08-postgres-created.md",
@@ -30295,20 +30323,22 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "# Session — 2026-06-22 09:57 CDT **User directive:** \"Save this everywhere\" --- ## What Was Accomplished ### 1. Rebuilt SAOS Webhook Bridge + Poller (Lost in Workspace Reorg) - **File:** `saos-webhook-bridge.py` — Receives n8n webhook calls, triggers provisioning - **File:** `saos_provision_poller.py` — Polls n8n for webhook execution data - **Status:** Bridge running on port 8767 via launchd - **Tested:** POST to bridge triggers pipeline in test mode ✅ ### 2. Cleaned Up Stripe Payment Links + Pricing - Removed Personal+ tier from pricing page - Fixed Business annual: $3,588 → $2,988 (2 months free) - Fixed Enterprise annual: $9,588 → $7,990 (2 months free) - Personal-agent page now redi",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.4367400348186492,
-      "maxScore": 0.48842068314552306,
+      "totalScore": 1.928041499853134,
+      "maxScore": 0.49130146503448485,
       "firstRecalledAt": "2026-06-22T16:19:24.028Z",
-      "lastRecalledAt": "2026-06-22T23:09:00.473Z",
+      "lastRecalledAt": "2026-06-23T14:05:17.481Z",
       "queryHashes": [
         "0bf37512a57c",
         "ff3ce597f2a6",
-        "fc32a2aea943"
+        "fc32a2aea943",
+        "05d12ae5d87d"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "2026-06-22-session-0957.md",
@@ -30678,16 +30708,18 @@
       "endLine": 36,
       "source": "memory",
       "snippet": "# Session — 2026-06-20 03:28 CDT ## Utopia Deli V1 Messaging System — COMPLETE ### What Was Done #### 1. Consent & Privacy (TCPA/CAN-SPAM Compliance) | File | Change | |------|--------| | `pickup-order/index.html` | Consent text under EMAIL field | | `pickup-order/index.html` | Footer links clickable (Maps, Phone, Email) | | `catering/index.html` | Consent text under EMAIL field | | `catering/index.html` | Pickup info moved AFTER notes, before submit | | `privacy.html` | New page with SMS, Email, Data Protection terms | | `pickup-order/privacy.html` | Copy of privacy page for subdirectory | | `privacy.html` | Clickable logo links to homepage | | `privacy.html` | Footer slogan: \"It's just g",
-      "recallCount": 2,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.8998271286487578,
-      "maxScore": 0.45344066023826596,
+      "totalScore": 2.0666900712056324,
+      "maxScore": 0.7382013040585682,
       "firstRecalledAt": "2026-06-22T16:36:54.034Z",
-      "lastRecalledAt": "2026-06-23T09:02:36.776Z",
+      "lastRecalledAt": "2026-06-23T12:13:05.271Z",
       "queryHashes": [
         "ff3ce597f2a6",
-        "08d334a1742d"
+        "08d334a1742d",
+        "05b00dde09aa",
+        "69acb37dee9e"
       ],
       "recallDays": [
         "2026-06-22",
@@ -30742,18 +30774,22 @@
       "endLine": 38,
       "source": "memory",
       "snippet": "# Session — 2026-06-22 ~10:00 CDT — Utopia Deli Email Campaign Complete ## Summary Built complete weekly email campaign system for The Utopia Deli in Phillip's exact preferred format. ## What Was Built **Master file:** `email-campaign/utopia-deli-all-days.js` - Single n8n Function node with all 7 days - Phillip's exact format: `images[day]` arrays, `templates[day]` lookup, same HTML structure - Updated schedule: Meal prep closes Wed noon, reopens Thu 8 PM, pickup Thu 12:30-7:30 - Changed all \"Walk up\" → \"Order online\" **7 daily emails:** | Day | Subject | Focus | |-----|---------|-------| | Mon | 🍱 Meal Prep is Open | Opens window | | Tue | 🎉 Planning an Event? | Catering | | Wed | ⏰ C",
-      "recallCount": 4,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.8496479541063309,
-      "maxScore": 0.5413446247577667,
+      "totalScore": 3.7908009961247444,
+      "maxScore": 0.5500012919306755,
       "firstRecalledAt": "2026-06-22T23:15:21.237Z",
-      "lastRecalledAt": "2026-06-23T09:02:40.187Z",
+      "lastRecalledAt": "2026-06-23T12:13:51.959Z",
       "queryHashes": [
         "fdbdd02478ee",
         "fa776939ae18",
         "44ad6b1c1bc2",
-        "fcc86e05b5c1"
+        "fcc86e05b5c1",
+        "05b00dde09aa",
+        "69acb37dee9e",
+        "997a98baf7cf",
+        "34735e508a3b"
       ],
       "recallDays": [
         "2026-06-22",
@@ -30777,17 +30813,19 @@
       "endLine": 38,
       "source": "memory",
       "snippet": "# Session — 2026-06-20 02:55 CDT ## Utopia Deli V1 Messaging System — Partial Build ### What Was Done #### 1. Site Updates (All Pushed to GitHub Pages) | File | Change | |------|--------| | `pickup-order/index.html` | Added consent text under EMAIL field | | `catering/index.html` | Added consent text under EMAIL field | | `pickup-order/privacy.html` | New: SMS/email terms, opt-out, data protection | | `privacy.html` | New: root copy for link consistency | | `pickup-order/menu-data.js` | Juice: single option $5.00 10oz | | `catering/catering-form.js` | Juice: desc updated to 10oz | | `privacy.html` + `pickup-order/privacy.html` | Clickable logo, footer slogan \"It's just good food.\", footer",
-      "recallCount": 3,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.4368858575820922,
-      "maxScore": 0.4931402504444122,
+      "totalScore": 2.702636667163152,
+      "maxScore": 0.7545521309683509,
       "firstRecalledAt": "2026-06-22T23:15:21.237Z",
-      "lastRecalledAt": "2026-06-23T09:10:52.605Z",
+      "lastRecalledAt": "2026-06-23T10:25:27.489Z",
       "queryHashes": [
         "fdbdd02478ee",
         "fa776939ae18",
-        "8e5bb2061521"
+        "8e5bb2061521",
+        "05b00dde09aa",
+        "e138c4131535"
       ],
       "recallDays": [
         "2026-06-22",
@@ -30843,17 +30881,21 @@
       "endLine": 125,
       "source": "memory",
       "snippet": "### Changes Applied: 1. Branded email HTML with logo, colors, order summary 2. Payment button linking to Square checkout 3. Clean response path (PREP_RESPONSE → Respond) 4. ES5-compatible Code node 5. No `$items()` cross-references 6. Node versions matched to n8n 2.20.7-exp ## Next Steps 1. Access n8n UI when possible 2. Verify workflow visually 3. Save in UI to finalize 4. Test with REAL webhook call (curl or frontend) 5. Verify email renders correctly 6. Check payment link works ## Files Modified - `~/.n8n/database.sqlite` — workflow_entity table ## Testing Command ```bash curl -X POST https://n8n.systack.net/webhook/utopia-deli-html-order-v1 \\ -H \"Content-Type: application/json\" \\",
-      "recallCount": 3,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.4631809145212173,
-      "maxScore": 0.4952478796243667,
+      "totalScore": 3.44922359585762,
+      "maxScore": 0.5165469735860825,
       "firstRecalledAt": "2026-06-22T23:15:21.238Z",
-      "lastRecalledAt": "2026-06-23T09:02:28.460Z",
+      "lastRecalledAt": "2026-06-23T12:13:51.959Z",
       "queryHashes": [
         "fb480c2faf1d",
         "7864be22c031",
-        "697185938765"
+        "697185938765",
+        "18f8d82cab0c",
+        "642e14e9d674",
+        "2a49966e65b8",
+        "34735e508a3b"
       ],
       "recallDays": [
         "2026-06-22",
@@ -30911,18 +30953,21 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# 2026-06-03 Afternoon Session — Utopia Deli n8n Fix ## Time: 16:17 CDT ## Status: WORKFLOW PUBLISHED BUT STILL ERRORS ### What We Fixed 1. Identified that MCP update_workflow only updates draft, doesn't activate 2. Used publish_workflow to activate the new version 3. Workflow version a9253036-33cb-4997-9f2d-1fccdaa014db is now active ### Current Problem - Latest execution (565) at 21:16:37 shows ERROR status - Previous executions (561-564) were SUCCESS but were just pings (every 5 min from Cloudflare) - The real order test at 21:16:37 FAILED ### What We Need to Check 1. Get execution 565 error details from n8n UI 2. Check if Normalize + Carry Data Function node is working 3. Verify Post",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.48362027704715727,
-      "maxScore": 0.48362027704715727,
+      "totalScore": 1.4528809458017349,
+      "maxScore": 0.5099752068519592,
       "firstRecalledAt": "2026-06-22T23:15:21.238Z",
-      "lastRecalledAt": "2026-06-22T23:15:21.238Z",
+      "lastRecalledAt": "2026-06-23T12:13:51.959Z",
       "queryHashes": [
-        "fb480c2faf1d"
+        "fb480c2faf1d",
+        "18f8d82cab0c",
+        "34735e508a3b"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-06-23"
       ],
       "conceptTags": [
         "2026-06-03-afternoon-session.md",
@@ -31036,16 +31081,17 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "# Utopia Deli Confirmation Email System — Session Complete **Date:** 2026-06-12 12:23 CDT **Session:** SOL **Status:** ✅ COMPLETE — Added to ordering system --- ## What Was Built ### Frontend Success Pages - **`payment-confirmed/index.html`** — Pickup order confirmation - **`payment-confirmed-meal-prep/index.html`** — Meal prep confirmation Both pages: - Display branded Utopia Deli confirmation with order status - Include pickup info, receipt notice, order policy, contact info - Fire webhook trigger on page load (navigator.sendBeacon) - Have Homepage and Order Again buttons ### Backend n8n Workflow - **`utopia-deli-revamp/utopia-confirmation-email-v3.json`** - Active at: `https://n",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9417630851268768,
+      "totalScore": 1.3721210658550262,
       "maxScore": 0.4758345514535904,
       "firstRecalledAt": "2026-06-22T23:15:33.465Z",
-      "lastRecalledAt": "2026-06-23T09:10:52.605Z",
+      "lastRecalledAt": "2026-06-23T10:17:15.881Z",
       "queryHashes": [
         "fa776939ae18",
-        "8e5bb2061521"
+        "8e5bb2061521",
+        "05b00dde09aa"
       ],
       "recallDays": [
         "2026-06-22",
@@ -47744,15 +47790,16 @@
       "endLine": 44,
       "source": "memory",
       "snippet": "# Session Save — 2026-06-19 17:54 CDT ## SAVE EVERYWHERE: SAOS Skills V1 + SOL Master Directive **User directive:** \"Save this everywhere\" --- ## What Was Saved ### Git Commits | Commit | Message | Files | |--------|---------|-------| | `2ed7b79` | SAOS Skills Layer V1: 5 skills + 2 runbooks + extraction rule | 8 files, 444 lines | | `858c251` | SOL MASTER DIRECTIVE v1: execution doctrine | 1 file, 330 lines | | `e99c6e6` | SAVE EVERYWHERE: SAOS Skills V1 + SOL Master Directive v1 | MEMORY.md update | ### Storage Layers Updated | Layer | Location | Status | |-------|----------|--------| | **Git** | `systack-saas` repo (also workspace) | ✅ 3 commits | | **Filesystem** | `~/.openclaw/wo",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.46672649085521695,
+      "totalScore": 0.9241536617279051,
       "maxScore": 0.46672649085521695,
       "firstRecalledAt": "2026-06-23T08:01:44.464Z",
-      "lastRecalledAt": "2026-06-23T08:01:44.464Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
       "queryHashes": [
-        "7c35a3a957e6"
+        "7c35a3a957e6",
+        "d411177a8ee8"
       ],
       "recallDays": [
         "2026-06-23"
@@ -47930,15 +47977,16 @@
       "endLine": 128,
       "source": "memory",
       "snippet": "- [ ] Test with controlled payload ### Requires Green Approval - [ ] Update checkout workflow `reference_id` to match DB `order_id` format - [ ] Activate webhook in Square Developer Dashboard - [ ] Deploy to production server --- ## 6. Files for n8n Import 1. `utopia-deli-revamp/utopia-confirmation-email-v3.json` — Main confirmation workflow 2. `utopia-deli-revamp/utopia-simple-checkout-v4.json` — Updated checkout (redirect URLs) --- **Next Step:** Import workflows to n8n and run Test 1 (non-payment event)",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4525601327419281,
-      "maxScore": 0.4525601327419281,
+      "totalScore": 0.9656665027141571,
+      "maxScore": 0.513106369972229,
       "firstRecalledAt": "2026-06-23T09:02:28.460Z",
-      "lastRecalledAt": "2026-06-23T09:02:28.460Z",
+      "lastRecalledAt": "2026-06-23T12:13:51.959Z",
       "queryHashes": [
-        "697185938765"
+        "697185938765",
+        "34735e508a3b"
       ],
       "recallDays": [
         "2026-06-23"
@@ -48108,6 +48156,636 @@
         "triggered-at",
         "square-compatible",
         "payment.updated"
+      ]
+    },
+    "memory:memory/linkedin-posts/2026-06-09-facebook-intro-post.md:44:73": {
+      "key": "memory:memory/linkedin-posts/2026-06-09-facebook-intro-post.md:44:73",
+      "path": "memory/linkedin-posts/2026-06-09-facebook-intro-post.md",
+      "startLine": 44,
+      "endLine": 73,
+      "source": "memory",
+      "snippet": "## Media Suggestions - Photo of the deli storefront or food - Screenshot of the mobile ordering page - Short clip showing how easy it is to place an order ## Why This Works for Facebook Groups - **Introduces you first** (Phillip/Systack) — not a faceless company - **Tells a real story** (partner's deli) — relatable, not theoretical - **Shows the pain** (2-3 hrs paperwork) — other business owners feel this - **Shows the solution** — but frames it as \"we built this for us\" not \"buy my thing\" - **Soft CTA** — \"curious what friction points you're dealing with\" invites conversation - **No hard links in main text** — Facebook groups often penalize link-heavy posts - **Links in first comment** — p",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.43477853834629054,
+      "maxScore": 0.43477853834629054,
+      "firstRecalledAt": "2026-06-23T10:17:15.881Z",
+      "lastRecalledAt": "2026-06-23T10:17:15.881Z",
+      "queryHashes": [
+        "05b00dde09aa"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "phillip/systack",
+        "2-3",
+        "link-heavy",
+        "facebook",
+        "intro",
+        "post.md",
+        "media",
+        "suggestions"
+      ]
+    },
+    "memory:memory/2026-06-20-utopia-deli-v1-messaging.md:30:51": {
+      "key": "memory:memory/2026-06-20-utopia-deli-v1-messaging.md:30:51",
+      "path": "memory/2026-06-20-utopia-deli-v1-messaging.md",
+      "startLine": 30,
+      "endLine": 51,
+      "source": "memory",
+      "snippet": "|------|---------| | Twilio signup | Phillip needs to do this | | n8n messaging workflows | Waiting on Twilio creds | | Opt-out handling (STOP parser) | Post-Twilio | | List segmentation | Post-database setup | ### Git Commits - `66e2377` — feat: opt-in consent text + privacy page - `a1f7235` — feat: Square-to-Postgres sync script - `eda5fba` — docs: messaging runbook - `35ee03f` — fix: privacy page improvements + database cleanup - `3d982ae` — fix: juice price + footer logo - `1fa70a6` — fix: consent text under email, juice $5 10oz - `9d96e84` — revert: juice back to original - `ccde0e5` — fix: juice single option 10oz $5.00 - `22f94b8` — fix: meal prep juice desc updated to 10oz ### Note",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4884177207946777,
+      "maxScore": 0.4884177207946777,
+      "firstRecalledAt": "2026-06-23T10:17:25.322Z",
+      "lastRecalledAt": "2026-06-23T10:17:25.322Z",
+      "queryHashes": [
+        "18f8d82cab0c"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "opt-out",
+        "post-twilio",
+        "post-database",
+        "opt-in",
+        "square-to-postgres",
+        "5.00",
+        "utopia",
+        "deli"
+      ]
+    },
+    "memory:memory/2026-06-08-catering-lead-system.md:62:107": {
+      "key": "memory:memory/2026-06-08-catering-lead-system.md:62:107",
+      "path": "memory/2026-06-08-catering-lead-system.md",
+      "startLine": 62,
+      "endLine": 107,
+      "source": "memory",
+      "snippet": "- **App password retrieved from keychain:** `sacn gdyi nrqw otnx` - **Account:** `theutopiadelilittlerock@gmail.com` - **Service:** `utopia-deli-smtp-app-password` ### 5. n8n API KEY Stored in `~/.openclaw/workspaces/sol/.n8n_api_key` — confirmed working for API calls. --- ## Files Created/Updated | File | Action | Location | |------|--------|----------| | `catering.html` | NEW | `~/utopia-deli-order/` | | `catering-form.js` | NEW | `~/utopia-deli-order/` | | `utopia-deli-catering-v1.json` | NEW | `~/utopia-deli-order/` | | `index.html` | MODIFIED | `~/utopia-deli-order/` | | `CATERING-PLAN.md` | NEW | `~/.openclaw/workspaces/sol/` | | `CATERING-DEPLOYMENT-STATUS.md` | NEW | `~/.opencla",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.1361867782811679,
+      "maxScore": 0.7236393270234621,
+      "firstRecalledAt": "2026-06-23T10:24:57.170Z",
+      "lastRecalledAt": "2026-06-23T12:15:06.545Z",
+      "queryHashes": [
+        "642e14e9d674",
+        "b08ffeb33540"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "gmail.com",
+        "utopia-deli-smtp-app-password",
+        "openclaw/workspaces/sol",
+        "n8n-api-key",
+        "created/updated",
+        "catering.html",
+        "utopia-deli-order",
+        "catering-form.js"
+      ]
+    },
+    "memory:memory/2026-06-10-meal-prep-updates.md:105:137": {
+      "key": "memory:memory/2026-06-10-meal-prep-updates.md:105:137",
+      "path": "memory/2026-06-10-meal-prep-updates.md",
+      "startLine": 105,
+      "endLine": 137,
+      "source": "memory",
+      "snippet": "| bbq-chikn-mac | BBQ Chik'n Mac Bowl | 520 | $12.00 | BBQ glazed chik'n with creamy mac & cheese | | chili-garlic-noodles | Chili Garlic Protein Noodles | 490 | $12.00 | Wheat noodles with peppers, tofu, and chili-garlic sauce | | peanut-ginger-tofu | Peanut Ginger Tofu Bowl | 500 | $12.00 | Crispy tofu with peanut-ginger sauce, cabbage slaw, and rice | | smokey-taco | Smokey Taco Bowl | 470 | $12.00 | Rice, beans, corn, peppers, and seasoned plant-based crumble | ## Pricing Structure - Each meal: $12.00 - Labor/Packaging: $50.00 - Tax: 6.5% - Total = (meals × $12) + $50 + tax ## Deadlines - Orders due: Wednesday at 12:00 PM (noon) - Pickup: Thursday 12:30 PM – 7:30 PM - Portal closes Wed",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.47264464199542994,
+      "maxScore": 0.47264464199542994,
+      "firstRecalledAt": "2026-06-23T11:24:17.831Z",
+      "lastRecalledAt": "2026-06-23T11:24:17.831Z",
+      "queryHashes": [
+        "7265c06b1ca2"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "2026-06-10-meal-prep-updates.md",
+        "bbq-chikn-mac",
+        "12.00",
+        "chili-garlic-noodles",
+        "chili-garlic",
+        "peanut-ginger-tofu",
+        "peanut-ginger",
+        "smokey-taco"
+      ]
+    },
+    "memory:memory/2026-06-10-meal-prep-updates.md:134:172": {
+      "key": "memory:memory/2026-06-10-meal-prep-updates.md:134:172",
+      "path": "memory/2026-06-10-meal-prep-updates.md",
+      "startLine": 134,
+      "endLine": 172,
+      "source": "memory",
+      "snippet": "| 2 | Teriyaki Tofu Bowl | 480 | Sweet teriyaki glazed tofu with steamed broccoli and rice | | 3 | Red Lentil Masala | 510 | Spiced red lentil curry with tomatoes, ginger, and basmati rice | | 4 | Baked Potato Protein Bowl | 520 | Loaded baked potato bowl with plant-based crumble, cheese, and chives | | 5 | Cajun White Bean & Rice | 470 | Smoky Cajun-spiced white beans with peppers and seasoned rice | | 6 | Korean BBQ Bowl | 500 | Sweet and savory Korean-style BBQ with kimchi and steamed rice | ### Changes Made - Replaced old 6 meals with new weekly rotation - Added week label: \"📅 This Week: June 11–18\" - Changed image rendering from `<img>` to CSS placeholder with 🍽️ emoji - No image fil",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.43860276639461515,
+      "maxScore": 0.43860276639461515,
+      "firstRecalledAt": "2026-06-23T11:24:17.831Z",
+      "lastRecalledAt": "2026-06-23T11:24:17.831Z",
+      "queryHashes": [
+        "7265c06b1ca2"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "2026-06-10-meal-prep-updates.md",
+        "plant-based",
+        "cajun-spiced",
+        "korean-style",
+        "meal",
+        "prep",
+        "updates.md",
+        "teriyaki"
+      ]
+    },
+    "memory:memory/2026-06-10-meal-prep-updates.md:70:107": {
+      "key": "memory:memory/2026-06-10-meal-prep-updates.md:70:107",
+      "path": "memory/2026-06-10-meal-prep-updates.md",
+      "startLine": 70,
+      "endLine": 107,
+      "source": "memory",
+      "snippet": "No further action is required from you at this time. Review Process Our team reviews your event details We check availability for your requested date You'll hear back within 24 hours via email If approved, we'll send a menu proposal and quote 50% deposit holds your date Event Summary Event: {EVENT_NAME} Date: {EVENT_DATE} Guests: {HEADCOUNT} Venue: {VENUE_NAME} Your Confirmation A confirmation has been sent to {EMAIL}. If you don't see it, check your spam or promotions folder. Event Policy All catering bookings require a 50% deposit to hold your date. Events within 2 weeks require full payment upfront. Because all food is prepared fresh, confirmed events cannot be canceled within 48 hour",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.43769157230854033,
+      "maxScore": 0.43769157230854033,
+      "firstRecalledAt": "2026-06-23T11:24:17.831Z",
+      "lastRecalledAt": "2026-06-23T11:24:17.831Z",
+      "queryHashes": [
+        "7265c06b1ca2"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "2026-06-10-meal-prep-updates.md",
+        "event-name",
+        "event-date",
+        "venue-name",
+        "meal",
+        "prep",
+        "updates.md",
+        "further"
+      ]
+    },
+    "memory:memory/2026-06-16-auto-release-deployed.md:36:68": {
+      "key": "memory:memory/2026-06-16-auto-release-deployed.md:36:68",
+      "path": "memory/2026-06-16-auto-release-deployed.md",
+      "startLine": 36,
+      "endLine": 68,
+      "source": "memory",
+      "snippet": "┌─────────────┐ ┌──────────┐ ┌─────────────┐ │ Booking │────▶│ Store │────▶│ Confirmation│ │ Made │ │ in DB │ │ Email │ └─────────────┘ └──────────┘ └──────┬──────┘ │ ┌────────────────────┘ ▼ ┌──────────────────────┐ │ Customer confirms? │ │ (clicks link in email)│ └──────────┬───────────┘ │ ┌────────────┼────────────┐ ▼ ▼ ▼ ┌────────┐ ┌──────────┐ ┌──────────┐ │ YES │ │ NO │ │ IGNORE │ │",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4256412088871002,
+      "maxScore": 0.4256412088871002,
+      "firstRecalledAt": "2026-06-23T12:12:47.599Z",
+      "lastRecalledAt": "2026-06-23T12:12:47.599Z",
+      "queryHashes": [
+        "6706269ce4b3"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "auto",
+        "release",
+        "deployed.md",
+        "booking",
+        "store",
+        "confirmation",
+        "made",
+        "email"
+      ]
+    },
+    "memory:memory/2026-06-23-utopia-deli-email-campaign-resume.md:1:32": {
+      "key": "memory:memory/2026-06-23-utopia-deli-email-campaign-resume.md:1:32",
+      "path": "memory/2026-06-23-utopia-deli-email-campaign-resume.md",
+      "startLine": 1,
+      "endLine": 32,
+      "source": "memory",
+      "snippet": "# Session Checkpoint — 2026-06-23 05:42 CDT ## Utopia Deli Weekly Email Campaign — IN PROGRESS ### What We Were Doing - Working on **Utopia Deli Weekly Email Campaign** in n8n - User downloaded 4 new catering images to workspace: - `email-campaign/catering-1.jpg` - `email-campaign/catering-2.jpg` - `email-campaign/catering-3.jpg` - `email-campaign/catering-4.jpg` - Need to identify images + update bowl lineup in email templates ### What's Blocked - Waiting for user to tell us what the 4 catering images show - Waiting for this week's actual 6-bowl lineup (names + descriptions) ### Files Touched - `email-campaign/utopia-deli-all-days.js` — needs content update - `email-campaign/utop",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.4938142225146294,
+      "maxScore": 0.5640504598617553,
+      "firstRecalledAt": "2026-06-23T12:12:47.599Z",
+      "lastRecalledAt": "2026-06-23T12:13:51.959Z",
+      "queryHashes": [
+        "6706269ce4b3",
+        "2a49966e65b8",
+        "69acb37dee9e",
+        "997a98baf7cf",
+        "34735e508a3b"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "email-campaign/catering-1.jpg",
+        "email-campaign/catering-2.jpg",
+        "email-campaign/catering-3.jpg",
+        "email-campaign/catering-4.jpg",
+        "6-bowl",
+        "email-campaign/utop",
+        "utopia",
+        "deli"
+      ]
+    },
+    "memory:memory/2026-06-03.md:313:326": {
+      "key": "memory:memory/2026-06-03.md:313:326",
+      "path": "memory/2026-06-03.md",
+      "startLine": 313,
+      "endLine": 326,
+      "source": "memory",
+      "snippet": "- `/Users/philliplowe/.openclaw/workspaces/sol/memory/2026-06-03-afternoon-fix.md` - `/Users/philliplowe/.openclaw/workspaces/sol/memory/2026-06-03-evening-debug.md` - `/Users/philliplowe/.openclaw/workspaces/sol/memory/2026-06-03-postgres-fix.md` ### Open Question Does `$node[\"Node Name\"].json` work in n8n Code node v2? Need to verify with real order test. ### If Still Failing - Restructure flow: parallel branches from Normalize + Carry Data - Branch 1: Log to Postgres (dead end or separate response) - Branch 2: Build Payment Email → Send Email → Success Response - OR: Move Log to Postgres AFTER email sending",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4787860542535782,
+      "maxScore": 0.4787860542535782,
+      "firstRecalledAt": "2026-06-23T12:12:50.235Z",
+      "lastRecalledAt": "2026-06-23T12:12:50.235Z",
+      "queryHashes": [
+        "2a49966e65b8"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "users/philliplowe",
+        "users",
+        "philliplowe",
+        "openclaw",
+        "workspaces",
+        "sol",
+        "afternoon",
+        "fix.md"
+      ]
+    },
+    "memory:memory/2026-05-13.md:1:4": {
+      "key": "memory:memory/2026-05-13.md:1:4",
+      "path": "memory/2026-05-13.md",
+      "startLine": 1,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "### May 13 — Contacts - **Tremell Billings** = Utopia Deli business partner who made referral",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4723810344934463,
+      "maxScore": 0.4723810344934463,
+      "firstRecalledAt": "2026-06-23T12:13:05.271Z",
+      "lastRecalledAt": "2026-06-23T12:13:05.271Z",
+      "queryHashes": [
+        "69acb37dee9e"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "may",
+        "contacts",
+        "tremell",
+        "billings",
+        "utopia",
+        "deli",
+        "business",
+        "partner"
+      ]
+    },
+    "memory:memory/2026-06-08-postgres-investigation.md:1:58": {
+      "key": "memory:memory/2026-06-08-postgres-investigation.md:1:58",
+      "path": "memory/2026-06-08-postgres-investigation.md",
+      "startLine": 1,
+      "endLine": 58,
+      "source": "memory",
+      "snippet": "# 2026-06-08 — Postgres Status Investigation ## Summary **Postgres IS running** on localhost:5432, but the n8n credential is misconfigured. ## What I Found ### Postgres Status - **Running:** YES - **Port:** 5432 (accepting connections) - **Process:** `/opt/homebrew/opt/postgresql@15/bin/postgres` - **Owner:** philliplowe ### Databases | Database | Owner | Status | |----------|-------|--------| | postgres | philliplowe | System | | template0 | philliplowe | System | | template1 | philliplowe | System | | utopia_deli | philliplowe | Active | | **crm** | **—** | **MISSING** | ### Users | User | Status | |------|--------| | philliplowe | ✅ Exists (superuser) | | **systack** | **❌ MISSING**",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.49017452001571654,
+      "maxScore": 0.49017452001571654,
+      "firstRecalledAt": "2026-06-23T12:13:31.480Z",
+      "lastRecalledAt": "2026-06-23T12:13:31.480Z",
+      "queryHashes": [
+        "bb92784285dd"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "opt/homebrew/opt/postgresql",
+        "15/bin/postgres",
+        "utopia-deli",
+        "postgres",
+        "investigation.md",
+        "status",
+        "investigation",
+        "summary"
+      ]
+    },
+    "memory:memory/2026-06-08-invoice-pipeline-activation.md:27:54": {
+      "key": "memory:memory/2026-06-08-invoice-pipeline-activation.md:27:54",
+      "path": "memory/2026-06-08-invoice-pipeline-activation.md",
+      "startLine": 27,
+      "endLine": 54,
+      "source": "memory",
+      "snippet": "| Log to Postgres | postgres | `iVuy7e5WTC05Hqwe` — Postgres account | | Email Notify Owner | emailSend | `jL1iF7fhyhTe5tCp` — PLOWE Systack SMTP | | Skip Non-PDF | noOp | None | ### Credentials Available (All in Database) - **IMAP:** `uZXvyt7Wd0RbQreY` — SUPPORT Systack IMAP - **SMTP:** `jL1iF7fhyhTe5tCp` — PLOWE Systack SMTP - **Postgres:** `iVuy7e5WTC05Hqwe` — Postgres account ### API Keys in Database | ID | Label | Audience | |----|-------|----------| | `O3w9IJjOkeOHqnIk` | MCP Server API Key | mcp-server-api | | `01ea8863-4d11-4a57-bbed-9ff57cf99498` | sol-api | public-api | ### Next Steps (For New Session) 1. Verify n8n is running and workflow is loaded from database 2. Check if IMA",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4742971122264862,
+      "maxScore": 0.4742971122264862,
+      "firstRecalledAt": "2026-06-23T12:13:31.480Z",
+      "lastRecalledAt": "2026-06-23T12:13:31.480Z",
+      "queryHashes": [
+        "bb92784285dd"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "non-pdf",
+        "mcp-server-api",
+        "sol-api",
+        "public-api",
+        "invoice",
+        "pipeline",
+        "activation.md",
+        "log"
+      ]
+    },
+    "memory:memory/2026-06-08-postgres-cleanup.md:1:39": {
+      "key": "memory:memory/2026-06-08-postgres-cleanup.md:1:39",
+      "path": "memory/2026-06-08-postgres-cleanup.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "# 2026-06-08 — Postgres Cleanup & Decision ## Time: ~09:47 CDT ## Actions Taken 1. Installed pgAdmin 4 (free browser-based Postgres tool) 2. Fixed pgAdmin connection issue — username must be lowercase `systack` not `Systack` 3. Deleted unused databases: - `crm` — was created for invoice parser but we use SQLite - `utopia_deli` — was created but never connected to n8n 4. Verified only system databases remain: postgres, template0, template1 5. Deleted TablePlus (free trial version) 6. Attempted pgAdmin Ollama AI configuration: - Created `~/.pgadmin/config.py` with Ollama settings - Created `PGADMIN-OLLAMA-SETUP.md` with manual configuration steps - pgAdmin requires UI-based co",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.45046116113662715,
+      "maxScore": 0.45046116113662715,
+      "firstRecalledAt": "2026-06-23T12:13:31.480Z",
+      "lastRecalledAt": "2026-06-23T12:13:31.480Z",
+      "queryHashes": [
+        "bb92784285dd"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "2026-06-08-postgres-cleanup.md",
+        "browser-based",
+        "utopia-deli",
+        "pgadmin/config.py",
+        "pgadmin-ollama-setup.md",
+        "ui-based",
+        "postgres",
+        "cleanup.md"
+      ]
+    },
+    "memory:memory/2026-06-08-lessons-credentials.md:32:48": {
+      "key": "memory:memory/2026-06-08-lessons-credentials.md:32:48",
+      "path": "memory/2026-06-08-lessons-credentials.md",
+      "startLine": 32,
+      "endLine": 48,
+      "source": "memory",
+      "snippet": "- Used n8n API to import workflow (bypassed browser login entirely) - Got n8n login credentials from user directly ## Future Rule **NO MORE \"I don't have the credentials\" without checking:** 1. Memory search (TOOLS.md, MEMORY.md, session history) 2. Keychain search 3. Credential files in workspace 4. Environment variables If after ALL of those it's not found, THEN say \"I don't have it.\" --- **Saved:** 2026-06-08 00:17 CDT",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4171832591295242,
+      "maxScore": 0.4171832591295242,
+      "firstRecalledAt": "2026-06-23T12:15:03.492Z",
+      "lastRecalledAt": "2026-06-23T12:15:03.492Z",
+      "queryHashes": [
+        "8f0060c3b11e"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "tools.md",
+        "memory.md",
+        "lessons",
+        "credentials.md",
+        "used",
+        "n8n",
+        "api",
+        "import"
+      ]
+    },
+    "memory:memory/2026-06-22.md:83:106": {
+      "key": "memory:memory/2026-06-22.md:83:106",
+      "path": "memory/2026-06-22.md",
+      "startLine": 83,
+      "endLine": 106,
+      "source": "memory",
+      "snippet": "- `saos-landing/index.html` — Enterprise copy fixed - `services/service-packages.md` — Enterprise copy fixed - 4 LaunchAgent plists updated with correct paths ### Git Commits - `6b80518` — Fix Enterprise tier to reflect actual cloud offering - `906b023` — Generate real PDFs from markdown - `c8b7566` — Create tier-based document portal - `411352c` — Add Documents tab to customer dashboard - `14b7c64` — Update site files for 7/10 agent messaging ### What's Running | Port | Service | Status | |------|---------|--------| | 8765 | Fleet Dashboard API | ✅ UP | | 8766 | Invoice Dashboard API | ✅ UP | | 8768 | Customer Portal API | ✅ UP | ### Next Steps - Customer dashboard HTML needs to be serve",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.725948297064283,
+      "maxScore": 0.7674280693936135,
+      "firstRecalledAt": "2026-06-23T14:05:17.479Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
+      "queryHashes": [
+        "52d1860012ac",
+        "05d12ae5d87d",
+        "d411177a8ee8"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "saos-landing/index.html",
+        "services/service-packages.md",
+        "tier-based",
+        "7/10",
+        "saos",
+        "landing",
+        "index.html",
+        "enterprise"
+      ]
+    },
+    "memory:memory/2026-06-22.md:29:65": {
+      "key": "memory:memory/2026-06-22.md:29:65",
+      "path": "memory/2026-06-22.md",
+      "startLine": 29,
+      "endLine": 65,
+      "source": "memory",
+      "snippet": "- Session jsonl files (223 files) still exist in session store - Recovered 4 session corpus files (May 27, 28, 30, 31) from git history - Recovered 2 job search files from May 29 from git history - Created **21** proper `memory/2026-05-*.md` daily note files from backfill ## Files Created/Updated - `WORKSPACE-RECOVERY-REPORT-2026-06-22.md` - `MAY-MEMORY-RECOVERY-REPORT.md` - `memory/2026-05-02.md` through `memory/2026-05-29.md` (21 files) - `memory/recovered/session-corpus-may/` (4 files) - `memory/recovered/PLAN-job-search-rebuild-2026-05-29.md` - `memory/recovered/active-supervisor-roles-2026-05-29.md` ## Key Lesson Root identity files and Sol-Knowledge/ copies must stay in sync. The wor",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.9603413156347769,
+      "maxScore": 0.7685744442020761,
+      "firstRecalledAt": "2026-06-23T14:05:17.479Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
+      "queryHashes": [
+        "52d1860012ac",
+        "05d12ae5d87d",
+        "d411177a8ee8"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "memory/2026-05",
+        "created/updated",
+        "may-memory-recovery-report.md",
+        "memory/2026-05-02.md",
+        "memory/2026-05-29.md",
+        "sol-knowledge",
+        "jsonl",
+        "still"
+      ]
+    },
+    "memory:memory/2026-06-22.md:58:90": {
+      "key": "memory:memory/2026-06-22.md:58:90",
+      "path": "memory/2026-06-22.md",
+      "startLine": 58,
+      "endLine": 90,
+      "source": "memory",
+      "snippet": "2. **Services Fixed + Auto-Launch** - Fleet Dashboard API (port 8765) ✅ - Invoice Dashboard API (port 8766) ✅ - Customer Portal API (port 8768) ✅ - Updated 4 LaunchAgents with correct paths (old paths pointed to /tmp/) 3. **Real Client Documents Created** - SAOS-Service-Manual-v2.0.md → PDF (7 pages, real content) - SAOS-Quick-Start-Guide.md → PDF (4 pages, actionable steps) - Old documents were generic marketing fluff — new ones have Tailscale commands, agent functions, troubleshooting 4. **Enterprise Tier Corrected** - Removed fake \"on-premise deployment\" claims - Changed to: 32GB VPS + 10 agents + dedicated support - Updated across pricing.html, saos/index.",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.5017253457058546,
+      "maxScore": 0.7696413006231984,
+      "firstRecalledAt": "2026-06-23T14:05:17.479Z",
+      "lastRecalledAt": "2026-06-23T14:05:17.481Z",
+      "queryHashes": [
+        "52d1860012ac",
+        "05d12ae5d87d"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "auto-launch",
+        "saos-service-manual-v2.0.md",
+        "saos-quick-start-guide.md",
+        "on-premise",
+        "pricing.html",
+        "saos/index",
+        "services",
+        "fixed"
+      ]
+    },
+    "memory:memory/2026-06-17-session-end-0650.md:149:176": {
+      "key": "memory:memory/2026-06-17-session-end-0650.md:149:176",
+      "path": "memory/2026-06-17-session-end-0650.md",
+      "startLine": 149,
+      "endLine": 176,
+      "source": "memory",
+      "snippet": "| `scripts/tailscale-multi-client.py` | NEW | `46a56e4` | | `SAOS-PROVISIONING-BUILD-PLAN.md` | MODIFIED | `46a56e4` | **Repo:** https://github.com/Phillip-Lowe/systack-saas.git **Branch:** main --- ## Test Results Summary - **16 tests passing** across all components - **Database inserts verified** for saos_clients and task_queue - **Agent spawning verified** via openclaw_bridge - **Tailscale architecture** documented with unlimited client support --- ## Next Session Priority 1. Get API keys (Vultr, Tailscale, n8n) 2. Run first real VPS test with --tier test 3. Verify end-to-end flow: Stripe → n8n → task_queue → ASSEMBLY → VPS → Email --- *Session saved 2026-06-17 06:50 CDT* *User d",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4196409463882446,
+      "maxScore": 0.4196409463882446,
+      "firstRecalledAt": "2026-06-23T15:34:16.731Z",
+      "lastRecalledAt": "2026-06-23T15:34:16.731Z",
+      "queryHashes": [
+        "66067b83e340"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "2026-06-17-session-end-0650.md",
+        "saos-provisioning-build-plan.md",
+        "saos-clients",
+        "task-queue",
+        "openclaw-bridge",
+        "end-to-end",
+        "end",
+        "scripts"
+      ]
+    },
+    "memory:memory/2026-06-19.md:73:84": {
+      "key": "memory:memory/2026-06-19.md:73:84",
+      "path": "memory/2026-06-19.md",
+      "startLine": 73,
+      "endLine": 84,
+      "source": "memory",
+      "snippet": "| File | Purpose | |------|---------| | `systack-site/saos/onboard.html` | Customer-facing form | | `scripts/provision_vps.py` | VPS provisioning | | `scripts/n8n_execution_poller.py` | Execution detection | | `scripts/saos_provision_bridge.py` | Task processing | | `docs/SAOS-Plans-Updated-v1.0.pdf` | Updated specs | --- *Session complete. See you next time!*",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4612124294042587,
+      "maxScore": 0.4612124294042587,
+      "firstRecalledAt": "2026-06-23T15:45:20.417Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
+      "queryHashes": [
+        "d411177a8ee8"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "systack-site/saos/onboard.html",
+        "customer-facing",
+        "scripts/provision-vps.py",
+        "scripts/n8n-execution-poller.py",
+        "scripts/saos-provision-bridge.py",
+        "docs/saos-plans-updated-v1.0.pdf",
+        "purpose",
+        "systack"
+      ]
+    },
+    "memory:memory/2026-06-17-session-complete.md:32:93": {
+      "key": "memory:memory/2026-06-17-session-complete.md:32:93",
+      "path": "memory/2026-06-17-session-complete.md",
+      "startLine": 32,
+      "endLine": 93,
+      "source": "memory",
+      "snippet": "- **Templates:** SOUL.md, AGENTS.md, USER.md, MEMORY.md, TOOLS.md, HEARTBEAT.md - **Tested:** Client ID 999 generated successfully ### 5. SAOS Clients Table - **Database:** Postgres `systack_memory` - **Table:** `saos_clients` (stripe_subscription_id, customer_email, tier, vps_status, etc.) ### 6. Build Plan - **File:** `SAOS-PROVISIONING-BUILD-PLAN.md` (904 lines, 36KB) - **Author:** ASSEMBLY subagent - **Content:** Component inventory, phases, n8n node specs, VPS provisioning, identity generation, dashboard requirements, error matrix, testing plan --- ## Fleet Status (End of Session) | Agent | Emoji | Status | Tasks Done | |-------|-------|--------|-----------| | SOL | 🛰️ | IDLE | 2",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4594273835420608,
+      "maxScore": 0.4594273835420608,
+      "firstRecalledAt": "2026-06-23T15:45:20.417Z",
+      "lastRecalledAt": "2026-06-23T15:45:20.417Z",
+      "queryHashes": [
+        "d411177a8ee8"
+      ],
+      "recallDays": [
+        "2026-06-23"
+      ],
+      "conceptTags": [
+        "2026-06-17-session-complete.md",
+        "soul.md",
+        "agents.md",
+        "user.md",
+        "memory.md",
+        "tools.md",
+        "heartbeat.md",
+        "systack-memory"
       ]
     }
   }

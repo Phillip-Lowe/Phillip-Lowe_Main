@@ -55,6 +55,41 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-06-23 — EMAIL CAMPAIGN: SESSION COMPLETE + NEXT STEPS
+
+**Status:** SESSION COMPLETE — All work done, saved everywhere
+**Full Log:** `memory/2026-06-23-utopia-deli-email-session-complete.md`
+
+### What Was Done
+1. Analyzed 4 new catering images
+2. Built `utopia-deli-5day-campaign.js` with real 7 bowl names
+3. Removed emoji placeholder bowls
+4. Changed all "walk up" → "order online for pickup"
+5. Test email sent (10:28 CDT) — SUCCESS
+6. Production send to ~300 recipients (10:30 CDT) — SUCCESS
+7. Fixed SMTP throttle: 10s → 20s delay
+8. Created internal + client PDF documentation
+9. Committed all changes (cc4d2a2)
+
+### What's Next (Priority Order)
+1. **Monitor next send** — Verify 20s delay prevents SMTP issues
+2. **Get photos for 3 missing bowls** — Street Corn, Nashville Hot, Loaded BBQ
+3. **Add images to emails** — When photos available
+4. **Build Google Sheets integration** — Easier weekly updates
+5. **Add open/click tracking** — SendGrid/Postmark analytics
+6. **Segment by order frequency** — Regulars vs lapsed
+7. **Create community spotlight content** — Owner/employee stories
+8. **Plan Saturday email** — Weekend hours + specials
+
+### Active TODOs (From AGENTS.md)
+| Priority | Task | Status |
+|----------|------|--------|
+| 🔴 Critical | Dashboard Authentication | ❌ Not started |
+| 🟡 Important | Twilio Campaign Appeal | ⏳ Waiting on user |
+| ✅ Done | Weekly Email Campaign | ✅ Production live |
+
+---
+
 ## 2026-06-23 — EMAIL CAMPAIGN: PRODUCTION DEPLOYED + SMTP THROTTLE LESSON
 
 **Status:** LIVE — Full campaign sent to recipients today (10:30 CDT)

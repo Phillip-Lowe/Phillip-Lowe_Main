@@ -1,68 +1,85 @@
-# Session Save — 2026-06-23 03:59 CDT
+# Session Save — 2026-06-23 05:03 CDT
 
-## User Command: Save session
+## What Was Accomplished
 
-## What Was Accomplished Tonight
+### 1. Utopia Deli Site Restructure (COMPLETE)
+- Moved site from `Phillip-Lowe_Main` repo to dedicated `utopia-deli` repo
+- Restructured directories: `pickup-order/`, `catering/`, `images/`
+- Added CNAME for `order.theutopiadeli.com`
+- Added root `index.html` redirector to `pickup-order/`
+- Copied images to root for backward compatibility with existing paths
+- Fixed logo.png and icon-*.svg paths
 
-### 1. GitHub Repo Renames (Complete)
-| Original Name | New Name | What It Is |
-|--------------|----------|-----------|
-| `systack` | `Phillip-Lowe_Main` | Main workspace monorepo (user renamed) |
-| `systack-saas` | `Systack-SAOS` | Backend scripts/provisioning (user renamed) |
-| `systack-site` | `systack` | Business website (systack.net) |
-| `utopia-deli` | `utopia-deli` | Deli-only content (unchanged) |
+### 2. GitHub Pages Migration (COMPLETE)
+- Removed CNAME from `Phillip-Lowe_Main` repo
+- Enabled GitHub Pages on `utopia-deli` repo
+- Custom domain `order.theutopiadeli.com` now points to `utopia-deli`
+- CDN cache cleared, site live
 
-### 2. Local Workspace Updates
-- Updated `origin` remote → `Phillip-Lowe_Main`
-- Updated `systack-saas` remote → `Systack-SAOS`
-- Verified fetches work correctly
-- Committed 25 previously uncommitted changes
-- Created documentation: `REPO-NAMING-FINAL.md`
+### 3. Image Fix (COMPLETE)
+- All menu images now accessible at `order.theutopiadeli.com/images/`
+- Logo loads correctly
+- Icons load correctly
 
-### 3. Stripe Link Fixes (Committed + Pushed)
-- Added UTM tracking to all Stripe payment links
-- Fixed `thanks.html` with plan-aware redirect
-- Committed to `Phillip-Lowe_Main` repo
-- **Note:** GitHub Pages for `systack.net` shows old prices — may need cache clear
+### 4. Meal Prep Deadline Messaging (COMPLETE)
+- Updated `catering/index.html` deadline display
+- Now shows:
+  - Orders due: Wednesday at 12:00 PM (noon)
+  - Portal closed: Wednesday 12:00 PM → Thursday 8:00 PM
+  - Pickup: Thursday at 12:00 PM
+- Matches workflow logic implemented by user
 
-### 4. Services Verified Running
-| Service | Port | Status |
-|---------|------|--------|
-| SAOS Webhook Bridge | 8767 | ✅ Running |
-| Customer Dashboard API | 8768 | ✅ Running (PID 222, 6+ hrs) |
-| Invoice Dashboard | 8766 | ✅ Running |
-| Orchestrator | — | ✅ Running (PID 91827) |
-| n8n | 5678 | ✅ Running |
-
-### 5. Investigation Findings
-- Customer dashboard "crash" was actually LaunchAgent restart (not broken)
-- `systack-site` repo was building but `systack.net` showed old content (resolved via user rename)
-- 19 uncommitted changes remain in local workspace (various logs and temp files)
-
-## What's Pending (Needs User)
-1. **Test Stripe → onboard flow** — Need user at workstation
-2. **Verify systack.net pricing** — Check if GitHub Pages shows updated prices
-3. **19 uncommitted changes** — Logs and temp files, mostly safe to ignore
-4. **Old Stripe links deactivated** — User confirmed done
-
-## Files Created/Modified
-- `REPO-NAMING-FINAL.md` — Documentation
-- `WORKSPACE-RENAME-REPORT.md` — Documentation
-- `systack-site/saas/index.html` — UTM tracking (committed)
-- `systack-site/pricing.html` — UTM tracking (committed)
-- `systack-site/saas/thanks.html` — Plan-aware redirect (committed)
-
-## Git Status
-- Repo: `Phillip-Lowe_Main`
-- Last commit: `9c688dc` — docs: Final repo naming structure
-- 19 uncommitted files (mostly logs, dreams, temp files)
-
-## Next Session Priorities
-1. Test end-to-end Stripe payment flow
-2. Clean up uncommitted changes if needed
-3. Verify GitHub Pages deployment for systack.net
-4. Continue SAOS onboarding system hardening
+### 5. Unsubscribe Workflow Verified (COMPLETE)
+- Confirmed working: returns branded HTML page
+- Database updates correctly
 
 ---
-*Session saved by user request*
-*All work committed and pushed*
+
+## TODO / Remaining Items
+
+### 🔴 CRITICAL — Before Next Session
+1. **Deploy Email Campaign to n8n**
+   - File: `email-campaign/n8n-import-ready.json`
+   - 7-day automated email campaign built but NOT imported
+   - Includes: Monday meal prep open, Tuesday catering, Wednesday deadline, Thursday reopen, Friday-Saturday weekend, Sunday preview
+
+### 🟡 HIGH PRIORITY
+2. **Test Complete Order Flow**
+   - Place test order during business hours (12:30 PM - 7:30 PM)
+   - Verify Square payment link generates
+   - Verify confirmation email sends
+   - Verify webhook triggers correctly
+
+3. **Get This Week's Menu from Jacqueline**
+   - Update `email-campaign/monday-meal-prep-open.js` with actual bowl names
+   - Update `email-campaign/wednesday-deadline.js` with actual descriptions
+   - Verify all images match descriptions
+
+### 🟢 MEDIUM PRIORITY
+4. **Verify Image ↔ Description Matches**
+   - File: `email-campaign/IMAGE-DESCRIPTION-TRACKER.md`
+   - Check each "⚠️ Needs check" item
+
+5. **Complete Modular Email Split**
+   - Thursday, Friday, Saturday, Sunday modules need creation
+   - Currently only Mon-Wed are split
+
+### 🟢 LOW PRIORITY
+6. **Clean Up `utopia-deli-temp` Local Directory**
+   - Remove from workspace when confirmed stable
+
+7. **Update MEMORY.md**
+   - Promote session lessons to long-term memory
+
+---
+
+## Files Modified/Updated
+
+| File | Change |
+|------|--------|
+| `utopia-deli/` (repo) | Complete restructure + CNAME |
+| `catering/index.html` | Updated deadline messaging |
+| `email-campaign/` | Various updates during session |
+| `Phillip-Lowe_Main/CNAME` | Removed |
+
+## Status: All site issues resolved. Ready for messaging/campaign deployment.

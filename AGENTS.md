@@ -353,6 +353,16 @@ Source: memory/2026-06-23-0600-cdt-user-directive.md
 
 ## TODO List (Active — High Priority)
 
+### Email Campaign — Production LIVE (Added 2026-06-23)
+- **Status:** ✅ COMPLETE — Campaign sent successfully
+- **What:** 5-day weekly email campaign for Utopia Deli
+- **Next:** 
+  - Monitor next send for SMTP issues
+  - Get photos for 3 missing bowls (Street Corn, Nashville Hot, Loaded BBQ)
+  - Build Google Sheets integration for easier updates
+  - Add open/click tracking (SendGrid/Postmark)
+- **Files:** `email-campaign/utopia-deli-5day-campaign.js`
+
 ### Dashboard Authentication (Added 2026-06-23)
 - **What:** Add login page + session tokens to SAOS customer dashboard
 - **Why:** Currently uses `?client_id=` parameter only — no real auth. Blocks production client access.
