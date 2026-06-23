@@ -120,7 +120,7 @@ const templates = {
 <td style="padding:32px 28px 20px;">
 <h1 style="margin:0 0 16px;color:#590B3F;font-size:28px;line-height:1.2;">We're Open Today 🍽️</h1>
 <p style="margin:0 0 20px;color:#333;font-size:16px;line-height:1.6;">
-Walk up or order ahead — we're serving fresh from 12:30 to 7:30. And don't forget: meal prep orders close Wednesday at noon.
+Order online for pickup — we're serving fresh from 12:30 to 7:30. And don't forget: meal prep orders close Wednesday at noon.
 </p>
 <p style="margin:0 0 24px;color:#AF3D4B;font-size:15px;font-weight:bold;">
 🕐 Open today 12:30PM–7:30PM · ⏰ Meal prep closes Wednesday 12:00 PM
@@ -172,30 +172,6 @@ Order Meal Prep
 <div style="padding:12px;">
 <p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Cajun Red Beans & Dirty Rice</p>
 <p style="margin:0;color:#888;font-size:12px;">Dirty rice, Cajun beans, peppers & onions, green onion garnish — 460 cal</p>
-</div>
-</div>
-
-<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
-<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🌮</div>
-<div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Street Corn Taco Bowl</p>
-<p style="margin:0;color:#888;font-size:12px;">Cilantro lime rice, chipotle lentil crumble, roasted corn, black beans, pickled onions, chipotle crema — 470 cal</p>
-</div>
-</div>
-
-<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
-<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🌶️</div>
-<div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Nashville Hot Lentil Bowl</p>
-<p style="margin:0;color:#888;font-size:12px;">Garlic rice, Nashville hot lentils, roasted broccoli, ranch drizzle — 480 cal</p>
-</div>
-</div>
-
-<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
-<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🥔</div>
-<div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Loaded BBQ Potato Bowl</p>
-<p style="margin:0;color:#888;font-size:12px;">Roasted potatoes, BBQ lentil crumble, broccoli, smoked cheeze sauce, green onions — 510 cal</p>
 </div>
 </div>
 
@@ -384,10 +360,6 @@ Secure My Bowls
 <img src="${images.wednesday[2]}" style="width:120px;height:100px;object-fit:cover;border-radius:8px;display:block;margin:0 auto 8px;">
 <p style="margin:0;color:#333;font-size:12px;">Eggplant Parmesan</p>
 </div>
-<div style="text-align:center;">
-<div style="width:120px;height:100px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:32px;">🌮</div>
-<p style="margin:8px 0 0;color:#333;font-size:12px;">Street Corn Taco</p>
-</div>
 </div>
 </td></tr>
 </table>
@@ -399,7 +371,7 @@ Secure My Bowls
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#590B3F;border-radius:12px;padding:20px;">
 <tr><td style="text-align:center;">
 <p style="margin:0 0 4px;color:#fff;font-size:16px;font-weight:bold;">We're Open Today 🍽️</p>
-<p style="margin:0;color:#fff;font-size:14px;">Walk up 12:30PM–7:30PM · 801 S Chester St</p>
+<p style="margin:0;color:#fff;font-size:14px;">Order online for pickup 12:30PM–7:30PM · 801 S Chester St</p>
 </td></tr>
 </table>
 </td>
@@ -409,7 +381,7 @@ Secure My Bowls
 <td style="padding:0 28px 32px;text-align:center;">
 <a href="${baseURL}/pickup-order/?utm_source=email&utm_medium=campaign&utm_campaign=wednesday"
 style="display:inline-block;background:transparent;color:#AF3D4B;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:bold;border:2px solid #AF3D4B;">
-Order Online for Walk-Up
+Order Online for Pickup
 </a>
 </td>
 </tr>
@@ -443,7 +415,7 @@ Your meal prep is ready! Swing by 801 S Chester St between 12:30 and 7:30 PM. Ha
 
 <tr>
 <td style="padding:0 28px 24px;">
-<h2 style="margin:0 0 16px;color:#590B3F;font-size:20px;">Walk Up Today — We're Open 🍽️</h2>
+<h2 style="margin:0 0 16px;color:#590B3F;font-size:20px;">Order Online for Pickup — We're Open 🍽️</h2>
 <div class="dish-grid" style="display:flex;gap:16px;flex-wrap:wrap;">
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
@@ -576,30 +548,6 @@ Order Meal Prep
 </div>
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
-<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🌮</div>
-<div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Street Corn Taco Bowl</p>
-<p style="margin:0;color:#888;font-size:12px;">Cilantro lime rice, chipotle lentil crumble, roasted corn, black beans, pickled onions, chipotle crema — 470 cal</p>
-</div>
-</div>
-
-<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
-<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🌶️</div>
-<div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Nashville Hot Lentil Bowl</p>
-<p style="margin:0;color:#888;font-size:12px;">Garlic rice, Nashville hot lentils, roasted broccoli, ranch drizzle — 480 cal</p>
-</div>
-</div>
-
-<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
-<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🥔</div>
-<div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Loaded BBQ Potato Bowl</p>
-<p style="margin:0;color:#888;font-size:12px;">Roasted potatoes, BBQ lentil crumble, broccoli, smoked cheeze sauce, green onions — 510 cal</p>
-</div>
-</div>
-
-<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
 <img src="${images.friday[6]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
 <p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Raspberry Dark Chocolate Mousse</p>
@@ -638,7 +586,7 @@ Order Meal Prep
 <tr><td style="text-align:center;">
 <p style="margin:0 0 4px;color:#fff;font-size:16px;font-weight:bold;">Weekend Hours</p>
 <p style="margin:0 0 4px;color:#fff;font-size:14px;">Friday & Saturday · 12:30PM–7:30PM</p>
-<p style="margin:0;color:#fff;font-size:13px;opacity:0.8;">Walk up or order ahead — we've got you</p>
+<p style="margin:0;color:#fff;font-size:13px;opacity:0.8;">Order online for pickup — we've got you</p>
 </td></tr>
 </table>
 </td>
