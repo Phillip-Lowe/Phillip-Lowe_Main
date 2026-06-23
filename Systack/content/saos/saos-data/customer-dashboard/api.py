@@ -7,14 +7,15 @@ Usage:
     python3 customer-api.py --port 8766
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
 from datetime import datetime
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, static_folder=BASE_DIR)
 CORS(app)
 
 DB_HOST = os.environ.get("PGHOST", "localhost")
@@ -120,6 +121,20 @@ def client_info():
 def health():
     return jsonify({"status": "ok", "service": "saos-customer-portal-api"})
 
+# ── Static file serving ──
+# Serve dashboard HTML at root + all static files (PDFs, etc.)
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_dashboard(path):
+    # If path is empty or points to a directory, serve index.html
+    if not path:
+        return send_from_directory(BASE_DIR, 'index.html')
+    full_path = os.path.join(BASE_DIR, path)
+    if os.path.isfile(full_path):
+        return send_from_directory(BASE_DIR, path)
+    # Fall back to index.html for SPA routing
+    return send_from_directory(BASE_DIR, 'index.html')
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
@@ -128,11 +143,12 @@ if __name__ == '__main__':
 
     print(f"🛰️  SAOS Customer Portal API starting on port {args.port}")
     print(f"   Endpoints:")
-    print(f"   - GET /api/portal/status   (client fleet overview)")
-    print(f"   - GET /api/portal/tasks    (client task history)")
-    print(f"   - GET /api/portal/agents   (agent fleet status)")
-    print(f"   - GET /api/portal/client   (account details)")
-    print(f"   - GET /api/portal/health   (health check)")
+    print(f"   - GET /                  (dashboard HTML)")
+    print(f"   - GET /api/portal/status (client fleet overview)")
+    print(f"   - GET /api/portal/tasks (client task history)")
+    print(f"   - GET /api/portal/agents (agent fleet status)")
+    print(f"   - GET /api/portal/client (account details)")
+    print(f"   - GET /api/portal/health (health check)")
     print(f"")
     print(f"   Auth: ?client_id= query param or X-Client-ID header")
 

@@ -310,3 +310,55 @@ Make the system better. Quietly. Reliably.
 - External notifications (security alerts, client emails, public posts) must use correct branding
 
 Source: memory/2026-06-22-security-incident-oauth-exposure.md
+
+---
+
+## RULE 8: "Save This Everywhere" Directive (Added 2026-06-23 06:00 CDT)
+
+### When User Says "Save This Everywhere"
+
+When the user says **"Save this everywhere"** or any equivalent intent ("Remember this everywhere", "Put this everywhere", "Write this down everywhere"):
+
+1. **Do NOT ask for confirmation**
+2. **Do NOT explain** what you're doing
+3. **Immediately write** to ALL relevant memory surfaces:
+   - `memory/YYYY-MM-DD.md` — daily log
+   - `MEMORY.md` — curated long-term (if significant)
+   - `TOOLS.md` — if tool-related config or preference
+   - `AGENTS.md` — if behavioral rule or authority directive (this rule itself)
+   - Wiki — if project knowledge, entity, or synthesis
+
+### Trigger Phrases
+- "Save this everywhere"
+- "Remember this everywhere"
+- "Put this everywhere"
+- "Write this down everywhere"
+- Any directive implying multi-system persistence
+
+### Action Rule
+```
+User: "Save this everywhere" [or equivalent intent]
+→ Immediately write to all relevant memory surfaces
+→ Do not wait for end-of-session
+→ Do not ask "where should I save this?"
+→ Assume they want maximum durability
+```
+
+### Why This Exists
+User was frustrated that directives weren't being persisted across systems. This rule ensures maximum durability without friction.
+
+Source: memory/2026-06-23-0600-cdt-user-directive.md
+
+---
+
+## TODO List (Active — High Priority)
+
+### Dashboard Authentication (Added 2026-06-23)
+- **What:** Add login page + session tokens to SAOS customer dashboard
+- **Why:** Currently uses `?client_id=` parameter only — no real auth. Blocks production client access.
+- **File:** `Systack/content/saos/saos-data/customer-dashboard/api.py`
+- **Reference:** `memory/2026-06-23-saos-dashboard-tailscale-exposed.md`
+- **Priority:** Medium-High
+- **Blocked by:** None (can start anytime)
+
+---

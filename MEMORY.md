@@ -28,6 +28,92 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-06-23 — SAOS CUSTOMER DASHBOARD: PERSISTENT + TAILSCALE EXPOSED
+
+**Status:** LIVE — Accessible via Tailscale tailnet
+**Details:** `memory/2026-06-23-saos-customer-dashboard-persistent-fix.md` + `memory/2026-06-23-saos-dashboard-tailscale-exposed.md`
+
+### What Was Built
+1. **Static file serving added** to Flask API (`api.py`) — serves `index.html` + PDFs
+2. **LaunchAgent hardened** — auto-restart on crash, throttle intervals, survive reboots
+3. **Tailscale serve configured** — `/dashboard` path proxies to `localhost:8768`
+
+### URLs
+- **Local:** http://localhost:8768/
+- **Tailnet:** `https://phillips-macbook-air.tail573d57.ts.net/dashboard/`
+- **Health:** `https://phillips-macbook-air.tail573d57.ts.net/dashboard/api/portal/health`
+
+### Security
+- Tailnet-only access (Tailscale connection required)
+- HTTPS via Tailscale TLS termination
+- No authentication yet — uses `?client_id=` parameter only
+
+### TODO: Dashboard Authentication
+- Add login page + session tokens
+- Currently insecure for production use without auth
+- **Priority:** Medium-High (blocks external client access)
+
+---
+
+## 2026-06-23 — EMAIL CAMPAIGN: PRODUCTION DEPLOYED + SMTP THROTTLE LESSON
+
+**Status:** LIVE — Full campaign sent to recipients today (10:30 CDT)
+**Details:** `memory/2026-06-23-utopia-deli-email-production-sent.md`
+
+### Production Fix
+- **Problem:** "Sent too many" error during bulk send
+- **Cause:** 10-second delay between emails triggered Gmail SMTP rate limits
+- **Fix:** Increased n8n delay node to 20 seconds between sends
+- **Result:** Campaign completed successfully
+
+### Lesson
+SMTP rate limiting is real. For 300+ contact lists, use **20+ second delays** between individual email sends. Test with small batches first if possible.
+
+---
+
+## 2026-06-23 — EMAIL CAMPAIGN: 5-Day System Built + Tested ✅
+
+**Status:** COMPLETE — Email sent successfully today (10:28 CDT)
+**Resume File:** `memory/2026-06-23-utopia-deli-email-campaign-complete.md`
+
+### What Was Done
+1. Analyzed 4 new catering images
+2. Built `utopia-deli-5day-campaign.js` (Mon/Tue/Wed/Thu/Fri schedule)
+3. Updated `utopia-deli-all-days.js` with real 7 bowl names + descriptions
+4. Successfully sent test email — system works end-to-end
+
+### Key Decisions
+- 5 emails/week (not 7 or 3)
+- Monday = open + meal prep closing (dual purpose)
+- Friday = new week bowls (not Monday — because meal prep opens Thu 8PM)
+- Removed emoji placeholder bowls — only show items with images
+- All "walk up" changed to "order online for pickup"
+
+### What's Still Needed
+- ✅ ~~Paste 5-day code into n8n Function node~~ DONE
+- ✅ ~~Update schedule trigger for 5 days (Mon-Fri)~~ DONE
+- ✅ ~~Wire Postgres lookup + SMTP email sending nodes~~ DONE
+- Monitor SMTP rate limiting on next send (20s delay working)
+
+---
+
+## 2026-06-23 — EMAIL CAMPAIGN: Resume Checkpoint Saved
+
+**Status:** PAUSED — waiting on user input
+**Resume File:** `memory/2026-06-23-utopia-deli-email-campaign-resume.md`
+
+### What Was Happening
+- Updating Utopia Deli weekly email campaign content in n8n
+- User downloaded 4 new catering images (`email-campaign/catering-1.jpg` through `catering-4.jpg`)
+- Need image descriptions + this week's 6-bowl lineup to proceed
+
+### What's Needed to Resume
+1. Description of the 4 downloaded catering images
+2. This week's actual bowl names + descriptions
+3. n8n UI access to wire Postgres lookup + SMTP email nodes
+
+---
+
 ## 2026-06-22 — SECURITY INCIDENT: OAuth Secret Exposed in Public Repo
 
 **Status:** REMEDIATED — history rewritten, `.gitignore` added, user action pending
@@ -2551,7 +2637,42 @@ I don't follow my own rules. This is a behavior pattern, not a one-off. Having r
 ### Status
 Logged to wiki. This pattern must stop.
 
-## 2026-06-17 — JURIS Agent Config (User Mandated: "everywhere")
+## 2026-06-23 06:00 CDT — NEW RULE: "Save This Everywhere" Directive
+
+**File:** `memory/2026-06-23-0600-cdt-user-directive.md`
+
+### The Rule
+When the user says **"Save this everywhere"** or any equivalent intent ("Remember this everywhere", "Put this everywhere", "Write this down everywhere"):
+
+1. **Do NOT ask for confirmation**
+2. **Do NOT explain** what you're doing
+3. **Immediately write** to ALL relevant memory surfaces:
+   - `memory/YYYY-MM-DD.md` — daily log
+   - `MEMORY.md` — curated long-term (if significant)
+   - `TOOLS.md` — if tool-related config or preference
+   - `AGENTS.md` — if behavioral rule or authority directive
+   - Wiki — if project knowledge, entity, or synthesis
+
+### Why This Exists
+User was frustrated that directives weren't being persisted across systems. This rule ensures maximum durability without friction.
+
+### Trigger Phrases
+- "Save this everywhere"
+- "Remember this everywhere"  
+- "Put this everywhere"
+- "Write this down everywhere"
+- Any directive implying multi-system persistence
+
+### Action Rule
+```
+User: "Save this everywhere" [or equivalent intent]
+→ Immediately write to all relevant memory surfaces
+→ Do not wait for end-of-session
+→ Do not ask "where should I save this?"
+→ Assume they want maximum durability
+```
+
+---
 
 **Directive:** User said "Say this everywhere I mean everywhere the wiki everything"
 
