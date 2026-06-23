@@ -7,22 +7,24 @@ const baseRepoURL = 'https://raw.githubusercontent.com/Phillip-Lowe/utopia-deli/
 const images = {
   logo: `${baseRepoURL}/TheUtopiaDeliLogo.png`,
   monday: [
-    `${baseRepoURL}/Deli%20Meal%20Prep%20Plate%201.jpg`,
-    `${baseRepoURL}/mealprep-mediterranean.jpg`,
-    `${baseRepoURL}/mealprep-smokey-taco.jpg`,
-    `${baseRepoURL}/mealprep-bbq-mac.jpg`,
-    `${baseRepoURL}/cold_pressed_juice_v2.jpg`,
-    `${baseRepoURL}/images/dessert-raspberry-mousse.jpg`,
+    `${baseRepoURL}/catering/images/meal-placeholder.png`,
+    `${baseRepoURL}/catering/images/meal-mediterranean-harvest.jpg`,
+    `${baseRepoURL}/catering/images/meal-thai-peanut-crunch.jpg`,
+    `${baseRepoURL}/catering/images/meal-eggplant-parm.jpg`,
+    `${baseRepoURL}/catering/images/meal-cajun-northern-beans.jpg`,
+    `${baseRepoURL}/catering/images/cold_pressed_juice_v2.jpg`,
+    `${baseRepoURL}/catering/images/dessert-raspberry-mousse.jpg`,
   ],
   tuesday: [
-    `${baseRepoURL}/Deli%20Catering%20Salad.jpg`,
-    `${baseRepoURL}/Deli%20Catering%20Fruit%20Salad.jpg`,
-    `${baseRepoURL}/Deli%20Meal%20Prep%20Plate%201.jpg`,
+    `${baseRepoURL}/email-campaign/catering-3.jpg`,
+    `${baseRepoURL}/email-campaign/catering-1.jpg`,
+    `${baseRepoURL}/email-campaign/catering-4.jpg`,
+    `${baseRepoURL}/email-campaign/catering-2.jpg`,
   ],
   wednesday: [
-    `${baseRepoURL}/mealprep-smokey-taco.jpg`,
-    `${baseRepoURL}/mealprep-chili-noodles.jpg`,
-    `${baseRepoURL}/mealprep-peanut-tofu.jpg`
+    `${baseRepoURL}/catering/images/meal-placeholder.png`,
+    `${baseRepoURL}/catering/images/meal-mediterranean-harvest.jpg`,
+    `${baseRepoURL}/catering/images/meal-thai-peanut-crunch.jpg`
   ],
   thursday: [
     `${baseRepoURL}/Deli%20Meal%20Prep%20Plate%201.jpg`,
@@ -150,24 +152,56 @@ Get Your Meals
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
 <img src="${images.monday[1]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Mediterranean Harvest</p>
-<p style="margin:0;color:#888;font-size:12px;">Quinoa, roasted veg, falafel, tahini</p>
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Mediterranean Harvest Bowl</p>
+<p style="margin:0;color:#888;font-size:12px;">Lemon herb quinoa, crispy oregano chickpeas, cucumber tomato salad, hummus, tahini drizzle, pickled red onion — 500 cal</p>
 </div>
 </div>
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
 <img src="${images.monday[2]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Smokey Taco Bowl</p>
-<p style="margin:0;color:#888;font-size:12px;">Black beans, corn, jackfruit, chipotle crema</p>
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Thai Peanut Crunch Bowl</p>
+<p style="margin:0;color:#888;font-size:12px;">Jasmine rice, crispy peanut tofu, sesame cabbage slaw, sweet chili peanut drizzle — 490 cal</p>
 </div>
 </div>
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
 <img src="${images.monday[3]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">BBQ Mac & Greens</p>
-<p style="margin:0;color:#888;font-size:12px;">Smoked jackfruit, vegan mac, collards</p>
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Eggplant Parmesan</p>
+<p style="margin:0;color:#888;font-size:12px;">Parmesan crusted eggplant layered with fragrant homemade marinara sauce, topped with fresh basil — 530 cal</p>
+</div>
+</div>
+
+<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
+<img src="${images.monday[4]}" style="width:100%;height:140px;object-fit:cover;display:block;">
+<div style="padding:12px;">
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Cajun Red Beans & Dirty Rice Bowl</p>
+<p style="margin:0;color:#888;font-size:12px;">Dirty rice, Cajun beans, peppers & onions, green onion garnish — 460 cal</p>
+</div>
+</div>
+
+<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
+<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🌮</div>
+<div style="padding:12px;">
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Street Corn Taco Bowl</p>
+<p style="margin:0;color:#888;font-size:12px;">Cilantro lime rice, chipotle lentil taco crumble, roasted corn, black beans, pickled onions, chipotle crema — 470 cal</p>
+</div>
+</div>
+
+<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
+<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🌶️</div>
+<div style="padding:12px;">
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Nashville Hot Lentil Bowl</p>
+<p style="margin:0;color:#888;font-size:12px;">Garlic rice, Nashville hot lentils, roasted broccoli, ranch drizzle — 480 cal</p>
+</div>
+</div>
+
+<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
+<div style="width:100%;height:140px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;font-size:48px;">🥔</div>
+<div style="padding:12px;">
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Loaded BBQ Potato Bowl</p>
+<p style="margin:0;color:#888;font-size:12px;">Roasted potatoes, BBQ lentil crumble, broccoli, smoked cheeze sauce, green onions — 510 cal</p>
 </div>
 </div>
 
@@ -180,7 +214,7 @@ Get Your Meals
 </div>
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
-<img src="${images.monday[4]}" style="width:100%;height:140px;object-fit:cover;display:block;">
+<img src="${images.monday[6]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
 <p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Cold-Pressed Juice</p>
 <p style="margin:0;color:#888;font-size:12px;">Fresh 10oz juice</p>
@@ -246,30 +280,38 @@ Get a Catering Quote
 
 <tr>
 <td style="padding:0 28px 24px;">
-<h2 style="margin:0 0 16px;color:#590B3F;font-size:20px;">Catering Options</h2>
+<h2 style="margin:0 0 16px;color:#590B3F;font-size:20px;">Catering Menu</h2>
 <div class="dish-grid" style="display:flex;gap:16px;flex-wrap:wrap;">
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
 <img src="${images.tuesday[0]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
 <p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Full-Service Catering</p>
-<p style="margin:0;color:#888;font-size:12px;">Drop-off, staffed buffet, or plated service for any occasion</p>
+<p style="margin:0;color:#888;font-size:12px;">Pasta, garlic bread, fresh salad, sweet tea — full buffet spread for any occasion</p>
 </div>
 </div>
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
 <img src="${images.tuesday[1]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Corporate & Office</p>
-<p style="margin:0;color:#888;font-size:12px;">Team lunches, client meetings, recurring weekly orders</p>
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Baked Ziti & Lasagna</p>
+<p style="margin:0;color:#888;font-size:12px;">Cheesy baked pasta casseroles with Italian herbs — crowd favorites</p>
 </div>
 </div>
 
 <div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
 <img src="${images.tuesday[2]}" style="width:100%;height:140px;object-fit:cover;display:block;">
 <div style="padding:12px;">
-<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Meal Prep & Bowls</p>
-<p style="margin:0;color:#888;font-size:12px;">Fresh, chef-crafted bowls — perfect for individual meals or group orders</p>
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Fresh Fruit Platters</p>
+<p style="margin:0;color:#888;font-size:12px;">Watermelon, cantaloupe, mango, pineapple — beautifully arranged on wooden boards</p>
+</div>
+</div>
+
+<div class="dish-card" style="flex:1;min-width:160px;background:#f8f6f4;border-radius:12px;overflow:hidden;">
+<img src="${images.tuesday[3]}" style="width:100%;height:140px;object-fit:cover;display:block;">
+<div style="padding:12px;">
+<p style="margin:0 0 4px;color:#590B3F;font-weight:bold;font-size:14px;">Fresh Glazed Donuts</p>
+<p style="margin:0;color:#888;font-size:12px;">Old-fashioned cake donuts with crackly sugar glaze — perfect for morning meetings</p>
 </div>
 </div>
 
@@ -337,16 +379,20 @@ Secure My Bowls
 <p style="margin:0 0 12px;color:#590B3F;font-size:18px;font-weight:bold;">Meal Prep Favorites</p>
 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
 <div style="text-align:center;">
-<img src="${images.wednesday[0]}" style="width:120px;height:100px;object-fit:cover;border-radius:8px;display:block;margin:0 auto 8px;">
-<p style="margin:0;color:#333;font-size:13px;">Smokey Taco Bowl</p>
+<div style="width:120px;height:100px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:32px;">🌮</div>
+<p style="margin:8px 0 0;color:#333;font-size:12px;">Street Corn Taco Bowl</p>
+</div>
+<div style="text-align:center;">
+<div style="width:120px;height:100px;background:#f8f6f4;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:32px;">🌶️</div>
+<p style="margin:8px 0 0;color:#333;font-size:12px;">Nashville Hot Lentil</p>
 </div>
 <div style="text-align:center;">
 <img src="${images.wednesday[1]}" style="width:120px;height:100px;object-fit:cover;border-radius:8px;display:block;margin:0 auto 8px;">
-<p style="margin:0;color:#333;font-size:13px;">Chili Garlic Noodles</p>
+<p style="margin:0;color:#333;font-size:12px;">Mediterranean Harvest</p>
 </div>
 <div style="text-align:center;">
 <img src="${images.wednesday[2]}" style="width:120px;height:100px;object-fit:cover;border-radius:8px;display:block;margin:0 auto 8px;">
-<p style="margin:0;color:#333;font-size:13px;">Peanut Ginger Tofu</p>
+<p style="margin:0;color:#333;font-size:12px;">Thai Peanut Crunch</p>
 </div>
 </div>
 </td></tr>
