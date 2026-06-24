@@ -107,7 +107,7 @@ class WebhookHandler(BaseHTTPRequestHandler):
         # Add test flag if no Vultr key (to avoid real provisioning)
         if not os.environ.get("VULTR_API_KEY"):
             # Check credential file
-            cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/Vultr/VULTR API")
+            cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/Vultr/VULTR API")
             if not os.path.exists(cred_path):
                 log("WARNING: No Vultr API key found, using test mode")
                 cmd.append("--test-mode")

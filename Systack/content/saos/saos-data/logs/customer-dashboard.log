@@ -110,3 +110,93 @@
    Auth: ?client_id= query param or X-Client-ID header
  * Serving Flask app 'api'
  * Debug mode: off
+🛰️  SAOS Customer Portal API v2.0 starting on port 8768
+   Endpoints:
+   - GET /                  (dashboard HTML)
+   - POST /api/auth/login   (get Bearer token)
+   - GET /api/portal/status (client fleet overview)
+   - GET /api/chat/conversations (list chats)
+   - POST /api/chat/conversations (create chat)
+   - GET /api/chat/conversations/<id>/messages
+   - POST /api/chat/conversations/<id>/messages
+   - POST /api/chat/webhook/agent-response
+   - GET /api/chat/poll
+
+   Auth: Bearer <token> header
+ * Serving Flask app 'api'
+ * Debug mode: off
+🛰️  SAOS Customer Portal API v2.0 starting on port 8768
+   Endpoints:
+   - GET /                  (dashboard HTML)
+   - POST /api/auth/login   (get Bearer token)
+   - GET /api/portal/status (client fleet overview)
+   - GET /api/chat/conversations (list chats)
+   - POST /api/chat/conversations (create chat)
+   - GET /api/chat/conversations/<id>/messages
+   - POST /api/chat/conversations/<id>/messages
+   - POST /api/chat/webhook/agent-response
+   - GET /api/chat/poll
+
+   Auth: Bearer <token> header
+ * Serving Flask app 'api'
+ * Debug mode: off
+🛰️  SAOS Customer Portal API v2.0 starting on port 8768
+   Endpoints:
+   - GET /                  (dashboard HTML)
+   - POST /api/auth/login   (get Bearer token)
+   - GET /api/portal/status (client fleet overview)
+   - GET /api/chat/conversations (list chats)
+   - POST /api/chat/conversations (create chat)
+   - GET /api/chat/conversations/<id>/messages
+   - POST /api/chat/conversations/<id>/messages
+   - POST /api/chat/webhook/agent-response
+   - GET /api/chat/poll
+
+   Auth: Bearer <token> header
+ * Serving Flask app 'api'
+ * Debug mode: off
+🛰️  SAOS Customer Portal API v2.0 starting on port 8768
+   Endpoints:
+   - GET /                  (dashboard HTML)
+   - POST /api/auth/login   (get Bearer token)
+   - GET /api/portal/status (client fleet overview)
+   - GET /api/chat/conversations (list chats)
+   - POST /api/chat/conversations (create chat)
+   - GET /api/chat/conversations/<id>/messages
+   - POST /api/chat/conversations/<id>/messages
+   - POST /api/chat/webhook/agent-response
+   - GET /api/chat/poll
+
+   Auth: Bearer <token> header
+ * Serving Flask app 'api'
+ * Debug mode: off
+🛰️  SAOS Customer Portal API v2.0 starting on port 8768
+   Endpoints:
+   - GET /                  (dashboard HTML)
+   - POST /api/auth/login   (get Bearer token)
+   - GET /api/portal/status (client fleet overview)
+   - GET /api/chat/conversations (list chats)
+   - POST /api/chat/conversations (create chat)
+   - GET /api/chat/conversations/<id>/messages
+   - POST /api/chat/conversations/<id>/messages
+   - POST /api/chat/webhook/agent-response
+   - GET /api/chat/poll
+
+   Auth: Bearer <token> header
+ * Serving Flask app 'api'
+ * Debug mode: off
+🛰️  SAOS Customer Portal API v2.0 starting on port 8768
+   Endpoints:
+   - GET /                  (dashboard HTML)
+   - POST /api/auth/login   (get Bearer token)
+   - GET /api/portal/status (client fleet overview)
+   - GET /api/chat/conversations (list chats)
+   - POST /api/chat/conversations (create chat)
+   - GET /api/chat/conversations/<id>/messages
+   - POST /api/chat/conversations/<id>/messages
+   - POST /api/chat/webhook/agent-response
+   - GET /api/chat/poll
+
+   Auth: Bearer <token> header
+ * Serving Flask app 'api'
+ * Debug mode: off

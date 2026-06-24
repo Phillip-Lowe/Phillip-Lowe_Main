@@ -45,19 +45,19 @@ def load_credentials():
         return lines[-1] if lines else None
     
     # Vultr API key
-    vultr_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/Vultr/VULTR API")
+    vultr_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/Vultr/VULTR API")
     creds['vultr'] = extract_key(vultr_path) or os.environ.get("VULTR_API_KEY")
     
     # Tailscale auth key (for client VPS to join tailnet)
-    ts_auth_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/Tailscale/Tailscale Auth Key")
+    ts_auth_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/Tailscale/Tailscale Auth Key")
     creds['tailscale_auth'] = extract_key(ts_auth_path) or os.environ.get("TAILSCALE_AUTH_KEY")
     
     # Tailscale API key (for management operations)
-    ts_api_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/Tailscale/Tailscal API")
+    ts_api_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/Tailscale/Tailscal API")
     creds['tailscale_api'] = extract_key(ts_api_path) or os.environ.get("TAILSCALE_API_KEY")
     
     # n8n API key
-    n8n_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/n8n/n8n Openclaw api")
+    n8n_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/n8n/n8n Openclaw api")
     creds['n8n'] = extract_key(n8n_path) or os.environ.get("N8N_API_KEY")
     
     return creds
@@ -71,7 +71,7 @@ def load_credentials():
     
     # n8n API key
     n8n_paths = [
-        os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/n8n/n8n Openclaw api"),
+        os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/n8n/n8n Openclaw api"),
         os.path.expanduser("~/.openclaw/workspaces/sol/.n8n_api_key"),
     ]
     for path in n8n_paths:

@@ -26,7 +26,7 @@ STRIPE_SK = os.environ.get("STRIPE_SECRET_KEY", "")
 
 if not STRIPE_PK or not STRIPE_SK:
     # Fallback: load from secure credential file
-    _cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/stripe/keys.json")
+    _cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/Sol-Knowledge/credentials/Green/stripe/keys.json")
     if os.path.exists(_cred_path):
         with open(_cred_path) as f:
             _keys = json.load(f)
@@ -121,7 +121,7 @@ def create_enterprise_product():
             "updated_at": datetime.utcnow().isoformat()
         }
         
-        config_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/stripe/enterprise-config.json")
+        config_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/Sol-Knowledge/credentials/Green/stripe/enterprise-config.json")
         os.makedirs(os.path.dirname(config_path), exist_ok=True)
         with open(config_path, "w") as f:
             json.dump(config, f, indent=2)
@@ -235,7 +235,7 @@ def verify_webhook_signature(payload: str, sig_header: str) -> bool:
 def generate_html_checkout_buttons():
     """Generate HTML for direct Stripe Checkout links."""
     
-    config_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/stripe/enterprise-config.json")
+    config_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/Sol-Knowledge/credentials/Green/stripe/enterprise-config.json")
     
     if not os.path.exists(config_path):
         print("❌ No enterprise config found. Run --create-product first.")

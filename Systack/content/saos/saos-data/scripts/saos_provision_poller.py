@@ -42,7 +42,7 @@ def get_n8n_executions(workflow_id=None, since_minutes=5):
     # Try to get n8n API key
     n8n_key = os.environ.get("N8N_API_KEY")
     if not n8n_key:
-        cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/n8n/n8n Openclaw api")
+        cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/n8n/n8n Openclaw api")
         if os.path.exists(cred_path):
             with open(cred_path, "r") as f:
                 lines = [l.strip() for l in f.readlines() if l.strip()]
@@ -139,7 +139,7 @@ def trigger_provisioning(payload):
     
     # Check for Vultr key
     if not os.environ.get("VULTR_API_KEY"):
-        cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/credentials/Green/Vultr/VULTR API")
+        cred_path = os.path.expanduser("~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/Vultr/VULTR API")
         if not os.path.exists(cred_path):
             log("WARNING: No Vultr API key, using test mode")
             cmd.append("--test-mode")

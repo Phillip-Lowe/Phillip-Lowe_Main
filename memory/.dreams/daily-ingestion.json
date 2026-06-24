@@ -1,75 +1,130 @@
 {
   "version": 1,
   "files": {
+    "memory/2026-06-23.md": {
+      "mtimeMs": 1782229771871,
+      "size": 2772,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-0600-cdt-user-directive.md": {
+      "mtimeMs": 1782212458773,
+      "size": 1173,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-bounce-email-cleanup.md": {
+      "mtimeMs": 1782230551281,
+      "size": 1297,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-saos-customer-dashboard-persistent-fix.md": {
+      "mtimeMs": 1782228790280,
+      "size": 2702,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-saos-dashboard-tailscale-exposed.md": {
+      "mtimeMs": 1782229023911,
+      "size": 1684,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-saos-pdf-documentation-update.md": {
+      "mtimeMs": 1782229765172,
+      "size": 2507,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-session-save.md": {
+      "mtimeMs": 1782209056791,
+      "size": 2952,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-utopia-deli-email-campaign-complete.md": {
+      "mtimeMs": 1782228539438,
+      "size": 1687,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-utopia-deli-email-campaign-resume.md": {
+      "mtimeMs": 1782211373526,
+      "size": 1278,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-utopia-deli-email-production-sent.md": {
+      "mtimeMs": 1782228647234,
+      "size": 1121,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
+    "memory/2026-06-23-utopia-deli-email-session-complete.md": {
+      "mtimeMs": 1782229475066,
+      "size": 2461,
+      "lastDreamingDayIngested": "2026-06-24"
+    },
     "memory/2026-06-22.md": {
       "mtimeMs": 1782144711839,
       "size": 4627,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-22-cloud-init-lesson.md": {
       "mtimeMs": 1782128385215,
       "size": 1695,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-22-security-incident-oauth-exposure.md": {
       "mtimeMs": 1782146057387,
       "size": 2254,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-22-session-0957.md": {
       "mtimeMs": 1782140288247,
       "size": 3835,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-22-session-end-0749.md": {
       "mtimeMs": 1782132575294,
       "size": 2094,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-22-utopia-deli-email-campaign.md": {
       "mtimeMs": 1782140778452,
       "size": 2565,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-22-vps-provisioning-results.md": {
       "mtimeMs": 1782131391517,
       "size": 1423,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-20.md": {
       "mtimeMs": 1782124917354,
       "size": 1627,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-20-FINAL-SAVE-RECOVERED.md": {
       "mtimeMs": 1782124552659,
       "size": 4067,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-20-FINAL-SAVE.md": {
       "mtimeMs": 1782124917354,
       "size": 4067,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-20-mod1-context.md": {
       "mtimeMs": 1782124917354,
       "size": 1050,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-20-session-close-0406.md": {
       "mtimeMs": 1782124917354,
       "size": 1377,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-20-session-post-mortem.md": {
       "mtimeMs": 1781960133599,
       "size": 4640,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     },
     "memory/2026-06-20-session-save.md": {
       "mtimeMs": 1782124917354,
       "size": 2303,
-      "lastDreamingDayIngested": "2026-06-23"
+      "lastDreamingDayIngested": "2026-06-24"
     }
   }
 }
