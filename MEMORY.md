@@ -4,6 +4,49 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-06-26 — CRITICAL RULE ADDED: Complete Context Verification (RULE 9)
+
+**Status:** Active — Binding on all agents
+**Source:** Session failure, user directive
+**File:** `AGENTS.md` RULE 9
+
+### What Happened
+
+User asked agent to fix Utopia Deli cart display and combo pricing. Agent made 5+ commits, each breaking something new. System is now worse than when session started.
+
+### Root Cause
+
+Agent searched memory for modifier codes (partial context) but NEVER checked:
+- File structure and relationships
+- Which files override others
+- Deployed vs local state
+- Complete system architecture
+
+### The Rule (Binding)
+
+When told to "check memory before doing anything":
+1. **STOP** — Do not edit any file
+2. **SEARCH COMPLETELY** — ALL relevant context
+3. **VERIFY** — Explain understanding back to user
+4. **ASK IF UNCLEAR**
+5. **ONLY THEN** — Make changes, ONE at a time
+
+### Prohibited
+- Brief memory search → immediate file editing
+- Assuming one file controls everything
+- Editing external JS when inline JS overrides exist
+- Multiple changes without verification
+
+### Files Affected (Broken)
+- `utopia-deli-temp/pickup-order/order-form.js`
+- `utopia-deli-temp/pickup-order/index.html`
+
+### Next Steps
+- Oracle takes over Utopia Deli fixes
+- SOL does NOT touch these files again without explicit user instruction
+
+---
+
 ## 2026-06-24 — Systack AI Video Ad Service Identified
 
 **Status:** Confirmed viable service offering from Utopia Deli production pipeline
@@ -40,6 +83,35 @@ User produced a 4K vertical video ad for Utopia Deli using:
 
 ### Key Insight
 This is NOT just video production — it's a **systematized content engine** that can be packaged and sold to any local business needing social media presence.
+
+---
+
+## 2026-06-25 — Utopia Deli Meal Prep Weekly Menu Updated
+**Status:** COMPLETE — Images, menu items, desserts updated
+**Time:** 17:31-18:19 CDT
+**Files:** `catering/catering-form.js`, `images/*`
+
+### What Changed
+1. **Added photos** for 4 bowls that were placeholders (street corn, nashville hot, cajun red beans, bbq potato)
+2. **Updated images** for eggplant parm and apple pie
+3. **Removed desserts:** Chia pudding, chocolate mousse (this week only)
+4. **Replaced all 7 meals** with new weekly menu items (June 25 week)
+5. **Copied images** from Downloads to main `utopia-deli-temp/images/` folder
+
+### New Weekly Menu (June 25)
+- 🍋 Lemon Chickpea Orzo
+- 🍄 Creamy Mushroom Wild Rice
+- 🥗 Mediterranean Pasta Salad
+- 🌯 Buffalo Chickpea Caesar Wrap
+- 🍝 Baked Vegetable Lasagna Roll-Ups
+- 🥃 Bourbon BBQ Lentil Meatloaf
+- 🍊 Sweet & Sticky Orange Tofu
+
+### Desserts (This Week)
+- Apple Pie + Fresh Cold-Pressed Juice only
+
+### Note
+New menu items use placeholders. When photos arrive, name them matching meal IDs and update `photo:` field in `catering-form.js`.
 
 ---
 
@@ -3501,7 +3573,19 @@ Created comprehensive 14-part handoff document covering ALL Systack services:
 
 ---
 
-## Promoted From Short-Term Memory (2026-06-25)
+## Promoted From Short-Term Memory (2026-06-26)
 
-<!-- openclaw-memory-promotion:memory:memory/2026-06-04-n8n-email-fix.md:84:125 -->
-- ### Changes Applied: 1. Branded email HTML with logo, colors, order summary 2. Payment button linking to Square checkout 3. Clean response path (PREP_RESPONSE → Respond) 4. ES5-compatible Code node 5. No `$items()` cross-references 6. Node versions matched to n8n 2.20.7-exp ## Next Steps 1. Access n8n UI when possible 2. Verify workflow visually 3. Save in UI to finalize 4. Test with REAL webhook call (curl or frontend) 5. Verify email renders correctly 6. Check payment link works ## Files Modified - `~/.n8n/database.sqlite` — workflow_entity table ## Testing Command ```bash curl -X POST https://n8n.systack.net/webhook/utopia-deli-html-order-v1 \ -H "Content-Type: application/json" \ [score=0.812 recalls=9 avg=0.494 source=memory/2026-06-04-n8n-email-fix.md:84-109]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-20-utopia-deli-v1-messaging-activation.md:1:36 -->
+- # Session — 2026-06-20 03:28 CDT ## Utopia Deli V1 Messaging System — COMPLETE ### What Was Done #### 1. Consent & Privacy (TCPA/CAN-SPAM Compliance) | File | Change | |------|--------| | `pickup-order/index.html` | Consent text under EMAIL field | | `pickup-order/index.html` | Footer links clickable (Maps, Phone, Email) | | `catering/index.html` | Consent text under EMAIL field | | `catering/index.html` | Pickup info moved AFTER notes, before submit | | `privacy.html` | New page with SMS, Email, Data Protection terms | | `pickup-order/privacy.html` | Copy of privacy page for subdirectory | | `privacy.html` | Clickable logo links to homepage | | `privacy.html` | Footer slogan: "It's just good food." | | `privacy.html` | Footer logo clickable, links to homepage | #### 2. Field Order Fixes **Order page:** Name → Phone → Email (consent) → Instructions → Submit **Meal prep page:** Name → Phone → Email (consent) → Instructions → Pickup Info → Submit #### 3. Content Fixes | Fix | Detail | |-----|--------| | Juice price | Single option: $5.00, 10oz only (removed 16oz) | | Meal prep copy | "Pick your weekly sets" → "Get your weekly sets" | | Pickup time dropdown | REMOVED from order page | | Pickup info | Static text: "Thursday 12:30 PM – 7:30 PM" | | Address links | All pages link to Google Maps | | Phone links | Use `tel:+15015515944` (proper +1 country code) | #### 4. Database & Sync - **Script:** `scripts/deli_square_data_pg.py` - **Pulls:** 5,000 customers from Square API - **Stores:** Local Postgres `utopia_deli.contacts` [score=0.850 recalls=9 avg=0.497 source=memory/2026-06-20-utopia-deli-v1-messaging-activation.md:1-36]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-19.md:1:45 -->
+- # SAOS Enterprise — Session Wrap-Up + Next Steps **Date:** 2026-06-19 14:19 CDT **Session End:** Complete --- ## What Was Built Today | Component | Status | |-----------|--------| | Enterprise onboarding form | ✅ Deployed to systack.net/saos/onboard.html | | Business tier provisioning | ✅ Verified end-to-end | | Enterprise tier provisioning | ✅ Verified end-to-end | | Plan configuration | ✅ Updated (8 cores both tiers) | | PDF documentation | ✅ Updated with new specs | | Webhook endpoint | ✅ Active (n8n) | | Execution poller | ✅ Running | | Bridge | ✅ Running | --- ## Next Steps / TODO ### 🔴 High Priority (Next Session) | # | Task | Notes | |---|------|-------| | 1 | **Request Vultr spending limit increase** | Currently blocks enterprise provisioning when combined with other instances. Need limit raised for production. | | 2 | **Configure Stripe checkout success redirect** | Point to systack.net/saos/onboard.html after payment | | 3 | **Test full flow with real Stripe payment** | End-to-end: pay → redirect → form → provision | | 4 | **Build customer dashboard** | Login to view agents, VPS status, billing | ### 🟡 Medium Priority | # | Task | Notes | |---|------|-------| | 5 | **Update remaining PDFs** | Service Manual, Client Manual, Deployment Guide need plan specs | | 6 | **Add email notifications** | Send credentials email after VPS is ready | | 7 | **Build multi-region support** | Enterprise tier should deploy to all selected regions | | 8 | **Add cost tracking** | Track Vultr costs per client | ### 🟢 Nice to Have | # | Task | Notes | |---|------|-------| [score=0.827 recalls=6 avg=0.535 source=memory/2026-06-19.md:1-45]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-17-oracle-fleet-expansion.md:65:82 -->
+- systack-site/saos/index.html (+47 lines, Extended Capabilities + pricing) fleet/sol.md (created) fleet/oracle.md (created) fleet/atlas.md (created) fleet/vali.md (created) fleet/pessi.md (created) fleet/assembly.md (created) SAOS-FOUNDATION-SPEC.md (updated fleet + loop) MEMORY.md (added entry) ``` ### Next Actions - [ ] Activate CODY (fix cron jobs) - [ ] Create CHATTY onboarding sequence - [ ] Create first GENI marketing asset - [ ] Add Engagement Engine Stripe product/button - [ ] Update other site pages if they reference 7-agent count [score=0.824 recalls=18 avg=0.486 source=memory/2026-06-17-oracle-fleet-expansion.md:65-82]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-22-utopia-deli-email-campaign.md:1:38 -->
+- # Session — 2026-06-22 ~10:00 CDT — Utopia Deli Email Campaign Complete ## Summary Built complete weekly email campaign system for The Utopia Deli in Phillip's exact preferred format. ## What Was Built **Master file:** `email-campaign/utopia-deli-all-days.js` - Single n8n Function node with all 7 days - Phillip's exact format: `images[day]` arrays, `templates[day]` lookup, same HTML structure - Updated schedule: Meal prep closes Wed noon, reopens Thu 8 PM, pickup Thu 12:30-7:30 - Changed all "Walk up" → "Order online" **7 daily emails:** | Day | Subject | Focus | |-----|---------|-------| | Mon | 🍱 Meal Prep is Open | Opens window | | Tue | 🎉 Planning an Event? | Catering | | Wed | ⏰ Closes Today at Noon | Final hours | | Thu | 🍱 Meal Prep Reopens at 8PM | Reopen + order online | | Fri | Weekend at Utopia 🍽️ | Weekend kickoff | | Sat | 🙌 We're Open Today! | Day-of reminder | | Sun | 📋 This Week's Menu + Monday Lunch | Preview + lunch | ## Files Created/Updated | File | Status | |------|--------| | `email-campaign/utopia-deli-all-days.js` | ✅ NEW — master file (copy into n8n) | | `email-campaign/utopia-deli-weekly-email-campaign.json` | ✅ Updated combined workflow | | `email-campaign/PRODUCTION-NOTES.md` | ✅ NEW — issues + weekly checklist | | `email-campaign/monday-item-of-week.js` | ✅ Updated (split layout) | | `email-campaign/wednesday-meal-prep-close.js` | ✅ Updated (added deli section) | | `email-campaign/thursday-reopen.js` | ✅ Updated (clearer labels) | | `email-campaign/sunday-preview.js` | ✅ Updated (split layout) | ## Known Issues Documented [score=0.824 recalls=12 avg=0.486 source=memory/2026-06-22-utopia-deli-email-campaign.md:1-38]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-06-stripe-buttons-dashboard-test.md:47:78 -->
+- | **SAOS Enterprise Fleet** | $799/mo | https://buy.stripe.com/14A7sE9Bn2NVaAU2sm87K02 | `buy_btn_1TfU1m1WicviTxiikPepeQO4` | | **SAOS Business Fleet** | $299/mo | https://buy.stripe.com/6oUdR2eVHfAH5gA9UO87K01 | `buy_btn_1TfU3M1WicviTxiilXTJNolL` | | **SAOS Solo Agent** | $149/mo | https://buy.stripe.com/eVqbIUcNz607eRa8QK87K00 | `buy_btn_1TfU451WicviTxiig1l8JYjR` | ### Publishable Key `pk_live_51Tckdx1WicviTxii6uKLsxzQENJqWDNxt8Zqmst9YKBQ4F0KSn7VpuR7PZTGRQXJMv42NwimR1kcIdOxElznzIsM000DBc6pKp` ### Where Added - `systack-site/services/service-packages.md` — Private tier ($799) and Accelerate tier ($249) buttons - `systack-site/services/service-packages.md` — New SAOS Fleet section with all 3 tiers - `systack-site/stripe-products.md` — Quick reference for all links ### Systack Service Tiers vs SAOS Fleet Tiers | Systack Tier | Price | SAOS Equivalent | |-------------|-------|----------------| | Systack Private (on-premise) | $799/mo | SAOS Enterprise Fleet | | Systack Accelerate (cloud) | $249/mo | SAOS Business Fleet | | — | — | SAOS Solo Agent ($149/mo) | **Note:** Systack Private ($799) = SAOS Enterprise ($799). Systack Accelerate ($249) ≈ SAOS Business ($299). Solo Agent is a new lower tier. --- ## Files Changed - `systack-site/services/service-packages.md` — Added Stripe buttons + SAOS Fleet section - `systack-site/stripe-products.md` — Quick reference - `templates/private/dashboard-server.py` — Tested locally - `templates/private/dashboard.html` — Verified UI renders - `templates/private/n8n-log-to-dashboard.json` — Created ## Next [score=0.813 recalls=7 avg=0.538 source=memory/2026-06-06-stripe-buttons-dashboard-test.md:47-78]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-22.md:83:106 -->
+- - `saos-landing/index.html` — Enterprise copy fixed - `services/service-packages.md` — Enterprise copy fixed - 4 LaunchAgent plists updated with correct paths ### Git Commits - `6b80518` — Fix Enterprise tier to reflect actual cloud offering - `906b023` — Generate real PDFs from markdown - `c8b7566` — Create tier-based document portal - `411352c` — Add Documents tab to customer dashboard - `14b7c64` — Update site files for 7/10 agent messaging ### What's Running | Port | Service | Status | |------|---------|--------| | 8765 | Fleet Dashboard API | ✅ UP | | 8766 | Invoice Dashboard API | ✅ UP | | 8768 | Customer Portal API | ✅ UP | ### Next Steps - Customer dashboard HTML needs to be served (currently just the API runs) - Need to generate PDFs from markdown (pandoc + pyppeteer) - Billing portal still placeholder - Test document downloads from dashboard [score=0.812 recalls=8 avg=0.518 source=memory/2026-06-22.md:83-106]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-17-session-complete.md:1:40 -->
+- # Session — 2026-06-17 05:45 CDT ## SAOS Build Day: Orchestrator + Provisioning + JURIS **User directive:** "Save this whole session everywhere Wiki and everything" --- ## What Was Built ### 1. SAOS Orchestrator Daemon (Persistent) - **File:** `orchestrator-daemon.py` - **Status:** Running via launchd (PID 70691) - **Function:** Polls task_queue every 10s, dispatches to all 10 fleet agents - **Tables:** `task_queue`, `agent_state`, `execution_log`, `message_bus` - **LaunchAgent:** `~/Library/LaunchAgents/net.systack.orchestrator.plist` ### 2. Client Provisioning Pipeline - **n8n Workflow:** "SAOS Client Provisioning Pipeline" (ID: 8567a376-834f-4794-9b4b-46a7b57cc34e) - **Status:** ACTIVE on n8n.systack.net - **Webhook:** POST `https://n8n.systack.net/webhook/saas-provision` - **Flow:** Stripe payment → client record → task_queue → ASSEMBLY deploys - **Files:** `n8n/saas-provisioning-workflow.json` ### 3. Dashboard - **API:** `dashboard/api.py` (Flask, port 8765) - **UI:** `dashboard/index.html` (dark theme, real-time fleet status) - **Endpoints:** `/api/status`, `/api/clients`, `/api/tasks`, `/api/health` ### 4. Identity Generator - **File:** `scripts/generate-identity.py` - **Templates:** SOUL.md, AGENTS.md, USER.md, MEMORY.md, TOOLS.md, HEARTBEAT.md - **Tested:** Client ID 999 generated successfully ### 5. SAOS Clients Table - **Database:** Postgres `systack_memory` - **Table:** `saos_clients` (stripe_subscription_id, customer_email, tier, vps_status, etc.) ### 6. Build Plan - **File:** `SAOS-PROVISIONING-BUILD-PLAN.md` (904 lines, 36KB) [score=0.801 recalls=7 avg=0.513 source=memory/2026-06-17-session-complete.md:1-40]

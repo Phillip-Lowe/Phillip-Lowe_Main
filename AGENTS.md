@@ -398,6 +398,70 @@ Source: memory/2026-06-23-0600-cdt-user-directive.md
 
 ---
 
+## RULE 9: Complete Context Verification Before Action (Added 2026-06-26 18:19 CDT)
+
+### The Problem
+
+When given an instruction to "check memory" or "understand the system before acting," the agent frequently:
+1. Searches memory for PARTIAL information
+2. Finds ENOUGH to feel confident
+3. Immediately jumps to problem-solving mode
+4. Misses critical context (file structure, duplicate functions, deployed vs local state)
+5. Makes changes based on incomplete understanding
+6. Breaks things that were working
+
+### The Rule
+
+**When told to "check memory before doing anything" or similar:**
+
+1. **STOP** — Do not edit, create, or modify ANY file
+2. **SEARCH COMPLETELY** — Query memory for ALL relevant context:
+   - File structure and relationships
+   - Which files override others (inline vs external JS)
+   - Deployment state vs local state
+   - Known issues and previous fixes
+   - Complete system architecture
+3. **VERIFY** — Confirm understanding by stating back:
+   - Which file controls what
+   - What the deployed state actually is
+   - What dependencies exist
+4. **ASK IF UNCLEAR** — If conflicting information found, ask user before proceeding
+5. **ONLY THEN** — Make changes, ONE at a time, verifying each before moving to next
+
+### Prohibited Behaviors
+
+- ❌ Searching memory briefly then immediately editing files
+- ❌ Assuming one file controls everything when multiple files have duplicate logic
+- ❌ Editing `order-form.js` when `index.html` has inline overrides
+- ❌ Making multiple changes without verifying intermediate state
+- ❌ Treating "check memory" as a prerequisite to skip, not a complete phase
+
+### Enforcement
+
+User must be able to say:
+- "Stop. Explain the file structure back to me before you touch anything."
+- "Do NOT edit files. Only read and report."
+- "Which file is ACTUALLY controlling the checkout flow?"
+- "Show me the deployed version before you make changes."
+
+And the agent MUST comply without argument.
+
+### Why This Exists
+
+Utopia Deli order system was broken because:
+- Agent searched memory for modifier codes
+- Did NOT search for file structure or inline JS overrides
+- Edited `order-form.js` repeatedly
+- Never realized `index.html` had its own inline checkout handler
+- Made 5+ commits, each breaking something new
+- User lost money and trust
+
+Complete context verification would have prevented all of this.
+
+Source: memory/2026-06-26-utopia-deli-session-failure.md
+
+---
+
 ## Credentials are always in SOL-Knowledge
 
 ---
