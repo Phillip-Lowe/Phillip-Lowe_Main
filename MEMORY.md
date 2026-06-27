@@ -4,6 +4,24 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-06-27 — Utopia Deli Combo Pricing + Confirmation Page Update
+
+**Status:** ✅ DEPLOYED — Customer testing now
+**Files:** `The Utopia Deli/pickup-order/index.html`
+**Source:** `memory/2026-06-27-utopia-deli-combo-pricing-update.md`
+
+### What Changed
+1. **Combo modifiers display as `(included)`** — no more `+$5.00` confusion for combo fries/salad
+2. **Full confirmation page** — replaced simple "We Got You!" with itemized order summary, totals, pickup time, customer name
+3. **Kitchen still sees all modifiers** — display-only change, payload unchanged
+
+### Technical
+- `index.html` inline JS is ONLY active source of truth
+- `order-form.js` synced for reference but NOT loaded
+- Git pushed: `d635638`
+
+---
+
 ## 2026-06-27 — Memory Search Config Recurring Drift + SAOS Compute Pause + DOOBY/LOKI Local Model Verified
 
 **Status:** ✅ FIXED (memory search) / ⏸️ PAUSED (SAOS) / ✅ VERIFIED (DOOBY + LOKI local) / ✅ MIGRATED (LOKI crons) / ⏸️ DEFERRED (SAOS orchestrator)
