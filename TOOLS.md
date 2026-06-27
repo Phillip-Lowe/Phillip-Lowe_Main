@@ -88,6 +88,33 @@ git secrets --register-aws  # or custom patterns
 
 ---
 
+## BlueBubbles (iMessage Bridge)
+
+**Status:** ✅ Working as of 2026-06-25
+**Server:** http://phillips-macbook-air.tail573d57.ts.net:1234
+**Phone:** +15012746231
+
+### Delivery Config for Cron Jobs
+All cron jobs that notify Green must include:
+```json
+"delivery": {
+  "mode": "announce",
+  "channel": "bluebubbles",
+  "to": "+15012746231"
+}
+```
+
+### Common Error (Fixed)
+`"Delivering to BlueBubbles requires --to <handle|chat_guid:GUID>"`
+→ Fix: Add explicit `channel` and `to` fields to delivery object.
+
+### When BlueBubbles Breaks
+- Check server is running: `brew services list | grep bluebubbles`
+- Server URL must be reachable (Tailscale or localhost)
+- If disabled in config: update `openclaw.json` → `channels.bluebubbles.enabled = true`
+
+---
+
 ## Git Repos
 
 | Repo | URL | Purpose |

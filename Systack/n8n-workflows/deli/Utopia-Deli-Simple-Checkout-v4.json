@@ -1,1 +1,237 @@
-[{"parameters":{"httpMethod":"POST","path":"utopia-deli-order-v4","responseMode":"responseNode","options":{}},"id":"webhook-1","name":"Webhook","type":"n8n-nodes-base.webhook","typeVersion":1.1,"position":[256,112],"webhookId":"a42e6e0e-7772-4070-9e86-6f05a8847478"},{"parameters":{"conditions":{"options":{"caseSensitive":true,"leftValue":"","typeValidation":"strict","version":1},"conditions":[{"id":"cond-1","leftValue":"={{ $json.body.customer.email }}","rightValue":"","operator":{"type":"string","operation":"exists"}},{"id":"cond-2","leftValue":"={{ $json.body.items }}","rightValue":"","operator":{"type":"array","operation":"notEmpty"}}],"combinator":"and"},"options":{}},"id":"validate-1","name":"Validate Order","type":"n8n-nodes-base.if","typeVersion":2,"position":[464,112]},{"parameters":{"jsCode":"const body = $json.body;\nlet subtotal = 0;\nconst items = body.items.map(item => {\n  const total = item.total_price_cents || (item.base_price_cents * item.qty);\n  subtotal += total;\n  return { ...item, total_price_cents: total };\n});\nconst tax = Math.round(subtotal * 0.0952);\nconst total = subtotal + tax;\nconst order_id = 'UTO-' + $now.format('x') + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();\n\nreturn {\n  json: {\n    ...$json,\n    body: {\n      ...body,\n      items,\n      subtotal_cents: subtotal,\n      tax_cents: tax,\n      frontend_total_cents: total,\n      order_id\n    }\n  }\n};"},"id":"compute-totals-1","name":"Compute Totals","type":"n8n-nodes-base.code","typeVersion":2,"position":[560,112]},{"parameters":{"method":"POST","url":"https://connect.squareup.com/v2/online-checkout/payment-links","authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","sendBody":true,"specifyBody":"json","jsonBody":"=={{ {\n  idempotency_key: $now.format('x') + '-' + Math.random().toString(36).substr(2, 9),\n  order: {\n    location_id: \"J4B6A3X6RYA63\",\n    reference_id: $json.body.order_id,\n    line_items: $json.body.items.map(item => ({\n      name: item.name,\n      quantity: String(item.qty),\n      base_price_money: {\n        amount: Math.round(item.total_price_cents / item.qty),\n        currency: \"USD\"\n      }\n    }))\n  }\n} }}\n","options":{"timeout":30000}},"id":"square-1","name":"Create Square Payment Link","type":"n8n-nodes-base.httpRequest","typeVersion":4.1,"position":[752,112],"credentials":{"httpHeaderAuth":{"id":"U1KvGqlThdaIvdH4","name":"Square API"}}},{"parameters":{"mode":"mergeByPosition"},"id":"merge-1","name":"Merge","type":"n8n-nodes-base.merge","typeVersion":2.1,"position":[944,112]},{"parameters":{"fromEmail":"theutopiadelilittlerock@gmail.com","toEmail":"={{ $json.body.customer.email }}","subject":"Your Utopia Deli Secure Payment Link","html":"={{ '<!DOCTYPE html>\\n<html>\\n<head>\\n<style>\\nbody{font-family:Arial,sans-serif;background:#FBFCFE;margin:0;padding:20px;color:#1F2937}\\n.container{max-width:600px;margin:0 auto;background:#FFFFFF;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(17,24,39,0.08)}\\n.header{background:linear-gradient(135deg,#590B3F,#7a1a55,#754681);color:white;padding:24px;text-align:center}\\n.content{padding:24px}\\n.item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #E5E7EB}\\n.total{font-weight:800;font-size:18px;color:#590B3F;padding-top:12px;border-top:2px solid #590B3F;margin-top:12px}\\n.cta{display:inline-block;background:#AF3D4B;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:700;margin:16px 0}\\n</style>\\n</head>\\n<body>\\n\\n<div class=\"container\">\\n\\n<div class=\"header\">\\n<h1>The Utopia Deli</h1>\\n<p>It\\u2019s just good food</p>\\n</div>\\n\\n<div class=\"content\">\\n\\n<h2>Order Confirmation</h2>\\n\\n<p>Hi ' + $json.body.customer.name + ',</p>\\n\\n<p>We received your order! Here are the details:</p>\\n\\n' + $json.body.items.map(item => '\\n<div class=\"item\">\\n<span>' + item.name + ' x' + item.qty + '</span>\\n<span>$' + (item.total_price_cents / 100).toFixed(2) + '</span>\\n</div>\\n').join('') + '\\n\\n<div class=\"item\">\\n<span>Subtotal</span>\\n<span>$' + ($json.body.subtotal_cents / 100).toFixed(2) + '</span>\\n</div>\\n\\n<div class=\"item\">\\n<span>Tax</span>\\n<span>$' + ($json.body.tax_cents / 100).toFixed(2) + '</span>\\n</div>\\n\\n<div class=\"item total\">\\n<span>Total</span>\\n<span>$' + ($json.body.frontend_total_cents / 100).toFixed(2) + '</span>\\n</div>\\n\\n<p>Complete your payment:</p>\\n\\n<a href=\"' + ($json.payment_link?.url || $json.payment_link?.long_url || '') + '\" class=\"cta\">Pay Now</a>\\n\\n<p style=\"font-size:12px;color:#6B7280;\">\\nPickup time: ' + ($json.body.customer.pickup_time || 'ASAP') + '\\n</p>\\n\\n<p style=\"font-size:12px;color:#6B7280;\">\\nQuestions? Call us at (501) 551-5944\\n</p>\\n\\n</div>\\n</div>\\n\\n</body>\\n</html>' }}","options":{"appendAttribution":false}},"id":"email-1","name":"Send Confirmation Email","type":"n8n-nodes-base.emailSend","typeVersion":2.1,"position":[1152,112],"webhookId":"054ef210-a231-4fd4-ae37-5196163b4d4b","credentials":{"smtp":{"id":"DaehVvk5YUkv0CBM","name":"SMTP account"}}},{"parameters":{"jsCode":"const merged = $input.first().json;\n\nreturn {\n  json: {\n    ...merged,\n    db_order_id: merged.body.order_id,\n    db_customer_name: merged.body.customer.name,\n    db_customer_email: merged.body.customer.email,\n    db_customer_phone: merged.body.customer.phone || '',\n    db_customer_city: merged.body.customer.city || '',\n    db_customer_county: merged.body.customer.county || '',\n    db_cart_json: JSON.stringify(merged.body.items),\n    db_subtotal_cents: merged.body.subtotal_cents,\n    db_tax_cents: merged.body.tax_cents,\n    db_total_cents: merged.body.frontend_total_cents,\n    db_square_payment_link: merged.payment_link?.url || merged.payment_link?.long_url || '',\n    db_square_order_id: merged.order_id || '',\n    db_notes: merged.body.notes || '',\n    db_status: 'pending'\n  }\n};"},"id":"prepare-db-1","name":"Prepare DB Insert","type":"n8n-nodes-base.code","typeVersion":2,"position":[1344,112]},{"parameters":{"operation":"insert","schema":"public","table":"orders","columns":"order_id,customer_name,customer_email,customer_phone,customer_city,customer_county,cart_json,subtotal_cents,tax_cents,total_cents,square_payment_link,square_order_id,notes,status,created_at","options":{"ignoreColumns":"created_at","useAppend":true},"additionalFields":{}},"id":"postgres-1","name":"Save to Postgres","type":"n8n-nodes-base.postgres","typeVersion":2.3,"position":[1536,112],"credentials":{"postgres":{"id":"iVuy7e5WTC05Hqwe","name":"Postgres account"}}},{"parameters":{"jsCode":"const merged = $input.first().json;\n\nconst paymentLink = merged.payment_link || {};\nconst squareLink = paymentLink.url || paymentLink.long_url || '';\n\nreturn {\n  json: {\n    ok: true,\n    message: 'Order received! Check your email for payment link.',\n    square_link: squareLink,\n    order_id: merged.body.order_id || '',\n    total_cents: merged.body.frontend_total_cents || 0\n  }\n};"},"id":"format-response","name":"Format Response","type":"n8n-nodes-base.code","typeVersion":2,"position":[1744,112]},{"parameters":{"respondWith":"json","responseBody":"={{ $json }}","options":{}},"id":"respond-1","name":"Return Result","type":"n8n-nodes-base.respondToWebhook","typeVersion":1.1,"position":[1936,112]},{"parameters":{"jsCode":"// Return error response\nreturn {\n  json: {\n    ok: false,\n    error: 'Invalid order data. Please check your cart and try again.'\n  }\n};"},"id":"error-response","name":"Error Response","type":"n8n-nodes-base.code","typeVersion":2,"position":[656,320]},{"parameters":{"respondWith":"json","responseBody":"={{ $json }}","options":{}},"id":"error-respond","name":"Return Error","type":"n8n-nodes-base.respondToWebhook","typeVersion":1.1,"position":[864,320]}]
+[
+  {
+    "parameters": {
+      "httpMethod": "POST",
+      "path": "utopia-deli-order-v4",
+      "responseMode": "responseNode",
+      "options": {}
+    },
+    "id": "webhook-1",
+    "name": "Webhook",
+    "type": "n8n-nodes-base.webhook",
+    "typeVersion": 1.1,
+    "position": [
+      256,
+      112
+    ],
+    "webhookId": "a42e6e0e-7772-4070-9e86-6f05a8847478"
+  },
+  {
+    "parameters": {
+      "conditions": {
+        "options": {
+          "caseSensitive": true,
+          "leftValue": "",
+          "typeValidation": "strict",
+          "version": 1
+        },
+        "conditions": [
+          {
+            "id": "cond-1",
+            "leftValue": "={{ $json.body.customer.email }}",
+            "rightValue": "",
+            "operator": {
+              "type": "string",
+              "operation": "exists"
+            }
+          },
+          {
+            "id": "cond-2",
+            "leftValue": "={{ $json.body.items }}",
+            "rightValue": "",
+            "operator": {
+              "type": "array",
+              "operation": "notEmpty"
+            }
+          }
+        ],
+        "combinator": "and"
+      },
+      "options": {}
+    },
+    "id": "validate-1",
+    "name": "Validate Order",
+    "type": "n8n-nodes-base.if",
+    "typeVersion": 2,
+    "position": [
+      464,
+      112
+    ]
+  },
+  {
+    "parameters": {
+      "jsCode": "const body = $json.body;\nlet subtotal = 0;\nconst items = body.items.map(item => {\n  const total = item.total_price_cents || (item.base_price_cents * item.qty);\n  subtotal += total;\n  return { ...item, total_price_cents: total };\n});\nconst tax = Math.round(subtotal * 0.0952);\nconst total = subtotal + tax;\nconst order_id = 'UTO-' + $now.format('x') + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();\n\nreturn {\n  json: {\n    ...$json,\n    body: {\n      ...body,\n      items,\n      subtotal_cents: subtotal,\n      tax_cents: tax,\n      frontend_total_cents: total,\n      order_id\n    }\n  }\n};"
+    },
+    "id": "compute-totals-1",
+    "name": "Compute Totals",
+    "type": "n8n-nodes-base.code",
+    "typeVersion": 2,
+    "position": [
+      560,
+      112
+    ]
+  },
+  {
+    "parameters": {
+      "method": "POST",
+      "url": "https://connect.squareup.com/v2/online-checkout/payment-links",
+      "authentication": "genericCredentialType",
+      "genericAuthType": "httpHeaderAuth",
+      "sendBody": true,
+      "specifyBody": "json",
+      "jsonBody": "=={{ {\n  idempotency_key: $now.format('x') + '-' + Math.random().toString(36).substr(2, 9),\n  order: {\n    location_id: \"J4B6A3X6RYA63\",\n    reference_id: $json.body.order_id,\n    line_items: $json.body.items.map(item => ({\n      name: item.name,\n      quantity: String(item.qty),\n      base_price_money: {\n        amount: Math.round(item.base_price_cents || (item.total_price_cents / item.qty)),\n        currency: \"USD\"\n      },\n      modifiers: (item.modifiers || []).map(mod => ({\n        name: mod.label || mod.mod_name || 'Unknown',\n        base_price_money: {\n          amount: Math.round((mod.price_delta || 0) * 100),\n          currency: \"USD\"\n        }\n      }))\n    }))\n  }\n} }}",
+      "options": {
+        "timeout": 30000
+      }
+    },
+    "id": "square-1",
+    "name": "Create Square Payment Link",
+    "type": "n8n-nodes-base.httpRequest",
+    "typeVersion": 4.1,
+    "position": [
+      752,
+      112
+    ],
+    "credentials": {
+      "httpHeaderAuth": {
+        "id": "U1KvGqlThdaIvdH4",
+        "name": "Square API"
+      }
+    }
+  },
+  {
+    "parameters": {
+      "mode": "mergeByPosition"
+    },
+    "id": "merge-1",
+    "name": "Merge",
+    "type": "n8n-nodes-base.merge",
+    "typeVersion": 2.1,
+    "position": [
+      944,
+      112
+    ]
+  },
+  {
+    "parameters": {
+      "fromEmail": "theutopiadelilittlerock@gmail.com",
+      "toEmail": "={{ $json.body.customer.email }}",
+      "subject": "Your Utopia Deli Secure Payment Link",
+      "html": "={{ '<!DOCTYPE html>\\n<html>\\n<head>\\n<style>\\nbody{font-family:Arial,sans-serif;background:#FBFCFE;margin:0;padding:20px;color:#1F2937}\\n.container{max-width:600px;margin:0 auto;background:#FFFFFF;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(17,24,39,0.08)}\\n.header{background:linear-gradient(135deg,#590B3F,#7a1a55,#754681);color:white;padding:24px;text-align:center}\\n.content{padding:24px}\\n.item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #E5E7EB}\\n.total{font-weight:800;font-size:18px;color:#590B3F;padding-top:12px;border-top:2px solid #590B3F;margin-top:12px}\\n.cta{display:inline-block;background:#AF3D4B;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:700;margin:16px 0}\\n</style>\\n</head>\\n<body>\\n\\n<div class=\"container\">\\n\\n<div class=\"header\">\\n<h1>The Utopia Deli</h1>\\n<p>It\\u2019s just good food</p>\\n</div>\\n\\n<div class=\"content\">\\n\\n<h2>Order Confirmation</h2>\\n\\n<p>Hi ' + $json.body.customer.name + ',</p>\\n\\n<p>We received your order! Here are the details:</p>\\n\\n' + $json.body.items.map(item => '\\n<div class=\"item\">\\n<span>' + item.name + ' x' + item.qty + '</span>\\n<span>$' + (item.total_price_cents / 100).toFixed(2) + '</span>\\n</div>\\n').join('') + '\\n\\n<div class=\"item\">\\n<span>Subtotal</span>\\n<span>$' + ($json.body.subtotal_cents / 100).toFixed(2) + '</span>\\n</div>\\n\\n<div class=\"item\">\\n<span>Tax</span>\\n<span>$' + ($json.body.tax_cents / 100).toFixed(2) + '</span>\\n</div>\\n\\n<div class=\"item total\">\\n<span>Total</span>\\n<span>$' + ($json.body.frontend_total_cents / 100).toFixed(2) + '</span>\\n</div>\\n\\n<p>Complete your payment:</p>\\n\\n<a href=\"' + ($json.payment_link?.url || $json.payment_link?.long_url || '') + '\" class=\"cta\">Pay Now</a>\\n\\n<p style=\"font-size:12px;color:#6B7280;\">\\nPickup time: ' + ($json.body.customer.pickup_time || 'ASAP') + '\\n</p>\\n\\n<p style=\"font-size:12px;color:#6B7280;\">\\nQuestions? Call us at (501) 551-5944\\n</p>\\n\\n</div>\\n</div>\\n\\n</body>\\n</html>' }}",
+      "options": {
+        "appendAttribution": false
+      }
+    },
+    "id": "email-1",
+    "name": "Send Confirmation Email",
+    "type": "n8n-nodes-base.emailSend",
+    "typeVersion": 2.1,
+    "position": [
+      1152,
+      112
+    ],
+    "webhookId": "054ef210-a231-4fd4-ae37-5196163b4d4b",
+    "credentials": {
+      "smtp": {
+        "id": "DaehVvk5YUkv0CBM",
+        "name": "SMTP account"
+      }
+    }
+  },
+  {
+    "parameters": {
+      "jsCode": "const merged = $input.first().json;\n\nreturn {\n  json: {\n    ...merged,\n    db_order_id: merged.body.order_id,\n    db_customer_name: merged.body.customer.name,\n    db_customer_email: merged.body.customer.email,\n    db_customer_phone: merged.body.customer.phone || '',\n    db_customer_city: merged.body.customer.city || '',\n    db_customer_county: merged.body.customer.county || '',\n    db_cart_json: JSON.stringify(merged.body.items),\n    db_subtotal_cents: merged.body.subtotal_cents,\n    db_tax_cents: merged.body.tax_cents,\n    db_total_cents: merged.body.frontend_total_cents,\n    db_square_payment_link: merged.payment_link?.url || merged.payment_link?.long_url || '',\n    db_square_order_id: merged.order_id || '',\n    db_notes: merged.body.notes || '',\n    db_status: 'pending'\n  }\n};"
+    },
+    "id": "prepare-db-1",
+    "name": "Prepare DB Insert",
+    "type": "n8n-nodes-base.code",
+    "typeVersion": 2,
+    "position": [
+      1344,
+      112
+    ]
+  },
+  {
+    "parameters": {
+      "operation": "insert",
+      "schema": "public",
+      "table": "orders",
+      "columns": "order_id,customer_name,customer_email,customer_phone,customer_city,customer_county,cart_json,subtotal_cents,tax_cents,total_cents,square_payment_link,square_order_id,notes,status,created_at",
+      "options": {
+        "ignoreColumns": "created_at",
+        "useAppend": true
+      },
+      "additionalFields": {}
+    },
+    "id": "postgres-1",
+    "name": "Save to Postgres",
+    "type": "n8n-nodes-base.postgres",
+    "typeVersion": 2.3,
+    "position": [
+      1536,
+      112
+    ],
+    "credentials": {
+      "postgres": {
+        "id": "iVuy7e5WTC05Hqwe",
+        "name": "Postgres account"
+      }
+    }
+  },
+  {
+    "parameters": {
+      "jsCode": "const merged = $input.first().json;\n\nconst paymentLink = merged.payment_link || {};\nconst squareLink = paymentLink.url || paymentLink.long_url || '';\n\nreturn {\n  json: {\n    ok: true,\n    message: 'Order received! Check your email for payment link.',\n    square_link: squareLink,\n    order_id: merged.body.order_id || '',\n    total_cents: merged.body.frontend_total_cents || 0\n  }\n};"
+    },
+    "id": "format-response",
+    "name": "Format Response",
+    "type": "n8n-nodes-base.code",
+    "typeVersion": 2,
+    "position": [
+      1744,
+      112
+    ]
+  },
+  {
+    "parameters": {
+      "respondWith": "json",
+      "responseBody": "={{ $json }}",
+      "options": {}
+    },
+    "id": "respond-1",
+    "name": "Return Result",
+    "type": "n8n-nodes-base.respondToWebhook",
+    "typeVersion": 1.1,
+    "position": [
+      1936,
+      112
+    ]
+  },
+  {
+    "parameters": {
+      "jsCode": "// Return error response\nreturn {\n  json: {\n    ok: false,\n    error: 'Invalid order data. Please check your cart and try again.'\n  }\n};"
+    },
+    "id": "error-response",
+    "name": "Error Response",
+    "type": "n8n-nodes-base.code",
+    "typeVersion": 2,
+    "position": [
+      656,
+      320
+    ]
+  },
+  {
+    "parameters": {
+      "respondWith": "json",
+      "responseBody": "={{ $json }}",
+      "options": {}
+    },
+    "id": "error-respond",
+    "name": "Return Error",
+    "type": "n8n-nodes-base.respondToWebhook",
+    "typeVersion": 1.1,
+    "position": [
+      864,
+      320
+    ]
+  }
+]

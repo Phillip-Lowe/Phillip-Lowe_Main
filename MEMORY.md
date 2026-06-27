@@ -4,6 +4,45 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-06-27 — SAOS Compute Pause State Saved
+
+**Status:** ⏸️ PAUSED — All systems preserved, zero compute waste
+**File:** `SAOS-COMPUTE-PAUSE-STATE.md` (restore guide)
+**Source:** `memory/2026-06-27.md`
+
+### What Happened
+User noticed SAOS was repeatedly spawning SOL with vague "client_request" tasks, burning compute. Same pattern as June 24 orchestrator loop incident.
+
+### Root Causes Found
+1. **Orchestrator daemon** (PID 1076) — running via LaunchAgent, spawned SOL every ~10s for 14 pending test tasks (IDs 325-336)
+2. **n8n Email Dispatcher** (`eylye0Me5zyoXMc2`) — polled every 60s, failed ~1,440x/day (wrong API port 8768 vs 8765)
+
+### Actions Taken
+| Action | Status |
+|--------|--------|
+| Killed orchestrator daemon | ✅ Done |
+| Unloaded LaunchAgent `net.systack.orchestrator` | ✅ Done |
+| Disabled n8n workflow in DB (active=0) | ✅ Done |
+| Marked 12 test tasks DONE (325-336) | ✅ Done |
+| Wrote `SAOS-COMPUTE-PAUSE-STATE.md` | ✅ Done |
+
+### Restore Commands
+```bash
+# Orchestrator daemon
+launchctl load ~/Library/LaunchAgents/net.systack.orchestrator.plist
+
+# Email dispatcher (fix port 8768→8765 first)
+sqlite3 ~/.n8n/database.sqlite "UPDATE workflow_entity SET active=1 WHERE id='eylye0Me5zyoXMc2';"
+```
+
+### Prevention
+- Verify credential paths before re-enabling daemon
+- Add circuit breaker: >50% task failures = auto-pause
+- Clear test tasks from queue before starting daemon
+- Fix email dispatcher API port before re-enabling
+
+---
+
 ## 2026-06-26 — CRITICAL RULE ADDED: Complete Context Verification (RULE 9)
 
 **Status:** Active — Binding on all agents
@@ -158,15 +197,16 @@ Fleet Loop Orchestration System (FLOS): persistent autonomous operations layer w
 ### Decision: DEFER
 
 **Preconditions before building FLOS:**
-1. ✅ Delivery channel works (BlueBubbles fixed today)
+1. ✅ Delivery channel works (BlueBubbles fixed 2026-06-25)
 2. ❌ Model timeouts rare (still happening — need monitoring)
 3. ❌ 3+ workflows that need retry logic (not yet)
-4. ❌ SAOS provisioning tested end-to-end (not yet)
+4. ✅ SAOS provisioning tested end-to-end (DONE 2026-06-22 — Business + Enterprise tiers)
 
 ### What To Build Instead
 1. **File-based health checks** — status files in `.health/`, no delivery dependency
 2. **ONE payment retry loop** — Utopia Deli Square payments, SQLite-backed, actual revenue impact
 3. **Re-enable monitoring jobs** — after proving stability
+4. **FLOS Lite** — ONE loop (not 10-agent orchestration), maybe payment retries or weekly report
 
 ---
 
@@ -399,6 +439,22 @@ Local Ollama models CAN spawn but CANNOT execute tools through OpenClaw. The int
 - **Weekly:** Review daily logs, promote important facts → this file
 - **End of session:** Ask: "What should future-me remember?"
 
+### Memory Hygiene — RULE 10 (Added 2026-06-27)
+
+**When status changes from "pending" to "complete":**
+1. Update the entry in this curated MEMORY.md **immediately**
+2. Do NOT wait for weekly review
+3. Do NOT leave stale "⏳ blocked" or "❌ needed" entries after the thing is done
+4. Update BOTH daily logs AND curated memory in the same session
+
+**When user says "save this everywhere":**
+1. Write to all relevant memory surfaces **immediately**
+2. This includes updating curated MEMORY.md when the saved content changes project status
+3. Do not assume "weekly review will catch it" — it won't
+
+**Why this exists:**
+Curated memory became stale because agents wrote to daily logs but never updated the curated status. This caused repeated "we still need X" statements when X was already done days ago. Curated memory must reflect reality in real-time, not historical snapshots.
+
 ### What Goes Here
 
 - Decisions and why they were made
@@ -517,13 +573,15 @@ RULE 8 is working as intended — zero-friction persistence on demand.
 
 - Tailnet-only access (Tailscale connection required)
 - HTTPS via Tailscale TLS termination
-- No authentication yet — uses `?client_id=` parameter only
+- ✅ PIN-based authentication added 2026-06-25 (see `memory/2026-06-25-saos-dashboard-mobile-fix.md`)
+- Session tokens stored in localStorage
+- **Note:** Direct IP access (`http://100.84.164.70:8768/`) works on mobile where `.ts.net` cert issue exists
 
 ### TODO: Dashboard Authentication
 
-- Add login page + session tokens
-- Currently insecure for production use without auth
-- **Priority:** Medium-High (blocks external client access)
+- ~~Add login page + session tokens~~ ✅ DONE 2026-06-25
+- ~~Mobile login fix~~ ✅ DONE 2026-06-25 (form validation, API path detection)
+- Production hardening (rate limiting, token expiry) — future enhancement
 
 ---
 
@@ -559,7 +617,7 @@ RULE 8 is working as intended — zero-friction persistence on demand.
 
 | Priority     | Task                     | Status             |
 | ------------ | ------------------------ | ------------------ |
-| 🔴 Critical  | Dashboard Authentication | ❌ Not started     |
+| ✅ Done      | Dashboard Authentication | ✅ Complete 2026-06-25 |
 | 🟡 Important | Twilio Campaign Appeal   | ⏳ Waiting on user |
 | ✅ Done      | Weekly Email Campaign    | ✅ Production live |
 
@@ -698,31 +756,63 @@ SMTP rate limiting is real. For 300+ contact lists, use **20+ second delays** be
 - **Tagged devices for unlimited clients** — Free Tailscale tier supports unlimited tagged devices
 - **Agent runs on VPS, not client computer** — Cloud-native automation via APIs/webhooks
 
+### 2026-06-22 — VPS PROVISIONING TESTED SUCCESSFULLY
+
+**Status:** ✅ Credentials obtained and tested — both test and business tiers provisioned
+**File:** `memory/2026-06-22-vps-provisioning-results.md`
+
+#### Credentials Obtained (2026-06-24)
+- **Vultr API:** `TST4IQSC56YHJJIJEG6ZGKLLU5PKIVKYNQGA`
+- **Tailscale Auth Key:** `tskey-auth-kGnP9yUWLV11CNTRL-p2ragwhnSS9uM24h7Ug2S9PsS8u6skRjA`
+- **Tailscale API Key:** `tskey-api-kZZ9TKmAs821CNTRL-dhcfqwo4regLz9hLCNkaegkC`
+- **n8n API:** Present and verified
+- **Location:** `~/.openclaw/workspaces/sol/Sol-Knowledge/credentials/Green/`
+
+#### Test Results
+
+**Test Tier (vc2-1c-1gb):**
+- **Created:** `saos-test002` at `45.76.29.64`
+- **Cloud-init:** Completed successfully (~7 min)
+- **Tailscale:** Joined — `100.95.242.89`, `saos-test002.tail573d57.ts.net`
+- **Services:** ollama, tailscaled, docker all active
+- **Destroyed:** Yes (after verification)
+
+**Business Tier (vhp-8c-16gb-amd):**
+- **Created:** `saos-biz001` at `64.177.117.124`
+- **Specs:** 8 vCPU, 16GB RAM, 350GB disk ($96/mo)
+- **Cloud-init:** Completed successfully (~2 min)
+- **Tailscale:** Joined — `100.80.22.78`, `saos-biz001-1.tail573d57.ts.net`
+- **Services:** ollama, tailscaled, docker all active
+- **Ollama model:** qwen2.5:7b pulled (4.7GB)
+
+#### Bug Found & Fixed
+- **Root cause:** Cloud-init called `saas-vps-ready` (typo — **saas**)
+- **Actual webhook:** `saos-provision` (**saos**)
+- **Fix:** Changed in `provision_vps.py` → commit `8b3be65`
+- **Result:** Webhook now returns HTTP 200 ✅
+
+#### What Still Needs Testing
+- iOS Safari `.ts.net` cert trust (use direct IP workaround)
+- Production client onboarding at scale (tested manually, needs monitoring)
+
+---
+
+---
+
 ### TODO — Remaining Tasks
 
-| Priority     | Task                       | Status | Notes                                   |
-| ------------ | -------------------------- | ------ | --------------------------------------- |
-| 🔴 Critical  | Get Vultr API key          | ❌     | my.vultr.com → Account → API            |
-| 🔴 Critical  | Get Tailscale API key      | ❌     | login.tailscale.com → Keys              |
-| 🔴 Critical  | Get n8n API key            | ❌     | n8n.systack.net → Settings → API        |
-| 🔴 Critical  | Test real VPS creation     | ⏳     | Needs Vultr key; use --tier test first  |
-| 🔴 Critical  | Verify Tailscale URL works | ⏳     | Needs real VPS to test HTTPS access     |
-| 🟡 Important | Stripe webhook integration | ⏳     | n8n workflow for checkout events        |
-| 🟡 Important | Client dashboard auth      | ⏳     | Currently open, needs login             |
-| ✅ Done      | JURIS workspace identity   | ✅     | SOUL, USER, IDENTITY created 2026-06-17 |
-| 🟢 Nice      | Client onboarding form     | ⏳     | Post-launch                             |
-| 🟢 Nice      | Cost tracking dashboard    | ⏳     | Post-launch                             |
-
-### Credentials Needed
-
-| Credential            | Where                      | Status |
-| --------------------- | -------------------------- | ------ |
-| Vultr API Key         | my.vultr.com → API         | ❌     |
-| Tailscale Auth Key    | login.tailscale.com → Keys | ❌     |
-| Tailscale API Key     | login.tailscale.com → Keys | ❌     |
-| n8n API Key           | n8n.systack.net → Settings | ❌     |
-| SMTP User/Pass        | SendGrid/Gmail             | ❌     |
-| Stripe Webhook Secret | Stripe Dashboard           | ❌     |
+| Priority     | Task                              | Status | Notes                                   |
+| ------------ | --------------------------------- | ------ | --------------------------------------- |
+| 🔴 Critical  | iOS Safari `.ts.net` cert trust    | ⏳     | Use direct IP workaround for now        |
+| 🟡 Important | Monitoring dashboard               | ⏳     | Agent health, queue depth, error rates  |
+| 🟡 Important | PDF documentation update           | ⏳     | User Guide v2.1, Mobile Access Guide    |
+| ✅ Done      | End-to-end provisioning tested     | ✅     | Business + Enterprise tiers, June 19-22 |
+| ✅ Done      | Stripe integration                 | ✅     | Products, prices, webhooks, June 19     |
+| ✅ Done      | Dashboard auth (PIN + tokens)      | ✅     | Complete June 25                        |
+| ✅ Done      | VPS provisioning                   | ✅     | Tested June 22, both tiers work         |
+| ✅ Done      | Credentials obtained               | ✅     | All keys verified June 24               |
+| 🟢 Nice      | Client onboarding form             | ⏳     | Post-launch                             |
+| 🟢 Nice      | Cost tracking dashboard            | ⏳     | Post-launch                             |
 
 ---
 
@@ -3554,11 +3644,11 @@ Created comprehensive 14-part handoff document covering ALL Systack services:
 - Validation checklist (PASS on all checkpoints)
 
 ### Priority Stack Locked
-1. End-to-end SAOS provisioning test (real Vultr/Tailscale/n8n)
-2. iOS Safari `.ts.net` cert trust fix
-3. Dashboard User Guide v2.0 (Activity tab)
-4. Mobile Access Guide PDF
-5. Service portfolio alignment
+1. ✅ ~~End-to-end SAOS provisioning test~~ — DONE 2026-06-22 (Business + Enterprise tiers)
+2. ⏳ iOS Safari `.ts.net` cert trust fix
+3. ⏳ Dashboard User Guide v2.0 (Activity tab)
+4. ⏳ Mobile Access Guide PDF
+5. ⏳ Service portfolio alignment
 
 ### Key Constraints Acknowledged
 - SAOS (not SaaS) in external language
@@ -3573,19 +3663,131 @@ Created comprehensive 14-part handoff document covering ALL Systack services:
 
 ---
 
-## Promoted From Short-Term Memory (2026-06-26)
+## 2026-06-27 05:40 CDT — SAOS v1.3 Timing Handoff to ORACLE
 
-<!-- openclaw-memory-promotion:memory:memory/2026-06-20-utopia-deli-v1-messaging-activation.md:1:36 -->
-- # Session — 2026-06-20 03:28 CDT ## Utopia Deli V1 Messaging System — COMPLETE ### What Was Done #### 1. Consent & Privacy (TCPA/CAN-SPAM Compliance) | File | Change | |------|--------| | `pickup-order/index.html` | Consent text under EMAIL field | | `pickup-order/index.html` | Footer links clickable (Maps, Phone, Email) | | `catering/index.html` | Consent text under EMAIL field | | `catering/index.html` | Pickup info moved AFTER notes, before submit | | `privacy.html` | New page with SMS, Email, Data Protection terms | | `pickup-order/privacy.html` | Copy of privacy page for subdirectory | | `privacy.html` | Clickable logo links to homepage | | `privacy.html` | Footer slogan: "It's just good food." | | `privacy.html` | Footer logo clickable, links to homepage | #### 2. Field Order Fixes **Order page:** Name → Phone → Email (consent) → Instructions → Submit **Meal prep page:** Name → Phone → Email (consent) → Instructions → Pickup Info → Submit #### 3. Content Fixes | Fix | Detail | |-----|--------| | Juice price | Single option: $5.00, 10oz only (removed 16oz) | | Meal prep copy | "Pick your weekly sets" → "Get your weekly sets" | | Pickup time dropdown | REMOVED from order page | | Pickup info | Static text: "Thursday 12:30 PM – 7:30 PM" | | Address links | All pages link to Google Maps | | Phone links | Use `tel:+15015515944` (proper +1 country code) | #### 4. Database & Sync - **Script:** `scripts/deli_square_data_pg.py` - **Pulls:** 5,000 customers from Square API - **Stores:** Local Postgres `utopia_deli.contacts` [score=0.850 recalls=9 avg=0.497 source=memory/2026-06-20-utopia-deli-v1-messaging-activation.md:1-36]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-19.md:1:45 -->
-- # SAOS Enterprise — Session Wrap-Up + Next Steps **Date:** 2026-06-19 14:19 CDT **Session End:** Complete --- ## What Was Built Today | Component | Status | |-----------|--------| | Enterprise onboarding form | ✅ Deployed to systack.net/saos/onboard.html | | Business tier provisioning | ✅ Verified end-to-end | | Enterprise tier provisioning | ✅ Verified end-to-end | | Plan configuration | ✅ Updated (8 cores both tiers) | | PDF documentation | ✅ Updated with new specs | | Webhook endpoint | ✅ Active (n8n) | | Execution poller | ✅ Running | | Bridge | ✅ Running | --- ## Next Steps / TODO ### 🔴 High Priority (Next Session) | # | Task | Notes | |---|------|-------| | 1 | **Request Vultr spending limit increase** | Currently blocks enterprise provisioning when combined with other instances. Need limit raised for production. | | 2 | **Configure Stripe checkout success redirect** | Point to systack.net/saos/onboard.html after payment | | 3 | **Test full flow with real Stripe payment** | End-to-end: pay → redirect → form → provision | | 4 | **Build customer dashboard** | Login to view agents, VPS status, billing | ### 🟡 Medium Priority | # | Task | Notes | |---|------|-------| | 5 | **Update remaining PDFs** | Service Manual, Client Manual, Deployment Guide need plan specs | | 6 | **Add email notifications** | Send credentials email after VPS is ready | | 7 | **Build multi-region support** | Enterprise tier should deploy to all selected regions | | 8 | **Add cost tracking** | Track Vultr costs per client | ### 🟢 Nice to Have | # | Task | Notes | |---|------|-------| [score=0.827 recalls=6 avg=0.535 source=memory/2026-06-19.md:1-45]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-17-oracle-fleet-expansion.md:65:82 -->
-- systack-site/saos/index.html (+47 lines, Extended Capabilities + pricing) fleet/sol.md (created) fleet/oracle.md (created) fleet/atlas.md (created) fleet/vali.md (created) fleet/pessi.md (created) fleet/assembly.md (created) SAOS-FOUNDATION-SPEC.md (updated fleet + loop) MEMORY.md (added entry) ``` ### Next Actions - [ ] Activate CODY (fix cron jobs) - [ ] Create CHATTY onboarding sequence - [ ] Create first GENI marketing asset - [ ] Add Engagement Engine Stripe product/button - [ ] Update other site pages if they reference 7-agent count [score=0.824 recalls=18 avg=0.486 source=memory/2026-06-17-oracle-fleet-expansion.md:65-82]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-22-utopia-deli-email-campaign.md:1:38 -->
-- # Session — 2026-06-22 ~10:00 CDT — Utopia Deli Email Campaign Complete ## Summary Built complete weekly email campaign system for The Utopia Deli in Phillip's exact preferred format. ## What Was Built **Master file:** `email-campaign/utopia-deli-all-days.js` - Single n8n Function node with all 7 days - Phillip's exact format: `images[day]` arrays, `templates[day]` lookup, same HTML structure - Updated schedule: Meal prep closes Wed noon, reopens Thu 8 PM, pickup Thu 12:30-7:30 - Changed all "Walk up" → "Order online" **7 daily emails:** | Day | Subject | Focus | |-----|---------|-------| | Mon | 🍱 Meal Prep is Open | Opens window | | Tue | 🎉 Planning an Event? | Catering | | Wed | ⏰ Closes Today at Noon | Final hours | | Thu | 🍱 Meal Prep Reopens at 8PM | Reopen + order online | | Fri | Weekend at Utopia 🍽️ | Weekend kickoff | | Sat | 🙌 We're Open Today! | Day-of reminder | | Sun | 📋 This Week's Menu + Monday Lunch | Preview + lunch | ## Files Created/Updated | File | Status | |------|--------| | `email-campaign/utopia-deli-all-days.js` | ✅ NEW — master file (copy into n8n) | | `email-campaign/utopia-deli-weekly-email-campaign.json` | ✅ Updated combined workflow | | `email-campaign/PRODUCTION-NOTES.md` | ✅ NEW — issues + weekly checklist | | `email-campaign/monday-item-of-week.js` | ✅ Updated (split layout) | | `email-campaign/wednesday-meal-prep-close.js` | ✅ Updated (added deli section) | | `email-campaign/thursday-reopen.js` | ✅ Updated (clearer labels) | | `email-campaign/sunday-preview.js` | ✅ Updated (split layout) | ## Known Issues Documented [score=0.824 recalls=12 avg=0.486 source=memory/2026-06-22-utopia-deli-email-campaign.md:1-38]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-06-stripe-buttons-dashboard-test.md:47:78 -->
-- | **SAOS Enterprise Fleet** | $799/mo | https://buy.stripe.com/14A7sE9Bn2NVaAU2sm87K02 | `buy_btn_1TfU1m1WicviTxiikPepeQO4` | | **SAOS Business Fleet** | $299/mo | https://buy.stripe.com/6oUdR2eVHfAH5gA9UO87K01 | `buy_btn_1TfU3M1WicviTxiilXTJNolL` | | **SAOS Solo Agent** | $149/mo | https://buy.stripe.com/eVqbIUcNz607eRa8QK87K00 | `buy_btn_1TfU451WicviTxiig1l8JYjR` | ### Publishable Key `pk_live_51Tckdx1WicviTxii6uKLsxzQENJqWDNxt8Zqmst9YKBQ4F0KSn7VpuR7PZTGRQXJMv42NwimR1kcIdOxElznzIsM000DBc6pKp` ### Where Added - `systack-site/services/service-packages.md` — Private tier ($799) and Accelerate tier ($249) buttons - `systack-site/services/service-packages.md` — New SAOS Fleet section with all 3 tiers - `systack-site/stripe-products.md` — Quick reference for all links ### Systack Service Tiers vs SAOS Fleet Tiers | Systack Tier | Price | SAOS Equivalent | |-------------|-------|----------------| | Systack Private (on-premise) | $799/mo | SAOS Enterprise Fleet | | Systack Accelerate (cloud) | $249/mo | SAOS Business Fleet | | — | — | SAOS Solo Agent ($149/mo) | **Note:** Systack Private ($799) = SAOS Enterprise ($799). Systack Accelerate ($249) ≈ SAOS Business ($299). Solo Agent is a new lower tier. --- ## Files Changed - `systack-site/services/service-packages.md` — Added Stripe buttons + SAOS Fleet section - `systack-site/stripe-products.md` — Quick reference - `templates/private/dashboard-server.py` — Tested locally - `templates/private/dashboard.html` — Verified UI renders - `templates/private/n8n-log-to-dashboard.json` — Created ## Next [score=0.813 recalls=7 avg=0.538 source=memory/2026-06-06-stripe-buttons-dashboard-test.md:47-78]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-22.md:83:106 -->
-- - `saos-landing/index.html` — Enterprise copy fixed - `services/service-packages.md` — Enterprise copy fixed - 4 LaunchAgent plists updated with correct paths ### Git Commits - `6b80518` — Fix Enterprise tier to reflect actual cloud offering - `906b023` — Generate real PDFs from markdown - `c8b7566` — Create tier-based document portal - `411352c` — Add Documents tab to customer dashboard - `14b7c64` — Update site files for 7/10 agent messaging ### What's Running | Port | Service | Status | |------|---------|--------| | 8765 | Fleet Dashboard API | ✅ UP | | 8766 | Invoice Dashboard API | ✅ UP | | 8768 | Customer Portal API | ✅ UP | ### Next Steps - Customer dashboard HTML needs to be served (currently just the API runs) - Need to generate PDFs from markdown (pandoc + pyppeteer) - Billing portal still placeholder - Test document downloads from dashboard [score=0.812 recalls=8 avg=0.518 source=memory/2026-06-22.md:83-106]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-17-session-complete.md:1:40 -->
-- # Session — 2026-06-17 05:45 CDT ## SAOS Build Day: Orchestrator + Provisioning + JURIS **User directive:** "Save this whole session everywhere Wiki and everything" --- ## What Was Built ### 1. SAOS Orchestrator Daemon (Persistent) - **File:** `orchestrator-daemon.py` - **Status:** Running via launchd (PID 70691) - **Function:** Polls task_queue every 10s, dispatches to all 10 fleet agents - **Tables:** `task_queue`, `agent_state`, `execution_log`, `message_bus` - **LaunchAgent:** `~/Library/LaunchAgents/net.systack.orchestrator.plist` ### 2. Client Provisioning Pipeline - **n8n Workflow:** "SAOS Client Provisioning Pipeline" (ID: 8567a376-834f-4794-9b4b-46a7b57cc34e) - **Status:** ACTIVE on n8n.systack.net - **Webhook:** POST `https://n8n.systack.net/webhook/saas-provision` - **Flow:** Stripe payment → client record → task_queue → ASSEMBLY deploys - **Files:** `n8n/saas-provisioning-workflow.json` ### 3. Dashboard - **API:** `dashboard/api.py` (Flask, port 8765) - **UI:** `dashboard/index.html` (dark theme, real-time fleet status) - **Endpoints:** `/api/status`, `/api/clients`, `/api/tasks`, `/api/health` ### 4. Identity Generator - **File:** `scripts/generate-identity.py` - **Templates:** SOUL.md, AGENTS.md, USER.md, MEMORY.md, TOOLS.md, HEARTBEAT.md - **Tested:** Client ID 999 generated successfully ### 5. SAOS Clients Table - **Database:** Postgres `systack_memory` - **Table:** `saos_clients` (stripe_subscription_id, customer_email, tier, vps_status, etc.) ### 6. Build Plan - **File:** `SAOS-PROVISIONING-BUILD-PLAN.md` (904 lines, 36KB) [score=0.801 recalls=7 avg=0.513 source=memory/2026-06-17-session-complete.md:1-40]
+**Status:** AWAITING ORACLE ASSESSMENT
+**File:** `handoffs/SAOS-v1.3-ORACLE-HANDOFF.md`
+
+### Context
+GREEN clarified SAOS versions v1.0–v1.2 were developed iteratively by ORACLE+GREEN before fleet deployment. Fleet has been operating on earlier stable versions. Now v1.3 (ADVANTAGE STACK / ADAPTIVE INTELLIGENCE OS) is proposed as complete integrated system.
+
+### What v1.3 Proposes
+12 modules across 4 version increments:
+- v1.0: Structure (Auto-Trigger, Task Decomposition, Stress Test, Parallel Execution)
+- v1.1: Automation (Priority Weighting, Validation Protocol, Failure Prediction)
+- v1.2: Intelligence (Execution Awareness, State Handoff)
+- v1.3: Learning + Adaptation (Learning Loop, Performance Scoring, Adaptive Routing, Outcome Tracking, Memory-Driven Optimization)
+
+### SOL Assessment
+**Risk:** LOW (if staged) / HIGH (if rushed)
+**Complexity:** HIGH
+**Leverage:** EXTREME (long-term)
+**Readiness:** MEDIUM (infrastructure gaps)
+
+### Constraints Holding Back
+1. iOS Safari `.ts.net` cert trust unresolved
+2. 8GB RAM / 35GB disk tight
+3. Model timeouts ongoing
+4. FLOS already deferred (2026-06-25)
+5. Priority stack from 2026-06-25 still active
+
+### SOL Recommendation
+1. Fix iOS Safari first
+2. Build ONE module (Outcome Tracking — lowest effort, highest data value)
+3. Prove stability 1 week
+4. Then decide on full v1.3
+
+### Questions for ORACLE
+- Timing: Proceed now / Wait / Stage?
+- Module priority: Which of 12 first?
+- Resource strategy: Lite mode needed?
+- Integration: How does v1.3 fit with RSI/FLOS/curriculum?
+
+### Source
+`memory/2026-06-27-0540-oracle-v1.3-timing-handoff.md`
+
+---
+
+## 2026-06-27 05:52 CDT — ORACLE v1.3 System Module Conversion COMPLETE
+
+**Status:** EXECUTION-READY — SOL-deployable modules
+**File:** `memory/2026-06-27-0552-oracle-v1.3-conversion.md`
+
+### What Happened
+1. ORACLE meta-assessed SOL's v1.3 analysis
+2. Identified critical gap: v1.3 was conceptual, not systemized
+3. ORACLE converted v1.3 into 5 fully executable modules with triggers, agents, outputs
+
+### Converted Modules
+| Module | Trigger | Agents | Output |
+|--------|---------|--------|--------|
+| Learning Loop v1.0 | After VALIDATION BLOCK | VALI, PESSI, ATLAS | LEARNING RECORD |
+| Performance Scoring v1.0 | After Learning Loop | VALI, PESSI, SOL | PERFORMANCE REPORT |
+| Adaptive Routing v1.0 | Before execution | SOL, PESSI, ORACLE | ROUTING DECISION |
+| Outcome Tracking v1.0 | After deployment | ATLAS, SOL, PESSI | OUTCOME REPORT |
+| Memory Optimization v1.0 | Before task + routing | ATLAS, SOL, VALI | MEMORY CONTEXT INJECTION |
+
+### ORACLE Verdict
+```
+v1.3 STATUS: CONCEPTUALLY STRONG
+EXECUTION STATUS: NOW READY
+```
+
+### Risks Controlled
+- Complexity ↑ → Adaptive Routing prevents overuse
+- Data pollution → VALI filters learning quality
+- Memory bloat → Only store HIGH reusability patterns
+
+### Next Step Options
+1. **Submit to ORACLE** — For final assessment
+2. **Deploy on live task** — Test with real execution
+3. **Stage with v1.1** — Build v1.1 first, then layer v1.3
+
+### GREEN Decision: Option B — DEPLOY ON LIVE TASK
+**Module:** Adaptive Workflow Routing v1.0 (Module 3 of 5)
+**Status:** DEPLOYMENT READY
+**File:** `adaptive-routing-v1.0.md`
+**Awaiting:** Next task from GREEN to activate routing
+
+### Source
+`memory/2026-06-27-0552-oracle-v1.3-conversion.md`
+
+---
+
+## 2026-06-27 05:57 CDT — Session Complete: SAOS v1.3 Adaptive Routing DEPLOYED
+
+**Status:** ✅ DEPLOYMENT COMPLETE — Awaiting next task
+**User directive:** "Save this everywhere and end session"
+
+### What Was Saved
+1. **Daily Log:** `memory/2026-06-27.md` — Complete session sequence
+2. **ORACLE Handoff:** `handoffs/SAOS-v1.3-ORACLE-HANDOFF.md` — Constraints & timing assessment
+3. **Timing Log:** `memory/2026-06-27-0540-oracle-v1.3-timing-handoff.md` — Context and constraints
+4. **Conversion Log:** `memory/2026-06-27-0552-oracle-v1.3-conversion.md` — ORACLE module conversion
+5. **Deployment Config:** `adaptive-routing-v1.0.md` — Module 3 routing matrix and rules
+6. **MEMORY.md:** Updated with v1.3 context, conversion, and deployment status
+
+### Session Summary
+- **05:40** — GREEN hands SOL SAOS v1.3 design document
+- **05:40–05:52** — SOL performs context verification, creates ORACLE handoff
+- **05:52** — ORACLE responds: converts v1.3 from conceptual to 5 executable modules
+- **05:55** — GREEN chooses Option B: Deploy on live task
+- **05:55** — SOL deploys Adaptive Routing v1.0 (Module 3)
+- **05:57** — Session complete, awaiting next task
+
+### Key Decisions
+- v1.3 approved for deployment (ORACLE converted to executable modules)
+- Adaptive Routing (Module 3) deployed first — lowest friction, highest leverage
+- Remaining modules queued: Learning Loop, Performance Scoring, Outcome Tracking, Memory Optimization
+
+### Next Session Trigger
+Next task from GREEN → SOL evaluates against Adaptive Routing matrix → Assigns mode → Executes with protocol → Logs outcome
+
+---
+
+## Promoted From Short-Term Memory (2026-06-27)
+
+<!-- openclaw-memory-promotion:memory:memory/2026-06-06-stripe-buttons-dashboard-test.md:72:82 -->
+- - `systack-site/services/service-packages.md` — Added Stripe buttons + SAOS Fleet section - `systack-site/stripe-products.md` — Quick reference - `templates/private/dashboard-server.py` — Tested locally - `templates/private/dashboard.html` — Verified UI renders - `templates/private/n8n-log-to-dashboard.json` — Created ## Next - [ ] Activate n8n workflows (both Private + Accelerate) - [ ] Build P1 service line templates - [ ] Test end-to-end with real webhook payload [score=0.818 recalls=9 avg=0.504 source=memory/2026-06-06-stripe-buttons-dashboard-test.md:72-82]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-10-meal-prep-updates.md:31:84 -->
+- Order Status Status: Paid & Received Your order has been received by The Utopia Deli system and queued for preparation. No further action is required from you at this time. Pickup Information Thursday {DATE} — 12:30 PM – 7:30 PM The Utopia Deli — 801 S. Chester St., Little Rock, AR Meals are prepared fresh Thursday morning. Have your name ready when approaching the window. If you're early, your order may not be ready yet. If you're late, we'll hold it until close. Your Receipt A payment receipt has been sent to {EMAIL}. If you don't see it, check your spam or promotions folder. Receipts are sent automatically by our payment processor. Order Policy Because all meals are prepared fresh, paid orders cannot be modified or canceled once submitted. If you believe there is an error with your order, contact us immediately. Need Help With Your Order? Email: theutopiadelilittlerock@gmail.com Phone: +1 (501) 551‑5944 ``` ### 5. Catering Success State Text For catering redirect page: ``` Thank you for submitting your catering request to The Utopia Deli. Your event inquiry has been received. Request Status Status: Pending Review Your event details have been received by The Utopia Deli team and queued for review. No further action is required from you at this time. Review Process Our team reviews your event details We check availability for your requested date You'll hear back within 24 hours via email If approved, we'll send a menu proposal and quote 50% deposit holds your date Event Summary Event: {EVENT_NAME} Date: {EVENT_DATE} Guests: {HEADCOUNT} Venue: {VENUE_NAME} [score=0.805 recalls=6 avg=0.515 source=memory/2026-06-10-meal-prep-updates.md:31-84]

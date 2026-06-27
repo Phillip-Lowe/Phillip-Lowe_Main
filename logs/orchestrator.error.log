@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/Users/philliplowe/.openclaw/workspaces/sol/orchestrator-daemon.py", line 371, in <module>
+    main()
+  File "/Users/philliplowe/.openclaw/workspaces/sol/orchestrator-daemon.py", line 368, in main
+    run_daemon()
+  File "/Users/philliplowe/.openclaw/workspaces/sol/orchestrator-daemon.py", line 320, in run_daemon
+    ensure_agents_seeded()
+  File "/Users/philliplowe/.openclaw/workspaces/sol/orchestrator-daemon.py", line 90, in ensure_agents_seeded
+    conn = get_db()
+  File "/Users/philliplowe/.openclaw/workspaces/sol/orchestrator-daemon.py", line 77, in get_db
+    return psycopg2.connect(
+  File "/Users/philliplowe/Library/Python/3.9/lib/python/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: FATAL:  the database system is starting up
+

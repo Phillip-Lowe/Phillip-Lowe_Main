@@ -20,8 +20,12 @@ import secrets
 import string
 from datetime import datetime, timedelta
 from functools import wraps
+import base64
+import uuid
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DELIVERABLES_DIR = os.path.join(BASE_DIR, 'deliverables')
+os.makedirs(DELIVERABLES_DIR, exist_ok=True)
 app = Flask(__name__, static_folder=BASE_DIR)
 CORS(app)
 
@@ -259,6 +263,7 @@ def health():
 def client_status():
     client = request.client
     client_id = client['id']
+    tier = client.get('tier', 'business')
     
     # Task counts
     tasks = db_query("""
@@ -268,12 +273,24 @@ def client_status():
     """, (str(client_id), str(client_id)))
     task_counts = {r['status']: r['n'] for r in tasks if 'status' in r}
     
-    # Agent states with descriptions
+    # Agent states filtered by tier
+    TIER_AGENTS = {
+        'personal': ['SOL', 'CHATTY'],
+        'personal+': ['SOL', 'CHATTY', 'GENI'],
+        'business': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'GENI', 'JURIS', 'PESSI'],
+        'enterprise': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'GENI', 'JURIS', 'PESSI', 'CODY', 'VALI'],
+        'private': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'JURIS'],
+        'accelerate': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'GENI', 'JURIS']
+    }
+    allowed = TIER_AGENTS.get(tier, TIER_AGENTS['business'])
+    
     agents = db_query("""
         SELECT agent_name, role, role_description, status, avatar_emoji,
                capabilities, tier_access, last_heartbeat
-        FROM agent_state ORDER BY agent_name
-    """)
+        FROM agent_state
+        WHERE agent_name = ANY(%s)
+        ORDER BY agent_name
+    """, (allowed,))
     
     # Recent chat activity
     recent_chat = db_query("""
@@ -309,12 +326,43 @@ def client_tasks():
 
 @app.route('/api/portal/agents')
 def client_agents():
-    """Public - no auth required for agent list."""
+    """Public - returns agents filtered by client tier."""
+    # Get client's tier from optional auth
+    auth_header = request.headers.get('Authorization', '')
+    tier = 'business'  # default
+    
+    if auth_header.startswith('Bearer '):
+        token = auth_header[7:].strip()
+        token_hash = hash_token(token)
+        client = db_query("""
+            SELECT c.tier FROM saos_clients c
+            JOIN client_auth_tokens t ON c.id = t.client_id
+            WHERE t.token_hash = %s AND t.revoked_at IS NULL AND t.expires_at > NOW()
+            LIMIT 1
+        """, (token_hash,), one=True)
+        if client and 'error' not in client:
+            tier = client.get('tier', 'business')
+    
+    # Tier-to-agent mapping
+    TIER_AGENTS = {
+        'personal': ['SOL', 'CHATTY'],
+        'personal+': ['SOL', 'CHATTY', 'GENI'],
+        'business': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'GENI', 'JURIS', 'PESSI'],
+        'enterprise': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'GENI', 'JURIS', 'PESSI', 'CODY', 'VALI'],
+        'private': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'JURIS'],
+        'accelerate': ['SOL', 'ASSEMBLY', 'CHATTY', 'ATLAS', 'GENI', 'JURIS']
+    }
+    
+    allowed = TIER_AGENTS.get(tier, TIER_AGENTS['business'])
+    
     agents = db_query("""
         SELECT agent_name, role, role_description, status, avatar_emoji,
                capabilities, tier_access
-        FROM agent_state ORDER BY agent_name
-    """)
+        FROM agent_state 
+        WHERE agent_name = ANY(%s)
+        ORDER BY agent_name
+    """, (allowed,))
+    
     return jsonify(agents)
 
 @app.route('/api/portal/client')
@@ -521,6 +569,96 @@ def me():
     """Get current client info."""
     return jsonify(request.client)
 
+# ── TASK CREATION (Client-initiated) ─────────────────────
+
+# Client-facing agent pool (internal agents like DOOBY/LOKI not exposed)
+SERVICE_AGENT_MAP = {
+    'Invoice Processing': 'ASSEMBLY',
+    'Automated Invoice Processing': 'ASSEMBLY',
+    'Lead Qualification': 'ASSEMBLY',
+    'Lead Qualification Pipeline': 'ASSEMBLY',
+    'Customer Support Drafting': 'CHATTY',
+    'Self-Hosted Customer Support': 'CHATTY',
+    'Customer Support Automations': 'CHATTY',
+    'Team Collaboration': 'CHATTY',
+    'Document Classification': 'ASSEMBLY',
+    'Document Classification Engine': 'ASSEMBLY',
+    'Report Generation': 'ASSEMBLY',
+    'Scheduled Report Generator': 'ASSEMBLY',
+    'Email Triage': 'CHATTY',
+    'Email Triage & Drafting': 'CHATTY',
+    'Calendar Management': 'ASSEMBLY',
+    'Task Reminders & Follow-ups': 'ASSEMBLY',
+    'Document Summarization': 'ASSEMBLY',
+    'Research Assistance': 'ATLAS',
+    'Note Organization': 'ASSEMBLY',
+    'Multi-Device Sync': 'ASSEMBLY',
+    'Voice Interaction': 'GENI',
+    'Expense Tracking': 'ASSEMBLY',
+    'Custom Integrations': 'ASSEMBLY',
+    'On-Premise Deployment': 'ASSEMBLY',
+    'HIPAA-Grade Privacy': 'JURIS',
+    'White-Glove Setup': 'ASSEMBLY',
+    'Priority Support (4hr SLA)': 'PESSI',
+    'Private Document Extraction': 'ASSEMBLY',
+    'Data Entry Elimination': 'ASSEMBLY',
+    'Private Knowledge Base Search': 'ATLAS',
+    'Compliance Audit Trail': 'JURIS',
+}
+
+@app.route('/api/tasks/request', methods=['POST'])
+@require_auth
+def request_task():
+    """Client requests setup for a service. Creates a proper task."""
+    client_id = request.client['id']
+    data = request.get_json() or {}
+    service_name = data.get('service_name', 'Unknown Service')
+    service_desc = data.get('service_description', '')
+    
+    # Determine agent based on service
+    assigned_agent = SERVICE_AGENT_MAP.get(service_name, 'SOL')
+    
+    # Create task
+    task = db_query("""
+        INSERT INTO task_queue (task_type, display_name, description, payload_json, priority, status, assigned_agent)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        RETURNING id, task_type, display_name, description, assigned_agent, status, priority, created_at
+    """, (
+        'service_setup',
+        f'Setup: {service_name}',
+        f'Client requested setup for {service_name}. {service_desc}',
+        json.dumps({
+            'client_id': client_id,
+            'service_name': service_name,
+            'service_description': service_desc,
+            'requested_by': 'client_dashboard'
+        }),
+        4,  # High priority
+        'PENDING',
+        assigned_agent
+    ), one=True)
+    
+    if not task or 'error' in task:
+        return jsonify({'error': 'Failed to create task'}), 500
+    
+    # Create notification for client
+    db_exec("""
+        INSERT INTO chat_messages (conversation_id, sender_type, sender_name, content, message_type)
+        SELECT id, 'system', 'System', %s, 'task_created'
+        FROM chat_conversations
+        WHERE client_id = %s AND status IN ('open', 'active')
+        ORDER BY updated_at DESC
+        LIMIT 1
+    """, (f"📋 Task #{task['id']} created: Setup {service_name}. Assigned to {assigned_agent}.", client_id))
+    
+    return jsonify({
+        'success': True,
+        'task_id': task['id'],
+        'assigned_agent': assigned_agent,
+        'status': 'PENDING',
+        'message': f'Task created and assigned to {assigned_agent}'
+    })
+
 # ── AGENT RESPONSE WEBHOOK (for n8n/OpenClaw to call) ────────
 
 @app.route('/api/chat/webhook/agent-response', methods=['POST'])
@@ -578,6 +716,136 @@ def poll_updates():
         "timestamp": datetime.now().isoformat()
     })
 
+# ── INTERNAL: Task Polling (for OpenClaw cron/agent spawn) ──
+
+@app.route('/api/internal/pending-tasks')
+def pending_tasks():
+    """Internal endpoint for OpenClaw/n8n to poll for pending tasks.
+    Returns tasks ready for agent assignment.
+    Requires internal-api-key header for basic security.
+    """
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    
+    if api_key != expected:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    # Get pending tasks that haven't been claimed yet
+    tasks = db_query("""
+        SELECT t.id, t.task_type, t.display_name, t.description,
+               t.assigned_agent, t.priority, t.payload_json,
+               t.created_at, c.id as client_id, c.customer_name,
+               c.customer_email, c.tier
+        FROM task_queue t
+        JOIN saos_clients c ON (t.payload_json->>'client_id')::int = c.id
+        WHERE t.status = 'PENDING'
+        AND (t.payload_json->>'claimed_at') IS NULL
+        ORDER BY t.priority DESC, t.created_at ASC
+        LIMIT 10
+    """)
+    
+    return jsonify({
+        'tasks': tasks,
+        'count': len(tasks),
+        'timestamp': datetime.now().isoformat()
+    })
+
+@app.route('/api/internal/claim-task/<int:task_id>', methods=['POST'])
+def claim_task(task_id):
+    """Mark a task as claimed by an agent runner.
+    Prevents duplicate agent spawns."""
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    
+    if api_key != expected:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    data = request.get_json() or {}
+    runner_id = data.get('runner_id', 'unknown')
+    
+    # Mark task as claimed
+    db_exec("""
+        UPDATE task_queue
+        SET payload_json = payload_json || %s,
+            updated_at = NOW()
+        WHERE id = %s
+    """, (json.dumps({'claimed_at': datetime.now().isoformat(), 'runner_id': runner_id}), task_id))
+    
+    return jsonify({'success': True, 'task_id': task_id, 'claimed_by': runner_id})
+
+@app.route('/api/internal/update-task/<int:task_id>', methods=['POST'])
+def update_task(task_id):
+    """Update task status from agent execution.
+    Called by spawned agents via webhook."""
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    
+    if api_key != expected:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    data = request.get_json() or {}
+    status = data.get('status')
+    result = data.get('result', '')
+    error = data.get('error', '')
+    
+    if status not in ['RUNNING', 'DONE', 'FAILED']:
+        return jsonify({'error': 'Invalid status'}), 400
+    
+    # Update task
+    if status == 'RUNNING':
+        db_exec("""
+            UPDATE task_queue
+            SET status = %s, updated_at = NOW()
+            WHERE id = %s
+        """, (status, task_id))
+    elif status == 'DONE':
+        db_exec("""
+            UPDATE task_queue
+            SET status = %s, completed_at = NOW(), updated_at = NOW(),
+                payload_json = payload_json || %s
+            WHERE id = %s
+        """, (status, json.dumps({'result': result}), task_id))
+    elif status == 'FAILED':
+        db_exec("""
+            UPDATE task_queue
+            SET status = %s, error_message = %s, updated_at = NOW()
+            WHERE id = %s
+        """, (status, error, task_id))
+    
+    # Notify client via chat if there's an open conversation
+    task = db_query("SELECT payload_json FROM task_queue WHERE id = %s", (task_id,), one=True)
+    if task:
+        payload = task.get('payload_json', {})
+        client_id = payload.get('client_id') if isinstance(payload, dict) else None
+        
+        if client_id:
+            status_msg = {
+                'RUNNING': f"🔄 Task #{task_id} is now being processed.",
+                'DONE': f"✅ Task #{task_id} completed! {result[:200] if result else ''}",
+                'FAILED': f"❌ Task #{task_id} failed: {error[:200] if error else 'Unknown error'}"
+            }.get(status, f"Task #{task_id} status: {status}")
+            
+            # Insert chat notification
+            db_exec("""
+                INSERT INTO chat_messages (conversation_id, sender_type, sender_name, content, message_type)
+                SELECT id, 'system', 'System', %s, 'task_update'
+                FROM chat_conversations
+                WHERE client_id = %s AND status IN ('open', 'active')
+                ORDER BY updated_at DESC
+                LIMIT 1
+            """, (status_msg, client_id))
+            
+            # Queue async notification for offline clients
+            urgency = 'urgent' if status == 'FAILED' else 'normal'
+            channel = 'imessage' if status == 'FAILED' else 'auto'
+            
+            db_exec("""
+                INSERT INTO notifications (client_id, task_id, message, urgency, channel, status)
+                VALUES (%s, %s, %s, %s, %s, 'queued')
+            """, (client_id, task_id, status_msg, urgency, channel))
+    
+    return jsonify({'success': True, 'task_id': task_id, 'status': status})
+
 # ── PDF Downloads (updated for v2.1) ──
 @app.route('/download/quickstart-v5')
 def serve_quickstart_v5():
@@ -608,6 +876,222 @@ def serve_mobile_guide_v2():
 def serve_enterprise_guide():
     return send_from_directory(BASE_DIR, 'SyStack-Enterprise-Deployment-Guide-v1.0.pdf',
                                as_attachment=False, mimetype='application/pdf')
+
+# ── NOTIFICATIONS (Async — Email/iMessage) ──────────────────
+
+@app.route('/api/internal/notify-client', methods=['POST'])
+def notify_client():
+    """Send async notification to client via BlueBubbles (iMessage) or email.
+    Called by task update system when client is offline or for urgent updates.
+    """
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    
+    if api_key != expected:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    data = request.get_json() or {}
+    client_id = data.get('client_id')
+    task_id = data.get('task_id')
+    message = data.get('message', '')
+    urgency = data.get('urgency', 'normal')  # normal, urgent, critical
+    channel = data.get('channel', 'auto')  # auto, imessage, email
+    
+    if not client_id or not message:
+        return jsonify({'error': 'client_id and message required'}), 400
+    
+    # Get client info
+    client = db_query("""
+        SELECT customer_name, customer_email, tier 
+        FROM saos_clients WHERE id = %s
+    """, (client_id,), one=True)
+    
+    if not client:
+        return jsonify({'error': 'Client not found'}), 404
+    
+    # Store notification log
+    db_exec("""
+        INSERT INTO notifications (client_id, task_id, message, urgency, channel, status)
+        VALUES (%s, %s, %s, %s, %s, 'queued')
+    """, (client_id, task_id, message, urgency, channel))
+    
+    # Determine delivery channel
+    delivery_channel = channel
+    if channel == 'auto':
+        delivery_channel = 'imessage' if urgency in ['urgent', 'critical'] else 'email'
+    
+    # Send via BlueBubbles (iMessage) for urgent or critical
+    if delivery_channel == 'imessage':
+        try:
+            import subprocess
+            result = subprocess.run([
+                'curl', '-s', '-X', 'POST',
+                'http://phillips-macbook-air.tail573d57.ts.net:1234/api/message',
+                '-H', 'Content-Type: application/json',
+                '-d', json.dumps({
+                    'chatGuid': '+15012746231',
+                    'message': message[:500]  # iMessage limit
+                })
+            ], capture_output=True, text=True, timeout=10)
+            
+            db_exec("""
+                UPDATE notifications SET status = 'sent', sent_at = NOW()
+                WHERE client_id = %s AND task_id = %s AND status = 'queued'
+            """, (client_id, task_id))
+            
+            return jsonify({
+                'success': True,
+                'channel': 'imessage',
+                'message': message,
+                'client': client['customer_name']
+            })
+        except Exception as e:
+            # Fallback to email
+            delivery_channel = 'email'
+    
+    # Send via email (SMTP)
+    if delivery_channel == 'email':
+        # For now, store as pending email — n8n will pick up and send
+        db_exec("""
+            UPDATE notifications SET status = 'pending_email', sent_at = NOW()
+            WHERE client_id = %s AND task_id = %s AND status = 'queued'
+        """, (client_id, task_id))
+        
+        return jsonify({
+            'success': True,
+            'channel': 'email',
+            'message': message,
+            'client': client['customer_name'],
+            'note': 'Queued for email delivery via n8n'
+        })
+    
+    return jsonify({'error': 'No delivery channel available'}), 500
+
+@app.route('/api/internal/notifications/pending')
+def pending_notifications():
+    """Get pending notifications for n8n to process."""
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    
+    if api_key != expected:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    notifications = db_query("""
+        SELECT n.*, c.customer_name, c.customer_email
+        FROM notifications n
+        JOIN saos_clients c ON n.client_id = c.id
+        WHERE n.status IN ('queued', 'pending_email')
+        ORDER BY n.created_at DESC
+        LIMIT 50
+    """)
+    
+    return jsonify({
+        'notifications': notifications,
+        'count': len(notifications),
+        'timestamp': datetime.now().isoformat()
+    })
+
+# ── DELIVERABLES (Task Output Storage) ─────────────────────
+
+@app.route('/api/internal/deliverables/upload', methods=['POST'])
+def upload_deliverable():
+    """Upload a deliverable file for a task.
+    Called by agents after completing work."""
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    
+    if api_key != expected:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    data = request.get_json() or {}
+    task_id = data.get('task_id')
+    filename = data.get('filename', 'deliverable.txt')
+    content_base64 = data.get('content_base64', '')
+    description = data.get('description', '')
+    
+    if not task_id or not content_base64:
+        return jsonify({'error': 'task_id and content_base64 required'}), 400
+    
+    # Generate unique filename
+    file_id = str(uuid.uuid4())[:8]
+    safe_filename = f"task_{task_id}_{file_id}_{filename.replace(' ', '_')}"
+    filepath = os.path.join(DELIVERABLES_DIR, safe_filename)
+    
+    # Decode and save
+    try:
+        content = base64.b64decode(content_base64)
+        with open(filepath, 'wb') as f:
+            f.write(content)
+    except Exception as e:
+        return jsonify({'error': f'Failed to save file: {str(e)}'}), 500
+    
+    # Store reference in task payload
+    db_exec("""
+        UPDATE task_queue
+        SET payload_json = payload_json || %s,
+            updated_at = NOW()
+        WHERE id = %s
+    """, (json.dumps({
+        'deliverable': {
+            'filename': filename,
+            'stored_as': safe_filename,
+            'description': description,
+            'size': len(content),
+            'uploaded_at': datetime.now().isoformat()
+        }
+    }), task_id))
+    
+    return jsonify({
+        'success': True,
+        'task_id': task_id,
+        'filename': filename,
+        'download_url': f'/api/deliverables/download/{safe_filename}'
+    })
+
+@app.route('/api/deliverables/download/<filename>')
+@require_auth
+def download_deliverable(filename):
+    """Download a deliverable file."""
+    # Security: prevent directory traversal
+    safe_name = os.path.basename(filename)
+    filepath = os.path.join(DELIVERABLES_DIR, safe_name)
+    
+    if not os.path.isfile(filepath):
+        return jsonify({'error': 'File not found'}), 404
+    
+    return send_from_directory(DELIVERABLES_DIR, safe_name, as_attachment=True)
+
+@app.route('/api/portal/deliverables')
+@require_auth
+def list_deliverables():
+    """List all deliverables for this client."""
+    client_id = request.client['id']
+    
+    tasks = db_query("""
+        SELECT id, task_type, display_name, payload_json, completed_at
+        FROM task_queue
+        WHERE payload_json->'deliverable' IS NOT NULL
+        AND (payload_json->>'client_id')::int = %s
+        ORDER BY completed_at DESC
+        LIMIT 50
+    """, (client_id,))
+    
+    deliverables = []
+    for task in tasks:
+        payload = task.get('payload_json', {})
+        if isinstance(payload, dict) and 'deliverable' in payload:
+            d = payload['deliverable']
+            deliverables.append({
+                'task_id': task['id'],
+                'task_name': task.get('display_name', task['task_type']),
+                'filename': d.get('filename'),
+                'description': d.get('description'),
+                'size': d.get('size', 0),
+                'download_url': f'/api/deliverables/download/{d.get("stored_as")}',
+                'completed_at': task.get('completed_at')
+            })
+    
+    return jsonify(deliverables)
 
 # ── Static file serving ──
 @app.route('/', defaults={'path': ''})

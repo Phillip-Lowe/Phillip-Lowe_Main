@@ -20,3 +20,6 @@
 [2026-06-22 11:39:21] 127.0.0.1 - "GET /queue HTTP/1.1" 200 -
 [2026-06-22 11:39:21] 127.0.0.1 - "GET /status HTTP/1.1" 200 -
 [2026-06-22 18:12:54] 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+[2026-06-24 09:36:41] 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+[2026-06-27 08:45:10] SAOS Webhook Bridge started on port 8767
+[2026-06-27 08:45:10] Log file: /Users/philliplowe/.openclaw/workspaces/sol/logs/saos_webhook_bridge.log

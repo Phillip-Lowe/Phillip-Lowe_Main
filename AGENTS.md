@@ -462,6 +462,54 @@ Source: memory/2026-06-26-utopia-deli-session-failure.md
 
 ---
 
+## RULE 10: Memory Hygiene — Curated Memory Must Stay Current (Added 2026-06-27 05:11 CDT)
+
+### The Problem
+
+Agents write to daily logs (`memory/YYYY-MM-DD.md`) but never update curated MEMORY.md when status changes. Result: curated memory says "❌ needed" or "⏳ blocked" for things that were completed days ago. This causes repeated "we still need X" statements, wasted time, and broken trust.
+
+### The Rule
+
+**When status changes from "pending" to "complete":**
+
+1. **Update curated MEMORY.md IMMEDIATELY** — do not wait for weekly review
+2. **Never leave stale entries** — remove or update "⏳ blocked", "❌ needed", "⏳ not done" after the thing is done
+3. **Update BOTH in the same session** — daily log AND curated memory together
+4. **When user says "save this everywhere"** — include curated memory update if status changed
+
+### Examples of Stale Memory (What NOT to do)
+
+❌ **June 17:** "Vultr API key ❌ needed"
+❌ **June 24:** Key obtained, only daily log updated
+❌ **June 27:** Curated memory STILL says "❌ needed" — agent assumes it's still pending
+
+✅ **June 17:** "Vultr API key ❌ needed"
+✅ **June 24:** Key obtained → update BOTH daily log AND curated memory to "✅ obtained"
+✅ **June 27:** Curated memory correctly shows "✅ obtained"
+
+### Why Weekly Review Is NOT Enough
+
+- Agents check curated memory during sessions for quick status
+- They do NOT search daily logs unless explicitly told to
+- Stale curated memory becomes the "source of truth" even when it's wrong
+- The gap between daily reality and curated memory compounds over time
+
+### Enforcement
+
+User must be able to say:
+- "Why does memory still say we need X when we already have it?"
+- "Update the curated memory, not just the daily log"
+- "Check if this TODO is actually still pending before telling me"
+
+And the agent MUST:
+- Search daily logs for completion evidence
+- Update curated memory immediately
+- Never report stale status as current
+
+Source: memory/2026-06-27-0511-cdt-memory-hygiene-rule.md
+
+---
+
 ## Credentials are always in SOL-Knowledge
 
 ---
@@ -488,9 +536,9 @@ Source: memory/2026-06-26-utopia-deli-session-failure.md
 - **Next:**
   - ✅ ~~Build dashboard authentication (PIN + session tokens)~~ DONE 2026-06-25
   - ✅ ~~Fix mobile chat layout and auth~~ DONE 2026-06-25
-  - Test end-to-end provisioning with real Vultr/Tailscale/n8n credentials — **NEXT SESSION PRIORITY #2**
-  - Fix Tailscale `.ts.net` URL on iOS Safari (cert trust issue)
-  - **Update PDF documentation** — Dashboard User Guide needs v2.0 with 6 tabs, Activity tab, mobile features, honest status. Architecture Overview needs mobile section. Create new "Dashboard Mobile Access Guide" PDF.
+  - ✅ ~~Test end-to-end provisioning with real Vultr/Tailscale/n8n credentials~~ DONE 2026-06-22 (see memory/2026-06-22-vps-provisioning-results.md)
+  - ⏳ Fix Tailscale `.ts.net` URL on iOS Safari (cert trust issue)
+  - ⏳ **Update PDF documentation** — Dashboard User Guide needs v2.0 with 6 tabs, Activity tab, mobile features, honest status. Architecture Overview needs mobile section. Create new "Dashboard Mobile Access Guide" PDF.
 
 ### Real-Time Voice Chat — Custom Provider Adapter (Added 2026-06-24)
 
@@ -570,15 +618,17 @@ Source: memory/2026-06-26-utopia-deli-session-failure.md
 4. ✅ Async Notifications (email queue + iMessage urgent)
 5. ✅ Deliverables Storage (upload/download/list)
 6. ✅ n8n Email Workflow (active, polls every 60s, SMTP credentials configured)
+7. ✅ Dashboard Authentication (PIN + session tokens, mobile login)
+8. ✅ Mobile Responsive Layout (hamburger menu, sidebar toggle, iOS fixes)
+9. ✅ End-to-End Provisioning (VPS creation, Tailscale join, webhook callback)
 
 **Next Priority:**
-1. **End-to-end provisioning test** — Real Vultr/Tailscale/n8n credentials
-2. **iOS Safari cert trust** — Fix `.ts.net` URL access
-3. **PDF documentation update** — Dashboard User Guide v2.0, Mobile Access Guide
-4. **Production deployment** — Move from dev to production credentials
-5. **Monitoring dashboard** — Agent health, task queue depth, error rates
-6. **Client onboarding flow** — Automated first-time setup
-7. **Billing integration** — Stripe subscription management
-8. **Security audit** — Penetration test, credential rotation
+1. ⏳ iOS Safari cert trust — Fix `.ts.net` URL access (use direct IP workaround for now)
+2. ⏳ PDF documentation update — Dashboard User Guide v2.0, Mobile Access Guide
+3. ⏳ Production deployment — Move from dev to production credentials
+4. ⏳ Monitoring dashboard — Agent health, task queue depth, error rates
+5. ⏳ Client onboarding flow — Automated first-time setup
+6. ⏳ Billing integration — Stripe subscription management
+7. ⏳ Security audit — Penetration test, credential rotation
 
 ---
