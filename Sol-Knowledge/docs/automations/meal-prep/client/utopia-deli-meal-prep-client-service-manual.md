@@ -2,11 +2,11 @@
 ## Client Service Manual
 
 **Document ID:** `UD-MP-CSM-001`  
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Live  
 **Prepared for:** Utopia Deli, Little Rock, AR  
 **Prepared by:** Systack (systack.net)  
-**Date:** 2026-06-16  
+**Date:** 2026-06-29  
 **Support:** support@systack.net | (501) 274-6231
 
 ---
@@ -125,7 +125,15 @@ Orders must be placed by Wednesday for Thursday pickup.
 
 ---
 
-## 6. Support
+## 6. Recent Fixes (June 2026)
+
+| Issue | Resolution |
+|-------|------------|
+| Submit button showing error after order processed | Fixed — payment link now correctly returned to customer browser for immediate redirect to Square |
+
+---
+
+## 7. Support
 
 | Channel | Detail |
 |---------|--------|

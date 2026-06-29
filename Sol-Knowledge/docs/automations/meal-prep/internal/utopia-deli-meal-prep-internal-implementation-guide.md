@@ -2,10 +2,10 @@
 ## Internal Implementation Guide
 
 **Document ID:** `UD-MP-IMPL-001`  
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Internal — Systack Only  
 **Source System:** Utopia Deli (Live since 2026-06-15)  
-**Date:** 2026-06-16  
+**Date:** 2026-06-29  
 **Builder:** SOL / Assembly
 
 ---
@@ -129,6 +129,35 @@ function updateMPTotals() {
 | Flat $50 labor | Unfair for multi-set orders | Changed to $50/set |
 | 6 meals per set | Wrong package size | Changed to 7 |
 | Individual meal toggles | Confusing UX | Replaced with package +/- |
+
+---
+
+## 6. Production Fix Log (2026-06-29)
+
+### Bug: Submit Button Shows Error After Order Processes
+
+**Symptom:** Customer clicks "Pay & Place Order" → order processes in n8n → Square link created → email sent → DB saved → but browser shows "Something went wrong"
+
+**Root Causes:**
+1. **Frontend:** `mp-pickup` element referenced in JS but never existed in HTML → null reference crash before fetch
+2. **n8n Workflow:** `MP Format Response1` node not connected to `Respond to Webhook` node → empty HTTP response
+
+**Fixes Applied:**
+
+| Fix | File | Detail |
+|-----|------|--------|
+| Hardcode pickup time | `catering/catering-form.js` | `pickup = 'Thursday 12:30 PM - 7:30 PM'` |
+| Fix payload format | `catering/catering-form.js` | Match meal-prep branch: `body.pricing.subtotal/labor/tax/total`, `items` with `qty` + `price` |
+| Connect response node | n8n workflow | Wire `MP Format Response1` → `Respond to Webhook` |
+
+**Commits:** `98f792d`, `92ec9a0`
+
+**Verification:**
+- ✅ Order submits successfully
+- ✅ Square payment link returned in response  
+- ✅ Browser redirects to payment page
+- ✅ Confirmation email sent
+- ✅ Order saved to database
 
 ---
 
