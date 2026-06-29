@@ -14,7 +14,7 @@
 
 | Date | Change | Commit |
 |------|--------|--------|
-| 2026-06-16 | v1.0 — Initial architecture | — |
+| 2026-06-29 | v1.0 — Initial architecture | — |
 | 2026-06-29 | v1.1 — Updated payload format for Deli Simple Checkout v4 | c7c6a24 |
 
 ---
@@ -96,7 +96,7 @@ The frontend sends the following JSON to `POST /webhook/utopia-deli-order-v4`:
 │                                                          │
 │  [Menu] → [Cart] → [Checkout Form] → [POST to Webhook]  │
 └──────────────────────────┬──────────────────────────────┘
-                           │ POST /webhook/utopia-deli-html-order-v1
+                           │ POST /webhook/utopia-deli-order-v4
                            ▼
 ┌─────────────────────────────────────────────────────────┐
 │                    n8n PROCESSING                         │

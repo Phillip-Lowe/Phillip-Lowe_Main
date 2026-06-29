@@ -5,7 +5,7 @@
 **Version:** 1.0  
 **Status:** Internal — Systack Only  
 **Source System:** Utopia Deli (Live since 2026-06-03)  
-**Date:** 2026-06-16  
+**Date:** 2026-06-29  
 **Builder:** SOL / Assembly
 
 ---
@@ -60,7 +60,7 @@ Frontend (HTML/JS)
 
 ### n8n Workflow (Order Intake)
 
-**Workflow ID:** `1WEM4rZxjhhy7ooM`
+**Workflow ID:** `Utopia-Deli-Simple-Checkout-v4`
 
 Key nodes:
 
@@ -85,7 +85,7 @@ Key nodes:
 
 ### Confirmation Workflow
 
-**Workflow ID:** `IW27pwPj5DBYQdcq`
+**Workflow ID:** `Utopia-Deli-Confirmation`
 
 Handles:
 
@@ -100,7 +100,7 @@ Handles:
 ### Step 1 — Create Webhook
 
 - **Method:** POST
-- **Path:** `utopia-deli-html-order-v1`
+- **Path:** `utopia-deli-order-v4`
 - **Mode:** `responseNode`
 
 ---

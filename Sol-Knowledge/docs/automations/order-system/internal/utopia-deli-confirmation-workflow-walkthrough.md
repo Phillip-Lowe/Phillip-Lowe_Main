@@ -5,7 +5,7 @@
 **Version:** 1.0  
 **Status:** Internal — Systack Only  
 **Source System:** Utopia Deli (Live since 2026-06-12)  
-**Date:** 2026-06-16  
+**Date:** 2026-06-29  
 **Builder:** SOL / Assembly
 
 ---
