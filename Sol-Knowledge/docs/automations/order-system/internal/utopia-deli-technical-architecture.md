@@ -2,11 +2,67 @@
 ## Technical Architecture
 
 **Document ID:** `UD-ARCH-001`  
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Internal — Systack Only  
 **Source System:** Utopia Deli (Live since 2026-06-03)  
-**Date:** 2026-06-16  
+**Date:** 2026-06-29  
 **Builder:** SOL / Assembly
+
+---
+
+## Update Log
+
+| Date | Change | Commit |
+|------|--------|--------|
+| 2026-06-16 | v1.0 — Initial architecture | — |
+| 2026-06-29 | v1.1 — Updated payload format for Deli Simple Checkout v4 | c7c6a24 |
+
+---
+
+## Payload Format (Deli Simple Checkout v4)
+
+The frontend sends the following JSON to `POST /webhook/utopia-deli-order-v4`:
+
+```json
+{
+  "body": {
+    "source": "pickup-order",
+    "customer": {
+      "name": "Customer Name",
+      "email": "customer@example.com",
+      "phone": "5015551234"
+    },
+    "items": [{
+      "name": "cowboy chikn sandwich",
+      "base_price_cents": 1300,
+      "qty": 1,
+      "modifiers": [{
+        "label": "plain fries",
+        "price_cents": 500
+      }]
+    }],
+    "subtotal_cents": 1800,
+    "tax_cents": 171,
+    "frontend_total_cents": 1971,
+    "notes": "",
+    "pickup_time": "ASAP"
+  }
+}
+```
+
+**Key Fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Display name of menu item |
+| `base_price_cents` | integer | Item price without modifiers |
+| `qty` | integer | Quantity ordered |
+| `modifiers[].label` | string | Display name of modifier |
+| `modifiers[].price_cents` | integer | Modifier upcharge in cents |
+| `subtotal_cents` | integer | Pre-tax total |
+| `tax_cents` | integer | Calculated tax (9.52%) |
+| `frontend_total_cents` | integer | Final total including tax |
+
+**Note:** Backend recalculates totals from `base_price_cents + sum(modifiers.price_cents)`. Frontend totals are for comparison only.
 
 ---
 
@@ -98,11 +154,11 @@
 | Component | Technology | Location |
 |-----------|------------|----------|
 | Order Page | Static HTML/CSS/JS | `order.theutopiadeli.com/pickup-order/` |
-| Menu Config | JavaScript (`config-v2.js`) | GitHub Pages repo |
-| Order Intake | n8n Workflow `1WEM4rZxjhhy7ooM` | `n8n.systack.net` |
+| Menu Config | JavaScript (`menu-data.js`) | GitHub Pages repo |
+| Order Intake | n8n Workflow `Utopia-Deli-Simple-Checkout-v4` | `n8n.systack.net` |
 | Payment Processing | Square Checkout API v2 | Square |
-| Confirmation | n8n Workflow `IW27pwPj5DBYQdcq` | `n8n.systack.net` |
-| Order Log | Google Sheets | Shared Google Drive |
+| Confirmation | n8n Workflow | `n8n.systack.net` |
+| Order Log | PostgreSQL DB `utopia_deli` | localhost:5432 |
 | Email Delivery | SMTP (Gmail) | n8n Email Node |
 
 ---
