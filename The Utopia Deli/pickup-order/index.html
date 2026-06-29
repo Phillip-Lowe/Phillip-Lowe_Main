@@ -1134,8 +1134,8 @@
           }
         }
 
-        // ADD selection
-        groupList.push(opt);
+        // ADD selection — include group reference for cart/confirmation display
+        groupList.push({ ...opt, group });
         btn.classList.add("active");
         updateModifierUI(group, rules);
       }
@@ -1540,7 +1540,7 @@
         <div style="text-align:left;">
           <div style="font-weight:600;font-size:14px;">${item.qty}× ${item.name}</div>
           ${comboMods.length ? `<div style="color:#AF3D4B;font-size:12px;margin-top:2px;">🍟 COMBO: ${comboMods.map(m => m.label.replace('Add ', '')).join(' + ')} <span style="color:#6B7280;">(included)</span></div>` : ''}
-          ${otherMods.length ? `<div style="color:#6B7280;font-size:12px;margin-top:2px;">${otherMods.map(m => m.label).join(' • ')}</div>` : ''}
+          ${otherMods.length ? `<div style="color:#6B7280;font-size:12px;margin-top:2px;">${otherMods.map(m => m.label + (m.price > 0 ? ` (+$${formatPrice(m.price)})` : '')).join(' • ')}</div>` : ''}
         </div>
         <span style="font-weight:700;color:#AF3D4B;font-size:14px;white-space:nowrap;">$${formatPrice(item.totalPrice)}</span>
       </div>
