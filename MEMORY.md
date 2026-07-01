@@ -4,6 +4,65 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-06-30 — Systack Command Center Built + Security Hardened
+
+**Status:** ✅ DEPLOYED — Port 8770, Tailscale-only
+**Commit:** `e40c5f1`
+**Files:** `systack-command-center/api.py`, `index.html`, `SECURITY-AUDIT.md`
+
+### What Was Built
+Green's internal master dashboard — monitors all deployments, clients, agents, VPS, services.
+
+### Security Hardening (10 Fixes)
+| # | Issue | Fix |
+|---|-------|-----|
+| 1 | No authentication | PIN via `X-Admin-PIN` header |
+| 2 | CORS global | Restricted to Tailscale (100.*) + localhost |
+| 3 | DB credentials in source | Moved to environment variables only |
+| 4 | No input validation | Parameterized queries + path sanitization |
+| 5 | Internal IPs hardcoded | Moved to `SYSTACK_VPS_CONFIG` env |
+| 6 | No rate limiting | 100 req/min per IP (429 response) |
+| 7 | No HTTPS | Documented: Tailscale-only, not public |
+| 8 | No connection pooling | `SimpleConnectionPool` (1-5 conns) |
+| 9 | No access logging | Stdout logging for audit trail |
+| 10 | Stack trace leaks | Generic error handlers |
+
+### Dashboards Now Running
+| Dashboard | Port | Purpose | Auth |
+|-----------|------|---------|------|
+| Customer Fleet Dashboard | 8765 | Demos/testing | None |
+| **Systack Command Center** | **8770** | **Green's master view** | **PIN** |
+| SAOS Customer Portal | 8768 | Client-facing | PIN |
+| Invoice Dashboard | 8766 | Invoice pipeline | PIN |
+
+### UX Polish
+- PIN auth modal with localStorage persistence
+- Removed fake revenue data (was $3,847 MRR)
+- Wired Clients tab to live API data
+- Fixed "all clear" alert color (green, not red)
+- Auto-refresh every 30s
+
+### Environment Variables
+```bash
+export SYSTACK_ADMIN_PIN=xxxx      # Required (4+ digits)
+export PGHOST=localhost             # Required
+export PGPORT=5432                  # Required
+export PGDATABASE=systack_memory    # Required
+export PGUSER=philliplowe           # Required
+```
+
+### Next Build: Booking Dashboard (Port 8772)
+- Today's appointments
+- Calendar view (week/month)
+- No-show tracking + analytics
+- Business hours / services settings
+
+### Deli Dashboard: DEFERRED
+- They have Square POS dashboard
+- Not revenue-critical for now
+
+---
+
 ## 2026-06-30 — Cross-Commit: 4 Days of Work Synced to Git
 
 **Status:** ✅ COMMITTED & PUSHED
@@ -22,6 +81,7 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 - `pricing-config.json`
 - **2026-06-30 Update:** 3 missing service workflows BUILT (JSON files ready for n8n import)
 - **2026-06-30 Update:** iOS Safari cert trust plan created (Cloudflare Tunnel recommended)
+- **2026-06-30 Update:** Invoice pipeline FIXED — Systack Private workflow had wrong binary field references (`$binary.file` instead of `$binary.attachment_0`), now corrected and active
 
 **Systack Workflows:**
 - Deli Simple Checkout v5 (new)
@@ -4605,6 +4665,7 @@ Health, login, logout, change-pin, status, integrations, search, tasks, services
 - Chat bridge not imported to n8n
 - No automated testing
 - Documentation slightly outdated
+- Invoice pipeline had wrong binary field references (fixed 2026-06-30)
 
 ### 🟢 LOW GAPS
 - No light mode, keyboard shortcuts, notification preferences UI, API rate limiting, webhook management
