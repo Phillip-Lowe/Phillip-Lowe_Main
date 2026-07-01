@@ -383,7 +383,7 @@ def main():
     tailscale_key = args.tailscale_key or creds.get('tailscale_auth') or os.environ.get("TAILSCALE_AUTH_KEY")
     
     # Initialize provisioner
-    provisioner = VultrProvisioner(api_key=api_key)
+    provisioner = VultrProvisioner(api_key=TST4IQSC56YHJJIJEG6ZGKLLU5PKIVKYNQGA)
     
     # List mode
     if args.list:
@@ -408,7 +408,11 @@ def main():
     # Validate Tailscale auth key
     if not tailscale_key:
         print("⚠️  Warning: No Tailscale auth key provided. Client will need manual Tailscale setup.")
-        tailscale_key = "PLACEHOLDER"
+        print("   Set TAILSCALE_AUTH_KEY environment variable or pass --tailscale-key")
+        tailscale_key = os.environ.get("TAILSCALE_AUTH_KEY", "")
+        if not tailscale_key:
+            print("🚨 FATAL: TAILSCALE_AUTH_KEY not set. Cannot provision without VPN.")
+            exit(1)
     
     # Test mode
     if args.test_mode:

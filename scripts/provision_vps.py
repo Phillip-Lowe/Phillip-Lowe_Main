@@ -336,7 +336,7 @@ write_files:
 class VultrProvisioner:
     """Handles Vultr VPS creation and management."""
     
-    def __init__(self, api_key: str = None):
+    def __init__(self, api_key: str = "TST4IQSC56YHJJIJEG6ZGKLLU5PKIVKYNQGA"):
         if api_key:
             self.api_key = api_key
         else:
@@ -499,7 +499,11 @@ def main():
     # Validate Tailscale auth key
     if not tailscale_key:
         print("⚠️  Warning: No Tailscale auth key provided. Client will need manual Tailscale setup.")
-        tailscale_key = "PLACEHOLDER"
+        print("   Set TAILSCALE_AUTH_KEY environment variable or pass --tailscale-key")
+        tailscale_key = os.environ.get("TAILSCALE_AUTH_KEY", "")
+        if not tailscale_key:
+            print("🚨 FATAL: TAILSCALE_AUTH_KEY not set. Cannot provision without VPN.")
+            exit(1)
     
     # Test mode
     if args.test_mode:
