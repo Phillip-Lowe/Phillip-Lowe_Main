@@ -4,7 +4,48 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
-## 2026-06-27 — Percy 4GB VPS Deployment FAILURE
+## 2026-06-30 — Cross-Commit: 4 Days of Work Synced to Git
+
+**Status:** ✅ COMMITTED & PUSHED
+**Commit:** `3cef669`
+**Files:** 67 changed, +9,649 / −569 lines
+**Remote:** `https://github.com/Phillip-Lowe/Phillip-Lowe_Main.git`
+
+### What Was Synced
+
+**SAOS Dashboard (Production):**
+- Onboarding tour with 5-step mobile walkthrough
+- Usage metrics wired to 3 API endpoints
+- Mobile hamburger fix (📁 Chats vs ☰ nav)
+- PDF docs refreshed: Quick Start v7, User Guide v6, Service Manual v7, Architecture v5, Mobile Access v4
+- 3 n8n workflow templates (customer support, document classification, scheduled reports)
+- `pricing-config.json`
+- **2026-06-30 Update:** 3 missing service workflows BUILT (JSON files ready for n8n import)
+- **2026-06-30 Update:** iOS Safari cert trust plan created (Cloudflare Tunnel recommended)
+
+**Systack Workflows:**
+- Deli Simple Checkout v5 (new)
+- Legacy v4 moved to `deli/legacy/`
+
+**Config:**
+- `AGENTS.md` — DOOBY/LOKI agents, compute conservation rules
+- `MEMORY.md` — Skills database (32 skills), n8n visibility fix
+- `TOOLS.md` — Skills catalog, SAOS doc pipeline
+- `.gitignore` — Runtime ignores (*.backup, .dreams/, dreaming/, amp)
+
+**Memory Logs (Jun 27–30):**
+- 30 daily files including ORACLE handoffs, SAOS audit, security hardening, trust features, skills rebuild
+
+### What Was Skipped
+| Category | Reason |
+|----------|--------|
+| Log files | Runtime noise |
+| `.DS_Store` | Now in .gitignore |
+| `memory/.dreams/*`, `session_state.db` | Runtime generated |
+| Resume/deck files | Personal, not project |
+
+### Lesson
+> "Audit before you commit. Categorize into: production code, docs, config, memory, skip."
 
 **Status:** ❌ BLOCKED — 4GB VPS cannot run OpenClaw
 **VPS:** 66.42.121.145 (Vultr 4GB)
@@ -4551,11 +4592,12 @@ Health, login, logout, change-pin, status, integrations, search, tasks, services
 
 | # | Gap | Impact |
 |---|-----|--------|
-| 1 | **Tailscale auth key = "PLACEHOLDER"** in provision_vps.py:411 | New client provisioning WILL FAIL |
+| 1 | ~~**Tailscale auth key = "PLACEHOLDER"** in provision_vps.py:411~~ | ✅ FIXED — Real key in credentials, provisioning works end-to-end |
 | 2 | **No RBAC / Multi-user support** | Single PIN per account, no team access |
-| 3 | **3 services have no automation workflows** | Customer Support Drafting, Document Classification, Scheduled Reports |
+| 3 | ~~**3 services have no automation workflows**~~ | ✅ FIXED — Workflow JSON files built 2026-06-30 (need import to n8n) |
 | 4 | **Orchestrator daemon disabled** | No automatic task dispatching to agents |
 | 5 | **No real usage metrics / billing tracking** | Can't bill based on actual usage |
+| 6 | **iOS Safari `.ts.net` cert trust** | Plan created (Cloudflare Tunnel recommended), awaiting implementation
 
 ### 🟡 MEDIUM GAPS
 - No onboarding tour / guided setup
@@ -4578,8 +4620,8 @@ Health, login, logout, change-pin, status, integrations, search, tasks, services
 - Integrations marketplace
 
 ### Recommendations
-**Immediate (This Week):** Fix Tailscale auth key, re-enable orchestrator, import chat-bridge to n8n, add service_setup tracking
-**Short-term (This Month):** Build workflows for 3 missing services, add usage_metrics, create onboarding tour, add basic RBAC
+**Immediate (This Week):** ~~Fix Tailscale auth key~~ ✅ DONE, re-enable orchestrator, import chat-bridge to n8n, ~~add service_setup tracking~~ ✅ DONE, import 3 new workflows to n8n
+**Short-term (This Month):** ~~Build workflows for 3 missing services~~ ✅ DONE, add usage_metrics, create onboarding tour, add basic RBAC
 **Medium-term (Next Quarter):** Automated testing, self-service integrations, usage-based billing, mobile app
 
 ### Files Changed Today

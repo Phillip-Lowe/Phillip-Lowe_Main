@@ -664,14 +664,16 @@ Source: memory/2026-06-27-0511-cdt-memory-hygiene-rule.md
 7. ✅ Dashboard Authentication (PIN + session tokens, mobile login)
 8. ✅ Mobile Responsive Layout (hamburger menu, sidebar toggle, iOS fixes)
 9. ✅ End-to-End Provisioning (VPS creation, Tailscale join, webhook callback)
+10. ✅ **3 Missing Service Workflows** — Customer Support Drafting, Document Classification, Scheduled Report Generator (JSON built 2026-06-30)
 
 **Next Priority:**
-1. ⏳ iOS Safari cert trust — Fix `.ts.net` URL access (use direct IP workaround for now)
-2. ⏳ PDF documentation update — Dashboard User Guide v2.0, Mobile Access Guide
+1. ⏳ iOS Safari cert trust — Plan created (Cloudflare Tunnel recommended), awaiting Green's decision
+2. ✅ PDF documentation update — COMPLETE (v7.0/v5.0/v3.0 refreshed 2026-06-30)
 3. ⏳ Production deployment — Move from dev to production credentials
 4. ⏳ Monitoring dashboard — Agent health, task queue depth, error rates
 5. ⏳ Client onboarding flow — Automated first-time setup
 6. ⏳ Billing integration — Stripe subscription management
 7. ⏳ Security audit — Penetration test, credential rotation
+8. ⏳ Import 3 new workflows to n8n — JSON files ready, needs import + test
 
 ---
