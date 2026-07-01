@@ -34,6 +34,7 @@ Green's internal master dashboard — monitors all deployments, clients, agents,
 | **Systack Command Center** | **8770** | **Green's master view** | **PIN** |
 | SAOS Customer Portal | 8768 | Client-facing | PIN |
 | Invoice Dashboard | 8766 | Invoice pipeline | PIN |
+| **Booking Dashboard** | **8772** | **Appointments** | **PIN** |
 
 ### UX Polish
 - PIN auth modal with localStorage persistence
@@ -56,6 +57,8 @@ export PGUSER=philliplowe           # Required
 - Calendar view (week/month)
 - No-show tracking + analytics
 - Business hours / services settings
+
+**Status:** ✅ COMPLETE 2026-06-30 — see `memory/2026-06-30-booking-dashboard-built.md`
 
 ### Deli Dashboard: DEFERRED
 - They have Square POS dashboard

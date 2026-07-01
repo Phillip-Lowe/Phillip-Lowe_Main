@@ -233,7 +233,7 @@ def fleet_status():
                 {"name": "n8n Workflows", "port": 5678, "status": "healthy"},
                 {"name": "PostgreSQL", "port": 5432, "status": "healthy"},
                 {"name": "Tailscale", "port": "VPN", "status": "healthy"},
-                {"name": "Booking API", "port": 8772, "status": "provisioning"},
+                {"name": "Booking Dashboard", "port": 8772, "status": "healthy"},
                 {"name": "Command Center", "port": 8770, "status": "healthy"},
             ],
             "timestamp": datetime.now().isoformat()

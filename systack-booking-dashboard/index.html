@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SyStack Booking Dashboard</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #1e293b;
+    --panel-hover: #243447;
+    --border: #334155;
+    --text: #f8fafc;
+    --text-dim: #94a3b8;
+    --cyan: #00d4ff;
+    --cyan-dim: #0891b2;
+    --green: #22c55e;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --purple: #a855f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Layout ── */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 220px;
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    flex-shrink: 0;
+  }
+  .sidebar-brand {
+    padding: 0 1.25rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--cyan);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+  }
+  .sidebar-brand span { opacity: 0.7; font-weight: 400; font-size: 0.8rem; display: block; margin-top: 2px; }
+  .nav-item {
+    padding: 0.7rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+  .nav-item:hover { background: var(--panel-hover); color: var(--text); }
+  .nav-item.active { background: rgba(0,212,255,0.08); color: var(--cyan); border-left-color: var(--cyan); }
+  .nav-item .emoji { font-size: 1.1rem; width: 1.5rem; text-align: center; }
+  .main {
+    flex: 1;
+    padding: 1.5rem 2rem;
+    overflow-y: auto;
+  }
+  .mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .page-header h1 { font-size: 1.5rem; font-weight: 600; }
+  .page-header .subtitle { color: var(--text-dim); font-size: 0.85rem; }
+  .refresh-btn {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+  }
+  .refresh-btn:hover { background: var(--cyan); color: var(--bg); }
+
+  /* ── Stats Cards ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .stat-card .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .stat-card .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  /* ── Tables ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 0.7rem 0.8rem;
+    color: var(--text-dim);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .data-table td {
+    padding: 0.7rem 0.8rem;
+    border-bottom: 1px solid rgba(51,65,85,0.5);
+    vertical-align: middle;
+  }
+  .data-table tr:hover { background: rgba(30,41,59,0.6); }
+  .data-table .col-time { width: 80px; }
+  .data-table .col-actions { width: 120px; }
+
+  /* ── Status Badges ── */
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .badge-booked { background: rgba(245,158,11,0.15); color: var(--amber); }
+  .badge-confirmed { background: rgba(34,197,94,0.15); color: var(--green); }
+  .badge-completed { background: rgba(0,212,255,0.15); color: var(--cyan); }
+  .badge-cancelled { background: rgba(148,163,184,0.15); color: var(--text-dim); }
+  .badge-no_show { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge-released { background: rgba(168,85,247,0.15); color: var(--purple); }
+
+  /* ── Action Buttons ── */
+  .btn {
+    padding: 0.35rem 0.7rem;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.75rem;
+    cursor: pointer;
+    margin-right: 0.3rem;
+    transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-confirm { background: var(--green); color: #fff; }
+  .btn-complete { background: var(--cyan); color: var(--bg); }
+  .btn-cancel { background: var(--text-dim); color: var(--bg); }
+  .btn-noshow { background: var(--red); color: #fff; }
+
+  /* ── Filters ── */
+  .filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn.active { background: var(--cyan); color: var(--bg); border-color: var(--cyan); }
+  .filter-btn:hover:not(.active) { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ── Calendar ── */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+  }
+  .calendar-day-header {
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+  .calendar-day {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-height: 100px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .calendar-day:hover { border-color: var(--cyan); }
+  .calendar-day.today { border-color: var(--cyan); background: rgba(0,212,255,0.05); }
+  .calendar-day.other-month { opacity: 0.4; }
+  .calendar-day .day-number {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .calendar-day .appt-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 1px;
+  }
+  .calendar-day .appt-count {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-top: 0.2rem;
+  }
+  .calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .calendar-nav button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .calendar-nav .month-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    min-width: 160px;
+    text-align: center;
+  }
+  .view-toggle {
+    display: flex;
+    gap: 0;
+    margin-left: auto;
+  }
+  .view-toggle button {
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  .view-toggle button:first-child { border-radius: 4px 0 0 4px; }
+  .view-toggle button:last-child { border-radius: 0 4px 4px 0; }
+  .view-toggle button.active { background: var(--cyan); color: var(--bg); }
+
+  /* ── Analytics ── */
+  .chart-container {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .chart-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.3rem;
+    height: 120px;
+    padding-top: 1rem;
+  }
+  .bar-chart .bar {
+    flex: 1;
+    background: var(--cyan);
+    border-radius: 3px 3px 0 0;
+    min-width: 8px;
+    position: relative;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+  }
+  .bar-chart .bar:hover { opacity: 1; }
+  .bar-chart .bar-label {
+    position: absolute;
+    bottom: -1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .metric-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+  .metric-card .metric-label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+  .metric-card .metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  .metric-card .metric-sub {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  /* ── Settings ── */
+  .settings-section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .settings-section h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--cyan);
+  }
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .form-group { flex: 1; min-width: 200px; }
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.3rem;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+  .hours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+  }
+  .hours-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg);
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .hours-row .day-name {
+    width: 40px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .hours-row input {
+    width: 70px;
+    padding: 0.3rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    text-align: center;
+  }
+  .hours-row .closed-toggle {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+  .services-list {
+    margin-top: 0.5rem;
+  }
+  .service-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .service-item .service-name { flex: 1; font-weight: 500; }
+  .service-item .service-meta { color: var(--text-dim); font-size: 0.8rem; }
+  .btn-save {
+    background: var(--cyan);
+    color: var(--bg);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  .btn-save:hover { opacity: 0.9; }
+
+  /* ── PIN Modal ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 360px;
+    text-align: center;
+  }
+  .modal h2 { margin-bottom: 0.5rem; font-size: 1.3rem; }
+  .modal p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.9rem; }
+  .pin-input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    text-align: center;
+    letter-spacing: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .pin-btn {
+    width: 100%;
+    padding: 0.7rem;
+    background: var(--cyan);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .pin-error {
+    color: var(--red);
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+    min-height: 1.2rem;
+  }
+  .hidden { display: none !important; }
+
+  /* ── Loading ── */
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+  }
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-dim);
+  }
+  .empty-state .emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .mobile-menu-btn { display: block; }
+    .sidebar {
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      z-index: 900;
+      transform: translateX(-100%);
+      transition: transform 0.2s;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .main { padding: 3.5rem 1rem 1rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .data-table { font-size: 0.75rem; }
+    .data-table th, .data-table td { padding: 0.5rem 0.4rem; }
+    .calendar-grid { gap: 0.2rem; }
+    .calendar-day { min-height: 60px; padding: 0.3rem; }
+    .btn { padding: 0.25rem 0.5rem; font-size: 0.7rem; }
+    .metric-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN Modal -->
+<div id="pinModal" class="modal-overlay">
+  <div class="modal">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem;">🔐</div>
+    <h2>Booking Dashboard</h2>
+    <p>Enter your admin PIN to access appointments</p>
+    <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="20" autocomplete="off">
+    <button class="pin-btn" onclick="authenticate()">Unlock</button>
+    <div id="pinError" class="pin-error"></div>
+  </div>
+</div>
+
+<!-- Mobile Menu Button -->
+<button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      🗓️ SyStack Booking
+      <span>Appointment Manager</span>
+    </div>
+    <div class="nav-item active" data-tab="today" onclick="showTab('today')">
+      <span class="emoji">📋</span> Today
+    </div>
+    <div class="nav-item" data-tab="calendar" onclick="showTab('calendar')">
+      <span class="emoji">🗓️</span> Calendar
+    </div>
+    <div class="nav-item" data-tab="analytics" onclick="showTab('analytics')">
+      <span class="emoji">📊</span> Analytics
+    </div>
+    <div class="nav-item" data-tab="settings" onclick="showTab('settings')">
+      <span class="emoji">⚙️</span> Settings
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main" id="mainContent">
+
+    <!-- TODAY'S APPOINTMENTS -->
+    <div id="tab-today" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h1>Today's Appointments</h1>
+          <div class="subtitle" id="todayDate"></div>
+        </div>
+        <button class="refresh-btn" onclick="loadToday()">🔄 Refresh</button>
+      </div>
+      <div class="stats-grid" id="todayStats"></div>
+      <div class="filter-bar" id="todayFilters"></div>
+      <div id="todayTable"></div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div id="tab-calendar" class="tab-content hidden">
+      <div class="page-header">
+        <div><h1>Calendar</h1></div>
+        <div class="view-toggle">
+          <button id="viewMonth" class="active" onclick="setCalendarView('month')">Month</button>
+          <button id="viewWeek" onclick="setCalendarView('week')">Week</button>
+        </div>
+      </div>
+      <div class="calendar-nav">
+        <button onclick="calendarPrev()">◀</button>
+        <span class="month-label" id="calendarMonth"></span>
+        <button onclick="calendarNext()">▶</button>
+      </div>
+      <div id="calendarGrid"></div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div id="tab-analytics" class="tab-content hidden">
+      <div class="page-header">
+        <div><h1>No-Show Analytics</h1></div>
+        <div class="filter-bar">
+          <button class="filter-btn active" onclick="setAnalyticsPeriod(7,this)">7 Days</button>
+          <button class="filter-btn" onclick="setAnalyticsPeriod(30,this)">30 Days</button>
+          <button class="filter-btn" onclick="setAnalyticsPeriod(90,this)">90 Days</button>
+        </div>
+      </div>
+      <div class="metric-row" id="analyticsMetrics"></div>
+      <div class="chart-container">
+        <div class="chart-title">Daily Booking Volume</div>
+        <div class="bar-chart" id="volumeChart"></div>
+      </div>
+      <div class="chart-container">
+        <div class="chart-title">Top Services by Volume</div>
+        <div id="topServices"></div>
+      </div>
+      <div class="chart-container">
+        <div class="chart-title">No-Shows by Service</div>
+        <div id="noShowServices"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="tab-settings" class="tab-content hidden">
+      <div class="page-header"><h1>Settings</h1></div>
+      <div class="settings-section">
+        <h3>🏢 Business Info</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" id="settingBusinessName">
+          </div>
+          <div class="form-group">
+            <label>Timezone</label>
+            <select id="settingTimezone">
+              <option value="America/Chicago">America/Chicago</option>
+              <option value="America/New_York">America/New_York</option>
+              <option value="America/Los_Angeles">America/Los_Angeles</option>
+              <option value="America/Denver">America/Denver</option>
+              <option value="UTC">UTC</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Slot Duration (minutes)</label>
+            <input type="number" id="settingSlotDuration" min="15" max="240" step="15">
+          </div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <h3>🕐 Business Hours</h3>
+        <div class="hours-grid" id="hoursGrid"></div>
+      </div>
+      <div class="settings-section">
+        <h3>💼 Services</h3>
+        <div class="services-list" id="servicesList"></div>
+        <button class="btn-save" onclick="saveSettings()">💾 Save Settings</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── State ──
+let adminPin = localStorage.getItem('booking_pin') || '';
+let currentTab = 'today';
+let calendarDate = new Date();
+let calendarView = 'month';
+let analyticsPeriod = 30;
+let todayData = null;
+let settingsData = null;
+
+const API_BASE = '';
+const STATUS_CONFIG = {
+  booked:    { label: 'Booked',    class: 'badge-booked' },
+  confirmed: { label: 'Confirmed', class: 'badge-confirmed' },
+  completed: { label: 'Completed', class: 'badge-completed' },
+  cancelled: { label: 'Cancelled', class: 'badge-cancelled' },
+  no_show:   { label: 'No-Show',   class: 'badge-no_show' },
+  released:  { label: 'Released',  class: 'badge-released' },
+};
+
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAY_KEYS = ['sun','mon','tue','wed','thu','fri','sat'];
+
+// ── Auth ──
+function showPinModal() {
+  document.getElementById('pinModal').classList.remove('hidden');
+  document.getElementById('pinInput').focus();
+}
+function hidePinModal() {
+  document.getElementById('pinModal').classList.add('hidden');
+}
+async function authenticate() {
+  const pin = document.getElementById('pinInput').value.trim();
+  if (!pin || pin.length < 4) {
+    document.getElementById('pinError').textContent = 'PIN must be at least 4 digits';
+    return;
+  }
+  // Test PIN with a lightweight request
+  try {
+    const res = await fetch(`${API_BASE}/api/booking/today`, {
+      headers: { 'X-Admin-PIN': pin }
+    });
+    if (res.status === 401 || res.status === 403) {
+      document.getElementById('pinError').textContent = 'Invalid PIN. Try again.';
+      return;
+    }
+    if (!res.ok) throw new Error('API error');
+    adminPin = pin;
+    localStorage.setItem('booking_pin', pin);
+    hidePinModal();
+    initDashboard();
+  } catch (e) {
+    document.getElementById('pinError').textContent = 'Connection failed. Check server.';
+  }
+}
+
+// ── API Helper ──
+async function api(url, opts = {}) {
+  const res = await fetch(url, {
+    ...opts,
+    headers: {
+      'X-Admin-PIN': adminPin,
+      ...(opts.headers || {})
+    }
+  });
+  if (res.status === 401) {
+    localStorage.removeItem('booking_pin');
+    adminPin = '';
+    showPinModal();
+    throw new Error('Unauthorized');
+  }
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error(`HTTP ${res.status}: ${txt}`);
+  }
+  return res.json();
+}
+
+// ── Tab Navigation ──
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.getElementById(`tab-${tab}`).classList.remove('hidden');
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.nav-item[data-tab="${tab}"]`).classList.add('active');
+  if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+
+  if (tab === 'today') loadToday();
+  if (tab === 'calendar') loadCalendar();
+  if (tab === 'analytics') loadAnalytics();
+  if (tab === 'settings') loadSettings();
+}
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ── Today's Appointments ──
+async function loadToday(statusFilter = '') {
+  const today = new Date();
+  document.getElementById('todayDate').textContent = today.toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  const url = `${API_BASE}/api/booking/today${statusFilter ? '?status=' + statusFilter : ''}`;
+  try {
+    const data = await api(url);
+    todayData = data;
+    renderTodayStats(data.counts);
+    renderTodayFilters(data.counts);
+    renderTodayTable(data.appointments);
+  } catch (e) {
+    document.getElementById('todayTable').innerHTML = `<div class="empty-state"><span class="emoji">⚠️</span>Error loading appointments<br><small>${e.message}</small></div>`;
+  }
+}
+function renderTodayStats(counts) {
+  const total = Object.values(counts).reduce((a,b) => a+b, 0);
+  const confirmed = counts.confirmed || 0;
+  const completed = counts.completed || 0;
+  const noShow = counts.no_show || 0;
+  const pending = (counts.booked || 0);
+
+  document.getElementById('todayStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Total Today</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--green)">${confirmed}</div><div class="stat-label">Confirmed</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--cyan)">${completed}</div><div class="stat-label">Completed</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--amber)">${pending}</div><div class="stat-label">Pending</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--red)">${noShow}</div><div class="stat-label">No-Shows</div></div>
+  `;
+}
+function renderTodayFilters(counts) {
+  const statuses = Object.keys(counts);
+  let html = `<button class="filter-btn active" onclick="filterToday('')">All (${Object.values(counts).reduce((a,b)=>a+b,0)})</button>`;
+  for (const s of statuses) {
+    const cfg = STATUS_CONFIG[s] || { label: s };
+    html += `<button class="filter-btn" onclick="filterToday('${s}')">${cfg.label} (${counts[s]})</button>`;
+  }
+  document.getElementById('todayFilters').innerHTML = html;
+}
+function filterToday(status) {
+  loadToday(status);
+}
+function renderTodayTable(appointments) {
+  if (!appointments || appointments.length === 0) {
+    document.getElementById('todayTable').innerHTML =
+      `<div class="empty-state"><span class="emoji">📭</span>No appointments today</div>`;
+    return;
+  }
+
+  let html = `
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="col-time">Time</th>
+          <th>Customer</th>
+          <th>Service</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Confirmed</th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+  for (const a of appointments) {
+    const time = a.appointment_time ? a.appointment_time.slice(11,16) : '--';
+    const cfg = STATUS_CONFIG[a.status] || { label: a.status, class: '' };
+    const confirmed = a.confirmed ? '✅' : '⬜';
+    html += `
+      <tr>
+        <td class="col-time"><strong>${time}</strong></td>
+        <td>
+          <div>${a.customer_name}</div>
+          <div style="font-size:0.75rem;color:var(--text-dim)">${a.email}</div>
+        </td>
+        <td>${a.service}</td>
+        <td>${a.phone || '-'}</td>
+        <td><span class="badge ${cfg.class}">${cfg.label}</span></td>
+        <td style="text-align:center">${confirmed}</td>
+        <td class="col-actions">
+          ${a.status !== 'confirmed' ? `<button class="btn btn-confirm" onclick="updateStatus(${a.id},'confirmed')">Confirm</button>` : ''}
+          ${a.status !== 'completed' ? `<button class="btn btn-complete" onclick="updateStatus(${a.id},'completed')">Done</button>` : ''}
+          ${a.status !== 'no_show' ? `<button class="btn btn-noshow" onclick="updateStatus(${a.id},'no_show')">No-Show</button>` : ''}
+          ${a.status !== 'cancelled' ? `<button class="btn btn-cancel" onclick="updateStatus(${a.id},'cancelled')">Cancel</button>` : ''}
+        </td>
+      </tr>
+    `;
+  }
+  html += '</tbody></table>';
+  document.getElementById('todayTable').innerHTML = html;
+}
+async function updateStatus(id, status) {
+  if (!confirm(`Mark appointment #${id} as "${status.replace('_',' ')}"?`)) return;
+  try {
+    await api(`${API_BASE}/api/booking/appointments/${id}/status`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    });
+    loadToday();
+  } catch (e) {
+    alert('Failed to update status: ' + e.message);
+  }
+}
+
+// ── Calendar ──
+function setCalendarView(view) {
+  calendarView = view;
+  document.getElementById('viewMonth').classList.toggle('active', view === 'month');
+  document.getElementById('viewWeek').classList.toggle('active', view === 'week');
+  loadCalendar();
+}
+async function loadCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  grid.innerHTML = '<div class="loading">Loading calendar...</div>';
+
+  if (calendarView === 'month') {
+    renderMonthCalendar();
+  } else {
+    renderWeekCalendar();
+  }
+}
+function renderMonthCalendar() {
+  const year = calendarDate.getFullYear();
+  const month = calendarDate.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const startOffset = firstDay.getDay();
+  const daysInMonth = lastDay.getDate();
+
+  document.getElementById('calendarMonth').textContent =
+    firstDay.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+  let html = '';
+  for (const d of DAYS) {
+    html += `<div class="calendar-day-header">${d}</div>`;
+  }
+
+  // Prev month padding
+  const prevMonthDays = new Date(year, month, 0).getDate();
+  for (let i = startOffset - 1; i >= 0; i--) {
+    html += `<div class="calendar-day other-month"><div class="day-number">${prevMonthDays - i}</div></div>`;
+  }
+
+  // Current month
+  const todayStr = new Date().toISOString().slice(0,10);
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const isToday = dateStr === todayStr;
+    html += `<div class="calendar-day ${isToday ? 'today' : ''}" data-date="${dateStr}">
+      <div class="day-number">${day}</div>
+      <div class="appt-count" id="cal-${dateStr}"></div>
+    </div>`;
+  }
+
+  // Next month padding
+  const totalCells = startOffset + daysInMonth;
+  const remainder = (7 - (totalCells % 7)) % 7;
+  for (let day = 1; day <= remainder; day++) {
+    html += `<div class="calendar-day other-month"><div class="day-number">${day}</div></div>`;
+  }
+
+  document.getElementById('calendarGrid').innerHTML = html;
+  fetchCalendarData(year, month);
+}
+function renderWeekCalendar() {
+  const startOfWeek = new Date(calendarDate);
+  startOfWeek.setDate(calendarDate.getDate() - calendarDate.getDay());
+
+  document.getElementById('calendarMonth').textContent =
+    `${startOfWeek.toLocaleDateString('en-US',{month:'short',day:'numeric'})} – ${new Date(startOfWeek.getTime()+6*86400000).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+
+  let html = '';
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(startOfWeek.getTime() + i * 86400000);
+    const dateStr = d.toISOString().slice(0,10);
+    const isToday = dateStr === new Date().toISOString().slice(0,10);
+    html += `<div class="calendar-day-header">${DAYS[i]} ${d.getDate()}</div>`;
+  }
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(startOfWeek.getTime() + i * 86400000);
+    const dateStr = d.toISOString().slice(0,10);
+    const isToday = dateStr === new Date().toISOString().slice(0,10);
+    html += `<div class="calendar-day ${isToday ? 'today' : ''}" data-date="${dateStr}">
+      <div class="appt-count" id="cal-${dateStr}"></div>
+    </div>`;
+  }
+  document.getElementById('calendarGrid').innerHTML = html;
+  fetchCalendarData(startOfWeek.getFullYear(), startOfWeek.getMonth(), dateStr);
+}
+async function fetchCalendarData(year, month, singleDate) {
+  let start, end;
+  if (singleDate) {
+    start = singleDate;
+    end = singleDate;
+  } else {
+    start = `${year}-${String(month+1).padStart(2,'0')}-01`;
+    const lastDay = new Date(year, month+1, 0).getDate();
+    end = `${year}-${String(month+1).padStart(2,'0')}-${String(lastDay).padStart(2,'0')}`;
+  }
+  try {
+    const data = await api(`${API_BASE}/api/booking/calendar?start=${start}&end=${end}`);
+    for (const [dateStr, appts] of Object.entries(data.appointments_by_date || {})) {
+      const el = document.getElementById(`cal-${dateStr}`);
+      if (!el) continue;
+      const counts = {};
+      for (const a of appts) {
+        counts[a.status] = (counts[a.status] || 0) + 1;
+      }
+      let dots = '';
+      for (const [status, n] of Object.entries(counts)) {
+        const color = status === 'confirmed' ? 'var(--green)' : status === 'completed' ? 'var(--cyan)' : status === 'no_show' ? 'var(--red)' : 'var(--amber)';
+        dots += `<span class="appt-dot" style="background:${color}" title="${n} ${status}"></span>`;
+      }
+      el.innerHTML = `${dots}<div class="appt-count">${appts.length} appt${appts.length!==1?'s':''}</div>`;
+    }
+  } catch (e) {
+    console.error('Calendar fetch failed:', e);
+  }
+}
+function calendarPrev() {
+  if (calendarView === 'month') {
+    calendarDate.setMonth(calendarDate.getMonth() - 1);
+  } else {
+    calendarDate.setDate(calendarDate.getDate() - 7);
+  }
+  loadCalendar();
+}
+function calendarNext() {
+  if (calendarView === 'month') {
+    calendarDate.setMonth(calendarDate.getMonth() + 1);
+  } else {
+    calendarDate.setDate(calendarDate.getDate() + 7);
+  }
+  loadCalendar();
+}
+
+// ── Analytics ──
+async function loadAnalytics() {
+  document.getElementById('analyticsMetrics').innerHTML = '<div class="loading">Loading analytics...</div>';
+  try {
+    const data = await api(`${API_BASE}/api/booking/analytics?days=${analyticsPeriod}`);
+    renderAnalytics(data);
+  } catch (e) {
+    document.getElementById('analyticsMetrics').innerHTML = `<div class="empty-state">Failed to load analytics: ${e.message}</div>`;
+  }
+}
+function setAnalyticsPeriod(days, btn) {
+  analyticsPeriod = days;
+  document.querySelectorAll('#tab-analytics .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadAnalytics();
+}
+function renderAnalytics(data) {
+  // Metrics row
+  document.getElementById('analyticsMetrics').innerHTML = `
+    <div class="metric-card">
+      <div class="metric-label">Total Bookings</div>
+      <div class="metric-value" style="color:var(--cyan)">${data.total_bookings}</div>
+      <div class="metric-sub">Last ${data.period_days} days</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Confirmation Rate</div>
+      <div class="metric-value" style="color:var(--green)">${data.confirmation_rate}%</div>
+      <div class="metric-sub">Confirmed ÷ Total</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">No-Show Rate</div>
+      <div class="metric-value" style="color:var(--red)">${data.no_show_rate}%</div>
+      <div class="metric-sub">No-shows ÷ Total</div>
+    </div>
+  `;
+
+  // Volume chart
+  const vol = data.daily_volume || [];
+  const maxVol = Math.max(...vol.map(v => v.count), 1);
+  let chartHtml = '';
+  for (const v of vol.slice(-30)) {
+    const height = Math.round((v.count / maxVol) * 100);
+    chartHtml += `
+      <div class="bar" style="height:${height}%" title="${v.date}: ${v.count} bookings">
+        <div class="bar-label">${v.date.slice(5)}</div>
+      </div>
+    `;
+  }
+  document.getElementById('volumeChart').innerHTML = chartHtml || '<div style="color:var(--text-dim)">No data</div>';
+
+  // Top services
+  const top = data.top_services || [];
+  let topHtml = '<table class="data-table"><thead><tr><th>Service</th><th>Bookings</th></tr></thead><tbody>';
+  for (const s of top) {
+    topHtml += `<tr><td>${s.service}</td><td>${s.count}</td></tr>`;
+  }
+  topHtml += '</tbody></table>';
+  document.getElementById('topServices').innerHTML = topHtml || '<div class="empty-state">No data</div>';
+
+  // No-show by service
+  const ns = data.no_show_by_service || [];
+  let nsHtml = '<table class="data-table"><thead><tr><th>Service</th><th>No-Shows</th></tr></thead><tbody>';
+  for (const s of ns) {
+    nsHtml += `<tr><td>${s.service}</td><td style="color:var(--red)">${s.count}</td></tr>`;
+  }
+  nsHtml += '</tbody></table>';
+  document.getElementById('noShowServices').innerHTML = nsHtml || '<div class="empty-state">No data</div>';
+}
+
+// ── Settings ──
+async function loadSettings() {
+  try {
+    const data = await api(`${API_BASE}/api/booking/settings`);
+    settingsData = data;
+    renderSettings(data);
+  } catch (e) {
+    document.getElementById('tab-settings').innerHTML += `<div class="empty-state">Failed to load settings: ${e.message}</div>`;
+  }
+}
+function renderSettings(data) {
+  document.getElementById('settingBusinessName').value = data.business_name || '';
+  document.getElementById('settingTimezone').value = data.timezone || 'America/Chicago';
+  document.getElementById('settingSlotDuration').value = data.slot_duration_minutes || 30;
+
+  // Hours
+  const hours = data.business_hours || {};
+  let hoursHtml = '';
+  for (const day of DAY_KEYS) {
+    const h = hours[day];
+    const isClosed = !h || !h.open;
+    hoursHtml += `
+      <div class="hours-row">
+        <span class="day-name">${day.charAt(0).toUpperCase() + day.slice(1)}</span>
+        <input type="text" placeholder="09:00" value="${isClosed ? '' : h.open}" ${isClosed ? 'disabled' : ''} data-day="${day}" data-type="open">
+        <span style="color:var(--text-dim)">to</span>
+        <input type="text" placeholder="17:00" value="${isClosed ? '' : h.close}" ${isClosed ? 'disabled' : ''} data-day="${day}" data-type="close">
+        <span class="closed-toggle" onclick="toggleDayClosed(this,'${day}')">${isClosed ? '🔒 Closed — Open?' : '🔓 Open — Close?'}</span>
+      </div>
+    `;
+  }
+  document.getElementById('hoursGrid').innerHTML = hoursHtml;
+
+  // Services
+  const services = data.services || [];
+  let svcsHtml = '';
+  for (const s of services) {
+    svcsHtml += `
+      <div class="service-item">
+        <span class="service-name">${s.name}</span>
+        <span class="service-meta">${s.duration} min · $${s.price}</span>
+      </div>
+    `;
+  }
+  document.getElementById('servicesList').innerHTML = svcsHtml || '<div style="color:var(--text-dim)">No services configured</div>';
+}
+function toggleDayClosed(el, day) {
+  const row = el.closest('.hours-row');
+  const isClosed = el.textContent.includes('Closed');
+  const inputs = row.querySelectorAll('input');
+  if (isClosed) {
+    inputs.forEach(i => { i.disabled = false; i.value = i.dataset.type === 'open' ? '09:00' : '17:00'; });
+    el.textContent = '🔓 Open — Close?';
+  } else {
+    inputs.forEach(i => { i.disabled = true; i.value = ''; });
+    el.textContent = '🔒 Closed — Open?';
+  }
+}
+async function saveSettings() {
+  const hours = {};
+  document.querySelectorAll('.hours-row').forEach(row => {
+    const day = row.querySelector('[data-day]').dataset.day;
+    const openIn = row.querySelector(`[data-day="${day}"][data-type="open"]`);
+    const closeIn = row.querySelector(`[data-day="${day}"][data-type="close"]`);
+    if (!openIn.disabled) {
+      hours[day] = { open: openIn.value, close: closeIn.value };
+    }
+  });
+
+  const payload = {
+    business_name: document.getElementById('settingBusinessName').value,
+    timezone: document.getElementById('settingTimezone').value,
+    slot_duration_minutes: parseInt(document.getElementById('settingSlotDuration').value) || 30,
+    business_hours: hours
+  };
+
+  try {
+    await api(`${API_BASE}/api/booking/settings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    alert('✅ Settings saved');
+    loadSettings();
+  } catch (e) {
+    alert('Failed to save: ' + e.message);
+  }
+}
+
+// ── Init ──
+function initDashboard() {
+  loadToday();
+  // Auto-refresh every 30s
+  setInterval(() => {
+    if (currentTab === 'today') loadToday();
+  }, 30000);
+}
+
+// Start
+if (!adminPin) {
+  showPinModal();
+} else {
+  hidePinModal();
+  initDashboard();
+}
+
+// PIN enter key
+document.getElementById('pinInput').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') authenticate();
+});
+</script>
+</body>
+</html>
