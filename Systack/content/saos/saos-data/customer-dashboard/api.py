@@ -799,6 +799,9 @@ def send_message(conv_id):
         RETURNING *
     """, (conv_id, content), one=True)
     
+    # Track usage: chat_message
+    track_usage(client_id, 'chat_message', metric_name='client_message', quantity=1, metadata={"conversation_id": conv_id})
+    
     # Auto-create task from message if it looks like a request
     task_keywords = ['create', 'build', 'make', 'deploy', 'fix', 'update', 'help', 'need', 'want']
     is_task_request = any(kw in content.lower() for kw in task_keywords)
@@ -921,6 +924,17 @@ def me():
     """Get current client info."""
     return jsonify(request.client)
 
+def track_usage(client_id, metric_type, metric_name=None, quantity=1, metadata=None):
+    """Record usage metric for billing. Silently fails on error."""
+    try:
+        db_exec("""
+            INSERT INTO usage_metrics (client_id, metric_type, metric_name, quantity, metadata)
+            VALUES (%s, %s, %s, %s, %s)
+        """, [client_id, metric_type, metric_name, quantity, json.dumps(metadata) if metadata else None])
+    except Exception as e:
+        # Silently log but don't fail the request
+        print(f"[USAGE] Failed to track {metric_type} for client {client_id}: {e}")
+
 # ── TASK CREATION (Client-initiated) ─────────────────────
 
 # Client-facing agent pool (internal agents like DOOBY/LOKI not exposed)
@@ -969,6 +983,15 @@ def request_task():
     data = request.get_json() or {}
     service_name = data.get('service_name', 'Unknown Service')
     service_desc = data.get('service_description', '')
+    
+    # Track usage: task_created
+    db_exec("""
+        INSERT INTO usage_metrics (client_id, metric_type, metric_name, metadata)
+        VALUES (%s, 'task_created', %s, %s)
+    """, [client_id, service_name, json.dumps({"service": service_name, "source": "dashboard"})])
+    
+    # Track usage: task_created
+    track_usage(client_id, 'task_created', service_name, 1, {"service": service_name, "source": "dashboard"})
     
     # Determine agent based on service
     assigned_agent = SERVICE_AGENT_MAP.get(service_name, 'SOL')
@@ -1395,6 +1418,14 @@ def upload_deliverable():
             'uploaded_at': datetime.now().isoformat()
         }
     }), task_id))
+    
+    # Track usage: deliverable_uploaded
+    task = db_query("SELECT payload_json FROM task_queue WHERE id = %s", (task_id,), one=True)
+    if task:
+        payload = task.get('payload_json', {}) if isinstance(task.get('payload_json'), dict) else {}
+        client_id_from_task = payload.get('client_id') if isinstance(payload, dict) else None
+        if client_id_from_task:
+            track_usage(client_id_from_task, 'deliverable_uploaded', filename, 1, {"task_id": task_id, "size": len(content)})
     
     return jsonify({
         'success': True,

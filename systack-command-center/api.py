@@ -350,6 +350,128 @@ def fleet_revenue():
         "note": "Connect Stripe for live data"
     })
 
+# ── USAGE METRICS ─────────────────────────────────────
+
+@app.route('/api/fleet/usage')
+@require_pin
+@log_access
+def fleet_usage():
+    """Per-client usage metrics for billing."""
+    client_id = request.args.get('client_id', type=int)
+    days = request.args.get('days', 30, type=int)
+    metric_type = request.args.get('type', '').strip()
+    
+    conn = get_db()
+    try:
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # Build query
+        params = []
+        where = []
+        
+        if client_id:
+            where.append("client_id = %s")
+            params.append(client_id)
+        
+        if metric_type:
+            where.append("metric_type = %s")
+            params.append(metric_type)
+        
+        if days:
+            where.append("recorded_at >= NOW() - INTERVAL '%s days'")
+            params.append(days)
+        
+        where_clause = "WHERE " + " AND ".join(where) if where else ""
+        
+        # Summary by metric type
+        cur.execute(f"""
+            SELECT metric_type, COUNT(*) as calls, SUM(quantity) as total
+            FROM usage_metrics
+            {where_clause}
+            GROUP BY metric_type
+            ORDER BY total DESC
+        """, params)
+        summary = [dict(r) for r in cur.fetchall()]
+        
+        # Top clients
+        cur.execute(f"""
+            SELECT c.customer_name, um.metric_type, COUNT(*) as calls, SUM(um.quantity) as total
+            FROM usage_metrics um
+            JOIN saos_clients c ON c.id = um.client_id
+            {where_clause.replace("client_id", "um.client_id")}
+            GROUP BY c.customer_name, um.metric_type
+            ORDER BY total DESC
+            LIMIT 20
+        """, params)
+        by_client = [dict(r) for r in cur.fetchall()]
+        
+        # Daily trend (last 30 days)
+        cur.execute("""
+            SELECT DATE(recorded_at) as day, metric_type, SUM(quantity) as total
+            FROM usage_metrics
+            WHERE recorded_at >= NOW() - INTERVAL '30 days'
+            GROUP BY DATE(recorded_at), metric_type
+            ORDER BY day ASC
+        """)
+        daily = [dict(r) for r in cur.fetchall()]
+        for r in daily:
+            r['day'] = r['day'].isoformat() if hasattr(r['day'], 'isoformat') else str(r['day'])
+        
+        cur.close()
+        return jsonify({
+            "period_days": days,
+            "summary": summary,
+            "by_client": by_client,
+            "daily_trend": daily
+        })
+    except Exception as e:
+        print(f"[ERROR] fleet_usage: {e}")
+        return jsonify({"error": "Database error", "message": str(e)}), 500
+    finally:
+        put_db(conn)
+
+@app.route('/api/fleet/usage/record', methods=['POST'])
+@require_pin
+@log_access
+def record_usage():
+    """Record a usage metric (called by other services/APIs)."""
+    data = request.get_json() or {}
+    
+    client_id = data.get('client_id')
+    metric_type = data.get('metric_type', '').strip()
+    metric_name = data.get('metric_name', '').strip()
+    quantity = data.get('quantity', 1)
+    metadata = data.get('metadata', {})
+    
+    if not client_id or not metric_type:
+        return jsonify({"error": "client_id and metric_type required"}), 400
+    
+    valid_types = [
+        'api_call', 'task_created', 'task_completed', 'chat_message',
+        'agent_spawned', 'deliverable_uploaded', 'workflow_run',
+        'email_sent', 'sms_sent'
+    ]
+    if metric_type not in valid_types:
+        return jsonify({"error": "Invalid metric_type", "valid_types": valid_types}), 400
+    
+    conn = get_db()
+    try:
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO usage_metrics (client_id, metric_type, metric_name, quantity, metadata)
+            VALUES (%s, %s, %s, %s, %s)
+            RETURNING id
+        """, [client_id, metric_type, metric_name, quantity, json.dumps(metadata) if isinstance(metadata, dict) else metadata])
+        row = cur.fetchone()
+        conn.commit()
+        cur.close()
+        return jsonify({"id": row[0], "message": "Usage recorded"})
+    except Exception as e:
+        print(f"[ERROR] record_usage: {e}")
+        return jsonify({"error": "Database error"}), 500
+    finally:
+        put_db(conn)
+
 # ── ALERTS ─────────────────────────────────────────────
 
 @app.route('/api/fleet/alerts')
