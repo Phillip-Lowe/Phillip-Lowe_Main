@@ -40,12 +40,12 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 **Git:** 3 commits pushed to `Phillip-Lowe/Systack-SAOS` (`ac2e5f2..ef9bbd5`)
 
-### Current SAOS State (Updated 2026-07-06 06:15 CDT)
+### Current SAOS State (Updated 2026-07-06 06:47 CDT)
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| Customer Portal (8768) | ✅ Running v2.1 | P1-P5 + RLS + Enterprise MFA |
-| Command Center (8770) | ✅ Running v2.0 | 8 tabs, live health checks |
+| Customer Portal (8768) | ✅ Running v2.1 | P1-P5 + RLS + Enterprise MFA + Workflow Delivery Phase 1 |
+| Command Center (8770) | ✅ Running v2.0 | 8 tabs, live health checks, workflow ops view |
 | Cloudflare Tunnel | ✅ Live | portal.systack.net, command.systack.net |
 | Service Health | ✅ 9/9 (100%) | All services responding |
 | Test Coverage | ✅ 65/65 | All endpoints passing |
@@ -54,14 +54,69 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 | Daily Backup Cron | ✅ Active | 3 AM CDT, iMessage alerts |
 | Security Score | 🟢 8.5/10 | All PESSI critical fixes applied |
 | Git | ✅ Pushed | All changes on GitHub |
+| Workflow Delivery | ✅ Phase 1 Complete | Shared n8n with tenant isolation, customer portal tab, Command Center ops view |
 
 ### Oracle Status: ALL PHASES COMPLETE
 - Phase 1 (Build): ✅ Complete
 - Phase 2 (Production Ops + Sales): ✅ Complete
 - Phase 3 (Market Validation): ✅ Complete
 - PESSI Security Fixes: ✅ Complete
+- Workflow Delivery Phase 1: ✅ Complete
 
 **SAOS is production-ready for sales validation.**
+
+---
+
+## 2026-07-06 06:47 CDT — Phase 1 Workflow Delivery COMPLETE
+
+**Status:** ✅ Phase 1 Workflow Delivery System Built and Operational
+**Reference:** `memory/2026-07-06-workflow-delivery.md`, `WORKFLOW_DELIVERY_STATUS.md`
+**New DB Tables:** 3 | **New API Endpoints:** 7 | **Portal Tabs:** 1
+
+### What Was Built
+
+1. **Database Schema** — 3 tables with tenant isolation:
+   - `customer_workflows` — Workflow records per client (20 fields)
+   - `workflow_events` — Lifecycle audit trail
+   - `workflow_test_runs` — Customer-triggered webhook tests
+
+2. **API Routes** — 7 endpoints:
+   - Customer-facing: List, Detail, Test
+   - Internal: Create, Update, Notify, Pending Deployments
+
+3. **Portal Tab** — "⚙️ My Workflows" with:
+   - Workflow cards with status badges
+   - Webhook URL display
+   - Test history and error tracking
+   - Actions: View Details, Test Webhook, Download Backup
+
+4. **Command Center Enhancement** — `/api/fleet/workflows` now shows:
+   - Customer workflow stats (total, active, failed, errors)
+   - Pending deployments queue
+   - Recent events across all workflows
+   - Architecture mode (shared/dedicated)
+
+5. **Bug Fixes**:
+   - Added `db_insert()` helper — `db_query()` silently failed on INSERTs due to `fetchall()`
+   - Fixed SQL `NOT %s` boolean logic — `CASE WHEN NOT True` evaluated to False
+   - Added missing `require_internal_api_key` decorator
+
+### Architecture Decision
+**Hybrid A → B**: Shared n8n with tenant isolation NOW, dedicated instances for Enterprise later.
+
+### Test Results
+- Customer workflow list: ✅ Returns isolated data
+- Workflow detail: ✅ Shows events + test history
+- Webhook test: ✅ Records test run, updates error_count
+- Command Center view: ✅ Shows stats + pending + events
+
+### Known Issues
+1. Webhook test gets 403 on demo URL (expected — fake webhook)
+2. Internal API key requires `SAOS_INTERNAL_API_KEY` env var
+3. Notifications queued but require n8n dispatcher to send
+
+### Next Recommended Patch
+Command Center workflow ops view (✅ Done) → Phase 2 dedicated instances when revenue justifies.
 
 ---
 

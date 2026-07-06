@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T11:44:52.996Z",
+  "updatedAt": "2026-07-06T11:47:09.127Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:45:74": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:45:74",
@@ -30550,13 +30550,13 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "# Session — 2026-06-22 09:57 CDT **User directive:** \"Save this everywhere\" --- ## What Was Accomplished ### 1. Rebuilt SAOS Webhook Bridge + Poller (Lost in Workspace Reorg) - **File:** `saos-webhook-bridge.py` — Receives n8n webhook calls, triggers provisioning - **File:** `saos_provision_poller.py` — Polls n8n for webhook execution data - **Status:** Bridge running on port 8767 via launchd - **Tested:** POST to bridge triggers pipeline in test mode ✅ ### 2. Cleaned Up Stripe Payment Links + Pricing - Removed Personal+ tier from pricing page - Fixed Business annual: $3,588 → $2,988 (2 months free) - Fixed Enterprise annual: $9,588 → $7,990 (2 months free) - Personal-agent page now redi",
-      "recallCount": 13,
+      "recallCount": 14,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6.140848848223686,
+      "totalScore": 6.633506235480309,
       "maxScore": 0.49481765031814573,
       "firstRecalledAt": "2026-06-22T16:19:24.028Z",
-      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-06T11:47:09.127Z",
       "queryHashes": [
         "0bf37512a57c",
         "ff3ce597f2a6",
@@ -30570,7 +30570,8 @@
         "cdf3e55f9640",
         "9c58bf980a71",
         "6e8241b84cc1",
-        "5a9fa9a36e7a"
+        "5a9fa9a36e7a",
+        "c1a3bb6df4f1"
       ],
       "recallDays": [
         "2026-06-22",
@@ -111666,15 +111667,16 @@
       "endLine": 44,
       "source": "memory",
       "snippet": "# SAOS Dashboard To-Do List — Updated 2026-06-29 **Status:** 🔄 ACTIVE — Session in progress --- ## ✅ COMPLETED TODAY (2026-06-29) | Feature | Status | Details | |---------|--------|---------| | Stripe links verified | ✅ | All return HTTP 200 | | PDF downloads verified | ✅ | All return HTTP 200 | | Timezone support | ✅ | Client timezone detection + formatting | | Data export (backend) | ✅ | ZIP with tasks, chat, deliverables, settings | | Data export (frontend button) | ✅ | Settings tab with download | | Rate limiting | ✅ | 5 login attempts per 5 minutes | | CORS restriction | ✅ | Authorized domains only | | Token revocation on PIN change | ✅ | All tokens revoked immediately | | Audit log",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.5196770519018173,
+      "totalScore": 1.037206795811653,
       "maxScore": 0.5196770519018173,
       "firstRecalledAt": "2026-07-06T11:44:52.996Z",
-      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-06T11:47:09.127Z",
       "queryHashes": [
-        "5a9fa9a36e7a"
+        "5a9fa9a36e7a",
+        "c1a3bb6df4f1"
       ],
       "recallDays": [
         "2026-07-06"
@@ -111697,15 +111699,16 @@
       "endLine": 88,
       "source": "memory",
       "snippet": "- ✅ Updated AGENTS.md — SAOS sprint section with all completions + remaining priorities - ✅ Updated MEMORY.md — new top entry, Next Priority section, TODO table, Critical Gaps, Medium Gaps, Low Gaps - ✅ Created memory/2026-07-05-saos-docs-workflows.md - ✅ Created memory/2026-07-05-enterprise-hardening-priority1.md - ✅ Created this daily log --- ## Errors Encountered + Resolved 1. pyppeteer Chromium launch failure → Fixed by reordering browser paths (Brave first) 2. n8n workflow 404 on API → Fixed by adding to shared_workflow table 3. n8n activate endpoint 404 → Worked around with direct DB update (n8n 1.20.0 bug) 4. Old server process holding port 8768 → Killed with kill -9 and restarted",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.5066142737865448,
+      "totalScore": 1.0051636308431624,
       "maxScore": 0.5066142737865448,
       "firstRecalledAt": "2026-07-06T11:44:52.996Z",
-      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-06T11:47:09.127Z",
       "queryHashes": [
-        "5a9fa9a36e7a"
+        "5a9fa9a36e7a",
+        "c1a3bb6df4f1"
       ],
       "recallDays": [
         "2026-07-06"
@@ -111728,15 +111731,16 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# SAOS Dashboard Production Audit — 2026-06-29 22:40 CDT ## ✅ VERDICT: Production-Ready (with noted gaps) --- ## What's Working (All 8 Tabs Verified) | Tab | Status | Details | |-----|--------|---------| | 💬 Chat | ✅ | 8 conversations, real-time polling, auto-task creation | | 🔴 Live Ops | ✅ | Agent status cards, task pipeline (Pending→Running→Done) | | 📊 Dashboard | ✅ | Metrics, usage stats, integration health (5/5 green), trust features | | 📦 Services | ✅ | 8 services for Business tier, Setup button creates tasks | | ✅ Tasks | ✅ | 50 tasks loaded, filter by status, detail modal | | 📋 Activity | ✅ | 51 events, audit trail with task + deliverable events | | 📄 Docs | ✅ | 6 PDFs all",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4991601228713989,
+      "totalScore": 0.9907587200403213,
       "maxScore": 0.4991601228713989,
       "firstRecalledAt": "2026-07-06T11:44:52.996Z",
-      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-06T11:47:09.127Z",
       "queryHashes": [
-        "5a9fa9a36e7a"
+        "5a9fa9a36e7a",
+        "c1a3bb6df4f1"
       ],
       "recallDays": [
         "2026-07-06"

@@ -73,3 +73,23 @@ Created 3 tables in `scripts/add_workflow_tables.sql`:
 
 ## Next Recommended Patch
 Command Center workflow ops view — internal dashboard for monitoring all customer workflows.
+
+## Update — Command Center Workflow Ops View BUILT
+**Time:** 2026-07-06 06:47 CDT
+**Status:** ✅ Complete
+**Endpoint:** `GET /api/fleet/workflows` (Command Center)
+
+### What's Now Visible in Command Center:
+- **Stats summary**: total, active, draft, building, failed, paused, shared, dedicated, tested_24h, total_errors
+- **Workflow list**: All customer workflows with client name, status, webhook, last run, error count
+- **Pending deployments**: Queue of workflows needing attention (draft/building/deployed/needs_review)
+- **Recent events**: Cross-customer event stream (created, deployed, tested, failed)
+- **Architecture mode**: Shows "shared" (Phase 1)
+
+### Files Changed
+- `systack-command-center/api.py` — Enhanced `/api/fleet/workflows` with customer data
+- Added `get_pool()` helper for connection pool access
+- Fixed column references (`company_name` → `customer_name`)
+
+---
+*Phase 1 Workflow Delivery: FULLY COMPLETE including Command Center ops view.*
