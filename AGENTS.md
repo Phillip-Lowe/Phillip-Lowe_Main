@@ -12,7 +12,7 @@ This folder is home. Treat it that way.
 | **LOKI** | 🏠 | Background ops, crons, file tasks | `ollama/qwen3.5:9b` (local, verified) | Scheduled jobs, monitoring, file ops, research |
 | **CODY** | 💻 | Code review, validation | `ollama/kimi-k2.6:cloud` | Code review, verification |
 | **GENI** | 🎨 | Creative, frontend, assets | `ollama/deepseek-v4-pro:cloud` | Images, design, frontend |
-| **VALI** | ✅ | Testing, QA | `ollama/kimi-k2.6:cloud` | Test plans, validation |
+| **VALI** | ✅ | Testing, QA | `ollama/qwen3.5:9b` (local, verified) | Test plans, validation |
 | **PESSI** | ⚠️ | Monitoring, alerts | `ollama/deepseek-v4-pro:cloud` | Alert triage, health reports |
 | **CHATTY** | 💬 | Messaging, notifications | `ollama/kimi-k2.6:cloud` | External comms, customer-facing |
 | **ATLAS** | 🗺️ | Research, discovery | `ollama/kimi-k2.6:cloud` | Deep research, competitive analysis |
@@ -30,24 +30,98 @@ This folder is home. Treat it that way.
 - **ATLAS** for: market research, competitive analysis, technology scouting
 - **JURIS** for: legal review, compliance checks, risk assessment
 
-### Local vs Cloud (Updated 2026-06-27)
+### Local vs Cloud (Updated 2026-07-06)
 
 | Agent | Local? | When to Use |
 |-------|--------|-------------|
 | DOOBY | ✅ `qwen3.5:9b` (local, verified) | Fast coding, simple scripts, routine builds |
 | LOKI | ✅ `qwen3.5:9b` (local, verified) | Background tasks, monitoring, file ops |
+| VALI | ✅ `qwen3.5:9b` (local, verified) | QA validation, testing, pre-deploy checks |
 | SOL | ❌ `kimi-k2.6:cloud` | Complex reasoning, strategy, high-stakes decisions |
 | CODY | ❌ `kimi-k2.6:cloud` | Code review requiring deep analysis |
 | ASSEMBLY | ❌ `deepseek-v4-pro:cloud` | Architecture requiring broad context |
 
 **CRITICAL — Compute Conservation Rule:**
-- DOOBY and LOKI share the SAME local model (`qwen3.5:9b`)
+- DOOBY, LOKI, and VALI share the SAME local model (`qwen3.5:9b`)
 - **Only ONE can run at a time** — 16GB RAM cannot load two instances
 - Check `ollama ps` before spawning — if model already loaded, wait or kill first
 - SOL stays on cloud — no local conflicts
 - **DOOBY timeout note:** Complex tasks may take 2-3 min on local; use `runTimeoutSeconds: 180`+ for reliable completion
 
 **Rule of thumb:** If the task doesn't need reasoning beyond "write this code" or "check this file" → spawn DOOBY or LOKI (one at a time). Save cloud compute for strategy and complex analysis.
+
+---
+
+## Compute Conservation Mode (Active — Updated 2026-07-06)
+
+**Status:** On-demand fleet operation. Continuous agent burn discontinued.
+
+### Why
+
+Ollama Cloud Pro gives 3 concurrent models, ~50× Free usage, rolling reset windows. SAOS is built and validated but has **no paying customer base** yet. Continuous 24/7 fleet burn is waste.
+
+### Active Agent Schedule
+
+| Agent | Model | Frequency | Purpose |
+|-------|-------|-----------|---------|
+| **SOL** 🛰️ | `kimi-k2.6:cloud` | Daily | Strategic oversight, dreaming, opportunities, roadmap |
+| **ATLAS** 🗺️ | `kimi-k2.6:cloud` | Rotating w/ CHATTY | Research: industries, prospects, competitors |
+| **CHATTY** 💬 | `kimi-k2.6:cloud` | Rotating w/ ATLAS | Outreach: emails, follow-ups, sales assets |
+| **CODY** 💻 | `kimi-k2.6:cloud` | Rotating (default) | Code review, templates, documentation |
+| **PESSI** ⚠️ | `deepseek-v4-pro:cloud` | Rotating (launches) | Risk review, security checks |
+| **JURIS** ⚖️ | `kimi-k2.6:cloud` | Rotating (contracts) | Legal review, compliance checks |
+| **ASSEMBLY** 🛠 | `deepseek-v4-pro:cloud` | On-demand (architecture) | Complex builds, multi-component designs |
+| **DOOBY** 🤖 | `qwen3.5:9b` local | On-demand (coding) | Scripts, n8n workflows, builds |
+| **LOKI** 🏠 | `qwen3.5:9b` local | Cron jobs only | Health monitor (15 min), backup (3 AM), file ops |
+| **VALI** ✅ | `qwen3.5:9b` local | Event-driven (QA bursts) | Test plans, validation, pre-deploy checks |
+| **GENI** 🎨 | `deepseek-v4-pro:cloud` | On-demand (creative) | Images, design, frontend |
+
+### Weekly Compute Target (Ollama Pro Tier)
+
+```
+50% SOL       (daily strategy + dreaming)
+20% ATLAS     (research weeks)
+15% CHATTY    (outreach weeks)
+10% CODY      (templates, docs)
+3%  PESSI     (risk review when launching)
+2%  JURIS     (contract review when needed)
+```
+
+### Background Jobs (No Agent Burn)
+
+These run via cron, no persistent agent:
+- **Fleet Health Monitor** — every 15 min via LOKI cron
+- **Daily Backup** — 3 AM CDT via LOKI cron
+- **Backup Verification** — weekly via LOKI cron
+
+### Local Agents (No Cloud Cost)
+
+| Agent | Model | When |
+|-------|-------|------|
+| DOOBY | `qwen3.5:9b` | Coding bursts, n8n work |
+| LOKI | `qwen3.5:9b` | Cron jobs, file ops, background tasks |
+| VALI | `qwen3.5:9b` | QA validation, testing, pre-deploy checks |
+
+**CRITICAL:** Only ONE of DOOBY/LOKI/VALI runs at a time (16GB RAM limit).
+
+### When to Scale Back Up
+
+Activate continuous fleet when:
+- 3+ paying SAOS clients
+- Active customer support load
+- Large deployment pipeline
+- 24/7 monitoring requirements
+
+Until then: **on-demand only.**
+
+### What NOT to Burn Compute On
+
+- ❌ Continuous monitoring (use cron)
+- ❌ 24/7 research (burst ATLAS instead)
+- ❌ Always-on multi-agent discussions
+- ❌ Autonomous planning loops
+- ❌ Self-reflection loops
+- ❌ GENI unless specific creative task
 
 ---
 
@@ -186,7 +260,7 @@ You wake up fresh each session. These files are your continuity:
 ### Write It Down — No Mental Notes
 
 - Memory does not survive restarts. Files do.
-- When told “remember this” → write it down
+- When told "remember this" → write it down
 - When you learn a lesson → document it
 - When you make a mistake → record it to prevent repetition
 
@@ -318,6 +392,21 @@ You are a strategic, autonomous systems partner:
 - Always acting in the human’s best interest
 
 Make the system better. Quietly. Reliably.
+
+---
+
+## Compute Conservation Mode Activated (2026-07-06)
+
+**Trigger:** Fleet compute audit showed continuous agent burn unjustified for current SAOS stage.
+
+**Action taken:**
+- Updated `AGENTS.md` with on-demand fleet schedule
+- Verified no cloud models currently running (`ollama ps` clean)
+- Confirmed cron jobs (health monitor, backup) remain active via LOKI
+- Local agents (DOOBY, LOKI, VALI) set to `qwen3.5:9b` on-demand
+- Cloud agents (SOL, ATLAS, CHATTY, CODY) on weekly rotation schedule
+
+**Review date:** 2026-08-06 (30 days) — reassess if paying customer threshold met.
 
 ---
 
@@ -696,6 +785,4 @@ Source: memory/2026-06-27-0511-cdt-memory-hygiene-rule.md
 3. ✅ Fleet health monitor — Running every 15 min with iMessage alerts
 4. ⏳ Client onboarding flow — Script ready (`scripts/onboard_client.py`), needs UI wiring
 5. ⏳ Billing integration — Stripe live, subscription management UI pending
-6. ⏳ PESSI top 5 security fixes: rotate API key, add PostgreSQL RLS, encrypt backups, off-site backup, MFA mandatory for Enterprise
-
----
+6. ⏳ PESSI top 5 security fixes: rotate API key, add RLS, encrypt backups, off-site backup, MFA mandatory for Enterprise

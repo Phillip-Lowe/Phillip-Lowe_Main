@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-27T19:08:22.608Z",
+  "updatedAt": "2026-07-06T10:58:00.605Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:45:74": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:45:74",
@@ -29647,13 +29647,13 @@
       "endLine": 41,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 ## ORACLE Fleet Expansion Integrated: 7 → 10 Agents ### Source - ORACLE RSI architecture validation response - Status: PASS (strategically aligned with SAOS maturity) - SOL execution ### What Changed #### 1. Documentation Foundation - **SAOS-FOUNDATION-SPEC.md** updated: - Canonical 10-agent fleet table (Execution/Quality/Intelligence/Engagement/Compliance tiers) - External tiered abstraction: Core 7 + Extended Capabilities (+3) - Updated system loop with full canonical sequence - CODY positioned as Build Engine (technical docs only) - CHATTY + GENI bundled as \"Engagement Engine\" add-on #### 2. Website Updated - **systack-site/saos/index.html**: - Adde",
-      "recallCount": 19,
+      "recallCount": 20,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9.345070779323578,
+      "totalScore": 9.818613556027412,
       "maxScore": 0.5336404055356979,
       "firstRecalledAt": "2026-06-22T15:13:47.823Z",
-      "lastRecalledAt": "2026-06-27T10:40:01.959Z",
+      "lastRecalledAt": "2026-07-06T10:54:54.500Z",
       "queryHashes": [
         "562f060b9d0e",
         "0bf37512a57c",
@@ -29672,12 +29672,14 @@
         "842e349b574b",
         "52feb654ffeb",
         "cbd77e3c6b34",
-        "c9f4e26b0c0e"
+        "c9f4e26b0c0e",
+        "8f1169ab7a2f"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-24",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "saos-foundation-spec.md",
@@ -29697,18 +29699,20 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# Session Summary — 2026-06-07 02:58 CDT ## What Was Done ### 1. JURIS Added to Fleet - Created `fleet/juris.md` — Legal & Compliance agent role spec - Updated `SAOS-FOUNDATION-SPEC.md` — JURIS in fleet table + RSI loop - Updated `MEMORY.md` — JURIS active, medical agent pending ### 2. SAOS Page Rebuilt - Added \"Meet Your Fleet\" section with all 7 agents (SOL, VALI, PESSI, ORACLE, ATLAS, ASSEMBLY, JURIS) - JURIS highlighted as NEW with blue border + badge - Updated pricing: Business Fleet ($299) + Enterprise ($799) with Stripe links - Removed Solo Agent card (deprecated — Personal+ is now $199) ### 3. Personal Agent Page = Percy Only - Removed Business Fleet + Enterprise Fleet pricing ca",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.46975739300251,
+      "totalScore": 0.9351712703704833,
       "maxScore": 0.46975739300251,
       "firstRecalledAt": "2026-06-22T15:25:15.714Z",
-      "lastRecalledAt": "2026-06-22T15:25:15.714Z",
+      "lastRecalledAt": "2026-07-06T10:54:54.500Z",
       "queryHashes": [
-        "e8384534b191"
+        "e8384534b191",
+        "8f1169ab7a2f"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-07-06"
       ],
       "conceptTags": [
         "fleet/juris.md",
@@ -30893,21 +30897,23 @@
       "endLine": 83,
       "source": "memory",
       "snippet": "- Posted about no-show prevention system - Focus: customer retention, revenue protection --- ## Key Decisions 1. **Every automation gets docs** — hard rule, three audiences 2. **Test/prod separation** — separate DBs (`systack_noshow` / `systack_test`) 3. **Frontend template** — one canonical form, cloned per client 4. **Pricing updated** — booking system now $2,500 + $299/mo (includes no-show prevention) --- ## Files Created/Modified | File | Action | |------|--------| | `memory/2026-06-11-session-summary.md` | Session recap | | `memory/2026-06-11-noshow-prevention-complete.md` | System status | | `memory/2026-06-11-systack-site-update.md` | Site changes | | `memory/2026-06-11-systack-",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9007608741521835,
+      "totalScore": 1.339308899641037,
       "maxScore": 0.4624844461679458,
       "firstRecalledAt": "2026-06-22T16:36:54.032Z",
-      "lastRecalledAt": "2026-06-26T01:12:15.396Z",
+      "lastRecalledAt": "2026-07-06T10:55:09.200Z",
       "queryHashes": [
         "c11b1ba0fa3c",
-        "04129ac4d2d5"
+        "04129ac4d2d5",
+        "4ed627ac4be7"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-25",
-        "2026-06-26"
+        "2026-06-26",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-11-full-session-log.md",
@@ -108760,18 +108766,20 @@
       "endLine": 108,
       "source": "memory",
       "snippet": "- Tailscale `.ts.net` URL on iOS (Safari cert trust) - Option: Cloudflare Tunnel with proper domain ## PDF Documentation Update Required (Added by user) Based on today's changes, the following PDFs need updating or creation: ### Update Existing PDFs | Document | Current Version | What Changed | |----------|----------------|--------------| | **SAOS Dashboard User Guide** | v2.0 | Needs v2.1: Add Activity tab (6th tab), mobile sidebar toggle, honest service status display, iPhone safe area support, direct IP access instructions | | **SAOS Architecture Overview** | v2.0 | Needs v2.1: Add mobile architecture section (responsive design, sidebar behavior, Tailscale direct IP), authentication g",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.47319518029689783,
+      "totalScore": 0.9436840236186981,
       "maxScore": 0.47319518029689783,
       "firstRecalledAt": "2026-06-27T10:01:06.160Z",
-      "lastRecalledAt": "2026-06-27T10:01:06.160Z",
+      "lastRecalledAt": "2026-07-06T10:58:00.605Z",
       "queryHashes": [
-        "f662492112fe"
+        "f662492112fe",
+        "5f1699e57f3e"
       ],
       "recallDays": [
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "ts.net",
@@ -111282,6 +111290,192 @@
         "webhook",
         "fix.md",
         "learning"
+      ]
+    },
+    "memory:memory/2026-07-06.md:158:190": {
+      "key": "memory:memory/2026-07-06.md:158:190",
+      "path": "memory/2026-07-06.md",
+      "startLine": 158,
+      "endLine": 190,
+      "source": "memory",
+      "snippet": "| `Systack/operations/operating-system.md` | Lead flow, discovery call, proposal, close, onboarding, deployment, support, renewal, metrics, fleet roles | ### Git - 3 commits pushed to `Phillip-Lowe/Systack-SAOS` - `ac2e5f2..ef9bbd5` — all 8 fleet deliverables ### Remaining (Non-Oracle) 1. ⏳ iOS Safari cert trust — awaiting Green's decision (Cloudflare Tunnel) 2. ⏳ Production deployment — dev → prod credentials 3. ⏳ Monitoring dashboard — agent health, queue depth, error rates 4. ⏳ Client onboarding flow automation 5. ⏳ Billing integration — Stripe subscription management --- ## Oracle Phase 2 — Production Operations + Sales Validation (03:25 - 03:42 CDT) **Session Time:** ~03:25 - 03:42",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.45176822543144224,
+      "maxScore": 0.45176822543144224,
+      "firstRecalledAt": "2026-07-06T10:55:09.200Z",
+      "lastRecalledAt": "2026-07-06T10:55:09.200Z",
+      "queryHashes": [
+        "4ed627ac4be7"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "phillip-lowe/systack-saos",
+        "non-oracle",
+        "systack",
+        "operations",
+        "operating",
+        "system.md",
+        "lead",
+        "flow"
+      ]
+    },
+    "memory:memory/2026-07-06.md:144:165": {
+      "key": "memory:memory/2026-07-06.md:144:165",
+      "path": "memory/2026-07-06.md",
+      "startLine": 144,
+      "endLine": 165,
+      "source": "memory",
+      "snippet": "3. **ASSEMBLY and SOL pattern:** Cloud subagent produces good content in completion event output, but doesn't write to disk. Parent agent extracts and writes. 4. **Total fleet runtime:** ~15 minutes wall clock (all 8 agents spawned sequentially with 3-cloud-slot limit). ### Files Created (Sales/Operations) | Path | Description | |------|-------------| | `Systack/sales/prospect-research-packets.md` | 5 niche research packets (restaurants, warehouses, healthcare, real estate, professional services) | | `Systack/sales/outreach-asset-library.md` | 9 cold emails, 2 SMS, 3 LinkedIn, discovery script, objection library | | `Systack/legal/business-infrastructure-pack.md` | MSA, ASA, AI policy, pri",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.43591891825199125,
+      "maxScore": 0.43591891825199125,
+      "firstRecalledAt": "2026-07-06T10:55:09.200Z",
+      "lastRecalledAt": "2026-07-06T10:55:09.200Z",
+      "queryHashes": [
+        "4ed627ac4be7"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "3-cloud-slot",
+        "sales/operations",
+        "assembly",
+        "sol",
+        "pattern",
+        "cloud",
+        "produces",
+        "good"
+      ]
+    },
+    "memory:memory/2026-07-06.md:95:120": {
+      "key": "memory:memory/2026-07-06.md:95:120",
+      "path": "memory/2026-07-06.md",
+      "startLine": 95,
+      "endLine": 120,
+      "source": "memory",
+      "snippet": "2. **DNS routes created:** `portal.systack.net` and `command.systack.net` → new tunnel 3. **Config written:** `~/.cloudflared/config-saos-dashboard.yml` with ingress rules for both portals 4. **LaunchAgent installed:** `net.systack.saos-cloudflare-tunnel.plist` with KeepAlive=true 5. **Verified:** Both URLs return 200 with real SSL certs 6. **Docs updated:** README, Quick Start Guide, Technical Spec, iOS Cert Trust Plan — all now reference Cloudflare URLs instead of `.ts.net` 7. **Fleet health check updated:** Now monitors 9 endpoints (7 local + 2 Cloudflare) — all 9/9 healthy 8. **Accidental `saos.systack.net` CNAME created** pointing at deli tunnel — needs manual fix in Cloudflare DNS dash",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4903330266475677,
+      "maxScore": 0.4903330266475677,
+      "firstRecalledAt": "2026-07-06T10:58:00.605Z",
+      "lastRecalledAt": "2026-07-06T10:58:00.605Z",
+      "queryHashes": [
+        "5f1699e57f3e"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "portal.systack.net",
+        "command.systack.net",
+        "ts.net",
+        "9/9",
+        "saos.systack.net",
+        "dns",
+        "routes",
+        "created"
+      ]
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:123:150": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:123:150",
+      "path": "memory/2026-07-06-oracle-handoff.md",
+      "startLine": 123,
+      "endLine": 150,
+      "source": "memory",
+      "snippet": "**Pattern:** Cloud subagents produce good content in their completion event output but don't write to disk. Fix: parent agent extracts and writes files locally. ### Additional Deliverables | Item | File | Description | |------|------|-------------| | Sales Pipeline Tracker | `Systack/sales/pipeline-tracker.md` | Lightweight markdown CRM — tracks leads through pipeline stages, outreach log, discovery calls, wins/losses, weekly metrics | | Fleet Health Monitor | `Systack/operations/fleet-health-check.py` | 15-minute cron checking 9 endpoints (7 local + 2 Cloudflare), iMessage alerts on critical failure | | Client Onboarding Script | `scripts/onboard_client.py` | Verified working — creates cl",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.468021747469902,
+      "maxScore": 0.468021747469902,
+      "firstRecalledAt": "2026-07-06T10:58:00.605Z",
+      "lastRecalledAt": "2026-07-06T10:58:00.605Z",
+      "queryHashes": [
+        "5f1699e57f3e"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "2026-07-06-oracle-handoff.md",
+        "wins/losses",
+        "15-minute",
+        "scripts/onboard-client.py",
+        "oracle",
+        "handoff.md",
+        "pattern",
+        "cloud"
+      ]
+    },
+    "memory:memory/2026-07-06.md:113:135": {
+      "key": "memory:memory/2026-07-06.md:113:135",
+      "path": "memory/2026-07-06.md",
+      "startLine": 113,
+      "endLine": 135,
+      "source": "memory",
+      "snippet": "- `~/.cloudflared/a077cb5c-41fe-4557-90cf-11d8386900d5.json` — tunnel credentials ### What Needs Green - Update `saos.systack.net` CNAME in Cloudflare DNS to point to `a077cb5c-41fe-4557-90cf-11d8386900d5.cfargotunnel.com` (currently points to deli tunnel `e2897c60...`) - OR: Just delete the `saos.systack.net` CNAME — `portal.systack.net` and `command.systack.net` are the primary URLs --- ## Fleet Sales-Validation Sprint (Oracle Directive) **Session Time:** ~01:00 - 01:30 CDT **Mission:** Deploy SAOS fleet on highest-leverage sales-validation activities per Oracle directive — prospect research, outreach assets, business infrastructure, risk analysis, acceptance standards, internal templ",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.46671159565448755,
+      "maxScore": 0.46671159565448755,
+      "firstRecalledAt": "2026-07-06T10:58:00.605Z",
+      "lastRecalledAt": "2026-07-06T10:58:00.605Z",
+      "queryHashes": [
+        "5f1699e57f3e"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "saos.systack.net",
+        "portal.systack.net",
+        "command.systack.net",
+        "sales-validation",
+        "highest-leverage",
+        "cloudflared",
+        "a077cb5c",
+        "41fe"
+      ]
+    },
+    "memory:memory/2026-06-30-2010-cdt-session-summary.md:26:63": {
+      "key": "memory:memory/2026-06-30-2010-cdt-session-summary.md:26:63",
+      "path": "memory/2026-06-30-2010-cdt-session-summary.md",
+      "startLine": 26,
+      "endLine": 63,
+      "source": "memory",
+      "snippet": "### Bug Fix During Build - `n8n-customer-support-drafting.json` initially had invalid JSON escape sequences (`\\`` instead of `` ` ``) - Fixed via Python regex replacement: `text.replace('\\`', '`')` - All 3 files now pass JSON validation --- ## 2. iOS Safari `.ts.net` Certificate Trust Plan **File:** `IOS-CERT-TRUST-PLAN.md` (6.2KB) **Problem:** iOS Safari blocks `*.ts.net` Tailscale URLs with \"Certificate Invalid\" **Root Cause:** Tailscale's `.ts.net` certs use LetsEncrypt. iOS requires explicit user action to trust these certificates. macOS trusts them via Tailscale system extension; iOS has no such mechanism. **Recommended Solution:** Cloudflare Tunnel (Option 2) - Free ($0) — Cloudf",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4651583850383758,
+      "maxScore": 0.4651583850383758,
+      "firstRecalledAt": "2026-07-06T10:58:00.605Z",
+      "lastRecalledAt": "2026-07-06T10:58:00.605Z",
+      "queryHashes": [
+        "5f1699e57f3e"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "text.replace",
+        "ts.net",
+        "ios-cert-trust-plan.md",
+        "6.2kb",
+        "cdt",
+        "summary.md",
+        "bug",
+        "fix"
       ]
     }
   }

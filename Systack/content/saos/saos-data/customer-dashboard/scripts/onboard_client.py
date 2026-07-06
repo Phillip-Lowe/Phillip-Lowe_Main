@@ -72,6 +72,14 @@ def onboard_client(name, email, tier='business', role='customer', stripe_sub_id=
         print(f"  ✅ Conversation ID: {conv_id}")
         
         # Welcome message from SOL
+        mfa_notice = ""
+        if tier == 'enterprise':
+            mfa_notice = """
+
+🔐 IMPORTANT: Your Enterprise account requires Multi-Factor Authentication (MFA).
+After setting your PIN, you'll be prompted to set up MFA before your first login.
+This keeps your account secure."""
+        
         welcome_msg = f"""👋 Welcome to SAOS, {name}!
 
 I'm SOL, your System Operations Liaison. I'll be your primary point of contact.
@@ -83,7 +91,7 @@ Here's what happens next:
 4. Chat with me anytime — I'm always here
 
 Your temporary PIN is: {temp_pin}
-It expires in 24 hours. Set your permanent PIN at the login screen.
+It expires in 24 hours. Set your permanent PIN at the login screen.{mfa_notice}
 
 Your tier: {tier}
 Your agent fleet: depends on your tier
@@ -152,6 +160,17 @@ Let's get started! 🚀"""
                 json.dumps({'client_id': client_id, 'service_name': svc, 'source': 'onboarding'}),
                 agent
             ))
+        
+        # Enterprise: Add MFA setup task
+        if tier == 'enterprise':
+            cur.execute("""
+                INSERT INTO task_queue 
+                (task_type, display_name, description, payload_json, priority, status, assigned_agent)
+                VALUES ('mfa_setup', 'Setup: Multi-Factor Authentication', 
+                        'Configure MFA for Enterprise account security',
+                        %s, 1, 'PENDING', 'SOL')
+            """, (json.dumps({'client_id': client_id, 'tier': tier, 'required': True}),))
+            print(f"  ✅ MFA setup task added (Enterprise requirement)")
         
         print(f"  ✅ {len(services)} service setup tasks created")
         

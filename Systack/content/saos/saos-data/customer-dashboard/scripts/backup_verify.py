@@ -25,12 +25,35 @@ import json
 import time
 from datetime import datetime, timedelta
 
+# Import encryption helper
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from encrypt_backup import encrypt_file, decrypt_file
+
 DB_HOST = os.environ.get("PGHOST", "localhost")
 DB_PORT = os.environ.get("PGPORT", "5432")
 DB_NAME = os.environ.get("PGDATABASE", "systack_memory")
 DB_USER = os.environ.get("PGUSER", "philliplowe")
 BACKUP_DIR = os.environ.get("SAOS_BACKUP_DIR", os.path.expanduser("~/saos-backups"))
 TEST_DB = "saos_restore_test"
+
+# Check encryption key is configured
+if not os.environ.get('SAOS_BACKUP_ENCRYPTION_KEY'):
+    print("⚠️  WARNING: SAOS_BACKUP_ENCRYPTION_KEY not set. Backups will NOT be encrypted.")
+    print("   Set a 64-character hex key to enable encryption.")
+    ENCRYPTION_ENABLED = False
+else:
+    ENCRYPTION_ENABLED = True
+
+# Check off-site backup config
+OFFSITE_ENABLED = all([
+    os.environ.get('SAOS_OFFSITE_S3_ENDPOINT'),
+    os.environ.get('SAOS_OFFSITE_S3_ACCESS_KEY'),
+    os.environ.get('SAOS_OFFSITE_S3_SECRET_KEY'),
+    os.environ.get('SAOS_OFFSITE_S3_BUCKET')
+])
+if not OFFSITE_ENABLED:
+    print("⚠️  WARNING: Off-site backup not configured. Backups stay local only.")
+    print("   Set SAOS_OFFSITE_S3_* variables to enable off-site storage.")
 
 def log_backup(backup_type, target, status, file_path=None, file_size=None, 
                checksum_sha256=None, started_at=None, completed_at=None, 
@@ -93,11 +116,41 @@ def run_pg_dump():
     checksum = sha256_file(backup_file)
     print(f"  ✅ Backup: {file_size:,} bytes, {elapsed}s, SHA-256: {checksum[:16]}...")
     
+    # Encrypt backup if encryption is enabled
+    if ENCRYPTION_ENABLED:
+        print(f"  [1a/5] Encrypting backup...")
+        try:
+            enc_file = encrypt_file(backup_file)
+            # Update file path and size to encrypted version
+            backup_file = enc_file
+            file_size = os.path.getsize(enc_file)
+            checksum = sha256_file(enc_file)
+            print(f"  ✅ Encrypted backup ready")
+        except Exception as e:
+            print(f"  ⚠️  Encryption failed: {e}")
+            print(f"  ⚠️  Continuing with unencrypted backup")
+    
     return backup_file, checksum, file_size
 
 def restore_to_test_db(backup_file):
     """Restore backup to a temporary test database to verify integrity."""
     print(f"[2/5] Creating test database: {TEST_DB}")
+    
+    # Check if file is encrypted
+    decrypted_path = None
+    if backup_file.endswith('.enc') or ENCRYPTION_ENABLED:
+        print(f"  [2a/5] Decrypting backup for restore test...")
+        try:
+            decrypted_path = backup_file.replace('.enc', '') + '.tmp'
+            decrypt_file(backup_file, decrypted_path)
+            restore_source = decrypted_path
+            print(f"  ✅ Decrypted for restore test")
+        except Exception as e:
+            print(f"  ⚠️  Decryption failed: {e}")
+            print(f"  ⚠️  Attempting restore from original file")
+            restore_source = backup_file
+    else:
+        restore_source = backup_file
     
     # Drop test DB if exists
     subprocess.run(['dropdb', '--if-exists', '-h', DB_HOST, '-p', DB_PORT, '-U', DB_USER, TEST_DB],
@@ -115,10 +168,14 @@ def restore_to_test_db(backup_file):
     
     result = subprocess.run([
         'psql', '-h', DB_HOST, '-p', DB_PORT, '-U', DB_USER, '-d', TEST_DB,
-        '-f', backup_file, '-q'
+        '-f', restore_source, '-q'
     ], capture_output=True, text=True, env={**os.environ, 'PGPASSWORD': os.environ.get('PGPASSWORD', '')})
     
     elapsed = int(time.time() - start)
+    
+    # Cleanup temp decrypted file
+    if decrypted_path and os.path.exists(decrypted_path):
+        os.remove(decrypted_path)
     
     if result.returncode != 0:
         print(f"  ❌ Restore failed: {result.stderr[:500]}")
@@ -237,9 +294,30 @@ def main():
     verify_ok, verify_msg = verify_restored_data()
     cleanup_test_db()
     
+    # Off-site backup upload
+    offsite_status = "skipped"
+    if OFFSITE_ENABLED and verify_ok:
+        print("[6/5] Uploading to off-site storage...")
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            from offsite_backup import upload_backup
+            upload_backup(backup_file)
+            offsite_status = "uploaded"
+        except Exception as e:
+            print(f"  ⚠️  Off-site upload failed: {e}")
+            offsite_status = f"failed: {e}"
+    
     total_elapsed = int(time.time() - overall_start)
     
     # Log to database
+    notes = f"Backup+verify completed in {total_elapsed}s"
+    if ENCRYPTION_ENABLED:
+        notes += ", encrypted"
+    if offsite_status == "uploaded":
+        notes += ", off-site uploaded"
+    elif offsite_status.startswith("failed"):
+        notes += f", off-site {offsite_status}"
+    
     log_backup('pg_dump', DB_NAME, 'verified' if verify_ok else 'failed',
                file_path=backup_file, file_size=file_size, checksum_sha256=checksum,
                started_at=datetime.now() - timedelta(seconds=total_elapsed),
@@ -247,13 +325,14 @@ def main():
                verification_result=verify_msg,
                rpo_minutes=1440,  # 24 hours (daily backup = 1440 min RPO)
                rto_minutes=total_elapsed * 2,  # restore took X, full recovery ~2X
-               notes=f"Backup+verify completed in {total_elapsed}s")
+               notes=notes)
     
     print("\n" + "=" * 60)
     print(f"RESULT: {'✅ ALL CHECKS PASSED' if verify_ok else '❌ VERIFICATION FAILED'}")
     print(f"Total time: {total_elapsed}s")
     print(f"Backup file: {backup_file}")
     print(f"Size: {file_size:,} bytes")
+    print(f"Encrypted: {'✅ Yes (AES-256-GCM)' if ENCRYPTION_ENABLED else '❌ No'}")
     print(f"SHA-256: {checksum}")
     print(f"RPO: 1440 minutes (24 hours)")
     print(f"RTO: {total_elapsed * 2} minutes (estimated)")

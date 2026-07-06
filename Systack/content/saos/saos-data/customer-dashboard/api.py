@@ -303,19 +303,31 @@ def get_auth_client():
     token = auth_header[7:].strip()
     token_hash = hash_token(token)
     
-    client = db_query("""
-        SELECT c.* FROM saos_clients c
-        JOIN client_auth_tokens t ON c.id = t.client_id
-        WHERE t.token_hash = %s 
-        AND t.revoked_at IS NULL 
-        AND t.expires_at > NOW()
-        LIMIT 1
-    """, (token_hash,), one=True)
-    
-    if client and 'error' not in client:
-        # Update last_used
-        db_exec("UPDATE client_auth_tokens SET last_used_at = NOW() WHERE token_hash = %s", (token_hash,))
-        return client
+    conn = get_db()
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+    try:
+        cur.execute("""
+            SELECT c.* FROM saos_clients c
+            JOIN client_auth_tokens t ON c.id = t.client_id
+            WHERE t.token_hash = %s 
+            AND t.revoked_at IS NULL 
+            AND t.expires_at > NOW()
+            LIMIT 1
+        """, (token_hash,))
+        client = cur.fetchone()
+        
+        if client and 'error' not in client:
+            # Set RLS context for this session
+            pin = client.get('auth_pin') or client.get('temp_pin', '')
+            cur.execute("SET LOCAL app.current_client_pin = %s", (pin,))
+            
+            # Update last_used
+            cur.execute("UPDATE client_auth_tokens SET last_used_at = NOW() WHERE token_hash = %s", (token_hash,))
+            conn.commit()
+            return client
+    finally:
+        cur.close()
+        conn.close()
     return None
 
 def log_audit(action, entity_type=None, entity_id=None, old_value=None, new_value=None, client_id=None):
@@ -1034,6 +1046,17 @@ def login():
             "message": f"Login failed. Attempt {attempts} of 5 in 5 minutes."
         }), 401
     
+    # Enterprise tier: MFA is mandatory
+    tier = client.get('tier', 'business')
+    if tier == 'enterprise' and not client.get('mfa_enabled'):
+        log_audit('login_failed_mfa_required_enterprise', entity_type='client', entity_id=str(client_id))
+        return jsonify({
+            "error": "MFA required",
+            "message": "Enterprise accounts require Multi-Factor Authentication. Please set up MFA before logging in.",
+            "mfa_setup_required": True,
+            "setup_url": "/api/mfa/setup"
+        }), 403
+    
     # MFA check
     if client.get('mfa_enabled') and client.get('mfa_secret'):
         if not mfa_code and not recovery_code:
@@ -1436,7 +1459,7 @@ def pending_tasks():
     Requires internal-api-key header for basic security.
     """
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
     
     if api_key != expected:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -1466,7 +1489,7 @@ def claim_task(task_id):
     """Mark a task as claimed by an agent runner.
     Prevents duplicate agent spawns."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
     
     if api_key != expected:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -1489,7 +1512,7 @@ def update_task(task_id):
     """Update task status from agent execution.
     Called by spawned agents via webhook."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
     
     if api_key != expected:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -1596,7 +1619,7 @@ def notify_client():
     Called by task update system when client is offline or for urgent updates.
     """
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
     
     if api_key != expected:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -1682,7 +1705,7 @@ def notify_client():
 def pending_notifications():
     """Get pending notifications for n8n to process."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
     
     if api_key != expected:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -1709,7 +1732,7 @@ def upload_deliverable():
     """Upload a deliverable file for a task.
     Called by agents after completing work."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY', 'saos-internal-dev-key')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
     
     if api_key != expected:
         return jsonify({'error': 'Unauthorized'}), 401

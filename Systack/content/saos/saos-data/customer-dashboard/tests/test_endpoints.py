@@ -11,7 +11,7 @@ import sys
 import time
 
 BASE = "http://localhost:8768"
-INTERNAL_KEY = "saos-internal-dev-key"
+INTERNAL_KEY = "c9e3fdd8cb9060ee611916817cc68cd272a5ba937d19f96115cd8900e8437612"
 results = {"pass": 0, "fail": 0, "skip": 0}
 errors = []
 

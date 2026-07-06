@@ -53,6 +53,47 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 | Daily Backup Cron | ✅ Active | 3 AM CDT, iMessage alerts |
 | Git | ✅ Pushed | All changes on GitHub |
 
+---
+
+## Compute Conservation Mode Activated (2026-07-06)
+
+**Trigger:** Fleet compute audit showed continuous agent burn unjustified for current SAOS stage.
+
+**Action taken:**
+- Updated `AGENTS.md` with on-demand fleet schedule
+- Verified no cloud models currently running (`ollama ps` clean)
+- Confirmed cron jobs (health monitor, backup) remain active via LOKI
+- Local agents (DOOBY, LOKI, VALI) set to `qwen3.5:9b` on-demand
+- Cloud agents (SOL, ATLAS, CHATTY, CODY) on weekly rotation schedule
+
+**Weekly compute target:**
+- 50% SOL — daily strategy + dreaming
+- 20% ATLAS — research weeks
+- 15% CHATTY — outreach weeks
+- 10% CODY — templates, docs
+- 3% PESSI — risk review when launching
+- 2% JURIS — contract review when needed
+
+**Local agents (no cloud cost):**
+- DOOBY — coding bursts
+- LOKI — cron jobs, file ops
+- VALI — QA validation, testing
+
+**Background jobs (cron, no agent burn):**
+- Fleet health monitor — every 15 min
+- Daily backup — 3 AM CDT
+- Backup verification — weekly
+
+**Scale-up triggers:**
+- 3+ paying SAOS clients
+- Active customer support load
+- Large deployment pipeline
+- 24/7 monitoring requirements
+
+**Review date:** 2026-08-06 (30 days) — reassess if paying customer threshold met.
+
+---
+
 ## 2026-07-05 — SAOS Enterprise Hardening — ALL PRIORITIES P1-P5 COMPLETE
 
 **Status:** ✅ ALL ORACLE PRIORITIES COMPLETE (P1-P5)
@@ -176,6 +217,21 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 4. ⏳ Client onboarding flow — script ready, needs UI wiring
 5. ⏳ Billing integration — Stripe live, subscription management UI pending
 6. ⏳ PESSI top 5: rotate API key, add RLS, encrypt backups, off-site backup, MFA mandatory Enterprise
+
+---
+
+### Compute Conservation Mode Activated (2026-07-06)
+
+**Trigger:** Fleet compute audit showed continuous agent burn unjustified for current SAOS stage.
+
+**Action taken:**
+- Updated `AGENTS.md` with on-demand fleet schedule
+- Verified no cloud models currently running (`ollama ps` clean)
+- Confirmed cron jobs (health monitor, backup) remain active via LOKI
+- Local agents (DOOBY, LOKI, VALI) set to `qwen3.5:9b` on-demand
+- Cloud agents (SOL, ATLAS, CHATTY, CODY) on weekly rotation schedule
+
+**Review date:** 2026-08-06 (30 days) — reassess if paying customer threshold met.
 
 ---
 
