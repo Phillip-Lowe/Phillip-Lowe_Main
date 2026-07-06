@@ -123,7 +123,7 @@ for var in ["PGHOST", "PGPORT", "PGDATABASE", "PGUSER"]:
 # Connection pool (min 1, max 5 connections)
 try:
     db_pool = psycopg2.pool.SimpleConnectionPool(
-        1, 5,
+        2, 20,
         host=DB_HOST,
         port=int(DB_PORT),
         dbname=DB_NAME,
