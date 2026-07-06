@@ -4,6 +4,70 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-07-06 — UTOPIA DELI SCOPE RULES (LOCKED)
+
+**Status:** 🔒 ACTIVE — Binding rule for all future deli work
+**Reference:** `memory/2026-07-06-deli-scope-rules.md`
+**Enforced by:** User directive
+**Consequence of violation:** User will stop using SOL for deli work
+
+### The Three Separate Things (NEVER TOUCH MORE THAN ONE AT A TIME)
+
+| Category | Directory | What It Is | Scope |
+|----------|-----------|------------|-------|
+| **Order Page** | `pickup-order/` | Main menu for regular orders | ORDER PAGE ONLY |
+| **Meal Prep** | `catering/` (meal prep section) | Weekly meal prep orders | MEAL PREP ONLY |
+| **Catering** | `catering/` (catering section) | Event catering orders | CATERING ONLY |
+
+### RULES
+
+1. **When user mentions ANY deli category, ASK which of the three they mean**
+2. **Confirm EXACT files/directories before touching anything**
+3. **ONLY modify files within the specified category's directory**
+4. **NEVER bundle changes across categories**
+5. **If unsure, STOP and ask**
+
+### Today's Violation (2026-07-06 15:57 CDT)
+
+**What user asked:** "Update meal prep"
+**What I did:** Modified `pickup-order/order-form.js` and `pickup-order/menu-data.js`
+**Result:** Order page broke (v5.6 deployed, no menu cards rendering)
+**Fix:** Reverted to v5.1 (commit `be25658`)
+**Current status:** Order page LOCKED until further notice
+
+---
+
+## 2026-07-06 — Systack Site Updated for SAOS Production Readiness
+
+**Status:** ✅ COMMITTED & DEPLOYED — GitHub Pages propagating  
+**Reference:** `memory/2026-07-06-site-update.md`  
+**Commits:** `24d757d`, `a522c54`
+
+### What Was Done (16:20-16:35 CDT)
+
+Full site audit and update to reflect current SAOS offerings before go-live.
+
+**Files Changed:**
+- `services.html` — Fixed SAOS pricing, added Invoice/Lead/Document services, SAOS Infrastructure section
+- `services/index.html` — Complete rewrite (was stale booking-only page, now full services catalog)
+- `pricing.html` — Added compliance badges, Customer Portal/Command Center mentions, fixed managed service framing
+- `index.html` — Renamed cards to "SAOS AI Agent Fleet" and "Business Process Automation", added Portal link
+- `work/index.html` — Replaced placeholder cases with SAOS Platform case study (real metrics)
+
+**Key Fixes:**
+- Removed "OpenClaw installation" and "SOUL.md config" from pricing (too technical)
+- Added Enterprise Ready badge section (SOC 2, RBAC, MFA, Trust Center)
+- Fixed SAOS Agent Fleet from "$2,500 setup + $299/mo" to "From $299/mo · No setup fee"
+- Added Public Trust Center links
+- Updated nav across all pages to include SAOS and Pricing
+
+**Verified Source of Truth:**
+- `memory/2026-06-29-saos-dashboard-services-true-alignment.md`
+- `memory/2026-06-06-pricing-alignment.md`
+- `SYSTACK-SERVICES-REGISTRY.md`
+
+---
+
 ## 2026-07-06 — SAOS Enterprise Readiness Finalization
 
 **Status:** ✅ ALL ORACLE PRIORITIES COMPLETE + Command Center v2.0 + Full Test Coverage
