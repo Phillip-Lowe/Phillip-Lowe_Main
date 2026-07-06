@@ -283,6 +283,21 @@ def db_exec(sql, params=()):
         cur.close()
         conn.close()
 
+def db_insert(sql, params=()):
+    """Execute INSERT/UPDATE/DELETE — no fetchall. Returns True or error string."""
+    conn = get_db()
+    cur = conn.cursor()
+    try:
+        cur.execute(sql, params)
+        conn.commit()
+        return True
+    except Exception as e:
+        conn.rollback()
+        return str(e)
+    finally:
+        cur.close()
+        conn.close()
+
 # ── AUTH ───────────────────────────────────────────────────────
 
 def hash_token(token):
@@ -422,6 +437,20 @@ def require_permission(permission_name):
             return f(*args, **kwargs)
         return decorated
     return decorator
+
+def require_internal_api_key(f):
+    """Decorator that requires X-Internal-Api-Key header matching SAOS_INTERNAL_API_KEY env var.
+    Used for internal endpoints called by agents, n8n, or cron jobs."""
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        api_key = request.headers.get('X-Internal-Api-Key', '')
+        expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+        if not expected:
+            return jsonify({'error': 'Server misconfigured', 'message': 'SAOS_INTERNAL_API_KEY not set'}), 500
+        if api_key != expected:
+            return jsonify({'error': 'Unauthorized', 'message': 'Invalid internal API key'}), 401
+        return f(*args, **kwargs)
+    return decorated
 
 # ── MFA: MULTI-FACTOR AUTHENTICATION (TOTP) ────────────────
 
@@ -2967,6 +2996,399 @@ def trust_center():
         'security_events_30d': sec_summary if isinstance(sec_summary, list) else [],
         'trust_center_version': '1.0',
         'last_updated': datetime.now().isoformat()
+    })
+
+# ════════════════════════════════════════════════════════════════
+# WORKFLOW MANAGEMENT: Customer workflow delivery and visibility
+# Phase 1: Shared n8n with customer isolation
+# ════════════════════════════════════════════════════════════════
+
+@app.route('/api/workflows')
+@require_auth
+def list_workflows():
+    """Customer-facing: List all workflows for authenticated client."""
+    client_id = request.client['id']
+    status_filter = request.args.get('status')
+    service_filter = request.args.get('service_type')
+    limit = min(int(request.args.get('limit', 50)), 200)
+    
+    sql = """
+        SELECT id, workflow_name, service_type, deployment_mode, 
+               status, webhook_url, last_run_at, last_success_at, 
+               last_error_at, error_count, created_at, updated_at
+        FROM customer_workflows 
+        WHERE client_id = %s
+    """
+    params = [client_id]
+    
+    if status_filter:
+        sql += " AND status = %s"
+        params.append(status_filter)
+    if service_filter:
+        sql += " AND service_type = %s"
+        params.append(service_filter)
+    
+    sql += " ORDER BY updated_at DESC LIMIT %s"
+    params.append(limit)
+    
+    workflows = db_query(sql, tuple(params))
+    return jsonify({
+        'workflows': workflows if isinstance(workflows, list) else [],
+        'count': len(workflows) if isinstance(workflows, list) else 0
+    })
+
+@app.route('/api/workflows/<int:workflow_id>')
+@require_auth
+def get_workflow(workflow_id):
+    """Customer-facing: Get single workflow details."""
+    client_id = request.client['id']
+    
+    workflow = db_query("""
+        SELECT * FROM customer_workflows 
+        WHERE id = %s AND client_id = %s
+    """, (workflow_id, client_id), one=True)
+    
+    if not workflow:
+        return jsonify({'error': 'Workflow not found'}), 404
+    
+    # Get recent events
+    events = db_query("""
+        SELECT event_type, severity, message, metadata, created_at
+        FROM workflow_events 
+        WHERE workflow_id = %s
+        ORDER BY created_at DESC
+        LIMIT 20
+    """, (workflow_id,))
+    
+    # Get recent test runs
+    test_runs = db_query("""
+        SELECT response_status, success, duration_ms, error_message, run_at
+        FROM workflow_test_runs 
+        WHERE workflow_id = %s
+        ORDER BY run_at DESC
+        LIMIT 10
+    """, (workflow_id,))
+    
+    return jsonify({
+        'workflow': workflow,
+        'recent_events': events if isinstance(events, list) else [],
+        'recent_test_runs': test_runs if isinstance(test_runs, list) else []
+    })
+
+@app.route('/api/workflows/<int:workflow_id>/test', methods=['POST'])
+@require_auth
+def test_workflow(workflow_id):
+    """Customer-facing: Trigger a test run of a workflow webhook."""
+    client_id = request.client['id']
+    data = request.get_json() or {}
+    
+    workflow = db_query("""
+        SELECT * FROM customer_workflows 
+        WHERE id = %s AND client_id = %s
+    """, (workflow_id, client_id), one=True)
+    
+    if not workflow:
+        return jsonify({'error': 'Workflow not found'}), 404
+    
+    webhook_url = workflow.get('webhook_url')
+    if not webhook_url:
+        return jsonify({'error': 'No webhook URL configured for this workflow'}), 400
+    
+    import time
+    import urllib.request
+    import json as json_lib
+    
+    # Build test payload
+    test_payload = data.get('payload') or workflow.get('test_payload') or {
+        'test': True,
+        'timestamp': datetime.now().isoformat(),
+        'source': 'customer_portal_test'
+    }
+    
+    # Send test request
+    start_time = time.time()
+    try:
+        req = urllib.request.Request(
+            webhook_url,
+            data=json_lib.dumps(test_payload).encode('utf-8'),
+            headers={'Content-Type': 'application/json'},
+            method='POST'
+        )
+        
+        response = urllib.request.urlopen(req, timeout=30)
+        response_body = response.read().decode('utf-8')
+        response_status = response.status
+        duration_ms = int((time.time() - start_time) * 1000)
+        success = 200 <= response_status < 300
+        error_message = None
+        
+    except Exception as e:
+        response_status = None
+        response_body = None
+        duration_ms = int((time.time() - start_time) * 1000)
+        success = False
+        error_message = str(e)
+    
+    # Record test run
+    db_insert("""
+        INSERT INTO workflow_test_runs 
+        (workflow_id, test_payload, response_status, response_body, success, duration_ms, error_message)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    """, (workflow_id, json_lib.dumps(test_payload), response_status, 
+           response_body, success, duration_ms, error_message))
+    
+    # Update workflow stats
+    db_insert("""
+        UPDATE customer_workflows 
+        SET last_run_at = NOW(),
+            last_success_at = CASE WHEN %s THEN NOW() ELSE last_success_at END,
+            last_error_at = CASE WHEN %s THEN NOW() ELSE last_error_at END,
+            error_count = CASE WHEN %s THEN error_count + 1 ELSE error_count END,
+            updated_at = NOW()
+        WHERE id = %s
+    """, (success, not success, not success, workflow_id))
+    
+    # Log event
+    event_type = 'test_passed' if success else 'test_failed'
+    severity = 'info' if success else 'warning'
+    message = f'Customer-triggered test: {"SUCCESS" if success else "FAILED"} ({duration_ms}ms)'
+    
+    db_insert("""
+        INSERT INTO workflow_events (workflow_id, event_type, severity, message, metadata)
+        VALUES (%s, %s, %s, %s, %s)
+    """, (workflow_id, event_type, severity, message, 
+           json_lib.dumps({'response_status': response_status, 'duration_ms': duration_ms, 'error': error_message})))
+    
+    return jsonify({
+        'success': success,
+        'workflow_id': workflow_id,
+        'webhook_url': webhook_url,
+        'response_status': response_status,
+        'response_body': response_body[:1000] if response_body else None,
+        'duration_ms': duration_ms,
+        'error_message': error_message
+    })
+
+@app.route('/api/internal/workflows', methods=['POST'])
+@require_internal_api_key
+def create_workflow():
+    """Internal: Agent/Service creates a new workflow record after building."""
+    data = request.get_json() or {}
+    
+    required = ['client_id', 'workflow_name', 'service_type']
+    for field in required:
+        if not data.get(field):
+            return jsonify({'error': f'{field} required'}), 400
+    
+    # Create workflow record
+    result = db_query("""
+        INSERT INTO customer_workflows 
+        (client_id, task_id, service_type, workflow_name, n8n_workflow_id,
+         deployment_mode, environment, status, webhook_url, test_payload,
+         expected_result, backup_file_path, readme_file_path)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        RETURNING id
+    """, (
+        data['client_id'],
+        data.get('task_id'),
+        data['service_type'],
+        data['workflow_name'],
+        data.get('n8n_workflow_id'),
+        data.get('deployment_mode', 'shared'),
+        data.get('environment', 'production'),
+        data.get('status', 'draft'),
+        data.get('webhook_url'),
+        json.dumps(data.get('test_payload')) if data.get('test_payload') else None,
+        data.get('expected_result'),
+        data.get('backup_file_path'),
+        data.get('readme_file_path')
+    ), one=True)
+    
+    workflow_id = result['id']
+    
+    # Log creation event
+    db_insert("""
+        INSERT INTO workflow_events (workflow_id, event_type, severity, message, metadata)
+        VALUES (%s, 'created', 'info', 'Workflow record created', %s)
+    """, (workflow_id, json.dumps({'source': 'agent_delivery', 'task_id': data.get('task_id')})))
+    
+    # Create notification for customer
+    db_insert("""
+        INSERT INTO notifications (client_id, type, channel, status, content)
+        VALUES (%s, 'workflow_created', 'dashboard', 'pending', %s)
+    """, (data['client_id'], json.dumps({
+        'workflow_id': workflow_id,
+        'workflow_name': data['workflow_name'],
+        'status': 'building',
+        'message': f'Workflow "{data["workflow_name"]}" is being prepared.'
+    })))
+    
+    return jsonify({
+        'success': True,
+        'workflow_id': workflow_id,
+        'status': 'draft',
+        'message': 'Workflow record created. Ready for deployment.'
+    })
+
+@app.route('/api/internal/workflows/<int:workflow_id>', methods=['PATCH'])
+@require_internal_api_key
+def update_workflow(workflow_id):
+    """Internal: Update workflow status, webhook, or metadata after deployment/verification."""
+    data = request.get_json() or {}
+    
+    # Build dynamic update
+    allowed_fields = ['status', 'webhook_url', 'n8n_workflow_id', 'test_payload',
+                      'expected_result', 'backup_file_path', 'readme_file_path',
+                      'deployment_mode', 'environment']
+    
+    updates = []
+    params = []
+    for field in allowed_fields:
+        if field in data:
+            if field == 'test_payload':
+                updates.append(f"{field} = %s")
+                params.append(json.dumps(data[field]))
+            else:
+                updates.append(f"{field} = %s")
+                params.append(data[field])
+    
+    if not updates:
+        return jsonify({'error': 'No valid fields to update'}), 400
+    
+    updates.append("updated_at = NOW()")
+    params.append(workflow_id)
+    
+    db_insert(f"""
+        UPDATE customer_workflows 
+        SET {', '.join(updates)}
+        WHERE id = %s
+    """, tuple(params))
+    
+    # Log status change event
+    if 'status' in data:
+        event_type_map = {
+            'building': 'building',
+            'deployed': 'deployed',
+            'active': 'activated',
+            'failed': 'failed',
+            'paused': 'paused'
+        }
+        event_type = event_type_map.get(data['status'], 'updated')
+        
+        db_insert("""
+            INSERT INTO workflow_events (workflow_id, event_type, severity, message, metadata)
+            VALUES (%s, %s, 'info', 'Workflow status updated to: %s', %s)
+        """, (workflow_id, event_type, data['status'], 
+               json.dumps({'previous_status': 'unknown', 'new_status': data['status']})))
+    
+    return jsonify({
+        'success': True,
+        'workflow_id': workflow_id,
+        'message': 'Workflow updated'
+    })
+
+@app.route('/api/internal/workflows/<int:workflow_id>/notify', methods=['POST'])
+@require_internal_api_key
+def notify_workflow_delivery(workflow_id):
+    """Internal: Send delivery notification to customer."""
+    data = request.get_json() or {}
+    channels = data.get('channels', ['dashboard'])
+    priority = data.get('priority', 'normal')
+    
+    workflow = db_query("""
+        SELECT cw.*, c.company_name, c.display_name 
+        FROM customer_workflows cw
+        JOIN saos_clients c ON c.id = cw.client_id
+        WHERE cw.id = %s
+    """, (workflow_id,), one=True)
+    
+    if not workflow:
+        return jsonify({'error': 'Workflow not found'}), 404
+    
+    # Mark task as completed if all conditions met
+    task_id = workflow.get('task_id')
+    if task_id and workflow.get('status') in ['active', 'verified']:
+        db_insert("""
+            UPDATE task_queue SET status = 'completed', completed_at = NOW() 
+            WHERE id = %s
+        """, (task_id,))
+    
+    # Queue notifications
+    notifications_sent = []
+    
+    if 'dashboard' in channels:
+        db_insert("""
+            INSERT INTO notifications (client_id, type, channel, status, content)
+            VALUES (%s, 'workflow_delivered', 'dashboard', 'pending', %s)
+        """, (workflow['client_id'], json.dumps({
+            'workflow_id': workflow_id,
+            'workflow_name': workflow['workflow_name'],
+            'status': workflow['status'],
+            'webhook_url': workflow.get('webhook_url'),
+            'message': f'Your workflow "{workflow["workflow_name"]}" is now live.',
+            'actions': ['view_details', 'test_webhook', 'download_backup']
+        })))
+        notifications_sent.append('dashboard')
+    
+    if 'email' in channels:
+        # Queue for n8n email dispatcher
+        db_insert("""
+            INSERT INTO notifications (client_id, type, channel, status, content)
+            VALUES (%s, 'workflow_delivered', 'email', 'pending', %s)
+        """, (workflow['client_id'], json.dumps({
+            'workflow_id': workflow_id,
+            'workflow_name': workflow['workflow_name'],
+            'status': workflow['status'],
+            'webhook_url': workflow.get('webhook_url'),
+            'expected_result': workflow.get('expected_result'),
+            'recipient': data.get('email'),  # Will use client email if not specified
+            'subject': f'✅ Workflow Delivered: {workflow["workflow_name"]}',
+            'template': 'workflow_delivery'
+        })))
+        notifications_sent.append('email')
+    
+    if 'imessage' in channels:
+        # Urgent/enterprise — immediate iMessage
+        db_insert("""
+            INSERT INTO notifications (client_id, type, channel, status, content, priority)
+            VALUES (%s, 'workflow_delivered', 'imessage', 'pending', %s, 'urgent')
+        """, (workflow['client_id'], json.dumps({
+            'workflow_id': workflow_id,
+            'workflow_name': workflow['workflow_name'],
+            'message': f'"{workflow["workflow_name"]}" is live ✅\nMonitor: portal.systack.net/workflows',
+            'recipient': data.get('phone')
+        })))
+        notifications_sent.append('imessage')
+    
+    # Log notification event
+    db_insert("""
+        INSERT INTO workflow_events (workflow_id, event_type, severity, message, metadata)
+        VALUES (%s, 'notification_sent', 'info', 'Delivery notification queued', %s)
+    """, (workflow_id, json.dumps({'channels': notifications_sent, 'priority': priority})))
+    
+    return jsonify({
+        'success': True,
+        'workflow_id': workflow_id,
+        'notifications_queued': notifications_sent,
+        'message': f'Delivery notifications queued for: {", ".join(notifications_sent)}'
+    })
+
+@app.route('/api/internal/workflows/pending-deployments')
+@require_internal_api_key
+def pending_workflow_deployments():
+    """Internal: List workflows ready for deployment or verification."""
+    workflows = db_query("""
+        SELECT cw.*, c.company_name, c.display_name as client_name
+        FROM customer_workflows cw
+        JOIN saos_clients c ON c.id = cw.client_id
+        WHERE cw.status IN ('draft', 'building', 'deployed', 'needs_review')
+        ORDER BY cw.updated_at DESC
+        LIMIT 50
+    """)
+    
+    return jsonify({
+        'workflows': workflows if isinstance(workflows, list) else [],
+        'count': len(workflows) if isinstance(workflows, list) else 0
     })
 
 # ════════════════════════════════════════════════════════════════

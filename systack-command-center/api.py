@@ -133,6 +133,9 @@ except Exception as e:
     print(f"🚨 FATAL: Cannot connect to database: {e}")
     exit(1)
 
+def get_pool():
+    return db_pool
+
 def get_db():
     return db_pool.getconn()
 
@@ -369,16 +372,90 @@ def fleet_infrastructure():
 @require_pin
 @log_access
 def fleet_workflows():
-    """n8n workflow status."""
+    """Customer workflow delivery status — Phase 1 enhanced view."""
     try:
-        res = requests.get("http://localhost:5678/api/v1/workflows", timeout=3)
-        if res.status_code == 200:
-            workflows = res.json().get('data', [])[:20]
-            return jsonify({"workflows": workflows, "count": len(workflows)})
-    except:
-        pass
-    
-    return jsonify({"workflows": [], "count": 0, "note": "n8n API unavailable"})
+        # Get customer workflows from portal database
+        pool = get_pool()
+        conn = pool.getconn()
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # Summary stats
+        cur.execute("""
+            SELECT 
+                COUNT(*) as total,
+                COUNT(*) FILTER (WHERE status = 'active') as active,
+                COUNT(*) FILTER (WHERE status = 'draft') as draft,
+                COUNT(*) FILTER (WHERE status = 'building') as building,
+                COUNT(*) FILTER (WHERE status = 'failed') as failed,
+                COUNT(*) FILTER (WHERE status = 'paused') as paused,
+                COUNT(*) FILTER (WHERE deployment_mode = 'shared') as shared,
+                COUNT(*) FILTER (WHERE deployment_mode = 'dedicated') as dedicated,
+                COUNT(*) FILTER (WHERE last_run_at > NOW() - INTERVAL '24 hours') as tested_24h,
+                SUM(error_count) as total_errors
+            FROM customer_workflows
+        """)
+        stats = dict(cur.fetchone())
+        
+        # Recent workflows with client info
+        cur.execute("""
+            SELECT 
+                cw.id, cw.client_id, c.customer_name as company_name, c.customer_name as client_name,
+                cw.workflow_name, cw.service_type, cw.status, cw.deployment_mode,
+                cw.environment, cw.webhook_url, cw.last_run_at, cw.last_success_at,
+                cw.last_error_at, cw.error_count, cw.created_at, cw.updated_at,
+                cw.expected_result
+            FROM customer_workflows cw
+            JOIN saos_clients c ON c.id = cw.client_id
+            ORDER BY cw.updated_at DESC
+            LIMIT 50
+        """)
+        workflows = [dict(r) for r in cur.fetchall()]
+        
+        # Pending deployments (needs attention)
+        cur.execute("""
+            SELECT 
+                cw.id, cw.client_id, c.customer_name as company_name, cw.workflow_name,
+                cw.status, cw.created_at, cw.updated_at
+            FROM customer_workflows cw
+            JOIN saos_clients c ON c.id = cw.client_id
+            WHERE cw.status IN ('draft', 'building', 'deployed', 'needs_review')
+            ORDER BY cw.updated_at DESC
+            LIMIT 20
+        """)
+        pending = [dict(r) for r in cur.fetchall()]
+        
+        # Recent events across all workflows
+        cur.execute("""
+            SELECT 
+                we.id, we.workflow_id, we.event_type, we.severity, we.message,
+                we.created_at, cw.workflow_name, c.customer_name as company_name
+            FROM workflow_events we
+            JOIN customer_workflows cw ON cw.id = we.workflow_id
+            JOIN saos_clients c ON c.id = cw.client_id
+            ORDER BY we.created_at DESC
+            LIMIT 20
+        """)
+        recent_events = [dict(r) for r in cur.fetchall()]
+        
+        cur.close()
+        pool.putconn(conn)
+        
+        return jsonify({
+            'stats': stats,
+            'workflows': workflows,
+            'pending_deployments': pending,
+            'recent_events': recent_events,
+            'architecture': 'shared'  # Phase 1
+        })
+    except Exception as e:
+        print(f"[ERROR] fleet_workflows: {e}")
+        return jsonify({
+            'stats': {},
+            'workflows': [],
+            'pending_deployments': [],
+            'recent_events': [],
+            'error': str(e)
+        })
 
 # ── REVENUE ────────────────────────────────────────────
 

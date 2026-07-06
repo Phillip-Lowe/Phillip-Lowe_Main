@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T10:58:00.605Z",
+  "updatedAt": "2026-07-06T11:44:52.996Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:45:74": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:45:74",
@@ -28151,13 +28151,13 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# Session End — 2026-06-17 05:56 CDT ## Final Status ### Services Running | Service | PID | Port | LaunchAgent | |---------|-----|------|-------------| | Orchestrator Daemon | 70691 | - | `net.systack.orchestrator` | | SAOS Dashboard | 97098 | 8765 | `net.systack.dashboard` | | Invoice Dashboard | 97487 | 8766 | `net.systack.invoice-dashboard` | | Invoice API | 86824 | 9001 | `com.systack.invoice-api` | ### Repos | Repo | URL | Contents | |------|-----|----------| | systack-saas | github.com/Phillip-Lowe/systack-saas | SAOS orchestrator, dashboard, fleet, provisioning | | systack-site | github.com/Phillip-Lowe/systack-site | Systack website | | utopia-deli-order | github.com/Phillip-Lowe/",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4.305913054943084,
+      "totalScore": 4.793353387713432,
       "maxScore": 0.5414974153041839,
       "firstRecalledAt": "2026-06-22T11:13:18.300Z",
-      "lastRecalledAt": "2026-06-27T15:04:54.102Z",
+      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
       "queryHashes": [
         "59f09408f7c3",
         "f6815e1b11cd",
@@ -28167,12 +28167,14 @@
         "8b255f3fd553",
         "ff3ce597f2a6",
         "a000d0e2159e",
-        "7db5efd3ba57"
+        "7db5efd3ba57",
+        "5a9fa9a36e7a"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-25",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-17-session-end.md",
@@ -28519,24 +28521,26 @@
       "endLine": 50,
       "source": "memory",
       "snippet": "# Session Close — 2026-06-17 07:11 CDT **Status:** Session paused, all work saved **User directive:** \"Save this and I'll be back later\" --- ## What Was Accomplished Tonight ### SAOS Provisioning Pipeline (COMPLETE) - 7 components built, tested, committed - 16/16 tests passing - Database schema verified (saos_clients, task_queue) - Orchestrator daemon verified (PID 70691) ### JURIS Compliance Framework (COMPLETE) - 4 wiki documents created - JURIS workspace identity files updated - Agent references documented ### ORACLE Architecture Review (SAVED) - Full response saved to memory/ORACLE-RESPONSE-2026-06-17.md - Approved: 16GB baseline, cloud-first, Tailscale tagged devices - Flags: Earl",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.067297054798446,
+      "totalScore": 3.5590755000422813,
       "maxScore": 0.7411246970008235,
       "firstRecalledAt": "2026-06-22T12:54:55.300Z",
-      "lastRecalledAt": "2026-06-27T16:04:27.613Z",
+      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
       "queryHashes": [
         "6d544f140602",
         "0bf37512a57c",
         "efff3523a296",
         "c95d42ef59cd",
         "294f188b9e77",
-        "6e8241b84cc1"
+        "6e8241b84cc1",
+        "5a9fa9a36e7a"
       ],
       "recallDays": [
         "2026-06-22",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-17-session-close-0711.md",
@@ -28556,13 +28560,13 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# SAOS Enterprise — Session Wrap-Up + Next Steps **Date:** 2026-06-19 14:19 CDT **Session End:** Complete --- ## What Was Built Today | Component | Status | |-----------|--------| | Enterprise onboarding form | ✅ Deployed to systack.net/saos/onboard.html | | Business tier provisioning | ✅ Verified end-to-end | | Enterprise tier provisioning | ✅ Verified end-to-end | | Plan configuration | ✅ Updated (8 cores both tiers) | | PDF documentation | ✅ Updated with new specs | | Webhook endpoint | ✅ Active (n8n) | | Execution poller | ✅ Running | | Bridge | ✅ Running | --- ## Next Steps / TODO ### 🔴 High Priority (Next Session) | # | Task | Notes | |---|------|-------| | 1 | **Request Vultr",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.708051221430347,
+      "totalScore": 4.197252838671253,
       "maxScore": 0.726470400750683,
       "firstRecalledAt": "2026-06-22T12:54:55.300Z",
-      "lastRecalledAt": "2026-06-27T16:04:27.613Z",
+      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
       "queryHashes": [
         "6d544f140602",
         "a9058b82e1f7",
@@ -28570,14 +28574,16 @@
         "52d1860012ac",
         "26beacb4517b",
         "2f910fecc55b",
-        "6e8241b84cc1"
+        "6e8241b84cc1",
+        "5a9fa9a36e7a"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-23",
         "2026-06-24",
         "2026-06-25",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "wrap-up",
@@ -30544,13 +30550,13 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "# Session — 2026-06-22 09:57 CDT **User directive:** \"Save this everywhere\" --- ## What Was Accomplished ### 1. Rebuilt SAOS Webhook Bridge + Poller (Lost in Workspace Reorg) - **File:** `saos-webhook-bridge.py` — Receives n8n webhook calls, triggers provisioning - **File:** `saos_provision_poller.py` — Polls n8n for webhook execution data - **Status:** Bridge running on port 8767 via launchd - **Tested:** POST to bridge triggers pipeline in test mode ✅ ### 2. Cleaned Up Stripe Payment Links + Pricing - Removed Personal+ tier from pricing page - Fixed Business annual: $3,588 → $2,988 (2 months free) - Fixed Enterprise annual: $9,588 → $7,990 (2 months free) - Personal-agent page now redi",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5.649384224414825,
+      "totalScore": 6.140848848223686,
       "maxScore": 0.49481765031814573,
       "firstRecalledAt": "2026-06-22T16:19:24.028Z",
-      "lastRecalledAt": "2026-06-27T16:04:27.613Z",
+      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
       "queryHashes": [
         "0bf37512a57c",
         "ff3ce597f2a6",
@@ -30563,14 +30569,16 @@
         "efd229b10e29",
         "cdf3e55f9640",
         "9c58bf980a71",
-        "6e8241b84cc1"
+        "6e8241b84cc1",
+        "5a9fa9a36e7a"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-23",
         "2026-06-24",
         "2026-06-25",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-22-session-0957.md",
@@ -31185,16 +31193,16 @@
       "key": "memory:memory/2026-06-04-n8n-email-fix.md:84:125",
       "path": "memory/2026-06-04-n8n-email-fix.md",
       "startLine": 84,
-      "endLine": 109,
+      "endLine": 125,
       "source": "memory",
       "snippet": "### Changes Applied: 1. Branded email HTML with logo, colors, order summary 2. Payment button linking to Square checkout 3. Clean response path (PREP_RESPONSE → Respond) 4. ES5-compatible Code node 5. No `$items()` cross-references 6. Node versions matched to n8n 2.20.7-exp ## Next Steps 1. Access n8n UI when possible 2. Verify workflow visually 3. Save in UI to finalize 4. Test with REAL webhook call (curl or frontend) 5. Verify email renders correctly 6. Check payment link works ## Files Modified - `~/.n8n/database.sqlite` — workflow_entity table ## Testing Command ```bash curl -X POST https://n8n.systack.net/webhook/utopia-deli-html-order-v1 \\ -H \"Content-Type: application/json\" \\",
-      "recallCount": 9,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4.4425199866294856,
+      "totalScore": 5.379418432712555,
       "maxScore": 0.5228107392787933,
       "firstRecalledAt": "2026-06-22T23:15:21.238Z",
-      "lastRecalledAt": "2026-06-24T03:24:33.047Z",
+      "lastRecalledAt": "2026-07-06T11:21:04.387Z",
       "queryHashes": [
         "fb480c2faf1d",
         "7864be22c031",
@@ -31204,12 +31212,15 @@
         "2a49966e65b8",
         "34735e508a3b",
         "77d3e10cc26c",
-        "5252a2553242"
+        "5252a2553242",
+        "faf452393efb",
+        "8554a61938b5"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-23",
-        "2026-06-24"
+        "2026-06-24",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-04-n8n-email-fix.md",
@@ -31264,21 +31275,23 @@
       "endLine": 40,
       "source": "memory",
       "snippet": "# 2026-06-03 Afternoon Session — Utopia Deli n8n Fix ## Time: 16:17 CDT ## Status: WORKFLOW PUBLISHED BUT STILL ERRORS ### What We Fixed 1. Identified that MCP update_workflow only updates draft, doesn't activate 2. Used publish_workflow to activate the new version 3. Workflow version a9253036-33cb-4997-9f2d-1fccdaa014db is now active ### Current Problem - Latest execution (565) at 21:16:37 shows ERROR status - Previous executions (561-564) were SUCCESS but were just pings (every 5 min from Cloudflare) - The real order test at 21:16:37 FAILED ### What We Need to Check 1. Get execution 565 error details from n8n UI 2. Check if Normalize + Carry Data Function node is working 3. Verify Post",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.4528809458017349,
+      "totalScore": 1.9517115384340284,
       "maxScore": 0.5099752068519592,
       "firstRecalledAt": "2026-06-22T23:15:21.238Z",
-      "lastRecalledAt": "2026-06-23T12:13:51.959Z",
+      "lastRecalledAt": "2026-07-06T11:20:52.681Z",
       "queryHashes": [
         "fb480c2faf1d",
         "18f8d82cab0c",
-        "34735e508a3b"
+        "34735e508a3b",
+        "faf452393efb"
       ],
       "recallDays": [
         "2026-06-22",
-        "2026-06-23"
+        "2026-06-23",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-03-afternoon-session.md",
@@ -31298,18 +31311,20 @@
       "endLine": 100,
       "source": "memory",
       "snippet": "- **n8n source**: `packages/@n8n/db/src/entities/workflow-published-version.ts` — entity definition - **n8n source**: `packages/@n8n/db/src/entities/workflow-history.ts` — entity definition - **GitHub Issue #24418**: https://github.com/n8n-io/n8n/issues/24418 — cache not clearing - **GitHub Issue #25071**: https://github.com/n8n-io/n8n/issues/25071 — cached versions persisting ## Files Created - `/Users/philliplowe/.openclaw/workspaces/sol/memory/2026-06-03-afternoon-session.md` - `/Users/philliplowe/.openclaw/workspaces/sol/memory/2026-06-03-afternoon-fix.md` - `/Users/philliplowe/.openclaw/workspaces/sol/memory/2026-06-03-evening-debug.md` - `/Users/philliplowe/.openclaw/workspaces/sol/",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4977140367031097,
+      "totalScore": 0.9316289871931076,
       "maxScore": 0.4977140367031097,
       "firstRecalledAt": "2026-06-22T23:15:25.458Z",
-      "lastRecalledAt": "2026-06-22T23:15:25.458Z",
+      "lastRecalledAt": "2026-07-06T11:21:04.387Z",
       "queryHashes": [
-        "112a28b2534b"
+        "112a28b2534b",
+        "8554a61938b5"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-07-06"
       ],
       "conceptTags": [
         "users/philliplowe",
@@ -49030,18 +49045,20 @@
       "endLine": 58,
       "source": "memory",
       "snippet": "# 2026-06-08 — Postgres Status Investigation ## Summary **Postgres IS running** on localhost:5432, but the n8n credential is misconfigured. ## What I Found ### Postgres Status - **Running:** YES - **Port:** 5432 (accepting connections) - **Process:** `/opt/homebrew/opt/postgresql@15/bin/postgres` - **Owner:** philliplowe ### Databases | Database | Owner | Status | |----------|-------|--------| | postgres | philliplowe | System | | template0 | philliplowe | System | | template1 | philliplowe | System | | utopia_deli | philliplowe | Active | | **crm** | **—** | **MISSING** | ### Users | User | Status | |------|--------| | philliplowe | ✅ Exists (superuser) | | **systack** | **❌ MISSING**",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.49017452001571654,
+      "totalScore": 0.9492856621742248,
       "maxScore": 0.49017452001571654,
       "firstRecalledAt": "2026-06-23T12:13:31.480Z",
-      "lastRecalledAt": "2026-06-23T12:13:31.480Z",
+      "lastRecalledAt": "2026-07-06T11:27:56.504Z",
       "queryHashes": [
-        "bb92784285dd"
+        "bb92784285dd",
+        "681312521511"
       ],
       "recallDays": [
-        "2026-06-23"
+        "2026-06-23",
+        "2026-07-06"
       ],
       "conceptTags": [
         "opt/homebrew/opt/postgresql",
@@ -49061,20 +49078,22 @@
       "endLine": 54,
       "source": "memory",
       "snippet": "| Log to Postgres | postgres | `iVuy7e5WTC05Hqwe` — Postgres account | | Email Notify Owner | emailSend | `jL1iF7fhyhTe5tCp` — PLOWE Systack SMTP | | Skip Non-PDF | noOp | None | ### Credentials Available (All in Database) - **IMAP:** `uZXvyt7Wd0RbQreY` — SUPPORT Systack IMAP - **SMTP:** `jL1iF7fhyhTe5tCp` — PLOWE Systack SMTP - **Postgres:** `iVuy7e5WTC05Hqwe` — Postgres account ### API Keys in Database | ID | Label | Audience | |----|-------|----------| | `O3w9IJjOkeOHqnIk` | MCP Server API Key | mcp-server-api | | `01ea8863-4d11-4a57-bbed-9ff57cf99498` | sol-api | public-api | ### Next Steps (For New Session) 1. Verify n8n is running and workflow is loaded from database 2. Check if IMA",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9862505227327346,
+      "totalScore": 1.4409407317638396,
       "maxScore": 0.5119534105062484,
       "firstRecalledAt": "2026-06-23T12:13:31.480Z",
-      "lastRecalledAt": "2026-06-27T09:55:25.830Z",
+      "lastRecalledAt": "2026-07-06T11:27:56.504Z",
       "queryHashes": [
         "bb92784285dd",
-        "a31df1e397a9"
+        "a31df1e397a9",
+        "681312521511"
       ],
       "recallDays": [
         "2026-06-23",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "non-pdf",
@@ -66038,13 +66057,13 @@
       "endLine": 149,
       "source": "memory",
       "snippet": "### With n8n Provisioning Pipeline The cloud-init script calls back to n8n when VPS is ready: ``` POST https://n8n.systack.net/webhook/saas-vps-ready { \"client_id\": \"CLIENT001\", \"vps_ip\": \"123.45.67.89\", \"tailscale_ip\": \"100.x.x.x\", \"status\": \"ready\", \"timestamp\": \"2026-06-17T06:18:00Z\" } ``` ### With Dashboard Provisioning status written to: - `/tmp/saos-deployment-{client_id}.json` (local) - `saos_deployments` table in Postgres (via n8n webhook) --- ## What's Missing / Next Steps | Item | Status | Notes | |------|--------|-------| | Vultr API key | ❌ Needed | Get from Vultr dashboard → API → Add key | | Tailscale auth key | ❌ Needed | Generate in Tailscale admin → Keys | | Op",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.486944283545017,
-      "maxScore": 0.5266477659344673,
+      "totalScore": 4.0194679871201515,
+      "maxScore": 0.5325237035751342,
       "firstRecalledAt": "2026-06-24T08:28:20.610Z",
-      "lastRecalledAt": "2026-06-27T15:05:53.062Z",
+      "lastRecalledAt": "2026-07-06T11:24:24.333Z",
       "queryHashes": [
         "ae41ba03b13c",
         "0866c0b226f2",
@@ -66052,11 +66071,13 @@
         "a1d09ec5834f",
         "73ce56076a60",
         "088f89c21f7d",
-        "0eb2a5b538a1"
+        "0eb2a5b538a1",
+        "8030ba3349e1"
       ],
       "recallDays": [
         "2026-06-24",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-17-vultr-provisioning.md",
@@ -108514,20 +108535,23 @@
       "endLine": 135,
       "source": "memory",
       "snippet": "✅ Deliverable uploaded: test-config.json (25 bytes) ✅ Deliverable listed and downloadable ✅ Notification queued: email (pending) ✅ Urgent notification sent: iMessage (success) ✅ n8n workflow: Active and polling ``` ### Next Steps 1. **End-to-end provisioning test** — Real Vultr/Tailscale/n8n credentials 2. **iOS Safari cert trust** — Fix `.ts.net` URL access 3. **PDF documentation update** — Dashboard User Guide v2.0, Mobile Access Guide 4. **Production deployment** — Move from dev to production credentials 5. **Monitoring dashboard** — Agent health, task queue depth, error rates 6. **Client onboarding flow** — Automated first-time setup 7. **Billing integration** — Stripe subscription mana",
-      "recallCount": 3,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.5526752337813376,
+      "totalScore": 2.518785390257835,
       "maxScore": 0.5505850002169609,
       "firstRecalledAt": "2026-06-27T09:55:25.830Z",
-      "lastRecalledAt": "2026-06-27T09:56:19.952Z",
+      "lastRecalledAt": "2026-07-06T11:21:04.387Z",
       "queryHashes": [
         "a31df1e397a9",
         "73ce56076a60",
-        "088f89c21f7d"
+        "088f89c21f7d",
+        "faf452393efb",
+        "8554a61938b5"
       ],
       "recallDays": [
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "test-config.json",
@@ -108547,19 +108571,21 @@
       "endLine": 118,
       "source": "memory",
       "snippet": "- `GET /api/internal/pending-tasks` — Poll for unclaimed tasks - `POST /api/internal/claim-task/<id>` — Prevent duplicate spawns - `POST /api/internal/update-task/<id>` — Agent status updates **Notifications:** - `POST /api/internal/notify-client` — Queue iMessage/email - `GET /api/internal/notifications/pending` — Poll for n8n **Deliverables:** - `POST /api/internal/deliverables/upload` — Agent file upload (base64) - `GET /api/deliverables/download/<filename>` — Client download - `GET /api/portal/deliverables` — List client deliverables ### Live Operations Tab Features - Agent status cards with real-time status (🟢 working / ⚪ idle) - Task pipeline: Pending → Running → Completed - Animat",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9735637962818144,
-      "maxScore": 0.4980546027421951,
+      "totalScore": 1.4812854051589963,
+      "maxScore": 0.507721608877182,
       "firstRecalledAt": "2026-06-27T09:55:25.830Z",
-      "lastRecalledAt": "2026-06-27T13:53:32.544Z",
+      "lastRecalledAt": "2026-07-06T11:20:52.681Z",
       "queryHashes": [
         "a31df1e397a9",
-        "81561b4e6f74"
+        "81561b4e6f74",
+        "faf452393efb"
       ],
       "recallDays": [
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "api/internal/pending-tasks",
@@ -111476,6 +111502,254 @@
         "summary.md",
         "bug",
         "fix"
+      ]
+    },
+    "memory:memory/2026-06-29.md:118:151": {
+      "key": "memory:memory/2026-06-29.md:118:151",
+      "path": "memory/2026-06-29.md",
+      "startLine": 118,
+      "endLine": 151,
+      "source": "memory",
+      "snippet": "- All 14 API endpoints: ✅ Verified - All 6 PDFs: ✅ 200 - All 5 integrations: ✅ Green - 50 tasks, 8 conversations, 51 activity events: ✅ - Frontend: ✅ Professional, responsive ### Workflow → Service Mapping | Service | Workflow | Status | |---------|----------|--------| | Lead Qualification | SAOS Lead Capture | ✅ Active | | Invoice Processing | Invoice Email Pipeline | ✅ Active | | Client Provisioning | Provisioning Pipeline | ✅ Active | | Stripe Checkout | Stripe Webhook | ✅ Active | | Fleet Config | Configure Fleet | ✅ Active | | Email Notifications | Email Dispatcher | ⚠️ Broken (no fetch node) | | Customer Support | None | Task created, agent builds on setup | | Document Classification",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4957724660634994,
+      "maxScore": 0.4957724660634994,
+      "firstRecalledAt": "2026-07-06T11:20:52.681Z",
+      "lastRecalledAt": "2026-07-06T11:20:52.681Z",
+      "queryHashes": [
+        "faf452393efb"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "all",
+        "api",
+        "endpoints",
+        "verified",
+        "pdfs",
+        "integrations",
+        "green",
+        "tasks"
+      ]
+    },
+    "memory:memory/2026-06-30-saos-workflows-built.md:1:33": {
+      "key": "memory:memory/2026-06-30-saos-workflows-built.md:1:33",
+      "path": "memory/2026-06-30-saos-workflows-built.md",
+      "startLine": 1,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "# 2026-06-30 — SAOS Service Workflows Built + iOS Cert Trust Plan **Time:** ~20:10 CDT **Status:** ✅ COMPLETE (workflows built) / ⏳ PLAN CREATED (iOS cert) --- ## What Was Built ### 3 Missing n8n Service Workflows (JSON Files) | Workflow | File | Nodes | Purpose | |----------|------|-------|---------| | **Customer Support Drafting** | `n8n-customer-support-drafting.json` | 6 | Webhook receives support request → drafts AI response → queues for human review → notifies customer | | **Document Classification Engine** | `n8n-document-classification.json` | 7 | Webhook on file upload → classifies by filename pattern (invoice/contract/form/report/other) → routes to appropriate task queue | | *",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4933239161968231,
+      "maxScore": 0.4933239161968231,
+      "firstRecalledAt": "2026-07-06T11:20:52.681Z",
+      "lastRecalledAt": "2026-07-06T11:20:52.681Z",
+      "queryHashes": [
+        "faf452393efb"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "n8n-document-classification.json",
+        "saos",
+        "workflows",
+        "built.md",
+        "service",
+        "built",
+        "ios",
+        "cert"
+      ]
+    },
+    "memory:memory/2026-06-03-evening-session-complete.md:93:101": {
+      "key": "memory:memory/2026-06-03-evening-session-complete.md:93:101",
+      "path": "memory/2026-06-03-evening-session-complete.md",
+      "startLine": 93,
+      "endLine": 101,
+      "source": "memory",
+      "snippet": "- Token saved in `/Users/philliplowe/.openclaw/workspaces/sol/.n8n_mcp_token` - Last confirmed working: 2026-06-03 16:17 CDT - May need refresh after restart ## n8n API Key Status - Key saved in `/Users/philliplowe/.openclaw/workspaces/sol/.n8n_api_key` - Last confirmed: 2026-06-03 16:17 CDT - Status unknown after restart",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.436331832408905,
+      "maxScore": 0.436331832408905,
+      "firstRecalledAt": "2026-07-06T11:21:04.387Z",
+      "lastRecalledAt": "2026-07-06T11:21:04.387Z",
+      "queryHashes": [
+        "8554a61938b5"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "users/philliplowe",
+        "openclaw/workspaces/sol",
+        "n8n-mcp-token",
+        "n8n-api-key",
+        "evening",
+        "complete.md",
+        "token",
+        "saved"
+      ]
+    },
+    "memory:memory/2026-06-19-saos-vps-provisioning-pipeline-complete.md:53:101": {
+      "key": "memory:memory/2026-06-19-saos-vps-provisioning-pipeline-complete.md:53:101",
+      "path": "memory/2026-06-19-saos-vps-provisioning-pipeline-complete.md",
+      "startLine": 53,
+      "endLine": 101,
+      "source": "memory",
+      "snippet": "| First boot (cloud-init) | ✅ Pass | 3 min | | Automatic reboot | ✅ Pass | 1 min | | Second boot (systemd finalize) | ✅ Pass | 2 min | | Model pull (qwen2.5:7b, 4.7 GB) | ✅ Pass | 1 min | | Webhook to n8n | ✅ Pass | 200ms | | Task queue update (DONE + instance ID) | ✅ Pass | Instant | | Tailscale join | ✅ Pass | First boot | | Ollama service | ✅ Pass | Second boot | | Bridge polling automation | ✅ Pass | 30s interval | | Auto-provision from task | ✅ Pass | 5s pickup | **Total Pipeline**: 7-8 minutes from Stripe payment to VPS ready. --- ## Files Delivered | File | Location | Size | |------|----------|------| | SAOS-VPS-Provisioning-Pipeline-v2.1.pdf | `docs/` + workspace | 306 KB | | SAO",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5114485591650009,
+      "maxScore": 0.5114485591650009,
+      "firstRecalledAt": "2026-07-06T11:24:24.333Z",
+      "lastRecalledAt": "2026-07-06T11:24:24.333Z",
+      "queryHashes": [
+        "8030ba3349e1"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "cloud-init",
+        "qwen2.5",
+        "4.7",
+        "auto-provision",
+        "7-8",
+        "saos",
+        "vps",
+        "provisioning"
+      ]
+    },
+    "memory:memory/2026-07-05-enterprise-hardening-priority1.md:1:37": {
+      "key": "memory:memory/2026-07-05-enterprise-hardening-priority1.md:1:37",
+      "path": "memory/2026-07-05-enterprise-hardening-priority1.md",
+      "startLine": 1,
+      "endLine": 37,
+      "source": "memory",
+      "snippet": "# 2026-07-05 22:04 CDT — SAOS Enterprise Hardening (Priority 1 Complete) **Status:** ✅ COMPLETE — No errors, all tests pass ## What Was Built ### 1. RBAC (Role-Based Access Control) **Files changed:** `api.py` (lines ~310-410), PostgreSQL schema **Database changes:** - Added `role` column to `saos_clients` (VARCHAR(20), default: 'customer') - Created `saos_roles` table with 5 roles: - `customer` — standard client (dashboard, tasks, chat, deliverables, docs) - `support` — read-only across all clients + task management - `billing` — invoices, payment history, subscription management - `ops` — provisioning, agent management, system status - `admin` — full access including user man",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.45840714573860164,
+      "maxScore": 0.45840714573860164,
+      "firstRecalledAt": "2026-07-06T11:27:56.504Z",
+      "lastRecalledAt": "2026-07-06T11:27:56.504Z",
+      "queryHashes": [
+        "681312521511"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "role-based",
+        "api.py",
+        "310-410",
+        "saos-clients",
+        "saos-roles",
+        "read-only",
+        "enterprise",
+        "hardening"
+      ]
+    },
+    "memory:memory/2026-06-29-saos-dashboard-todo.md:1:44": {
+      "key": "memory:memory/2026-06-29-saos-dashboard-todo.md:1:44",
+      "path": "memory/2026-06-29-saos-dashboard-todo.md",
+      "startLine": 1,
+      "endLine": 44,
+      "source": "memory",
+      "snippet": "# SAOS Dashboard To-Do List — Updated 2026-06-29 **Status:** 🔄 ACTIVE — Session in progress --- ## ✅ COMPLETED TODAY (2026-06-29) | Feature | Status | Details | |---------|--------|---------| | Stripe links verified | ✅ | All return HTTP 200 | | PDF downloads verified | ✅ | All return HTTP 200 | | Timezone support | ✅ | Client timezone detection + formatting | | Data export (backend) | ✅ | ZIP with tasks, chat, deliverables, settings | | Data export (frontend button) | ✅ | Settings tab with download | | Rate limiting | ✅ | 5 login attempts per 5 minutes | | CORS restriction | ✅ | Authorized domains only | | Token revocation on PIN change | ✅ | All tokens revoked immediately | | Audit log",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5196770519018173,
+      "maxScore": 0.5196770519018173,
+      "firstRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "queryHashes": [
+        "5a9fa9a36e7a"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "to-do",
+        "saos",
+        "dashboard",
+        "todo.md",
+        "list",
+        "updated",
+        "status",
+        "active"
+      ]
+    },
+    "memory:memory/2026-07-05.md:55:88": {
+      "key": "memory:memory/2026-07-05.md:55:88",
+      "path": "memory/2026-07-05.md",
+      "startLine": 55,
+      "endLine": 88,
+      "source": "memory",
+      "snippet": "- ✅ Updated AGENTS.md — SAOS sprint section with all completions + remaining priorities - ✅ Updated MEMORY.md — new top entry, Next Priority section, TODO table, Critical Gaps, Medium Gaps, Low Gaps - ✅ Created memory/2026-07-05-saos-docs-workflows.md - ✅ Created memory/2026-07-05-enterprise-hardening-priority1.md - ✅ Created this daily log --- ## Errors Encountered + Resolved 1. pyppeteer Chromium launch failure → Fixed by reordering browser paths (Brave first) 2. n8n workflow 404 on API → Fixed by adding to shared_workflow table 3. n8n activate endpoint 404 → Worked around with direct DB update (n8n 1.20.0 bug) 4. Old server process holding port 8768 → Killed with kill -9 and restarted",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5066142737865448,
+      "maxScore": 0.5066142737865448,
+      "firstRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "queryHashes": [
+        "5a9fa9a36e7a"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "agents.md",
+        "memory.md",
+        "shared-workflow",
+        "1.20.0",
+        "updated",
+        "saos",
+        "sprint",
+        "section"
+      ]
+    },
+    "memory:memory/2026-06-29-saos-production-audit.md:1:37": {
+      "key": "memory:memory/2026-06-29-saos-production-audit.md:1:37",
+      "path": "memory/2026-06-29-saos-production-audit.md",
+      "startLine": 1,
+      "endLine": 37,
+      "source": "memory",
+      "snippet": "# SAOS Dashboard Production Audit — 2026-06-29 22:40 CDT ## ✅ VERDICT: Production-Ready (with noted gaps) --- ## What's Working (All 8 Tabs Verified) | Tab | Status | Details | |-----|--------|---------| | 💬 Chat | ✅ | 8 conversations, real-time polling, auto-task creation | | 🔴 Live Ops | ✅ | Agent status cards, task pipeline (Pending→Running→Done) | | 📊 Dashboard | ✅ | Metrics, usage stats, integration health (5/5 green), trust features | | 📦 Services | ✅ | 8 services for Business tier, Setup button creates tasks | | ✅ Tasks | ✅ | 50 tasks loaded, filter by status, detail modal | | 📋 Activity | ✅ | 51 events, audit trail with task + deliverable events | | 📄 Docs | ✅ | 6 PDFs all",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4991601228713989,
+      "maxScore": 0.4991601228713989,
+      "firstRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "queryHashes": [
+        "5a9fa9a36e7a"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "production-ready",
+        "real-time",
+        "auto-task",
+        "5/5",
+        "saos",
+        "production",
+        "audit.md",
+        "dashboard"
       ]
     }
   }

@@ -1602,7 +1602,7 @@
                 margin-left: 6px;
             }
             .app-body { overflow-y: auto; }
-            #chatTab, #dashboardTab, #servicesTab, #tasksTab, #activityTab, #docsTab, #settingsTab { min-height: 100%; }
+            #chatTab, #dashboardTab, #servicesTab, #workflowsTab, #tasksTab, #activityTab, #docsTab, #settingsTab { min-height: 100%; }
             .activity-item { padding: 10px 12px; }
             .activity-meta { gap: 6px; }
             .search-bar { 
@@ -1718,6 +1718,7 @@
                 <button class="nav-link active" onclick="showTab('chat', this)">💬 Chat</button>
                 <button class="nav-link" onclick="showTab('liveOps', this)">🔴 Live</button>
                 <button class="nav-link" onclick="showTab('dashboard', this)">📊 Dashboard</button>
+                <button class="nav-link" onclick="showTab('workflows', this)">⚙️ Workflows</button>
                 <button class="nav-link" onclick="showTab('services', this)">📦 Services</button>
                 <button class="nav-link" onclick="showTab('tasks', this)">✅ Tasks</button>
                 <button class="nav-link" onclick="showTab('activity', this)">📋 Activity</button>
@@ -1800,6 +1801,12 @@
             <div class="content-tab" id="servicesTab" style="display:none">
                 <h2>📦 Your Services</h2>
                 <div id="servicesContent">Loading...</div>
+            </div>
+
+            <!-- Workflows Tab (NEW — Phase 1 Workflow Delivery) -->
+            <div class="content-tab" id="workflowsTab" style="display:none">
+                <h2>⚙️ My Workflows</h2>
+                <div id="workflowsContent">Loading...</div>
             </div>
 
             <!-- Tasks Tab -->
@@ -2438,7 +2445,7 @@
             if (sidebar) sidebar.classList.remove('open');
 
             // Hide all tabs
-            ['chatTab','liveOpsTab','dashboardTab','servicesTab','tasksTab','activityTab','docsTab','settingsTab'].forEach(id => {
+            ['chatTab','liveOpsTab','dashboardTab','servicesTab','workflowsTab','tasksTab','activityTab','docsTab','settingsTab'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.style.display = 'none';
             });
@@ -2462,6 +2469,7 @@
             }
             if (tab === 'liveOps') loadLiveOps();
             if (tab === 'services') loadServices();
+            if (tab === 'workflows') loadWorkflows();
             if (tab === 'tasks') loadTasks();
             if (tab === 'activity') loadActivity();
             if (tab === 'docs') loadDocs();
@@ -2829,6 +2837,234 @@
                     </div>
                 </div>
             `;
+        }
+
+        // ── WORKFLOWS (NEW — Phase 1 Workflow Delivery) ────────
+        async function loadWorkflows() {
+            const data = await api('GET', '/api/workflows');
+            
+            if (data._apiError) {
+                document.getElementById('workflowsContent').innerHTML = errorFallback(data.message, 'loadWorkflows');
+                return;
+            }
+            
+            const workflows = data.workflows || [];
+            const totalCount = data.count || 0;
+
+            if (!workflows.length) {
+                document.getElementById('workflowsContent').innerHTML = `
+                    <div style="color:var(--text-dim); text-align:center; padding:40px">
+                        <div style="font-size:48px; margin-bottom:16px">⚙️</div>
+                        <div style="font-size:16px; font-weight:600; color:var(--text); margin-bottom:8px">No Workflows Yet</div>
+                        <div style="font-size:13px; color:var(--text-muted); max-width:300px; margin:0 auto; line-height:1.5">
+                            Workflows will appear here when your agents build and deploy automations for you.
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            document.getElementById('workflowsContent').innerHTML = `
+                <div style="margin-bottom:12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+                    <span style="font-size:13px; color:var(--text-muted)">${totalCount} workflow${totalCount !== 1 ? 's' : ''}</span>
+                </div>
+                <div style="display:grid; gap:12px">
+                    ${workflows.map(w => renderWorkflowCard(w)).join('')}
+                </div>
+            `;
+        }
+
+        function renderWorkflowCard(w) {
+            const statusColors = {
+                'draft': 'var(--text-dim)',
+                'building': 'var(--amber)',
+                'deployed': 'var(--accent-bright)',
+                'testing': 'var(--amber)',
+                'active': 'var(--green)',
+                'failed': 'var(--red)',
+                'paused': 'var(--text-dim)',
+                'archived': 'var(--text-dim)',
+                'needs_review': 'var(--red)'
+            };
+            
+            const statusIcons = {
+                'draft': '📝',
+                'building': '🔨',
+                'deployed': '🚀',
+                'testing': '🧪',
+                'active': '✅',
+                'failed': '❌',
+                'paused': '⏸️',
+                'archived': '📦',
+                'needs_review': '⚠️'
+            };
+            
+            const lastRun = w.last_run_at ? formatTime(w.last_run_at) : 'Never';
+            const lastSuccess = w.last_success_at ? formatTime(w.last_success_at) : 'Never';
+            
+            return `
+                <div class="workflow-card" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px">
+                        <div>
+                            <div style="font-size:15px; font-weight:700; color:var(--text); margin-bottom:4px">${escapeHtml(w.workflow_name)}</div>
+                            <div style="font-size:12px; color:var(--text-dim)">
+                                ${w.service_type.toUpperCase()} • ${w.deployment_mode} • ${w.environment}
+                            </div>
+                        </div>
+                        <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:6px; background:${statusColors[w.status] || 'var(--text-dim)'}22; color:${statusColors[w.status] || 'var(--text-dim)'}">
+                            ${statusIcons[w.status] || '●'} ${w.status.toUpperCase()}
+                        </span>
+                    </div>
+                    
+                    ${w.webhook_url ? `
+                    <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:12px">
+                        <div style="font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px">Webhook URL</div>
+                        <div style="font-size:12px; color:var(--accent-bright); word-break:break-all; font-family:monospace">${w.webhook_url}</div>
+                    </div>
+                    ` : ''}
+                    
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap:12px; margin-bottom:16px">
+                        <div>
+                            <div style="font-size:11px; color:var(--text-dim); text-transform:uppercase">Last Run</div>
+                            <div style="font-size:13px; color:var(--text); margin-top:2px">${lastRun}</div>
+                        </div>
+                        <div>
+                            <div style="font-size:11px; color:var(--text-dim); text-transform:uppercase">Last Success</div>
+                            <div style="font-size:13px; color:var(--text); margin-top:2px">${lastSuccess}</div>
+                        </div>
+                        <div>
+                            <div style="font-size:11px; color:var(--text-dim); text-transform:uppercase">Errors</div>
+                            <div style="font-size:13px; color:${w.error_count > 0 ? 'var(--red)' : 'var(--green)'}; margin-top:2px">${w.error_count}</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex; gap:8px; flex-wrap:wrap">
+                        <button class="btn btn-secondary btn-sm" onclick="showWorkflowDetail(${w.id})">📋 Details</button>
+                        ${w.webhook_url ? `<button class="btn btn-primary btn-sm" onclick="testWorkflow(${w.id})">🧪 Test</button>` : ''}
+                        ${w.backup_file_path ? `<button class="btn btn-secondary btn-sm" onclick="downloadWorkflowBackup(${w.id})">📥 Backup</button>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        async function showWorkflowDetail(workflowId) {
+            const data = await api('GET', `/api/workflows/${workflowId}`);
+            if (data._apiError) {
+                alert('Failed to load workflow details: ' + data.message);
+                return;
+            }
+            
+            const w = data.workflow;
+            const events = data.recent_events || [];
+            const testRuns = data.recent_test_runs || [];
+            
+            const modal = document.getElementById('taskModal');
+            const content = document.getElementById('taskModalContent');
+            
+            content.innerHTML = `
+                <h3>${escapeHtml(w.workflow_name)} <span style="color:var(--text-dim); font-size:14px">#${w.id}</span></h3>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Status</span>
+                    <span class="detail-value">${w.status.toUpperCase()}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Service</span>
+                    <span class="detail-value">${w.service_type.toUpperCase()}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Deployment</span>
+                    <span class="detail-value">${w.deployment_mode} (${w.environment})</span>
+                </div>
+                
+                ${w.n8n_workflow_id ? `
+                <div class="detail-row">
+                    <span class="detail-label">n8n ID</span>
+                    <span class="detail-value" style="font-family:monospace; font-size:12px">${w.n8n_workflow_id}</span>
+                </div>
+                ` : ''}
+                
+                ${w.webhook_url ? `
+                <div class="detail-row">
+                    <span class="detail-label">Webhook</span>
+                    <span class="detail-value" style="word-break:break-all; font-size:12px">${w.webhook_url}</span>
+                </div>
+                ` : ''}
+                
+                ${w.expected_result ? `
+                <div style="margin-top:16px">
+                    <div style="font-size:12px; font-weight:600; color:var(--text); margin-bottom:8px">Expected Behavior</div>
+                    <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:13px; color:var(--text-muted); line-height:1.5">
+                        ${escapeHtml(w.expected_result)}
+                    </div>
+                </div>
+                ` : ''}
+                
+                ${testRuns.length > 0 ? `
+                <div style="margin-top:20px">
+                    <div style="font-size:12px; font-weight:600; color:var(--text); margin-bottom:8px">Recent Test Runs (${testRuns.length})</div>
+                    ${testRuns.map(tr => `
+                        <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--border)">
+                            <span style="font-size:11px">${tr.success ? '✅' : '❌'}</span>
+                            <span style="font-size:12px; flex:1">${tr.response_status || 'Error'} • ${tr.duration_ms}ms</span>
+                            <span style="font-size:11px; color:var(--text-dim)">${formatTime(tr.run_at)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                ${events.length > 0 ? `
+                <div style="margin-top:20px">
+                    <div style="font-size:12px; font-weight:600; color:var(--text); margin-bottom:8px">Recent Events (${events.length})</div>
+                    ${events.slice(0, 10).map(e => `
+                        <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--border)">
+                            <span style="font-size:11px">${e.severity === 'error' ? '🔴' : e.severity === 'warning' ? '⚠️' : 'ℹ️'}</span>
+                            <span style="font-size:12px; flex:1">${e.event_type}: ${escapeHtml(e.message || '')}</span>
+                            <span style="font-size:11px; color:var(--text-dim)">${formatTime(e.created_at)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                <div style="margin-top:20px; display:flex; gap:8px">
+                    ${w.webhook_url ? `<button class="btn btn-primary" onclick="testWorkflow(${w.id}); closeTaskModal();">🧪 Test Webhook</button>` : ''}
+                    <button class="btn btn-secondary" onclick="closeTaskModal()">Close</button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        async function testWorkflow(workflowId) {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '🧪 Testing...';
+            
+            try {
+                const data = await api('POST', `/api/workflows/${workflowId}/test`);
+                if (data._apiError) throw new Error(data.message);
+                
+                const success = data.success;
+                alert(`Test ${success ? 'PASSED ✅' : 'FAILED ❌'}\n\nStatus: ${data.response_status || 'N/A'}\nDuration: ${data.duration_ms}ms\n${data.error_message ? 'Error: ' + data.error_message : ''}`);
+                
+                // Refresh workflow list
+                loadWorkflows();
+            } catch (e) {
+                alert('Test failed: ' + e.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+
+        async function downloadWorkflowBackup(workflowId) {
+            try {
+                // This would download the backup JSON file
+                alert('Backup download coming soon — backup path: ' + workflowId);
+            } catch (e) {
+                alert('Download failed: ' + e.message);
+            }
         }
 
         // ── TASKS ──────────────────────────────────────────────
