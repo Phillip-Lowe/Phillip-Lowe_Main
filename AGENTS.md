@@ -687,12 +687,15 @@ Source: memory/2026-06-27-0511-cdt-memory-hygiene-rule.md
 30. ✅ **Invoice Dashboard Health Fix** — Fixed false alarm in Command Center (2026-07-06)
 
 **Oracle Priorities: ✅ ALL P1-P5 COMPLETE**
+**Oracle Phase 2: ✅ ALL 5 TASKS COMPLETE** — Production playbook, target accounts, sales library, failure simulations
+**Oracle Phase 3: ✅ ALL 8 FLEET DELIVERABLES COMPLETE** — Market Validation Playbook v1.0 (18 files, ~5,800 lines)
 
 **Remaining (Non-Oracle):**
-1. ⏳ iOS Safari cert trust — Plan created (Cloudflare Tunnel recommended), awaiting Green's decision
-2. ⏳ Production deployment — Move from dev to production credentials
-3. ⏳ Monitoring dashboard — Agent health, task queue depth, error rates
-4. ⏳ Client onboarding flow — Automated first-time setup
-5. ⏳ Billing integration — Stripe subscription management
+1. ✅ iOS Safari cert trust — RESOLVED via Cloudflare Tunnel (portal.systack.net + command.systack.net, real SSL)
+2. ⏳ Production deployment — SAOS_INTERNAL_API_KEY still dev key (rotate to 64-char hex)
+3. ✅ Fleet health monitor — Running every 15 min with iMessage alerts
+4. ⏳ Client onboarding flow — Script ready (`scripts/onboard_client.py`), needs UI wiring
+5. ⏳ Billing integration — Stripe live, subscription management UI pending
+6. ⏳ PESSI top 5 security fixes: rotate API key, add PostgreSQL RLS, encrypt backups, off-site backup, MFA mandatory for Enterprise
 
 ---

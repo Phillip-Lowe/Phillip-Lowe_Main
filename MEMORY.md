@@ -152,12 +152,30 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 - **Clients tab** — shows MFA status, role, onboarding status per client
 - **CORS updated** — added `*.ts.net` for Tailscale MagicDNS
 
-### Remaining (Non-Oracle, Lower Priority)
-1. ⏳ iOS Safari cert trust — awaiting Green's decision (Cloudflare Tunnel)
-2. ⏳ Production deployment — dev → prod credentials
-3. ⏳ Monitoring dashboard — agent health, queue depth, error rates
-4. ⏳ Client onboarding flow automation
-5. ⏳ Billing integration — Stripe subscription management
+### Oracle Phase 2 (03:25-03:42 CDT — recovered from trajectory)
+- ✅ SOL: Production Operations Playbook (`Systack/operations/production-playbook.md`)
+- ✅ ATLAS: Target Account Database — 20 prospects, $10,980/mo potential MRR (`Systack/sales/target-account-database.md`)
+- ✅ CHATTY: Sales Library expanded (`Systack/sales/outreach-asset-library.md`, 21.6KB)
+- ✅ PESSI: Failure Simulations — 5 scenarios (`Systack/risk/failure-simulations.md`)
+
+### Oracle Phase 3 — Market Validation Playbook v1.0 (05:08-05:48 CDT)
+- ✅ Full system audit: 65/65 tests, 9/9 services, Cloudflare live
+- ✅ ATLAS: 5 New Industry Playbooks (Roofing, HVAC, Plumbing, Dental, Food Trucks)
+- ✅ JURIS: Contract Templates (Maintenance Agreement, Change Request, SOW)
+- ✅ VALI: Client Launch Checklists (Pre-Launch, Launch, Post-Launch, 30-Day)
+- ✅ CODY: Standard Architectures (Booking, Lead, Portal, Agent, CRM)
+- ✅ ASSEMBLY: Internal Deployment Kit (env setup, deployment, rollback)
+- ✅ PESSI: Risk Register (15 risks) + Security Review (6.8/10 overall)
+- ✅ SOL: Customer Journey Map (9 stages) + Weekly Metrics Dashboard
+- Total fleet assets: 18 files, ~5,800 lines | Git: `0ea279f`
+
+### Remaining (Non-Oracle)
+1. ✅ iOS Safari cert trust — RESOLVED via Cloudflare Tunnel (portal.systack.net + command.systack.net)
+2. ⏳ Production deployment — SAOS_INTERNAL_API_KEY still dev key (PESSI top fix #1)
+3. ✅ Fleet health monitor — every 15 min with iMessage alerts
+4. ⏳ Client onboarding flow — script ready, needs UI wiring
+5. ⏳ Billing integration — Stripe live, subscription management UI pending
+6. ⏳ PESSI top 5: rotate API key, add RLS, encrypt backups, off-site backup, MFA mandatory Enterprise
 
 ---
 
