@@ -1,1 +1,4 @@
 systack.net
+# This CNAME is used by the sync-site.sh script when copying files to the deploy repo.
+# The actual GitHub Pages deployment is from: https://github.com/Phillip-Lowe/systack
+# This workspace repo (Phillip-Lowe_Main) does NOT have Pages enabled.
