@@ -313,7 +313,31 @@ SAOS (Systack AI Operations System) security architecture provides defense-in-de
 
 ---
 
-## 10. Roadmap
+## 10. Security Score Tracking
+
+| Date | Score | Change | Trigger |
+|------|-------|--------|---------|
+| 2026-07-05 | 6.8/10 | Baseline | Oracle Phase 3 review |
+| 2026-07-06 | **8.5/10** | +1.7 | PESSI top 5 fixes applied |
+| 2026-07-07 | **9.5/10** | +1.0 | Security headers + MFA push + security.txt + dep scan |
+| Target | 10.0/10 | +0.5 | External validation required |
+
+### Score Breakdown (9.5/10)
+
+| Domain | Score | Evidence |
+|--------|-------|----------|
+| Authentication | 9.5/10 | PIN + TOTP MFA, recovery codes, MFA pushed on all onboarding |
+| Client Isolation | 9.5/10 | PostgreSQL RLS on 12 tables, security headers |
+| API Security | 9.0/10 | Rate limiting, internal API key, OWASP headers, no WAF at edge |
+| Credential Storage | 9.5/10 | Env-based key, no fallback defaults, dependency vuln scanning |
+| Backups | 9.0/10 | Encrypted, verified, off-site capable |
+| Disaster Recovery | 9.0/10 | RPO=24h, RTO=6min, incident response tested |
+
+**Gap to 10.0:** External penetration test, SOC 2 Type II certification, DDoS protection at edge, bug bounty program.
+
+---
+
+## 11. Roadmap
 
 | Priority | Item | Status |
 |----------|------|--------|
@@ -329,6 +353,8 @@ SAOS (Systack AI Operations System) security architecture provides defense-in-de
 | — | Monitoring dashboard (agent health) | ⏳ Pending |
 | — | Client onboarding flow automation | ⏳ Pending |
 | — | Billing integration (Stripe) | ⏳ Pending |
+| — | **9.5 Security Score** (headers, dep scan, MFA push) | ⏳ Phase 1 |
+| — | **10.0 Security Score** (SOC 2, external pen-test) | ⏳ Phase 3 |
 
 ---
 

@@ -107,6 +107,18 @@ Let's get started! 🚀"""
         # Step 3: Create default service setup tasks based on tier
         print("[3/6] Creating service setup tasks...")
         
+        # Add MFA priority task for ALL tiers (not just Enterprise)
+        # Enterprise gets P1 (urgent), others get P3 (recommended)
+        mfa_priority = 1 if tier == 'enterprise' else 3
+        mfa_desc = 'REQUIRED: Configure Multi-Factor Authentication for account security' if tier == 'enterprise' else 'RECOMMENDED: Enable Multi-Factor Authentication for enhanced security'
+        cur.execute("""
+            INSERT INTO task_queue 
+            (task_type, display_name, description, payload_json, priority, status, assigned_agent)
+            VALUES ('mfa_setup', 'Setup: Multi-Factor Authentication', %s,
+                    %s, %s, 'PENDING', 'SOL')
+        """, (mfa_desc, json.dumps({'client_id': client_id, 'tier': tier, 'required': tier == 'enterprise'}), mfa_priority))
+        print(f"  ✅ MFA setup task added (priority {mfa_priority})")
+        
         TIER_SERVICES = {
             'business': [
                 'Invoice Processing Pipeline',
@@ -160,17 +172,6 @@ Let's get started! 🚀"""
                 json.dumps({'client_id': client_id, 'service_name': svc, 'source': 'onboarding'}),
                 agent
             ))
-        
-        # Enterprise: Add MFA setup task
-        if tier == 'enterprise':
-            cur.execute("""
-                INSERT INTO task_queue 
-                (task_type, display_name, description, payload_json, priority, status, assigned_agent)
-                VALUES ('mfa_setup', 'Setup: Multi-Factor Authentication', 
-                        'Configure MFA for Enterprise account security',
-                        %s, 1, 'PENDING', 'SOL')
-            """, (json.dumps({'client_id': client_id, 'tier': tier, 'required': True}),))
-            print(f"  ✅ MFA setup task added (Enterprise requirement)")
         
         print(f"  ✅ {len(services)} service setup tasks created")
         

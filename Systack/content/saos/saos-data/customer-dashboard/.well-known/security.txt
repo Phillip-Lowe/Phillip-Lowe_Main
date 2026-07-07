@@ -1,0 +1,7 @@
+# Security Contact for Systack
+Contact: mailto:security@systack.net
+Contact: https://systack.net/contact
+Policy: https://portal.systack.net/download/trust-center
+Preferred-Languages: en
+Canonical: https://systack.net/.well-known/security.txt
+Expires: 2027-07-07T00:00:00.000Z
