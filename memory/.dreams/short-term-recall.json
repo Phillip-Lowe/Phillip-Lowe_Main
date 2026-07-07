@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T05:04:44.725Z",
+  "updatedAt": "2026-07-07T05:18:13.641Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:45:74": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:45:74",
@@ -28069,13 +28069,13 @@
       "endLine": 82,
       "source": "memory",
       "snippet": "systack-site/saos/index.html (+47 lines, Extended Capabilities + pricing) fleet/sol.md (created) fleet/oracle.md (created) fleet/atlas.md (created) fleet/vali.md (created) fleet/pessi.md (created) fleet/assembly.md (created) SAOS-FOUNDATION-SPEC.md (updated fleet + loop) MEMORY.md (added entry) ``` ### Next Actions - [ ] Activate CODY (fix cron jobs) - [ ] Create CHATTY onboarding sequence - [ ] Create first GENI marketing asset - [ ] Add Engagement Engine Stripe product/button - [ ] Update other s",
-      "recallCount": 25,
+      "recallCount": 26,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 12.115979492664335,
-      "maxScore": 0.537587122619152,
+      "totalScore": 12.654391619563102,
+      "maxScore": 0.5384121268987655,
       "firstRecalledAt": "2026-06-22T11:13:18.300Z",
-      "lastRecalledAt": "2026-07-07T05:04:44.725Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
       "queryHashes": [
         "59f09408f7c3",
         "a9058b82e1f7",
@@ -28101,7 +28101,8 @@
         "2c001ca516b3",
         "5db147e22d4e",
         "9b05108a8a59",
-        "44cf664ab08c"
+        "44cf664ab08c",
+        "8b12c0b3f617"
       ],
       "recallDays": [
         "2026-06-22",
@@ -28166,13 +28167,13 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# Session End — 2026-06-17 05:56 CDT ## Final Status ### Services Running | Service | PID | Port | LaunchAgent | |---------|-----|------|-------------| | Orchestrator Daemon | 70691 | - | `net.systack.orchestrator` | | SAOS Dashboard | 97098 | 8765 | `net.systack.dashboard` | | Invoice Dashboard | 97487 | 8766 | `net.systack.invoice-dashboard` | | Invoice API | 86824 | 9001 | `com.systack.invoice-api` | ### Repos | Repo | URL | Contents | |------|-----|----------| | systack-saas | github.com/Phillip-Lowe/systack-saas | SAOS orchestrator, dashboard, fleet, provisioning | | systack-site | github.com/Phillip-Lowe/systack-site | Systack website | | utopia-deli-order | github.com/Phillip-Lowe/",
-      "recallCount": 10,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4.793353387713432,
+      "totalScore": 5.325526490807532,
       "maxScore": 0.5414974153041839,
       "firstRecalledAt": "2026-06-22T11:13:18.300Z",
-      "lastRecalledAt": "2026-07-06T11:44:52.996Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
       "queryHashes": [
         "59f09408f7c3",
         "f6815e1b11cd",
@@ -28183,13 +28184,15 @@
         "ff3ce597f2a6",
         "a000d0e2159e",
         "7db5efd3ba57",
-        "5a9fa9a36e7a"
+        "5a9fa9a36e7a",
+        "8b12c0b3f617"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-25",
         "2026-06-27",
-        "2026-07-06"
+        "2026-07-06",
+        "2026-07-07"
       ],
       "conceptTags": [
         "2026-06-17-session-end.md",
@@ -28918,23 +28921,25 @@
       "endLine": 58,
       "source": "memory",
       "snippet": "# SAOS Enterprise Tier — Complete Build Record **Date:** 2026-06-19 **Session:** SOL + Phillip Lowe **Status:** ✅ PRODUCTION READY **Classification:** SYSTACK INTERNAL / CLIENT DELIVERABLE --- ## Deliverables | File | Size | Purpose | |------|------|---------| | `scripts/provision_enterprise.py` | 19.4 KB | Multi-region VPS deployment | | `scripts/generate_dashboard.py` | 22.2 KB | White-label dashboard generator | | `docs/SyStack-Enterprise-Deployment-Guide-v1.0.pdf` | 245 KB | Deployment guide | | `docs/SyStack-Enterprise-Deployment-Guide.md` | 5.8 KB | Editable source | | `dashboards/demo-corp/` | 8 KB | Demo dashboard | ## Enterprise Specs | Spec | Enterprise | Enterprise XL | |----",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.9169222325086592,
-      "maxScore": 0.5011764198541641,
+      "totalScore": 2.4491988196969032,
+      "maxScore": 0.5322765871882438,
       "firstRecalledAt": "2026-06-22T12:56:41.003Z",
-      "lastRecalledAt": "2026-06-27T08:01:18.895Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
       "queryHashes": [
         "a9058b82e1f7",
         "6511cd4c3daa",
         "d411177a8ee8",
-        "d14ef44e747d"
+        "d14ef44e747d",
+        "8b12c0b3f617"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-23",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-07"
       ],
       "conceptTags": [
         "scripts/provision-enterprise.py",
@@ -28987,26 +28992,28 @@
       "endLine": 132,
       "source": "memory",
       "snippet": "| Systack setup fee | $200-500 | One-time (currently free for beta) | | Systack monthly | $50-150/mo | Monitoring, support, updates | ### Total Monthly Cost Per Client | Scenario | VPS | Systack | Total | Annual | |----------|-----|---------|-------|--------| | Small business (cloud 8GB) | $40 | $50 | $90/mo | $1080 | | Medium business (cloud 16GB) | $80 | $100 | $180/mo | $2160 | | Enterprise (on-premise) | $75 | $150 | $225/mo | $2700 | | Budget (cloud 4GB, stripped) | $20 | $50 | $70/mo | $840 | **We were thinking $20-40/mo total. Reality is $90-225/mo.** This changes our market positioning and sales conversations. --- ## Factor 4: SAOS Foundation Impact ### What is SAOS? The **Sy",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2.9959692612290376,
+      "totalScore": 3.5233793005347245,
       "maxScore": 0.5308345064520835,
       "firstRecalledAt": "2026-06-22T12:56:44.104Z",
-      "lastRecalledAt": "2026-06-26T01:12:15.396Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
       "queryHashes": [
         "6511cd4c3daa",
         "29dec0aeab22",
         "cfdda1c56971",
         "456e0fb1937a",
         "3f84a0bd0c78",
-        "04129ac4d2d5"
+        "04129ac4d2d5",
+        "8b12c0b3f617"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-24",
         "2026-06-25",
-        "2026-06-26"
+        "2026-06-26",
+        "2026-07-07"
       ],
       "conceptTags": [
         "200-500",
@@ -29097,13 +29104,13 @@
       "endLine": 75,
       "source": "memory",
       "snippet": "| Section | Content | Purpose | |---------|---------|---------| | **About SyStack** | Mission, vision, values | Brand identity | | **What Is SAOS** | Concept, benefits, diagram | Education | | **Service Plans** | Prices ($49-$299+), specs, features | Sales enablement | | **Products** | Invoice automation, ordering, no-shows | Product catalog | | **Security** | Encryption, VPN, compliance | Trust building | | **Getting Started** | 7-step onboarding | Expectation setting | | **Support** | Response times, SLA | Confidence | | **FAQ** | 7 common questions | Objection handling | | **Glossary** | SAOS, agent, workflow, n8n | Education | --- ## Comparison | Metric | Internal Manual | Client Manu",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.4366410836577415,
+      "totalScore": 3.9702084422111508,
       "maxScore": 0.5358765214681624,
       "firstRecalledAt": "2026-06-22T12:59:23.404Z",
-      "lastRecalledAt": "2026-06-26T01:12:15.396Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
       "queryHashes": [
         "29dec0aeab22",
         "e8384534b191",
@@ -29111,14 +29118,16 @@
         "456e0fb1937a",
         "2aa9914b91dc",
         "3f84a0bd0c78",
-        "04129ac4d2d5"
+        "04129ac4d2d5",
+        "8b12c0b3f617"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-23",
         "2026-06-24",
         "2026-06-25",
-        "2026-06-26"
+        "2026-06-26",
+        "2026-07-07"
       ],
       "conceptTags": [
         "no-shows",
@@ -30541,18 +30550,21 @@
       "endLine": 35,
       "source": "memory",
       "snippet": "# 2026-06-10 — Systack Invoice API on Port 9001 ## Changes - Created `systack_invoice_api.py` — dedicated Systack invoice pipeline API - Runs on port 9001 (separate from generic invoice API on 8765 and deli/invoice_pipeline on 9002) - Uses existing SQLite database `invoice_data.db` ## Features - **Endpoint:** `POST /extract` — multipart form data with PDF invoice - **Health:** `GET /health` — shows invoice count - **Email summary:** Per-invoice HTML with line items, subtotal, tax, total - **Monthly running total:** Included in each email ## API Response Fields ```json { \"vendor\": \"Supplies, LLC\", \"invoice_number\": \"INV-2026-0612-001\", \"total\": 2132.13, \"items\": [...], \"sqlite_id",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.47910978496074674,
-      "maxScore": 0.47910978496074674,
+      "totalScore": 1.5086724013090134,
+      "maxScore": 0.5209511756896973,
       "firstRecalledAt": "2026-06-22T15:39:58.991Z",
-      "lastRecalledAt": "2026-06-22T15:39:58.991Z",
+      "lastRecalledAt": "2026-07-07T05:18:13.641Z",
       "queryHashes": [
-        "478fcdea11fd"
+        "478fcdea11fd",
+        "a5f00ed8d597",
+        "ce9076ff894f"
       ],
       "recallDays": [
-        "2026-06-22"
+        "2026-06-22",
+        "2026-07-07"
       ],
       "conceptTags": [
         "systack-invoice-api.py",
@@ -30655,25 +30667,27 @@
       "endLine": 159,
       "source": "memory",
       "snippet": "→ Auto-replies to lead → Shows recommendation + \"Book a Call\" CTA OR Visitor goes to /contact → Fills quick form → Submits → same webhook → Same notifications → Shows \"We'll reply within 24h\" ``` --- ## Files Changed/Created | File | Action | |------|--------| | `systack-site/contact.html` | Updated form to use webhook | | `systack-site/discovery.html` | ✅ New — 8-step questionnaire | | `systack-site/personal-agent/index.html` | Updated pricing tiers | | `systack-site/pricing.html` | Updated SAOS + Personal Agent sections | | `systack-site/services.html` | Added security section | | `systack-lead-capture-webhook.json` | ✅ New — n8n workflow | | `clients/mcdonalds-gm/DEPLOY",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2.895863446593285,
+      "totalScore": 3.39910885989666,
       "maxScore": 0.5073258638381958,
       "firstRecalledAt": "2026-06-22T16:20:38.370Z",
-      "lastRecalledAt": "2026-07-07T03:21:09.854Z",
+      "lastRecalledAt": "2026-07-07T05:16:22.789Z",
       "queryHashes": [
         "8b255f3fd553",
         "ecda8ea0f1c7",
         "bfd63fe0087c",
         "dc3e303d95bf",
         "2c001ca516b3",
-        "5db147e22d4e"
+        "5db147e22d4e",
+        "a5f00ed8d597"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-24",
-        "2026-07-06"
+        "2026-07-06",
+        "2026-07-07"
       ],
       "conceptTags": [
         "auto-replies",
@@ -30933,23 +30947,25 @@
       "endLine": 83,
       "source": "memory",
       "snippet": "- Posted about no-show prevention system - Focus: customer retention, revenue protection --- ## Key Decisions 1. **Every automation gets docs** — hard rule, three audiences 2. **Test/prod separation** — separate DBs (`systack_noshow` / `systack_test`) 3. **Frontend template** — one canonical form, cloned per client 4. **Pricing updated** — booking system now $2,500 + $299/mo (includes no-show prevention) --- ## Files Created/Modified | File | Action | |------|--------| | `memory/2026-06-11-session-summary.md` | Session recap | | `memory/2026-06-11-noshow-prevention-complete.md` | System status | | `memory/2026-06-11-systack-site-update.md` | Site changes | | `memory/2026-06-11-systack-",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.339308899641037,
-      "maxScore": 0.4624844461679458,
+      "totalScore": 1.833734518289566,
+      "maxScore": 0.494425618648529,
       "firstRecalledAt": "2026-06-22T16:36:54.032Z",
-      "lastRecalledAt": "2026-07-06T10:55:09.200Z",
+      "lastRecalledAt": "2026-07-07T05:18:13.641Z",
       "queryHashes": [
         "c11b1ba0fa3c",
         "04129ac4d2d5",
-        "4ed627ac4be7"
+        "4ed627ac4be7",
+        "ce9076ff894f"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-25",
         "2026-06-26",
-        "2026-07-06"
+        "2026-07-06",
+        "2026-07-07"
       ],
       "conceptTags": [
         "2026-06-11-full-session-log.md",
@@ -48451,25 +48467,28 @@
       "endLine": 106,
       "source": "memory",
       "snippet": "- Target: Existing Systack Private clients **Option 2: Standalone SaaS** - Starter: $49/mo (50 invoices) - Professional: $149/mo (250 invoices + dashboard) - Business: $399/mo (unlimited + API access) **Option 3: White-Label for Accountants** - Reseller: $99/mo per accountant (unlimited clients) - Their markup: $30-50/mo per client - High margin, recurring revenue ### Next Steps to Go Live 1. ✅ Pipeline works end-to-end 2. ⏳ Build web dashboard for invoice review 3. ⏳ Add QuickBooks/Xero export 4. ⏳ Find 3 beta testers (offer 30 days free) 5. ⏳ Set up Stripe billing --- **The email-to-invoice pipeline is REAL and it WORKS.** ## 2026-06-08 — Invoice Email Pipeline COMPLETE + Postgres I",
-      "recallCount": 4,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.8275967359542846,
-      "maxScore": 0.4681079059839248,
+      "totalScore": 2.8595248728990557,
+      "maxScore": 0.5244657963514328,
       "firstRecalledAt": "2026-06-23T08:02:52.269Z",
-      "lastRecalledAt": "2026-06-27T13:48:28.077Z",
+      "lastRecalledAt": "2026-07-07T05:18:13.641Z",
       "queryHashes": [
         "5fa11ed89d2b",
         "2aa9914b91dc",
         "04129ac4d2d5",
-        "f9c6c974ea98"
+        "f9c6c974ea98",
+        "a5f00ed8d597",
+        "ce9076ff894f"
       ],
       "recallDays": [
         "2026-06-23",
         "2026-06-24",
         "2026-06-25",
         "2026-06-26",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-07"
       ],
       "conceptTags": [
         "49/mo",
@@ -66654,19 +66673,21 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# SyStack Client-Facing Service Manual v1.0 **Date:** 2026-06-19 (Friday Build Night) **Author:** SOL — SyStack Operations Layer **Status:** ✅ PRODUCTION READY **Classification:** CLIENT DELIVERABLE --- ## Summary Created a sanitized, client-facing version of the SyStack Service Manual. Removed all internal details — costs, credentials, technical internals, agent models, support escalation names — while keeping everything useful for prospects and current clients. --- ## What Was Removed (Internal-Only) | Category | Removed | Why | |----------|---------|-----| | **Cost Economics** | Cost to serve ($96), profit margins (65%) | Client doesn't need our margins | | **Credentials** |",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.956060642004013,
-      "maxScore": 0.5054499238729476,
+      "totalScore": 1.4879392519593237,
+      "maxScore": 0.5318786099553108,
       "firstRecalledAt": "2026-06-24T09:27:45.302Z",
-      "lastRecalledAt": "2026-06-24T09:30:06.751Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
       "queryHashes": [
         "456e0fb1937a",
-        "2aa9914b91dc"
+        "2aa9914b91dc",
+        "8b12c0b3f617"
       ],
       "recallDays": [
-        "2026-06-24"
+        "2026-06-24",
+        "2026-07-07"
       ],
       "conceptTags": [
         "client-facing",
@@ -111796,20 +111817,22 @@
       "endLine": 30,
       "source": "memory",
       "snippet": "# Systack Site Update — SAOS Production Readiness **Date:** 2026-07-06 16:33 CDT **Status:** ✅ COMMITTED & PUSHED — GitHub Pages CDN propagating (5-10 min) **Commits:** `24d757d`, `a522c54` --- ## What Was Done User directive: \"Site got retrograde after we had to do all of it... go through memory and see where we are with Systack, update the site to show and offer the current services... we're about to go live fully live really soon.\" ### Full Site Audit Performed Audited all live site files against MEMORY.md source of truth: - `index.html` — Home page - `services.html` AND `services/index.html` — Services page (discovered `/services` route uses `services/index.html`) - `pricing.ht",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.4741329550743103,
-      "maxScore": 0.5032579720020294,
+      "totalScore": 2.0265372455120088,
+      "maxScore": 0.5524042904376983,
       "firstRecalledAt": "2026-07-07T03:18:06.724Z",
-      "lastRecalledAt": "2026-07-07T03:21:27.086Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
       "queryHashes": [
         "2c001ca516b3",
         "5db147e22d4e",
-        "9b05108a8a59"
+        "9b05108a8a59",
+        "8b12c0b3f617"
       ],
       "recallDays": [
-        "2026-07-06"
+        "2026-07-06",
+        "2026-07-07"
       ],
       "conceptTags": [
         "2026-07-06-site-update.md",
@@ -111883,6 +111906,130 @@
         "saos.systack.net",
         "9/9",
         "api/portal/health"
+      ]
+    },
+    "memory:memory/2026-06-29-saos-dashboard-services-true-alignment.md:1:47": {
+      "key": "memory:memory/2026-06-29-saos-dashboard-services-true-alignment.md:1:47",
+      "path": "memory/2026-06-29-saos-dashboard-services-true-alignment.md",
+      "startLine": 1,
+      "endLine": 47,
+      "source": "memory",
+      "snippet": "# SAOS Dashboard Services — TRUE Alignment Complete **Date:** 2026-06-29 01:58 CDT **Status:** ✅ COMPLETE — All services now match actual Systack offerings ## Changes Made ### 1. Removed Fake Tiers - **Personal ($49/mo)** — REMOVED (not sold) - **Personal+ ($99/mo)** — REMOVED (not sold) ### 2. Realigned All Services to Actual Offerings **Business Fleet ($299/mo) — NOW SHOWS:** 1. ✅ Invoice Processing Pipeline 2. ✅ Lead Qualification System 3. ✅ Customer Support Drafting 4. ✅ Document Classification Engine 5. ✅ Scheduled Report Generator 6. ✅ 7-Agent AI Fleet (SOL, ASSEMBLY, CHATTY, ATLAS, GENI, JURIS, PESSI) 7. ✅ n8n Workflow Hosting (10K runs/mo) 8. ✅ Tailscale VPN + PostgreSQL **Ente",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5283477589488029,
+      "maxScore": 0.5283477589488029,
+      "firstRecalledAt": "2026-07-07T05:15:55.022Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
+      "queryHashes": [
+        "8b12c0b3f617"
+      ],
+      "recallDays": [
+        "2026-07-07"
+      ],
+      "conceptTags": [
+        "49/mo",
+        "99/mo",
+        "299/mo",
+        "7-agent",
+        "runs/mo",
+        "saos",
+        "dashboard",
+        "services"
+      ]
+    },
+    "memory:memory/2026-06-29-saos-dashboard-trust-features.md:1:33": {
+      "key": "memory:memory/2026-06-29-saos-dashboard-trust-features.md:1:33",
+      "path": "memory/2026-06-29-saos-dashboard-trust-features.md",
+      "startLine": 1,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "# SAOS Dashboard Trust Features — COMPLETE **Date:** 2026-06-29 09:45 CDT **Status:** ✅ DEPLOYED AND VERIFIED --- ## What Was Built ### Backend (`api.py`) Added comprehensive `trust` object to `/api/portal/status` response: | Section | Data | Trust Building | |---------|------|----------------| | **data_residency** | Server location (🇺🇸 Dallas), encryption (AES-256/TLS 1.3), audit date, compliance status | Proves privacy claims | | **scope** | What Systack manages vs. what client controls | Eliminates ambiguity about ownership | | **sla** | Uptime %, incidents, response commitment, actual last response | Shows accountability | | **support** | Primary channel, escalation path, emergen",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5251008450984954,
+      "maxScore": 0.5251008450984954,
+      "firstRecalledAt": "2026-07-07T05:15:55.022Z",
+      "lastRecalledAt": "2026-07-07T05:15:55.022Z",
+      "queryHashes": [
+        "8b12c0b3f617"
+      ],
+      "recallDays": [
+        "2026-07-07"
+      ],
+      "conceptTags": [
+        "api.py",
+        "api/portal/status",
+        "data-residency",
+        "aes-256/tls",
+        "1.3",
+        "saos",
+        "dashboard",
+        "trust"
+      ]
+    },
+    "memory:memory/2026-06-29-saos-dashboard-review-complete.md:28:62": {
+      "key": "memory:memory/2026-06-29-saos-dashboard-review-complete.md:28:62",
+      "path": "memory/2026-06-29-saos-dashboard-review-complete.md",
+      "startLine": 28,
+      "endLine": 62,
+      "source": "memory",
+      "snippet": "| Task Reminders | ❌ Not a standalone service | ❌ | | Document Summarization | ❌ Not a standalone service | ❌ | | Research Assistance | ❌ Not a standalone service | ❌ | | Note Organization | ❌ Not a standalone service | ❌ | | Multi-Device Sync | ❌ Not a service | ❌ | | Voice Interaction | ⚠️ Experimental, not priced | ❌ | | Expense Tracking | ❌ Not a service | ❌ | | Custom Integrations | ⚠️ Vague, not productized | ❌ | | Invoice Processing | ✅ YES — Actual product | ✅ | | Lead Qualification | ✅ YES — Actual product | ✅ | | Customer Support Drafting | ✅ YES — Actual product | ✅ | | Document Classification | ✅ YES — Actual product | ✅ | | Report Generation | ✅ YES — Actual product | ✅ | | Data",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5021582096815109,
+      "maxScore": 0.5021582096815109,
+      "firstRecalledAt": "2026-07-07T05:18:13.641Z",
+      "lastRecalledAt": "2026-07-07T05:18:13.641Z",
+      "queryHashes": [
+        "ce9076ff894f"
+      ],
+      "recallDays": [
+        "2026-07-07"
+      ],
+      "conceptTags": [
+        "multi-device",
+        "saos",
+        "dashboard",
+        "review",
+        "complete.md",
+        "task",
+        "reminders",
+        "not"
+      ]
+    },
+    "memory:memory/2026-06-16-session-complete.md:64:105": {
+      "key": "memory:memory/2026-06-16-session-complete.md:64:105",
+      "path": "memory/2026-06-16-session-complete.md",
+      "startLine": 64,
+      "endLine": 105,
+      "source": "memory",
+      "snippet": "- **Detail modal:** Click any row → full invoice with line items, entities, confidence score - **CSV export:** One-click download - **Auto-refresh:** Summary refreshes every 60 seconds - **SyStack branded:** Navy/cyan palette, professional UI ### Current Data - 95 invoices processed - AR: $1,174,555.38 (344 invoices) - AP: $951,819.74 (326 invoices) - Net position: +$222,735.64 - 114 invoices pending review - Top vendor: NovaTech Solutions Inc. (14 invoices) ### How to Access - **Dashboard:** `http://localhost:8768/invoice-dashboard.html` - **API:** `http://localhost:8766` --- ## Updated Priority List (User-Aligned) | Priority | Task | Status | Why | |----------|------|--------|-----| |",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5008549630641937,
+      "maxScore": 0.5008549630641937,
+      "firstRecalledAt": "2026-07-07T05:18:13.641Z",
+      "lastRecalledAt": "2026-07-07T05:18:13.641Z",
+      "queryHashes": [
+        "ce9076ff894f"
+      ],
+      "recallDays": [
+        "2026-07-07"
+      ],
+      "conceptTags": [
+        "2026-06-16-session-complete.md",
+        "one-click",
+        "auto-refresh",
+        "navy/cyan",
+        "555.38",
+        "819.74",
+        "735.64",
+        "8768/invoice-dashboard.html"
       ]
     }
   }
