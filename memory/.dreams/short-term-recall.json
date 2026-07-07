@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T11:47:09.127Z",
+  "updatedAt": "2026-07-07T05:04:44.725Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:45:74": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:45:74",
@@ -9,19 +9,24 @@
       "endLine": 74,
       "source": "memory",
       "snippet": "| **n8n workflow** | ✅ Templates updated, triggers restored, MMS wired | | **Contacts DB** | ✅ Cleaned, permissions fixed | | **Terms page** | ✅ Built, deployed to repo, but **Pages not serving it** | | **Git push** | ✅ Works (repo forwards to systack) | | **Email SMTP** | ❌ Gmail app password revoked — needs new one or SendGrid | ## Current State (07:54 CDT) - **SOL workspace**: `main` branch, `systack-site` converted from submodule to regular files, CNAME removed - **utopia-deli-order repo**: `main` branch has terms.html, CNAME present, but Pages builds from `systack` repo - **GitHub Pages**: Building from `systack` repo (not utopia-deli-order), failing due to 12GB size - **terms.html**:",
-      "recallCount": 2,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.7923765510320663,
-      "maxScore": 0.4115745067596435,
+      "totalScore": 2.249421539902687,
+      "maxScore": 0.48906931281089777,
       "firstRecalledAt": "2026-06-21T05:57:57.370Z",
-      "lastRecalledAt": "2026-06-21T22:40:56.721Z",
+      "lastRecalledAt": "2026-07-07T05:04:44.725Z",
       "queryHashes": [
         "dbcf7457ff3e",
-        "5d47a3f9fc61"
+        "5d47a3f9fc61",
+        "9b05108a8a59",
+        "66abbaf2b61b",
+        "44cf664ab08c"
       ],
       "recallDays": [
-        "2026-06-21"
+        "2026-06-21",
+        "2026-07-06",
+        "2026-07-07"
       ],
       "conceptTags": [
         "systack-site",
@@ -277,13 +282,13 @@
       "endLine": 50,
       "source": "memory",
       "snippet": "# 2026-06-05 03:04 CDT — All Three Deployed ## What We Did ### 1. ✅ GitHub Backup (#1534 pattern) **Deployed:** Workflow backup system for all n8n workflows - Created GitHub repo: `Phillip-Lowe/systack-n8n-workflows` - Exported all 30 workflows (active + inactive) - Created `scripts/backup-workflows.sh` automation - Scheduled daily cron: 6 AM automatic backup - Tested and working — auto-commits to GitHub **Repo contents:** - `workflows/deli/` — 11 active workflows - `workflows/systack/` — 19 inactive/archived workflows - `workflows/monitoring/` — Website downtime monitor - `scripts/backup-workflows.sh` — Daily automation - `README.md` — Auto-updated status ### 2. ✅ Uptime Monitoring (#11",
-      "recallCount": 15,
+      "recallCount": 18,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6.015234804153442,
+      "totalScore": 7.485406428575516,
       "maxScore": 0.5079757034778595,
       "firstRecalledAt": "2026-06-21T07:46:18.896Z",
-      "lastRecalledAt": "2026-06-24T10:20:10.075Z",
+      "lastRecalledAt": "2026-07-07T03:21:27.086Z",
       "queryHashes": [
         "0e713d0a9f3c",
         "49e5bb5feb0a",
@@ -299,12 +304,16 @@
         "4474521a420f",
         "f07530e0880d",
         "8b255f3fd553",
-        "732f3424e2d7"
+        "732f3424e2d7",
+        "2c001ca516b3",
+        "5db147e22d4e",
+        "9b05108a8a59"
       ],
       "recallDays": [
         "2026-06-21",
         "2026-06-22",
-        "2026-06-24"
+        "2026-06-24",
+        "2026-07-06"
       ],
       "conceptTags": [
         "backup",
@@ -28060,13 +28069,13 @@
       "endLine": 82,
       "source": "memory",
       "snippet": "systack-site/saos/index.html (+47 lines, Extended Capabilities + pricing) fleet/sol.md (created) fleet/oracle.md (created) fleet/atlas.md (created) fleet/vali.md (created) fleet/pessi.md (created) fleet/assembly.md (created) SAOS-FOUNDATION-SPEC.md (updated fleet + loop) MEMORY.md (added entry) ``` ### Next Actions - [ ] Activate CODY (fix cron jobs) - [ ] Create CHATTY onboarding sequence - [ ] Create first GENI marketing asset - [ ] Add Engagement Engine Stripe product/button - [ ] Update other s",
-      "recallCount": 21,
+      "recallCount": 25,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 10.169351118803023,
+      "totalScore": 12.115979492664335,
       "maxScore": 0.537587122619152,
       "firstRecalledAt": "2026-06-22T11:13:18.300Z",
-      "lastRecalledAt": "2026-06-27T13:48:28.077Z",
+      "lastRecalledAt": "2026-07-07T05:04:44.725Z",
       "queryHashes": [
         "59f09408f7c3",
         "a9058b82e1f7",
@@ -28088,7 +28097,11 @@
         "04129ac4d2d5",
         "842e349b574b",
         "f837f45927f5",
-        "f9c6c974ea98"
+        "f9c6c974ea98",
+        "2c001ca516b3",
+        "5db147e22d4e",
+        "9b05108a8a59",
+        "44cf664ab08c"
       ],
       "recallDays": [
         "2026-06-22",
@@ -28096,7 +28109,9 @@
         "2026-06-24",
         "2026-06-25",
         "2026-06-26",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06",
+        "2026-07-07"
       ],
       "conceptTags": [
         "systack-site/saos/index.html",
@@ -28855,13 +28870,13 @@
       "endLine": 55,
       "source": "memory",
       "snippet": "# Session — 2026-06-17 05:51 CDT ## SAOS Repo Separation + Dashboard Fix **User directive:** \"Save this in all places\" + \"SAOS dashboard is down\" --- ## What Happened 1. **Repo Separation:** Moved SAOS code from `utopia-deli-order` to new `systack-saas` repo 2. **Gateway Restart:** User restarted OpenClaw gateway 3. **Dashboard Down:** `orchestrator-daemon.py` was running (PID 70691) but dashboard API (port 8765) was dead 4. **Root Cause:** Files moved to `/tmp/systack-saas-init/` — running from wrong location --- ## Fix Applied **Dashboard restarted from systack-saas repo:** ```bash cd /tmp/systack-saas-init/dashboard mkdir -p ../logs nohup python3 api.py --port 8765 >../logs/dashbo",
-      "recallCount": 9,
+      "recallCount": 12,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4.245049449801445,
+      "totalScore": 5.702364054322242,
       "maxScore": 0.507765918970108,
       "firstRecalledAt": "2026-06-22T12:56:41.003Z",
-      "lastRecalledAt": "2026-06-27T13:58:53.447Z",
+      "lastRecalledAt": "2026-07-07T05:04:44.725Z",
       "queryHashes": [
         "a9058b82e1f7",
         "5e49fc029968",
@@ -28871,14 +28886,19 @@
         "a000d0e2159e",
         "c95d42ef59cd",
         "efd229b10e29",
-        "9c58bf980a71"
+        "9c58bf980a71",
+        "9b05108a8a59",
+        "66abbaf2b61b",
+        "44cf664ab08c"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-23",
         "2026-06-24",
         "2026-06-25",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06",
+        "2026-07-07"
       ],
       "conceptTags": [
         "gateway",
@@ -30024,13 +30044,13 @@
       "endLine": 82,
       "source": "memory",
       "snippet": "- `systack-site/services/service-packages.md` — Added Stripe buttons + SAOS Fleet section - `systack-site/stripe-products.md` — Quick reference - `templates/private/dashboard-server.py` — Tested locally - `templates/private/dashboard.html` — Verified UI renders - `templates/private/n8n-log-to-dashboard.json` — Created ## Next - [ ] Activate n8n workflows (both Private + Accelerate) - [ ] Build P1 service line templates - [ ] Test end-to-end with real webhook payload",
-      "recallCount": 10,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5.014805050963566,
+      "totalScore": 5.494897168153927,
       "maxScore": 0.703676443571255,
       "firstRecalledAt": "2026-06-22T15:38:53.337Z",
-      "lastRecalledAt": "2026-06-27T13:47:24.121Z",
+      "lastRecalledAt": "2026-07-07T03:21:09.854Z",
       "queryHashes": [
         "29688b8a471d",
         "a2bd8bf5f629",
@@ -30041,13 +30061,15 @@
         "2aa9914b91dc",
         "080d300861d6",
         "3f84a0bd0c78",
-        "f837f45927f5"
+        "f837f45927f5",
+        "5db147e22d4e"
       ],
       "recallDays": [
         "2026-06-22",
         "2026-06-24",
         "2026-06-25",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "systack-site/stripe-products.md",
@@ -30633,22 +30655,25 @@
       "endLine": 159,
       "source": "memory",
       "snippet": "→ Auto-replies to lead → Shows recommendation + \"Book a Call\" CTA OR Visitor goes to /contact → Fills quick form → Submits → same webhook → Same notifications → Shows \"We'll reply within 24h\" ``` --- ## Files Changed/Created | File | Action | |------|--------| | `systack-site/contact.html` | Updated form to use webhook | | `systack-site/discovery.html` | ✅ New — 8-step questionnaire | | `systack-site/personal-agent/index.html` | Updated pricing tiers | | `systack-site/pricing.html` | Updated SAOS + Personal Agent sections | | `systack-site/services.html` | Added security section | | `systack-lead-capture-webhook.json` | ✅ New — n8n workflow | | `clients/mcdonalds-gm/DEPLOY",
-      "recallCount": 4,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1.9189971089363098,
+      "totalScore": 2.895863446593285,
       "maxScore": 0.5073258638381958,
       "firstRecalledAt": "2026-06-22T16:20:38.370Z",
-      "lastRecalledAt": "2026-06-24T09:57:42.666Z",
+      "lastRecalledAt": "2026-07-07T03:21:09.854Z",
       "queryHashes": [
         "8b255f3fd553",
         "ecda8ea0f1c7",
         "bfd63fe0087c",
-        "dc3e303d95bf"
+        "dc3e303d95bf",
+        "2c001ca516b3",
+        "5db147e22d4e"
       ],
       "recallDays": [
         "2026-06-22",
-        "2026-06-24"
+        "2026-06-24",
+        "2026-07-06"
       ],
       "conceptTags": [
         "auto-replies",
@@ -30668,23 +30693,25 @@
       "endLine": 92,
       "source": "memory",
       "snippet": "| Service | Status | Port/PID | File | |---------|--------|----------|------| | SAOS Webhook Bridge | ✅ Running | port 8767 | `saos-webhook-bridge.py` | | LaunchAgent | ✅ Loaded | auto-restart | `net.systack.webhook-bridge.plist` | --- ## Next Steps 1. **Set Stripe redirects** — In Stripe dashboard, set \"After payment\" URLs on 4 active links 2. **Deactivate old links** — 6 duplicate/deprecated links in Stripe dashboard 3. **Test end-to-end** — Stripe test mode → onboard form → webhook → provisioning 4. **Add Vultr key to pipeline** — Pipeline currently runs in test mode without key --- ## Files Changed - `systack-site/pricing.html` — Removed Personal+, fixed annual prices - `systack-sit",
-      "recallCount": 5,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2.451775074005127,
+      "totalScore": 2.932375881075859,
       "maxScore": 0.5101836770772934,
       "firstRecalledAt": "2026-06-22T16:20:42.453Z",
-      "lastRecalledAt": "2026-06-27T10:01:06.159Z",
+      "lastRecalledAt": "2026-07-07T05:04:44.725Z",
       "queryHashes": [
         "0af82f0d5364",
         "d7fc2aaafa53",
         "ecda8ea0f1c7",
         "29308cf04866",
-        "7bdd0d860d4b"
+        "7bdd0d860d4b",
+        "44cf664ab08c"
       ],
       "recallDays": [
         "2026-06-22",
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-07"
       ],
       "conceptTags": [
         "2026-06-22-session-0957.md",
@@ -109786,18 +109813,22 @@
       "endLine": 98,
       "source": "memory",
       "snippet": "| `systack-site/services/index.html` | Created | --- ## Deploy Status | Component | Status | URL | |-----------|--------|-----| | Systack site | ✅ Deployed | `systack.net` | | Demo booking | ✅ Live | `systack.net/test-book.html` | | Services page | ✅ Updated | `systack.net/services` | | n8n workflows | ✅ Active | `n8n.systack.net` | --- ## Next Actions (For Future Sessions) 1. **Auto-release logic** — cancel unconfirmed slots at T-30min 2. **Smart Rebooking Engine** — Phase 1 priority 3. **Review System** — Phase 1 priority 4. **Build `/book` production page** — clone test, remove banner 5. **Monitor demo bookings** — clean test data periodically --- **Session closed:** 09:05 CDT *",
-      "recallCount": 1,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.46838415563106534,
-      "maxScore": 0.46838415563106534,
+      "totalScore": 2.0172320216894146,
+      "maxScore": 0.5369702756404876,
       "firstRecalledAt": "2026-06-27T13:53:11.312Z",
-      "lastRecalledAt": "2026-06-27T13:53:11.312Z",
+      "lastRecalledAt": "2026-07-07T03:21:27.086Z",
       "queryHashes": [
-        "8c6ae937c511"
+        "8c6ae937c511",
+        "2c001ca516b3",
+        "5db147e22d4e",
+        "9b05108a8a59"
       ],
       "recallDays": [
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "2026-06-11-full-session-log.md",
@@ -109817,18 +109848,20 @@
       "endLine": 63,
       "source": "memory",
       "snippet": "| Service | `service` | `service` | | Date + Time | `appointment_time` | `appointment_time` | | (hidden) | `source` | `source` | --- ## Files Created | File | Purpose | |------|---------| | `systack-site/test-book.html` | Test booking form | | `memory/2026-06-11-systack-booking-frontend-architecture.md` | Architecture spec | --- **Next:** Build `/book` production page (clone of test, remove banner, change webhook)",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.46737693548202514,
-      "maxScore": 0.46737693548202514,
+      "totalScore": 0.9415425777435302,
+      "maxScore": 0.4741656422615051,
       "firstRecalledAt": "2026-06-27T13:53:11.312Z",
-      "lastRecalledAt": "2026-06-27T13:53:11.312Z",
+      "lastRecalledAt": "2026-07-07T03:21:09.854Z",
       "queryHashes": [
-        "8c6ae937c511"
+        "8c6ae937c511",
+        "5db147e22d4e"
       ],
       "recallDays": [
-        "2026-06-27"
+        "2026-06-27",
+        "2026-07-06"
       ],
       "conceptTags": [
         "appointment-time",
@@ -111754,6 +111787,102 @@
         "production",
         "audit.md",
         "dashboard"
+      ]
+    },
+    "memory:memory/2026-07-06-site-update.md:1:30": {
+      "key": "memory:memory/2026-07-06-site-update.md:1:30",
+      "path": "memory/2026-07-06-site-update.md",
+      "startLine": 1,
+      "endLine": 30,
+      "source": "memory",
+      "snippet": "# Systack Site Update — SAOS Production Readiness **Date:** 2026-07-06 16:33 CDT **Status:** ✅ COMMITTED & PUSHED — GitHub Pages CDN propagating (5-10 min) **Commits:** `24d757d`, `a522c54` --- ## What Was Done User directive: \"Site got retrograde after we had to do all of it... go through memory and see where we are with Systack, update the site to show and offer the current services... we're about to go live fully live really soon.\" ### Full Site Audit Performed Audited all live site files against MEMORY.md source of truth: - `index.html` — Home page - `services.html` AND `services/index.html` — Services page (discovered `/services` route uses `services/index.html`) - `pricing.ht",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.4741329550743103,
+      "maxScore": 0.5032579720020294,
+      "firstRecalledAt": "2026-07-07T03:18:06.724Z",
+      "lastRecalledAt": "2026-07-07T03:21:27.086Z",
+      "queryHashes": [
+        "2c001ca516b3",
+        "5db147e22d4e",
+        "9b05108a8a59"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "2026-07-06-site-update.md",
+        "5-10",
+        "memory.md",
+        "index.html",
+        "services.html",
+        "services/index.html",
+        "pricing.ht",
+        "site"
+      ]
+    },
+    "memory:memory/2026-06-19-systack-service-manual-client.md:64:81": {
+      "key": "memory:memory/2026-06-19-systack-service-manual-client.md:64:81",
+      "path": "memory/2026-06-19-systack-service-manual-client.md",
+      "startLine": 64,
+      "endLine": 81,
+      "source": "memory",
+      "snippet": "| SyStack-Service-Manual-Client-v1.0.md | workspace + repo `docs/` | 12 KB | **Git:** `4ba4ed6` on `main` --- ## Usage - **Sales calls:** Email to prospects before discovery call - **Website:** Link from `/docs` or `/pricing` pages - **Onboarding:** Include in welcome email after signup - **Support:** Reference for SLA expectations - **Partners:** Share with referral partners and resellers --- *Sanitized by SOL on 2026-06-19. Internal version remains at commit `735d775` with full operational details.*",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.9643752932548523,
+      "maxScore": 0.48602629005908965,
+      "firstRecalledAt": "2026-07-07T03:21:09.854Z",
+      "lastRecalledAt": "2026-07-07T03:21:27.086Z",
+      "queryHashes": [
+        "5db147e22d4e",
+        "9b05108a8a59"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "systack",
+        "service",
+        "manual",
+        "client.md",
+        "client",
+        "v1.0",
+        "repo",
+        "docs"
+      ]
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:144:178": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:144:178",
+      "path": "memory/2026-07-06-oracle-handoff.md",
+      "startLine": 144,
+      "endLine": 178,
+      "source": "memory",
+      "snippet": "| `command.systack.net` | Command Center | 8770 | ✅ Live | - Real SSL certs via Cloudflare — works on all devices, all browsers - Running as launchd service (`net.systack.saos-cloudflare-tunnel.plist`) with KeepAlive - Did NOT touch existing deli tunnels (`n8n-utopia-clean`, `invoice-api`) - All docs updated to use Cloudflare URLs instead of `.ts.net` **Manual action needed:** Delete or update `saos.systack.net` CNAME in Cloudflare DNS (accidentally created pointing at deli tunnel). --- ## Current System State ### Services (9/9 healthy) | Service | Port | Health Endpoint | Status | |---------|------|-----------------|--------| | Customer Portal | 8768 | `/api/portal/health` | ✅ | | Com",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.47574559748172757,
+      "maxScore": 0.47574559748172757,
+      "firstRecalledAt": "2026-07-07T03:21:09.854Z",
+      "lastRecalledAt": "2026-07-07T03:21:09.854Z",
+      "queryHashes": [
+        "5db147e22d4e"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "2026-07-06-oracle-handoff.md",
+        "command.systack.net",
+        "n8n-utopia-clean",
+        "invoice-api",
+        "ts.net",
+        "saos.systack.net",
+        "9/9",
+        "api/portal/health"
       ]
     }
   }

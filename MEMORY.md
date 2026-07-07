@@ -4,6 +4,26 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-07-07 — Systack Site Deploy Fix (CRITICAL — Two Repo Problem)
+
+**Status:** ✅ FIXED — Site now serving correct version
+**Reference:** `memory/2026-07-07-site-deploy-fix.md`
+**Deploy Repo:** `Phillip-Lowe/systack` — This is where `systack.net` is served from
+**Workspace Source:** `Phillip-Lowe_Main/Systack/content/systack-site/` — Edit here, then sync
+
+### What Went Wrong
+Edited site files in workspace, committed, pushed — but live site showed old version. Root cause: GitHub Pages serves from `Phillip-Lowe/systack` repo, NOT from `Phillip-Lowe_Main`. Both repos had CNAME = `systack.net` causing confusion.
+
+### Prevention
+- `scripts/sync-site.sh` — Syncs workspace → deploy repo
+- `Systack/content/systack-site/DEPLOY.md` — Documents the two-repo setup
+- CNAME in workspace has comment explaining it's for deploy repo sync
+
+### The Rule
+**ALWAYS run `./scripts/sync-site.sh` after editing site files.** Never assume push to `Phillip-Lowe_Main` updates the live site.
+
+---
+
 ## 2026-07-06 — UTOPIA DELI SCOPE RULES (LOCKED)
 
 **Status:** 🔒 ACTIVE — Binding rule for all future deli work

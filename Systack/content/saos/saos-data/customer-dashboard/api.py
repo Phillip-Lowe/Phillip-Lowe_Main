@@ -3399,7 +3399,7 @@ def pending_workflow_deployments():
 _original_log_audit = log_audit
 
 def log_audit_with_security(action, entity_type=None, entity_id=None, old_value=None, 
-                            new_value=None, client_id=None):
+                            new_value=None, client_id=None, **kwargs):
     """Extended audit logging that also creates security events for auth failures."""
     _original_log_audit(action, entity_type, entity_id, old_value, new_value, client_id)
     
