@@ -37,6 +37,7 @@ FILES=(
 DIRS=(
     assets
     brand
+    personal-agent
     services
     work
     saos
@@ -100,7 +101,7 @@ if [[ "$DRY_RUN" == true ]]; then
 fi
 
 # Commit and push
-COMMIT_MSG="site: Sync from workspace ($(date +%Y-%m-%d %H:%M))
+COMMIT_MSG="site: Sync from workspace ($(date +%Y-%m-%d-%H%M))
 
 Files synced from Phillip-Lowe_Main/Systack/content/systack-site/"
 
