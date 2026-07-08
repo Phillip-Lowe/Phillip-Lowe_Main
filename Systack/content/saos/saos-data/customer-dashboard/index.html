@@ -2244,9 +2244,10 @@
                 await loadConversations();
                 startPolling();
 
-                // Show onboarding wizard for first-time users
+                // Show onboarding wizard for first-time users (skip if ?skip-tour in URL)
                 const hasSeenOnboarding = localStorage.getItem('saos_onboarding_done');
-                if (!hasSeenOnboarding) {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (!hasSeenOnboarding && !urlParams.has('skip-tour')) {
                     setTimeout(() => showOnboardingWizard(), 500);
                 }
             } catch (e) {
@@ -2302,7 +2303,8 @@
                 const progress = ((currentStep + 1) / steps.length) * 100;
 
                 modal.innerHTML = `
-                    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;max-width:480px;width:100%;padding:40px;text-align:center">
+                    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;max-width:480px;width:100%;padding:40px;text-align:center;position:relative">
+                        <button onclick="dismissOnboarding()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;padding:4px 8px;line-height:1">×</button>
                         <div style="font-size:3rem;margin-bottom:20px">${step.icon}</div>
                         <h2 style="font-size:1.3rem;margin-bottom:16px;font-weight:700">${step.title}</h2>
                         <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.6;margin-bottom:28px">${step.body}</p>
@@ -2313,7 +2315,7 @@
                             ${currentStep > 0 ? '<button onclick="prevStep()" class="btn btn-secondary" style="flex:1">Back</button>' : ''}
                             <button onclick="nextStep()" class="btn btn-primary" style="flex:2">${step.cta}</button>
                         </div>
-                        ${!isLast ? '<button onclick="skipOnboarding()" style="background:none;border:none;color:var(--text-dim);font-size:0.8rem;margin-top:16px;cursor:pointer">Skip tour</button>' : ''}
+                        <button onclick="dismissOnboarding()" style="background:none;border:none;color:var(--text-dim);font-size:0.8rem;margin-top:16px;cursor:pointer;text-decoration:underline">Skip tour</button>
                     </div>
                 `;
             }
@@ -2323,22 +2325,20 @@
                     currentStep++;
                     renderStep();
                 } else {
-                    finishOnboarding();
+                    dismissOnboarding();
                 }
             };
             window.prevStep = function() {
                 if (currentStep > 0) { currentStep--; renderStep(); }
             };
-            window.skipOnboarding = finishOnboarding;
-            window.finishOnboarding = function() {
+            window.dismissOnboarding = function() {
                 localStorage.setItem('saos_onboarding_done', 'true');
                 const m = document.getElementById('onboardingModal');
                 if (m) m.remove();
-                // Show services tab first so they see what's available
-                showTab('services', [...document.querySelectorAll('.nav-link')].find(b => b.textContent.includes('Services')));
+                // Show services tab so they see what's available
+                const servicesTab = [...document.querySelectorAll('.nav-link')].find(b => b.textContent.includes('Services'));
+                if (servicesTab) showTab('services', servicesTab);
             };
-            // Override for the last step
-            window.finishOnboarding = window.finishOnboarding;
 
             renderStep();
         }

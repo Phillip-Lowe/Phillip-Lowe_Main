@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="../brand/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../brand/favicon-16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Program — SyStack</title>
+    <meta name="description" content="Earn 20% recurring commission by referring clients to SyStack. White-label available for agencies and consultants.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4fc3f7, #81d4fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #a0a0b0;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: rgba(79,195,247,0.15);
+            border: 1px solid rgba(79,195,247,0.3);
+            color: #4fc3f7;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            padding: 40px 0;
+        }
+        .card {
+            background: #15151f;
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+        .card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+        .card p, .card li {
+            color: #a0a0b0;
+            font-size: 0.95rem;
+        }
+
+        .commission-highlight {
+            background: linear-gradient(135deg, rgba(79,195,247,0.1), rgba(41,182,246,0.1));
+            border: 1px solid rgba(79,195,247,0.2);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .commission-highlight .amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #4fc3f7;
+        }
+        .commission-highlight .label {
+            color: #a0a0b0;
+            font-size: 1rem;
+            margin-top: 4px;
+        }
+        .commission-highlight .sub {
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .tiers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            .tiers { grid-template-columns: 1fr; }
+        }
+        .tier-card {
+            background: #15151f;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .tier-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .tier-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4fc3f7;
+            margin-bottom: 4px;
+        }
+        .tier-card .commission {
+            font-size: 0.9rem;
+            color: #81d4fa;
+            margin-bottom: 12px;
+        }
+        .tier-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .tier-card li {
+            padding: 6px 0;
+            font-size: 0.85rem;
+            color: #a0a0b0;
+        }
+        .tier-card li::before {
+            content: "✓ ";
+            color: #4caf50;
+        }
+
+        .how-it-works {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            .how-it-works { grid-template-columns: 1fr; }
+        }
+        .step {
+            text-align: center;
+            padding: 24px;
+            background: #15151f;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+        }
+        .step .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #4fc3f7;
+            margin-bottom: 8px;
+        }
+        .step h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .step p {
+            font-size: 0.85rem;
+            color: #a0a0b0;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(79,195,247,0.1), rgba(41,182,246,0.1));
+            border: 1px solid rgba(79,195,247,0.2);
+            border-radius: 16px;
+        }
+        .cta h2 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+        .cta p {
+            color: #a0a0b0;
+            margin-bottom: 20px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            color: #0a0a0f;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .cta-btn:hover {
+            box-shadow: 0 8px 24px rgba(79,195,247,0.3);
+        }
+
+        .faq-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #222;
+        }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-item .q {
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 4px;
+        }
+        .faq-item .a {
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="container">
+        <span class="badge">🤝 Partner Program</span>
+        <h1>Earn 20% Recurring Commission</h1>
+        <p>Refer clients who need automation. We handle the build, deployment, and support. You earn 20% of every payment they make — every month, for as long as they're a client.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section">
+        <div class="commission-highlight">
+            <div class="amount">$60 - $160</div>
+            <div class="label">Your monthly commission per client</div>
+            <div class="sub">5 clients = $300-$800/mo passive · 20 clients = $1,200-$3,200/mo</div>
+        </div>
+
+        <div class="tiers">
+            <div class="tier-card">
+                <h3>Business</h3>
+                <div class="price">$299/mo</div>
+                <div class="commission">Your commission: $60/mo</div>
+                <ul>
+                    <li>8 automation services</li>
+                    <li>7-agent AI fleet</li>
+                    <li>10K n8n runs/month</li>
+                    <li>Tailscale VPN + PostgreSQL</li>
+                    <li>Fully managed</li>
+                </ul>
+            </div>
+            <div class="tier-card">
+                <h3>Enterprise</h3>
+                <div class="price">$799/mo</div>
+                <div class="commission">Your commission: $160/mo</div>
+                <ul>
+                    <li>10 automation services</li>
+                    <li>10-agent AI fleet</li>
+                    <li>Unlimited n8n runs</li>
+                    <li>32GB RAM infrastructure</li>
+                    <li>Dedicated support line</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>How It Works</h2>
+            <div class="how-it-works">
+                <div class="step">
+                    <div class="num">1</div>
+                    <h3>Refer a Client</h3>
+                    <p>You know a business drowning in paperwork, missing leads, or doing manual data entry. Send them our way.</p>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <h3>We Close & Build</h3>
+                    <p>We handle the sales call, onboarding, setup, and deployment. Your client gets a fully managed automation system.</p>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <h3>You Earn Monthly</h3>
+                    <p>20% of every payment your client makes — every month, for life. No cap, no expiration.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Who Makes a Good Partner</h2>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px">
+                <div style="padding:16px; background:rgba(79,195,247,0.05); border-radius:10px">
+                    <div style="font-weight:700; margin-bottom:4px">🌐 Web Designers</div>
+                    <div style="font-size:0.85rem; color:#a0a0b0">You build websites. Your clients need automation. Add SAOS as a post-launch service.</div>
+                </div>
+                <div style="padding:16px; background:rgba(79,195,247,0.05); border-radius:10px">
+                    <div style="font-weight:700; margin-bottom:4px">📊 Marketing Agencies</div>
+                    <div style="font-size:0.85rem; color:#a0a0b0">Your clients need lead capture, follow-up, and reporting. SAOS delivers it all.</div>
+                </div>
+                <div style="padding:16px; background:rgba(79,195,247,0.05); border-radius:10px">
+                    <div style="font-weight:700; margin-bottom:4px">💼 IT Consultants / MSPs</div>
+                    <div style="font-size:0.85rem; color:#a0a0b0">Your clients trust you with their tech stack. Add automation without hiring AI engineers.</div>
+                </div>
+                <div style="padding:16px; background:rgba(79,195,247,0.05); border-radius:10px">
+                    <div style="font-weight:700; margin-bottom:4px">📚 Business Coaches / Accountants</div>
+                    <div style="font-size:0.85rem; color:#a0a0b0">You see the pain points every day. Refer clients who need operational help.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>What We Handle (So You Don't Have To)</h2>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; font-size:0.9rem">
+                <div style="padding:8px 0">✅ Sales calls & demos</div>
+                <div style="padding:8px 0">✅ Client onboarding</div>
+                <div style="padding:8px 0">✅ VPS provisioning</div>
+                <div style="padding:8px 0">✅ n8n workflow building</div>
+                <div style="padding:8px 0">✅ AI model deployment</div>
+                <div style="padding:8px 0">✅ Ongoing support</div>
+                <div style="padding:8px 0">✅ Security & compliance</div>
+                <div style="padding:8px 0">✅ Billing & collections</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="q">Do I need to know anything about AI or automation?</div>
+                <div class="a">No. You just need to know business owners who are drowning in manual work. We handle everything technical.</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">How do I track my referrals and commissions?</div>
+                <div class="a">Every partner gets a unique referral link. We track signups, payments, and commissions. You get a monthly report.</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">Can I white-label SAOS as my own service?</div>
+                <div class="a">Yes. Partners at 5+ active referrals get white-label access — your branding, your pricing, our infrastructure. Contact us for details.</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">What if my referred client cancels?</div>
+                <div class="a">No commission that month. But if they come back, the commission resumes. No clawbacks on already-paid commissions.</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">How do I get paid?</div>
+                <div class="a">Monthly via Stripe or PayPal. Commissions are paid on the 1st of each month for the previous month's collected revenue.</div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <h2>Ready to Become a Partner?</h2>
+            <p>Email us with your name, company, and how many clients you work with. We'll send your partner agreement and unique referral link within 24 hours.</p>
+            <a href="mailto:plowe@systack.net?subject=Partner%20Program%20Inquiry&body=Hi%20Green%2C%0A%0AI'm%20interested%20in%20the%20SyStack%20Partner%20Program.%0A%0AName%3A%0ACompany%3A%0AClients%20served%3A%0A%0AWhat%20type%20of%20partner%20best%20describes%20you%3F%0A" class="cta-btn">📧 Join the Partner Program</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
