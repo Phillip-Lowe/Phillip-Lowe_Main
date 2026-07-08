@@ -119,7 +119,63 @@ DB_USER = os.environ.get("PGUSER", "philliplowe")
 # ── SERVICES CONFIGURATION ─────────────────────────────────
 # Service definitions by tier — ALIGNED WITH ACTUAL SYSTACK OFFERINGS
 # Source: Systack/content/systack-site/services/service-packages.md
-# Updated: 2026-06-29 — Removed fake services, matched real products
+# Updated: 2026-07-08 — Added process flows + try-it endpoints
+
+# Process flows shown in "How It Works" modal for each service
+SERVICE_PROCESSES = {
+    'Invoice Processing Pipeline': {
+        'steps': [
+            {'icon': '📧', 'title': 'Email or Upload', 'desc': 'Send invoices to support@systack.net or upload PDFs in the dashboard'},
+            {'icon': '🤖', 'title': 'AI Extraction', 'desc': 'SAOS reads the PDF — extracts vendor, invoice number, date, line items, totals, tax'},
+            {'icon': '✅', 'title': 'Review & Approve', 'desc': 'You see extracted data in the dashboard. Approve or edit before it goes further'},
+            {'icon': '📤', 'title': 'Export to Accounting', 'desc': 'Approved invoices export to QuickBooks, Xero, or CSV — no manual data entry'},
+        ],
+        'try_it': True,
+        'try_it_endpoint': '/api/portal/try-invoice-parse',
+    },
+    'Lead Qualification System': {
+        'steps': [
+            {'icon': '📝', 'title': 'Lead Submits Form', 'desc': 'Prospect fills out your website contact form or landing page'},
+            {'icon': '🎯', 'title': 'AI Scoring', 'desc': 'SAOS scores the lead: budget, urgency, company size, intent signals'},
+            {'icon': '🔔', 'title': 'Instant Notification', 'desc': 'High-intent leads trigger immediate alert to you via email + dashboard'},
+            {'icon': '📊', 'title': 'Pipeline Tracking', 'desc': 'Every lead logged in your dashboard with score, status, and next action'},
+        ],
+    },
+    'Customer Support Drafting': {
+        'steps': [
+            {'icon': '📨', 'title': 'Customer Inquiry', 'desc': 'Customer emails or messages your support channel'},
+            {'icon': '🤖', 'title': 'AI Drafts Response', 'desc': 'SAOS reads the inquiry and drafts a response based on your knowledge base'},
+            {'icon': '👁️', 'title': 'Human Review', 'desc': 'You review the draft in the dashboard, edit if needed, approve to send'},
+            {'icon': '✅', 'title': 'Send & Log', 'desc': 'Response sent to customer. Full conversation logged for reference'},
+        ],
+    },
+    'Document Classification Engine': {
+        'steps': [
+            {'icon': '📥', 'title': 'Document Arrives', 'desc': 'Email attachment, upload, or watched folder receives a document'},
+            {'icon': '🏷️', 'title': 'AI Classification', 'desc': 'SAOS identifies type: contract, invoice, form, application, correspondence'},
+            {'icon': '🔀', 'title': 'Auto-Routing', 'desc': 'Document routed to correct folder, department, or workflow based on type'},
+            {'icon': '📋', 'title': 'Logged & Searchable', 'desc': 'Every document indexed in your dashboard — search by type, date, sender'},
+        ],
+    },
+    'Scheduled Report Generator': {
+        'steps': [
+            {'icon': '⏰', 'title': 'Schedule Set', 'desc': 'Choose frequency: daily, weekly, or monthly. Choose what data to include'},
+            {'icon': '📊', 'title': 'Auto-Generated', 'desc': 'SAOS pulls data from your systems and compiles the report automatically'},
+            {'icon': '📧', 'title': 'Delivered to You', 'desc': 'Report arrives in your inbox and dashboard at the scheduled time'},
+            {'icon': '📈', 'title': 'Track Trends', 'desc': 'Historical reports stored — compare performance over time'},
+        ],
+    },
+    'Automated Invoice Processing System': {
+        'steps': [
+            {'icon': '📧', 'title': 'Email or Upload', 'desc': 'Send invoices or upload scanned PDFs'},
+            {'icon': '🤖', 'title': 'AI Extraction', 'desc': 'Extract vendor, totals, line items — even from scanned documents'},
+            {'icon': '🔄', 'title': 'Approval Routing', 'desc': 'Route to the right person for approval based on amount or vendor'},
+            {'icon': '📤', 'title': 'Push to Accounting', 'desc': 'Approved invoices pushed to QuickBooks/Xero. Air-gapped, zero cloud'},
+        ],
+        'try_it': True,
+        'try_it_endpoint': '/api/portal/try-invoice-parse',
+    },
+}
 
 TIER_SERVICES = {
     'business': [
@@ -656,6 +712,57 @@ def onboarding_status(client_id):
     })
 
 # ── EXISTING ENDPOINTS (Updated with auth + descriptions) ──
+
+@app.route('/api/portal/service-process/<name>')
+@require_auth
+def service_process(name):
+    """Return the step-by-step process flow for a specific service."""
+    # Try exact match first, then fuzzy match
+    process = SERVICE_PROCESSES.get(name)
+    if not process:
+        # Try partial match
+        for key in SERVICE_PROCESSES:
+            if key.lower() in name.lower() or name.lower() in key.lower():
+                process = SERVICE_PROCESSES[key]
+                break
+    if not process:
+        return jsonify({"error": "Process flow not available for this service"}), 404
+    return jsonify({"service": name, "process": process})
+
+@app.route('/api/portal/try-invoice-parse', methods=['POST'])
+@require_auth
+def try_invoice_parse():
+    """Let customer try the invoice parser with their own PDF — demo mode."""
+    if 'invoice' not in request.files:
+        return jsonify({"error": "No file uploaded. Upload a PDF invoice with field name 'invoice'."}), 400
+    
+    file = request.files['invoice']
+    if not file.filename:
+        return jsonify({"error": "No filename provided"}), 400
+    
+    if not file.filename.lower().endswith('.pdf'):
+        return jsonify({"error": "Please upload a PDF file"}), 400
+    
+    import tempfile, os
+    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
+        file.save(tmp.name)
+        tmp_path = tmp.name
+    
+    try:
+        import sys as _sys
+        _sys.path.insert(0, '/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser')
+        from invoice_parser_production import process_pdf
+        result = process_pdf(tmp_path)
+        result['demo_mode'] = True
+        result['note'] = 'This is a demo extraction. In production, approved invoices are pushed to your accounting system.'
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e), "success": False}), 500
+    finally:
+        try:
+            os.unlink(tmp_path)
+        except:
+            pass
 
 @app.route('/api/portal/health')
 def health():
