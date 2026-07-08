@@ -190,7 +190,7 @@ class InvoiceHandler(BaseHTTPRequestHandler):
                 # Merge normalized + raw for frontend compatibility
                 result = dict(raw_result)  # Start with raw (has vendor, items, total, success, etc.)
                 try:
-                    sys.path.insert(0, '/Users/philliplowe/.openclaw/workspaces/sol')
+                    sys.path.insert(0, '/Users/philliplowe/.openclaw/workspaces/sol/Systack/tools/invoice-parser')
                     from invoice_normalizer import normalize_invoice
                     normalized = normalize_invoice(raw_result, business_name="Green Systems LLC")
                     # Add normalized fields but don't overwrite raw
