@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="../brand/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../brand/favicon-16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Automation Audit — SyStack</title>
+    <meta name="description" content="Find out how much revenue your business is losing from missed automation. Free instant report.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+        /* Hero */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4fc3f7, #81d4fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #a0a0b0;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: rgba(79,195,247,0.15);
+            border: 1px solid rgba(79,195,247,0.3);
+            color: #4fc3f7;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .hero .timer {
+            display: inline-block;
+            color: #81d4fa;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        /* Form */
+        .form-section {
+            padding: 40px 0;
+        }
+        .form-card {
+            background: #15151f;
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 40px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #c0c0d0;
+            margin-bottom: 8px;
+        }
+        .form-group .hint {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0a0a12;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+        .form-group select option {
+            background: #15151f;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            color: #0a0a0f;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(79,195,247,0.3);
+        }
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .loading.show { display: block; }
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #2a2a3a;
+            border-top-color: #4fc3f7;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text {
+            color: #a0a0b0;
+            font-size: 0.95rem;
+        }
+        .loading-step {
+            margin-top: 8px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* Results */
+        .results {
+            display: none;
+            padding: 40px 0;
+        }
+        .results.show { display: block; }
+        .score-card {
+            background: #15151f;
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .score-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .score-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .score-grade {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        .revenue-impact {
+            background: linear-gradient(135deg, rgba(244,67,54,0.1), rgba(255,152,0,0.1));
+            border: 1px solid rgba(244,67,54,0.2);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .revenue-impact .amount {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ff7043;
+        }
+        .revenue-impact .label {
+            color: #a0a0b0;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+        .findings {
+            background: #15151f;
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+        .findings h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: #e0e0e0;
+        }
+        .finding {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
+        }
+        .finding:last-child { border-bottom: none; }
+        .finding .icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .finding .text {
+            flex: 1;
+        }
+        .finding .title {
+            font-weight: 600;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+        .finding .desc {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+        .finding .cost {
+            color: #ff7043;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .cta {
+            text-align: center;
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(79,195,247,0.1), rgba(41,182,246,0.1));
+            border: 1px solid rgba(79,195,247,0.2);
+            border-radius: 16px;
+        }
+        .cta h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .cta p {
+            color: #a0a0b0;
+            margin-bottom: 20px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            color: #0a0a0f;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .cta-btn:hover {
+            box-shadow: 0 8px 24px rgba(79,195,247,0.3);
+        }
+
+        /* Error */
+        .error-msg {
+            display: none;
+            background: rgba(244,67,54,0.1);
+            border: 1px solid rgba(244,67,54,0.3);
+            border-radius: 10px;
+            padding: 16px;
+            color: #ff5252;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .error-msg.show { display: block; }
+
+        /* Trust indicators */
+        .trust {
+            text-align: center;
+            padding: 20px 0;
+            color: #555;
+            font-size: 0.8rem;
+        }
+        .trust span { margin: 0 12px; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="container">
+        <span class="badge">⚡ Free · No signup · 60-second report</span>
+        <h1>How Much Revenue Are You Losing?</h1>
+        <p>Most small businesses are leaking $10,000-$50,000/year from missed follow-ups, manual paperwork, and no automation. Find out what it's costing you.</p>
+        <span class="timer">⏱ Takes 60 seconds</span>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-section">
+        <div class="form-card">
+            <div class="error-msg" id="errorMsg"></div>
+
+            <form id="auditForm">
+                <div class="form-group">
+                    <label>Business Website</label>
+                    <input type="url" id="website" name="website" placeholder="https://yourbusiness.com" required>
+                    <div class="hint">We'll analyze your site for automation gaps</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input type="text" id="business_name" name="business_name" placeholder="Acme Corp" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@business.com" required>
+                        <div class="hint">Report sent here</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Industry</label>
+                        <select id="industry" name="industry" required>
+                            <option value="">Select...</option>
+                            <option value="restaurant">Restaurant / Food Service</option>
+                            <option value="logistics">Warehousing / 3PL / Distribution</option>
+                            <option value="healthcare">Healthcare / Medical Practice</option>
+                            <option value="property">Property Management / Real Estate</option>
+                            <option value="professional">Professional Services (Legal, Accounting, Consulting)</option>
+                            <option value="home_services">Home Services (Roofing, HVAC, Plumbing)</option>
+                            <option value="retail">Retail / E-commerce</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Employees</label>
+                        <select id="employees" name="employees" required>
+                            <option value="">Select...</option>
+                            <option value="1-10">1-10</option>
+                            <option value="11-50">11-50</option>
+                            <option value="51-200">51-200</option>
+                            <option value="200+">200+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>What's your biggest operational headache? (optional)</label>
+                    <input type="text" id="pain_point" name="pain_point" placeholder="e.g., invoice processing, lead follow-up, scheduling...">
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">Generate My Free Audit Report →</button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div class="loading-text">Analyzing your business...</div>
+                <div class="loading-step" id="loadingStep">Checking website automation...</div>
+            </div>
+
+            <div class="results" id="results">
+                <div class="score-card">
+                    <div class="score-number" id="scoreNumber">—</div>
+                    <div class="score-label">Automation Score</div>
+                    <div class="score-grade" id="scoreGrade">—</div>
+                </div>
+
+                <div class="revenue-impact">
+                    <div class="amount" id="revenueAmount">—</div>
+                    <div class="label">Estimated Annual Revenue Impact</div>
+                </div>
+
+                <div class="findings" id="findings">
+                    <h3>What We Found</h3>
+                    <div id="findingsList"></div>
+                </div>
+
+                <div class="cta">
+                    <h3>Ready to Fix These?</h3>
+                    <p>Book a free 30-minute strategy call. We'll show you exactly how to plug these revenue leaks — no obligation, no pressure.</p>
+                    <a href="mailto:plowe@systack.net?subject=Strategy%20Call%20Request%20—%20Automation%20Audit&body=I%20just%20completed%20my%20automation%20audit%20and%20want%20to%20book%20a%20strategy%20call." class="cta-btn">Book My Strategy Call →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="trust">
+            <span>🔒 No spam, ever</span>
+            <span>📧 Report emailed to you</span>
+            <span>⚡ Results in 60 seconds</span>
+        </div>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('auditForm');
+const loading = document.getElementById('loading');
+const results = document.getElementById('results');
+const errorMsg = document.getElementById('errorMsg');
+const submitBtn = document.getElementById('submitBtn');
+const loadingStep = document.getElementById('loadingStep');
+
+const steps = [
+    'Checking website automation...',
+    'Analyzing lead capture systems...',
+    'Scanning for follow-up automation...',
+    'Evaluating booking/scheduling...',
+    'Checking review management...',
+    'Calculating revenue impact...',
+    'Generating your report...'
+];
+
+let stepIndex = 0;
+
+function nextStep() {
+    if (stepIndex < steps.length) {
+        loadingStep.textContent = steps[stepIndex];
+        stepIndex++;
+        setTimeout(nextStep, 800);
+    }
+}
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMsg.classList.remove('show');
+    results.classList.remove('show');
+    form.style.display = 'none';
+    loading.classList.add('show');
+    stepIndex = 0;
+    nextStep();
+
+    const data = {
+        website: document.getElementById('website').value,
+        business_name: document.getElementById('business_name').value,
+        email: document.getElementById('email').value,
+        industry: document.getElementById('industry').value,
+        employees: document.getElementById('employees').value,
+        pain_point: document.getElementById('pain_point').value || ''
+    };
+
+    try {
+        const response = await fetch('https://n8n.systack.net/webhook/saos-automation-audit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Audit service unavailable');
+
+        const result = await response.json();
+
+        loading.classList.remove('show');
+
+        // Display results
+        document.getElementById('scoreNumber').textContent = result.score + '/100';
+        const grade = result.score >= 80 ? 'Excellent' : result.score >= 60 ? 'Good' : result.score >= 40 ? 'Needs Work' : 'Critical Gap';
+        const gradeColor = result.score >= 80 ? '#4caf50' : result.score >= 60 ? '#ff9800' : '#f44336';
+        document.getElementById('scoreGrade').textContent = grade;
+        document.getElementById('scoreGrade').style.color = gradeColor;
+
+        document.getElementById('revenueAmount').textContent = result.revenue_impact;
+
+        const findingsList = document.getElementById('findingsList');
+        findingsList.innerHTML = '';
+        result.findings.forEach(f => {
+            const div = document.createElement('div');
+            div.className = 'finding';
+            div.innerHTML = `
+                <div class="icon">${f.icon}</div>
+                <div class="text">
+                    <div class="title">${f.title}</div>
+                    <div class="desc">${f.description}</div>
+                    <div class="cost">${f.cost}</div>
+                </div>
+            `;
+            findingsList.appendChild(div);
+        });
+
+        results.classList.add('show');
+    } catch (err) {
+        loading.classList.remove('show');
+        form.style.display = 'block';
+        errorMsg.textContent = 'Something went wrong. Please try again or email plowe@systack.net directly.';
+        errorMsg.classList.add('show');
+    }
+});
+</script>
+
+</body>
+</html>
