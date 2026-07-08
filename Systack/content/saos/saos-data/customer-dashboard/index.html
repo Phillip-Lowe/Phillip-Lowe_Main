@@ -3076,7 +3076,35 @@
             const content = document.getElementById('taskModalContent');
             
             content.innerHTML = `
-                <h3>${escapeHtml(w.workflow_name)} <span style="color:var(--text-dim); font-size:14px">#${w.id}</span></h3>
+                <h3>${escapeHtml(w.workflow_name)} <span style="color:var(--text-dim); font-size:14px">#${w.id}</span>
+                <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:6px; background:${statusColors[w.status] || 'var(--text-dim)'}22; color:${statusColors[w.status] || 'var(--text-dim)'}; margin-left:8px">${statusIcons[w.status] || '●'} ${w.status.toUpperCase()}</span>
+                </h3>
+                
+                <!-- FLOW DIAGRAM -->
+                <div style="margin:16px 0;padding:16px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;overflow-x:auto">
+                    <div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px">Automation Flow</div>
+                    <div style="display:flex;align-items:center;gap:0;min-width:max-content">
+                        <div style="text-align:center;min-width:80px">
+                            <div style="font-size:1.5rem;margin-bottom:4px">${w.service_type === 'invoice' ? '📧' : w.service_type === 'lead' ? '📝' : w.service_type === 'chat' ? '💬' : w.service_type === 'doc' ? '📄' : w.service_type === 'report' ? '📊' : '⚡'}</div>
+                            <div style="font-size:0.7rem;color:var(--text-muted)">Trigger</div>
+                        </div>
+                        <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+                        <div style="text-align:center;min-width:80px">
+                            <div style="font-size:1.5rem;margin-bottom:4px">🤖</div>
+                            <div style="font-size:0.7rem;color:var(--text-muted)">AI Process</div>
+                        </div>
+                        <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+                        <div style="text-align:center;min-width:80px">
+                            <div style="font-size:1.5rem;margin-bottom:4px">✅</div>
+                            <div style="font-size:0.7rem;color:var(--text-muted)">Review</div>
+                        </div>
+                        <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+                        <div style="text-align:center;min-width:80px">
+                            <div style="font-size:1.5rem;margin-bottom:4px">📤</div>
+                            <div style="font-size:0.7rem;color:var(--text-muted)">Output</div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="detail-row">
                     <span class="detail-label">Status</span>
