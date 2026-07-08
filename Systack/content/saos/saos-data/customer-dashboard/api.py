@@ -13,6 +13,7 @@ from flask_cors import CORS
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
+import re
 import json
 import hashlib
 import random
@@ -140,6 +141,9 @@ SERVICE_PROCESSES = {
             {'icon': '🔔', 'title': 'Instant Notification', 'desc': 'High-intent leads trigger immediate alert to you via email + dashboard'},
             {'icon': '📊', 'title': 'Pipeline Tracking', 'desc': 'Every lead logged in your dashboard with score, status, and next action'},
         ],
+        'try_it': True,
+        'try_it_type': 'lead_score',
+        'try_it_endpoint': '/api/portal/try-lead-score',
     },
     'Customer Support Drafting': {
         'steps': [
@@ -156,6 +160,9 @@ SERVICE_PROCESSES = {
             {'icon': '🔀', 'title': 'Auto-Routing', 'desc': 'Document routed to correct folder, department, or workflow based on type'},
             {'icon': '📋', 'title': 'Logged & Searchable', 'desc': 'Every document indexed in your dashboard — search by type, date, sender'},
         ],
+        'try_it': True,
+        'try_it_type': 'doc_classify',
+        'try_it_endpoint': '/api/portal/try-doc-classify',
     },
     'Scheduled Report Generator': {
         'steps': [
@@ -2109,7 +2116,121 @@ def client_services():
         }
     })
 
-# ── DOCUMENT DOWNLOADS ────────────────────────────────────
+@app.route('/api/portal/try-lead-score', methods=['POST'])
+@require_auth
+def try_lead_score():
+    """Let customer try the lead scoring system with a sample lead."""
+    data = request.get_json() or {}
+    
+    name = data.get('name', 'Unknown')
+    company = data.get('company', 'Unknown')
+    email = data.get('email', '')
+    message = data.get('message', '')
+    budget = data.get('budget', '')
+    timeline = data.get('timeline', '')
+    
+    # Simple scoring algorithm (same logic as the n8n workflow)
+    score = 0
+    reasons = []
+    
+    if budget:
+        budget_num = int(re.sub(r'[^0-9]', '', budget) or 0)
+        if budget_num >= 5000:
+            score += 25
+            reasons.append(f'Budget indicates serious intent (${budget})')
+        elif budget_num >= 1000:
+            score += 15
+            reasons.append(f'Moderate budget (${budget})')
+    
+    if timeline and any(w in timeline.lower() for w in ['asap', 'immediate', 'urgent', 'this week', 'this month']):
+        score += 20
+        reasons.append(f'Urgent timeline: "{timeline}"')
+    
+    if len(message) > 50:
+        score += 15
+        reasons.append('Detailed message shows real interest')
+    
+    if company and company != 'Unknown':
+        score += 10
+        reasons.append(f'Identified company: {company}')
+    
+    if email and '@' in email:
+        score += 10
+        reasons.append('Valid email provided')
+    
+    if any(w in message.lower() for w in ['demo', 'call', 'meeting', 'consult', 'quote', 'pricing']):
+        score += 20
+        reasons.append('Explicitly requested action (demo/call/quote)')
+    
+    score = min(100, score)
+    
+    tier = 'HOT' if score >= 70 else 'WARM' if score >= 40 else 'COLD'
+    
+    return jsonify({
+        'success': True,
+        'demo_mode': True,
+        'score': score,
+        'tier': tier,
+        'reasons': reasons,
+        'recommendation': 'Contact within 1 hour' if tier == 'HOT' else 'Follow up within 24 hours' if tier == 'WARM' else 'Add to nurture sequence',
+        'note': 'In production, this lead would be automatically logged to your CRM and you\'d receive an instant notification.'
+    })
+
+@app.route('/api/portal/try-doc-classify', methods=['POST'])
+@require_auth
+def try_doc_classify():
+    """Let customer try document classification with a text sample."""
+    data = request.get_json() or {}
+    text = data.get('text', '')
+    
+    if not text or len(text) < 10:
+        return jsonify({'error': 'Please provide at least a few sentences of text to classify'}), 400
+    
+    text_lower = text.lower()
+    
+    categories = {
+        'Invoice': ['invoice', 'amount due', 'bill to', 'subtotal', 'tax', 'total due', 'payment terms'],
+        'Contract': ['agreement', 'contract', 'party', 'parties', 'hereby agree', 'terms and conditions', 'whereas', 'obligations'],
+        'Application': ['application', 'apply', 'applicant', 'register', 'registration', 'submit', 'form'],
+        'Correspondence': ['dear', 'regards', 'sincerely', 'thank you', 'reaching out', 'following up'],
+        'Report': ['report', 'summary', 'analysis', 'findings', 'conclusion', 'recommendations', 'data'],
+        'Receipt': ['receipt', 'purchased', 'transaction', 'order #', 'confirmation', 'paid'],
+    }
+    
+    scores = {}
+    for category, keywords in categories.items():
+        match_count = sum(1 for kw in keywords if kw in text_lower)
+        scores[category] = match_count
+    
+    best_category = max(scores, key=scores.get)
+    best_score = scores[best_category]
+    
+    if best_score == 0:
+        best_category = 'Unknown'
+        confidence = 0
+        routing = 'Manual review required'
+    else:
+        confidence = min(100, (best_score / len(categories[best_category])) * 100)
+        routing_map = {
+            'Invoice': 'Route to Accounts Payable',
+            'Contract': 'Route to Legal Department',
+            'Application': 'Route to HR / Onboarding',
+            'Correspondence': 'Route to Customer Support',
+            'Report': 'Route to Management',
+            'Receipt': 'Route to Accounting (Reconciliation)',
+        }
+        routing = routing_map.get(best_category, 'Manual review')
+    
+    return jsonify({
+        'success': True,
+        'demo_mode': True,
+        'category': best_category,
+        'confidence': round(confidence),
+        'all_scores': {k: v for k, v in sorted(scores.items(), key=lambda x: -x[1]) if v > 0},
+        'routing': routing,
+        'note': 'In production, this document would be automatically routed to the correct folder and department.'
+    })
+
 # Map friendly doc names to actual files in the dashboard directory
 DOC_FILES = {
     'quickstart-v7': 'SAOS-Quick-Start-Guide-v7.0.pdf',

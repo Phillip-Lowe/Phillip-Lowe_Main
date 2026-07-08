@@ -2243,10 +2243,104 @@
 
                 await loadConversations();
                 startPolling();
+
+                // Show onboarding wizard for first-time users
+                const hasSeenOnboarding = localStorage.getItem('saos_onboarding_done');
+                if (!hasSeenOnboarding) {
+                    setTimeout(() => showOnboardingWizard(), 500);
+                }
             } catch (e) {
                 console.error('Init failed:', e);
                 logout();
             }
+        }
+
+        // ── ONBOARDING WIZARD ─────────────────────────────────
+        function showOnboardingWizard() {
+            const steps = [
+                {
+                    icon: '👋',
+                    title: `Welcome to SAOS, ${client?.customer_name || 'there'}!`,
+                    body: 'Your AI agent fleet is ready to work. Here\'s a quick tour of what you can do.',
+                    cta: 'Next',
+                },
+                {
+                    icon: '💬',
+                    title: 'Chat With Your Agents',
+                    body: 'The Chat tab lets you talk directly to your AI team. Ask them to research, draft emails, analyze documents, or build automations. Think of it like having a chief of staff on call 24/7.',
+                    cta: 'Show me more',
+                },
+                {
+                    icon: '📦',
+                    title: 'Your Services',
+                    body: 'The Services tab shows everything included in your plan. Each service has a "How It Works" button showing the exact process. You can even try the invoice parser with your own PDF — right in the dashboard.',
+                    cta: 'What else?',
+                },
+                {
+                    icon: '✅',
+                    title: 'Request Setup',
+                    body: 'See a service you want activated? Click "Setup" on any service card. A task is created and assigned to the right agent. You\'ll be notified when it\'s live — usually within 24-48 hours.',
+                    cta: 'Got it',
+                },
+                {
+                    icon: '📊',
+                    title: 'Watch It Run',
+                    body: 'The Dashboard tab shows real-time metrics: tasks completed, automations running, agent activity. The Activity tab logs every action for full transparency. Everything is auditable.',
+                    cta: 'Start using SAOS →',
+                },
+            ];
+
+            let currentStep = 0;
+            const modal = document.createElement('div');
+            modal.id = 'onboardingModal';
+            modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px';
+            document.body.appendChild(modal);
+
+            function renderStep() {
+                const step = steps[currentStep];
+                const isLast = currentStep === steps.length - 1;
+                const progress = ((currentStep + 1) / steps.length) * 100;
+
+                modal.innerHTML = `
+                    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;max-width:480px;width:100%;padding:40px;text-align:center">
+                        <div style="font-size:3rem;margin-bottom:20px">${step.icon}</div>
+                        <h2 style="font-size:1.3rem;margin-bottom:16px;font-weight:700">${step.title}</h2>
+                        <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.6;margin-bottom:28px">${step.body}</p>
+                        <div style="height:4px;background:var(--bg-darker);border-radius:2px;margin-bottom:24px;overflow:hidden">
+                            <div style="height:100%;background:linear-gradient(90deg,#00a1db,#29b6f6);width:${progress}%;transition:width 0.3s"></div>
+                        </div>
+                        <div style="display:flex;gap:12px">
+                            ${currentStep > 0 ? '<button onclick="prevStep()" class="btn btn-secondary" style="flex:1">Back</button>' : ''}
+                            <button onclick="nextStep()" class="btn btn-primary" style="flex:2">${step.cta}</button>
+                        </div>
+                        ${!isLast ? '<button onclick="skipOnboarding()" style="background:none;border:none;color:var(--text-dim);font-size:0.8rem;margin-top:16px;cursor:pointer">Skip tour</button>' : ''}
+                    </div>
+                `;
+            }
+
+            window.nextStep = function() {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    renderStep();
+                } else {
+                    finishOnboarding();
+                }
+            };
+            window.prevStep = function() {
+                if (currentStep > 0) { currentStep--; renderStep(); }
+            };
+            window.skipOnboarding = finishOnboarding;
+            window.finishOnboarding = function() {
+                localStorage.setItem('saos_onboarding_done', 'true');
+                const m = document.getElementById('onboardingModal');
+                if (m) m.remove();
+                // Show services tab first so they see what's available
+                showTab('services', [...document.querySelectorAll('.nav-link')].find(b => b.textContent.includes('Services')));
+            };
+            // Override for the last step
+            window.finishOnboarding = window.finishOnboarding;
+
+            renderStep();
         }
 
         // ── AGENT AVATAR HELPER ────────────────────────────────
@@ -2818,6 +2912,19 @@
                         </div>
                     `).join('')}
                 </div>
+
+                ${pricing.monthly ? `
+                <div style="margin:20px 0;padding:16px 20px;background:linear-gradient(135deg,rgba(0,161,219,0.08),rgba(41,182,246,0.05));border:1px solid rgba(0,161,219,0.2);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+                    <div>
+                        <div style="font-weight:700;font-size:1rem">Your Plan: ${getTierLabel(tier)}</div>
+                        <div style="font-size:0.85rem;color:var(--text-muted)">$${pricing.monthly}/mo${pricing.annual ? ` · or $${pricing.annual}/yr (save $${pricing.monthly * 12 - pricing.annual})` : ''}</div>
+                    </div>
+                    <div style="display:flex;gap:8px">
+                        ${checkoutUrl ? `<a href="${checkoutUrl}" target="_blank" class="btn btn-primary btn-sm">⚡ Upgrade</a>` : ''}
+                        ${pricing.checkout_url_annual ? `<a href="${pricing.checkout_url_annual}" target="_blank" class="btn btn-secondary btn-sm">📅 Switch to Annual</a>` : ''}
+                    </div>
+                </div>
+                ` : ''}
 
                 <h3>Infrastructure</h3>
                 <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:10px">
@@ -3615,17 +3722,49 @@ async function showProcess(serviceName) {
         
         let tryItHtml = '';
         if (tryIt) {
-            tryItHtml = `
-                <div style="margin-top:24px;padding:20px;background:rgba(0,161,219,0.05);border:1px solid rgba(0,161,219,0.2);border-radius:12px">
-                    <div style="font-weight:700;margin-bottom:8px;font-size:0.95rem">🧪 Try It Now</div>
-                    <div style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px">Upload a PDF invoice and watch SAOS extract the data in real-time.</div>
-                    <input type="file" id="tryInvoiceFile" accept=".pdf" style="display:none">
-                    <button class="btn btn-primary" onclick="document.getElementById('tryInvoiceFile').click()" style="width:100%">
-                        📄 Upload Invoice PDF
-                    </button>
-                    <div id="tryInvoiceResult" style="margin-top:16px"></div>
-                </div>
-            `;
+            const tryType = process.try_it_type || 'file';
+            
+            if (tryType === 'lead_score') {
+                tryItHtml = `
+                    <div style="margin-top:24px;padding:20px;background:rgba(0,161,219,0.05);border:1px solid rgba(0,161,219,0.2);border-radius:12px">
+                        <div style="font-weight:700;margin-bottom:8px;font-size:0.95rem">🧪 Try It Now</div>
+                        <div style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px">Enter a sample lead to see how SAOS scores it.</div>
+                        <div style="display:grid;gap:10px;margin-bottom:16px">
+                            <input type="text" id="tryLeadName" placeholder="Lead name" style="padding:10px;background:var(--bg-darker);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem">
+                            <input type="text" id="tryLeadCompany" placeholder="Company" style="padding:10px;background:var(--bg-darker);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem">
+                            <input type="email" id="tryLeadEmail" placeholder="Email" style="padding:10px;background:var(--bg-darker);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem">
+                            <input type="text" id="tryLeadBudget" placeholder="Budget (e.g. $5,000)" style="padding:10px;background:var(--bg-darker);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem">
+                            <input type="text" id="tryLeadTimeline" placeholder="Timeline (e.g. ASAP, next month)" style="padding:10px;background:var(--bg-darker);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem">
+                            <textarea id="tryLeadMessage" placeholder="Their message..." rows="3" style="padding:10px;background:var(--bg-darker);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;width:100%;resize:vertical"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="tryLeadScore()" style="width:100%">🎯 Score This Lead</button>
+                        <div id="tryLeadResult" style="margin-top:16px"></div>
+                    </div>
+                `;
+            } else if (tryType === 'doc_classify') {
+                tryItHtml = `
+                        <div style="margin-top:24px;padding:20px;background:rgba(0,161,219,0.05);border:1px solid rgba(0,161,219,0.2);border-radius:12px">
+                            <div style="font-weight:700;margin-bottom:8px;font-size:0.95rem">🧪 Try It Now</div>
+                            <div style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px">Paste text from a document and SAOS will classify it.</div>
+                            <textarea id="tryDocText" placeholder="Paste document text here..." rows="5" style="padding:10px;background:var(--bg-darker);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;width:100%;resize:vertical;margin-bottom:12px"></textarea>
+                            <button class="btn btn-primary" onclick="tryDocClassify()" style="width:100%">🏷️ Classify Document</button>
+                            <div id="tryDocResult" style="margin-top:16px"></div>
+                        </div>
+                    `;
+            } else {
+                // File upload (invoice parser)
+                tryItHtml = `
+                    <div style="margin-top:24px;padding:20px;background:rgba(0,161,219,0.05);border:1px solid rgba(0,161,219,0.2);border-radius:12px">
+                        <div style="font-weight:700;margin-bottom:8px;font-size:0.95rem">🧪 Try It Now</div>
+                        <div style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px">Upload a PDF invoice and watch SAOS extract the data in real-time.</div>
+                        <input type="file" id="tryInvoiceFile" accept=".pdf" style="display:none">
+                        <button class="btn btn-primary" onclick="document.getElementById('tryInvoiceFile').click()" style="width:100%">
+                            📄 Upload Invoice PDF
+                        </button>
+                        <div id="tryInvoiceResult" style="margin-top:16px"></div>
+                    </div>
+                `;
+            }
         }
         
         modal.querySelector('div > div').innerHTML = `
@@ -3696,6 +3835,93 @@ async function showProcess(serviceName) {
                 }
             });
         }
+        
+        // ── TRY IT: LEAD SCORING ────────────────────────────────
+        window.tryLeadScore = async function() {
+            const resultDiv = document.getElementById('tryLeadResult');
+            resultDiv.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted)">⏳ Scoring lead...</div>';
+            
+            try {
+                const payload = {
+                    name: document.getElementById('tryLeadName')?.value || '',
+                    company: document.getElementById('tryLeadCompany')?.value || '',
+                    email: document.getElementById('tryLeadEmail')?.value || '',
+                    budget: document.getElementById('tryLeadBudget')?.value || '',
+                    timeline: document.getElementById('tryLeadTimeline')?.value || '',
+                    message: document.getElementById('tryLeadMessage')?.value || '',
+                };
+                
+                const data = await api('POST', '/api/portal/try-lead-score', payload);
+                
+                if (data.error) throw new Error(data.error);
+                
+                const scoreColor = data.tier === 'HOT' ? '#f44336' : data.tier === 'WARM' ? '#ff9800' : '#9e9e9e';
+                
+                resultDiv.innerHTML = `
+                    <div style="background:var(--bg-darker);border-radius:8px;padding:16px">
+                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                            <div style="font-size:2rem;font-weight:800;color:${scoreColor}">${data.score}</div>
+                            <div>
+                                <div style="font-weight:700;color:${scoreColor}">${data.tier} LEAD</div>
+                                <div style="font-size:0.8rem;color:var(--text-muted)">${data.recommendation}</div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:12px"><span style="color:var(--text-muted);font-size:0.85rem">Why this score:</span></div>
+                        ${data.reasons.map(r => `<div style="padding:4px 0;font-size:0.85rem;color:var(--text-dim)">• ${r}</div>`).join('')}
+                        <div style="margin-top:16px;padding:12px;background:rgba(255,193,7,0.1);border-radius:6px;font-size:0.8rem;color:var(--text-muted)">
+                            💡 ${data.note}
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                resultDiv.innerHTML = `<div style="color:#f44336;padding:12px;font-size:0.85rem">❌ ${err.message}</div>`;
+            }
+        };
+        
+        // ── TRY IT: DOCUMENT CLASSIFICATION ─────────────────────
+        window.tryDocClassify = async function() {
+            const resultDiv = document.getElementById('tryDocResult');
+            resultDiv.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted)">⏳ Classifying document...</div>';
+            
+            try {
+                const text = document.getElementById('tryDocText')?.value || '';
+                
+                const data = await api('POST', '/api/portal/try-doc-classify', { text });
+                
+                if (data.error) throw new Error(data.error);
+                
+                const confidenceColor = data.confidence >= 70 ? '#4caf50' : data.confidence >= 40 ? '#ff9800' : '#f44336';
+                
+                resultDiv.innerHTML = `
+                    <div style="background:var(--bg-darker);border-radius:8px;padding:16px">
+                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                            <div style="font-size:1.8rem">🏷️</div>
+                            <div>
+                                <div style="font-weight:700;font-size:1.1rem">${data.category}</div>
+                                <div style="font-size:0.85rem;color:${confidenceColor}">${data.confidence}% confidence</div>
+                            </div>
+                        </div>
+                        
+                        <div style="padding:10px;background:rgba(0,161,219,0.1);border-radius:6px;margin-bottom:12px;font-size:0.85rem">
+                            🔀 <strong>Routing:</strong> ${data.routing}
+                        </div>
+                        
+                        ${Object.keys(data.all_scores || {}).length > 1 ? `
+                            <div style="margin-bottom:8px;font-size:0.8rem;color:var(--text-muted)">Other possibilities:</div>
+                            ${Object.entries(data.all_scores).filter(([k]) => k !== data.category).map(([k, v]) => 
+                                `<div style="display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0"><span style="color:var(--text-dim)">${k}</span><span style="color:var(--text-muted)">${v} matches</span></div>`
+                            ).join('')}
+                        ` : ''}
+                        
+                        <div style="margin-top:12px;padding:10px;background:rgba(255,193,7,0.1);border-radius:6px;font-size:0.8rem;color:var(--text-muted)">
+                            💡 ${data.note}
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                resultDiv.innerHTML = `<div style="color:#f44336;padding:12px;font-size:0.85rem">❌ ${err.message}</div>`;
+            }
+        };
         
         // Close on backdrop click
         modal.addEventListener('click', (e) => {
