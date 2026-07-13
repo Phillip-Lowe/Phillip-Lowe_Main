@@ -1,0 +1,273 @@
+NBF PLAYER TIERS
+Tier S — Generational
+League Count: 3–5 Players
+Traits:
+	•	MVP caliber
+	•	Franchise-changing
+	•	Hall of Fame trajectory
+Examples:
+	•	Michael Jordan
+	•	LeBron James
+	•	Kareem Abdul-Jabbar
+Probability: ~2% of league
+Current League: 4 Players
+
+Tier A — Superstars
+League Count: 12–18 Players
+Traits:
+	•	All-NBF caliber
+	•	Multiple award contenders
+	•	Max contract players
+Probability: ~8% of league
+Current League: 16 Players
+
+Tier B — Stars
+League Count: 25–35 Players
+Traits:
+	•	All-Star level
+	•	Team centerpiece
+	•	Can make deep playoff runs with support
+Current League: 30 Players
+
+Tier C — High-Level Starters
+League Count: 50–60 Players
+Traits:
+	•	Reliable starters
+	•	Valuable contracts
+	•	Occasionally make All-Star teams
+Current League: 56 Players
+
+Tier D — Role Players
+League Count: 60–70 Players
+Traits:
+	•	Rotation players
+	•	Specialists
+	•	Sixth men
+Current League: 62 Players
+
+Tier E — Fringe Players
+League Count: 25–35 Players
+Traits:
+	•	End of bench
+	•	Often replaced
+	•	Constantly fighting for roster spots
+Current League: 24 Players
+
+PLAYER ARCHETYPE POOL
+Hidden from users.
+
+Generational Talent
+League Average: 1 every 8–12 years
+Examples:
+	•	Complete offensive engine
+	•	Transcendent two-way player
+	•	All-time athletic freak
+
+Franchise Superstar
+Appears regularly.
+Can become:
+	•	MVP
+	•	Hall of Famer
+	•	Dynasty anchor
+
+Franchise Icon
+Not always best player.
+Often:
+	•	Beloved
+	•	Loyal
+	•	Jersey retirement candidate
+
+Iron Man
+Traits:
+	•	Rare injuries
+	•	Long careers
+	•	Consistent availability
+
+Injury-Prone Star
+Great talent.
+History altered by health.
+
+Late Bloomer
+Average early career.
+Explodes after age 28–30.
+
+Draft Bust
+Lottery selection.
+Never reaches expectations.
+
+Playoff Killer
+Regular season good.
+Playoffs elite.
+
+Regular Season Merchant
+Stats fall dramatically in playoffs.
+
+Mercenary
+Follows contracts.
+Little loyalty.
+
+Ring Chaser
+Late-career veteran.
+Prioritizes championships.
+
+Locker-Room Leader
+Raises chemistry.
+Improves team culture.
+
+Cancer
+Creates tension.
+Lowers cohesion.
+May still be talented.
+
+Fan Favorite
+Popularity exceeds production.
+
+Villain
+Opposing fanbases hate them.
+Can become league-famous.
+
+ACTIVE PLAYER AGE DISTRIBUTION
+For 192 Players:
+Rookies (20–22)
+24
+Young Players (23–25)
+48
+Prime Players (26–29)
+56
+Veteran Prime (30–33)
+40
+Aging Veterans (34–37)
+20
+Near Retirement (38+)
+4
+
+POSITION DISTRIBUTION
+League Total: 192
+Point Guards
+38
+Shooting Guards
+38
+Small Forwards
+38
+Power Forwards
+39
+Centers
+39
+
+PERSONALITY POOL
+Every player receives 2–4 hidden traits.
+Available Traits:
+Positive
+	•	Loyal
+	•	Humble
+	•	Leader
+	•	Disciplined
+	•	Competitive
+	•	Mentor
+	•	Team First
+	•	Coachable
+Neutral
+	•	Quiet
+	•	Private
+	•	Emotional
+	•	Confident
+	•	Ambitious
+	•	Independent
+Negative
+	•	Vindictive
+	•	Greedy
+	•	Selfish
+	•	Lazy
+	•	Entitled
+	•	Reckless
+	•	Dramatic
+
+MOTIVATION TYPES
+Each player receives a primary motivation.
+Championship Chaser
+Wants rings.
+
+Money Chaser
+Highest contract wins.
+
+Legacy Builder
+Chases Hall of Fame.
+
+Fame Seeker
+Wants publicity.
+
+Team Loyalist
+Wants one franchise.
+
+Competitor
+Only cares about winning.
+
+Stability Seeker
+Avoids uncertainty.
+
+DRAFT PROSPECT DISTRIBUTION
+Every Draft Class:
+Generational Prospect
+0–1
+Elite Prospects
+2–5
+Lottery Talents
+10–15
+Solid Prospects
+20–30
+Long Shots
+20+
+Nobody knows outcomes.
+A "Generational Prospect" can still fail.
+A "Raw Athlete" can become the GOAT.
+
+FREE AGENT POOL
+At Genesis Start:
+Young Free Agents
+40
+Prime Free Agents
+35
+Veterans
+50
+Fringe Players
+75
+Total: 200 Free Agents
+Purpose:
+	•	Midseason signings
+	•	Injury replacements
+	•	Late bloomers
+	•	Underdog stories
+	•	Championship ring chasers
+
+HIDDEN CAREER OUTCOME DISTRIBUTION
+Across every generation:
+Archetype
+Approx Count
+GOAT Candidate
+1
+Generational Legends
+3–5
+Hall of Famers
+15–25
+Franchise Icons
+30–40
+Solid Careers
+60–80
+Journeymen
+50–70
+Busts
+10–20
+No outcome is guaranteed.
+Talent, injuries, coaching, ownership, roster construction, money, and luck all influence history.
+
+READY FOR NEXT PHASE
+The next logical step is generating:
+	1	16 Owners
+	2	Commissioner
+	3	16 Coaches
+	4	16 Team Reporters
+	5	National Media Network
+	6	192 Active Players (12 per team)
+	7	200-Player Free Agent Pool
+	8	Genesis Era Simulation Rules
+Once complete, the NBF can begin its 50-season Genesis history generation.

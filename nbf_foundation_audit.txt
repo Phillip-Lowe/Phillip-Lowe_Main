@@ -1,0 +1,1271 @@
+============================================
+FOUNDATION FILE INVENTORY
+============================================
+
+--- Foundation ---
+- .DS_Store |  | 6148 bytes
+- Coach Schema.rtf | .rtf | 12559 bytes
+- GENESIS FORMATION ERA.rtf | .rtf | 30422 bytes
+- Hall of Fame Committee .rtf | .rtf | 22357 bytes
+- NBF 500 Player Talent Pool.rtf | .rtf | 17377 bytes
+- NBF Awards & Hall of Fame System.rtf | .rtf | 27588 bytes
+- NBF Awards Committee.rtf | .rtf | 54766 bytes
+- NBF COACH CANDIDATE POOL .rtf | .rtf | 68899 bytes
+- NBF FOUNDING OWNERSHIP ERA v1.0.rtf | .rtf | 36812 bytes
+- NBF GENESIS SIMULATION ENGINE.rtf | .rtf | 23401 bytes
+- NBF GM CANDIDATE POOL.rtf | .rtf | 45842 bytes
+- NBF GM Schema.rtf | .rtf | 14966 bytes
+- NBF Genesis Talent Pools GUIDE.rtf | .rtf | 27400 bytes
+- NBF MARKET & ARENA DATABASE .rtf | .rtf | 33223 bytes
+- NBF PLAYER TIERS GUIDE.rtf | .rtf | 37625 bytes
+- NBF Player Schema .rtf | .rtf | 7293 bytes
+- NBF REFEREE POOL .rtf | .rtf | 10706 bytes
+- NBF TEAM REPORTER POOL.rtf | .rtf | 23555 bytes
+- NBF_Brand_Design_Document_v1.0.docx | .docx | 5603 bytes
+- NBF_Commissioner_Victor_Hale.docx | .docx | 4049 bytes
+- NBF_Constitution_v1.0.docx | .docx | 4383 bytes
+- Player Generation Schema.rtf | .rtf | 12466 bytes
+
+--- Foundation_Text ---
+- Coach Schema.txt | .txt | 2413 bytes
+- GENESIS FORMATION ERA.txt | .txt | 4169 bytes
+- Hall of Fame Committee.txt | .txt | 2806 bytes
+- NBF 500 Player Talent Pool.txt | .txt | 16012 bytes
+- NBF Awards Committee.txt | .txt | 6862 bytes
+- NBF Awards and Hall of Fame System.txt | .txt | 4266 bytes
+- NBF COACH CANDIDATE POOL.txt | .txt | 7773 bytes
+- NBF FOUNDING OWNERSHIP ERA v1.0.txt | .txt | 4947 bytes
+- NBF GENESIS SIMULATION ENGINE.txt | .txt | 4920 bytes
+- NBF GM CANDIDATE POOL.txt | .txt | 6576 bytes
+- NBF GM Schema.txt | .txt | 3812 bytes
+- NBF Genesis Talent Pools GUIDE.txt | .txt | 3322 bytes
+- NBF MARKET and ARENA DATABASE.txt | .txt | 4252 bytes
+- NBF PLAYER TIERS GUIDE.txt | .txt | 4497 bytes
+- NBF Player Schema.txt | .txt | 2521 bytes
+- NBF REFEREE POOL.txt | .txt | 2080 bytes
+- NBF TEAM REPORTER POOL.txt | .txt | 2763 bytes
+- NBF_Brand_Design_Document_v1.0.txt | .txt | 3545 bytes
+- NBF_Commissioner_Victor_Hale.txt | .txt | 684 bytes
+- NBF_Constitution_v1.0.txt | .txt | 1496 bytes
+- Player Generation Schema.txt | .txt | 2595 bytes
+
+============================================
+FOUNDATION TEXT PREVIEW
+============================================
+
+
+===== Coach Schema.txt =====
+Characters: 2377
+Lines: 145
+Preview:
+Coach Schema
+The coach is the bridge between talent and winning.
+A great coach can elevate a roster.
+A bad coach can waste a dynasty.
+
+Coach Core Attributes (1-100)
+Development
+Ability to improve players.
+Motivation
+Ability to keep players bought in.
+Discipline
+Control of locker room and behavior.
+Offense
+Offensive system quality.
+Defense
+Defensive system quality.
+Adaptability
+Adjusts to opponents, injuries, and roster changes.
+
+Leadership Attributes (1-100)
+Communication
+Explaining systems and earning trust.
+Pressure Handling
+Performance under media and playoff pressure.
+Authority
+Ability to maintain control.
+Media Skill
+Handling reporters and public perception.
+
+Hidden Traits
+Not visible publicly.
+Player Friendly
+Taskmaster
+Loyal
+Mercenary
+
+
+===== GENESIS FORMATION ERA.txt =====
+Characters: 3958
+Lines: 247
+Preview:
+PHASE 2 — GENESIS FORMATION ERA
+NBF Years 1–3
+Validation: PASS
+Phase 1 built the world.
+Phase 2 creates the first generation.
+For the first time in league history:
+	•	Owners begin making decisions.
+	•	GMs get hired.
+	•	Coaches get hired.
+	•	Players are drafted.
+	•	Franchises develop identities.
+	•	Championships become possible.
+
+Year 1 Timeline
+Stage 1 — GM Hiring Cycle
+Each owner evaluates the 50-GM pool.
+Hiring factors:
+
+Owner Philosophy
++
+Team Culture
++
+Market Pressure
++
+GM Reputation
++
+GM Skill Ratings
+=
+Hiring Score
+
+Example:
+Little Rock Bandits
+Bill Mercer prioritizes:
+	•	Drafting
+	•	Character
+
+
+===== Hall of Fame Committee.txt =====
+Characters: 2694
+Lines: 131
+Preview:
+Hall of Fame Committee 
+1. Dr. Samuel Whitaker
+Role: Hall of Fame Chairperson
+Age: 71
+Profession: Basketball Historian
+Hometown: Springfield, Missouri
+Ratings
+	•	Integrity: 96
+	•	Historical Knowledge: 100
+	•	Popularity: 72
+	•	Bias: 12
+	•	Leadership: 87
+Background
+Whitaker spent over 40 years documenting basketball history and authored numerous books on the early decades of the NBF.
+He is considered the league's foremost authority on historical context and legacy evaluation.
+Voting Tendencies
+Values:
+	•	Historical impact
+	•	Era-adjusted greatness
+	•	Championships
+	•	Longevity
+Dislikes:
+	•	Short careers
+	•	Popularity-only arguments
+Reputation
+"If Whitaker says you're a Hall of Famer, people listen."
+
+2. Patricia Benson
+Role: Hall Historian & Archivist
+Age: 63
+Profession: Curator
+Hometown: Boston, Massachusetts
+Ratings
+	•	Integrity: 93
+	•	Historical Knowledge: 94
+
+
+===== NBF 500 Player Talent Pool.txt =====
+Characters: 16012
+Lines: 501
+Preview:
+ID,Name,Position,Age,Tier,Overall
+1,Malik Rhodes,PG,27,Starter,73
+2,Marcus Price,C,25,Starter,78
+3,Grant Mercer,PG,24,Role,71
+4,Xavier Ellis,C,22,Starter,72
+5,Malik Ellis,PG,21,Role,70
+6,Mason Stone,SG,21,Fringe,60
+7,Damien Thornton,PF,25,Role,66
+8,Grant Drake,PG,26,Role,68
+9,Liam Sloan,SG,29,Starter,74
+10,Patrick Gardner,C,27,Role,66
+11,Julian Price,PF,20,Fringe,56
+12,Victor Cooper,SF,33,Role,70
+13,Andre Doyle,SF,28,Starter,74
+14,Micah Cooper,PG,25,Starter,77
+15,Damien Reid,C,26,Star,81
+16,Darius Brooks,SF,34,Fringe,58
+17,Nolan Vaughn,PG,33,Fringe,60
+18,Luke Drake,SF,26,Role,65
+19,Isaiah Wallace,PF,26,Starter,79
+20,Noah Cole,PG,22,Role,71
+21,Caleb Mitchell,SG,29,Role,69
+22,Bryce Cross,PG,27,Starter,72
+23,Xavier Warren,PG,24,Starter,72
+24,Victor Shaw,SG,33,Starter,74
+25,Caleb Ward,SG,36,Star,80
+26,Caleb Wallace,C,21,Fringe,56
+27,Tyler Ward,SG,38,Superstar,91
+28,Owen Mitchell,C,23,Role,65
+29,James Cole,SF,21,Role,65
+30,Elijah Hale,SG,33,Role,70
+31,Owen Doyle,SG,22,Role,70
+32,Owen Wallace,SF,34,Starter,76
+33,Darius Shaw,SG,24,Role,65
+34,Ryan Bishop,PG,30,Role,67
+
+
+===== NBF Awards Committee.txt =====
+Characters: 6632
+Lines: 351
+Preview:
+NBF Awards Committee
+Inaugural 25-Member Voting Body
+These members exist at Year 0 and vote on annual awards throughout Genesis and beyond.
+
+National Media Voters (10)
+1. Michael Trent
+Outlet: Full Court Network Type: League Insider
+	•	Integrity: 82
+	•	Popularity: 88
+	•	Bias: 32
+
+2. Sarah Whitlock
+Outlet: Basketball Weekly Type: Investigative Reporter
+	•	Integrity: 95
+	•	Popularity: 79
+	•	Bias: 14
+
+3. Tony Delgado
+Outlet: NBF Today Type: Analyst
+	•	Integrity: 76
+	•	Popularity: 91
+	•	Bias: 40
+
+4. Rebecca Price
+Outlet: Hardwood Journal Type: Journalist
+	•	Integrity: 89
+	•	Popularity: 74
+	•	Bias: 19
+
+5. Marcus Flynn
+Outlet: Coast-to-Coast Basketball
+	•	Integrity: 68
+	•	Popularity: 93
+	•	Bias: 47
+
+
+
+===== NBF Awards and Hall of Fame System.txt =====
+Characters: 4138
+Lines: 234
+Preview:
+NBF Awards & Hall of Fame System v1.0
+Status: LOCKED CANDIDATE
+The Awards and Hall of Fame system should be independent from owners, teams, coaches, and players. Nobody should be able to directly control legacy.
+
+NBF Awards Committee
+Purpose
+Responsible for voting on:
+	•	Most Valuable Player (MVP)
+	•	Finals MVP
+	•	Rookie of the Year
+	•	Defensive Player of the Year
+	•	Most Improved Player
+	•	Sixth Man of the Year
+	•	Coach of the Year
+	•	Executive of the Year
+	•	Owner of the Year
+	•	Reporter of the Year
+	•	All-NBF Teams
+	•	All-Defensive Teams
+
+Committee Size
+25 Members
+Permanent voting body.
+
+Composition
+National Media Voters (10)
+Examples:
+	•	Basketball Weekly
+	•	Coast to Coast
+	•	Full Court Network
+	•	The Hardwood Report
+	•	NBF Today
+Focus:
+	•	Narrative
+	•	Statistics
+
+
+===== NBF COACH CANDIDATE POOL.txt =====
+Characters: 7459
+Lines: 357
+Preview:
+NBF COACH CANDIDATE POOL v1.0
+100 Coach Candidates Status: Genesis Pool
+These coaches are not assigned to teams. During Genesis, GMs will hire from this pool based on owner preferences, team culture, market pressure, and roster composition.
+Each coach has:
+	•	Archetype
+	•	Primary Strength
+	•	Hidden Tendency
+
+DEVELOPMENT GURUS
+1. Trent Holloway (44)
+Development Guru
+	•	Elite at player growth
+	•	Hidden: Gives rookies long leashes
+2. Ryan Mercer (48)
+Development Guru
+	•	Builds young cores
+	•	Hidden: Overvalues potential
+3. Elijah Ross (41)
+Development Guru
+	•	Excellent teacher
+	•	Hidden: Avoids veterans
+4. Jordan Keene (52)
+Development Guru
+	•	Creates high-IQ teams
+	•	Hidden: Extremely patient
+5. Daniel Foster (39)
+Development Guru
+	•	Position versatility expert
+	•	Hidden: Constant experimentation
+6. Marcus Quinn (46)
+Development Guru
+	•	Improves fundamentals
+	•	Hidden: Distrusts superstars
+7. Isaac Holloway (50)
+Development Guru
+
+
+===== NBF FOUNDING OWNERSHIP ERA v1.0.txt =====
+Characters: 4739
+Lines: 294
+Preview:
+NBF FOUNDING OWNERSHIP ERA v1.0
+Status: LOCKED CANDIDATES Purpose: These people will shape the first 50 Genesis seasons.
+
+LITTLE ROCK BANDITS
+Owner
+William "Bill" Mercer
+Age: 67
+Industry: Logistics & Freight
+Net Worth: $4.8 Billion
+Owner Type: Loyal Builder
+Ratings
+	•	Winning Desire: 88
+	•	Patience: 91
+	•	Greed: 38
+	•	Control: 72
+	•	PR Awareness: 58
+Philosophy
+"Nobody gives us respect. We'll take it."
+Hidden Traits
+	•	Extremely Loyal
+	•	Holds Grudges
+	•	Values Development
+
+DALLAS OUTLAWS
+Owner
+Lucas Sterling
+Age: 54
+Industry: Private Equity
+Net Worth: $19.7 Billion
+Owner Type: Win At All Costs
+Ratings
+	•	Winning Desire: 99
+	•	Patience: 29
+	•	Greed: 61
+	•	Control: 92
+
+
+===== NBF GENESIS SIMULATION ENGINE.txt =====
+Characters: 4821
+Lines: 404
+Preview:
+NBF GENESIS SIMULATION ENGINE v1.0
+Years 1–50 Historical Generation Framework
+Validation: PASS
+This is the system that creates history.
+The purpose is not to create stories.
+The purpose is to create conditions where stories emerge naturally.
+
+Core Genesis Loop
+Every season follows:
+
+Offseason
+↓
+GM Market
+↓
+Coach Market
+↓
+Draft
+↓
+Free Agency
+↓
+Training Camp
+↓
+Regular Season
+↓
+Trade Deadline
+↓
+Playoffs
+↓
+Championship
+↓
+Awards
+↓
+Retirements
+↓
+Hall of Fame Review
+
+
+===== NBF GM CANDIDATE POOL.txt =====
+Characters: 6338
+Lines: 332
+Preview:
+NBF GM CANDIDATE POOL
+Candidate Database v1.0
+These are not assigned to teams. They exist as the league's hiring pool for future firings, retirements, expansions, assistant promotions, and front-office shakeups.
+Each candidate has a primary archetype and hidden tendencies.
+
+1. Andrew Sloane
+Age: 38
+Archetype: Analytics Builder
+Strengths
+	•	Drafting 88
+	•	Scouting 90
+Hidden Tendencies
+	•	Loves efficiency metrics
+	•	Avoids aging veterans
+
+2. Marcus Holloway
+Age: 51
+Archetype: Veteran Executive
+Strengths
+	•	Negotiation 89
+	•	Reputation 91
+Hidden Tendencies
+	•	Prefers proven players
+	•	Dislikes rebuilding
+
+3. Jordan Pike
+Age: 42
+Archetype: Draft Specialist
+Hidden Tendencies
+	•	Hoards draft picks
+	•	Patient with prospects
+
+4. Olivia Kane
+Age: 37
+Archetype: Talent Evaluator
+
+
+===== NBF GM Schema.txt =====
+Characters: 3645
+Lines: 335
+Preview:
+NBF GM Schema v1.0
+
+class GeneralManager:
+
+    # Identity
+
+    id: int
+    name: str
+
+    age: int
+
+    # Core Ratings
+
+    drafting: int
+    scouting: int
+    negotiation: int
+
+    risk_tolerance: int
+
+    leadership: int
+    reputation: int
+
+    # Team Building
+
+    free_agency: int
+    trade_skill: int
+    cap_management: int
+
+    player_evaluation: int
+
+    # Personality
+
+    loyalty: int
+
+    ambition: int
+
+
+===== NBF Genesis Talent Pools GUIDE.txt =====
+Characters: 3160
+Lines: 210
+Preview:
+NBF Genesis Talent Pools
+GM Pool Design
+Target Size
+50 General Managers
+GM Archetypes
+Draft Masters
+Find stars and build through the draft.
+Examples:
+	•	Marcus Reed
+	•	Rebecca Shaw
+	•	Anthony Blake
+	•	Pamela Reid
+Analytics Innovators
+Data-first executives.
+Examples:
+	•	Kara Vaughn
+	•	Nina Bishop
+	•	Amelia Fox
+Contract Specialists
+Cap management and negotiations.
+Examples:
+	•	Terrence Knox
+	•	Natalie Ross
+Aggressive Dealmakers
+Trade constantly.
+Examples:
+	•	Owen Drake
+	•	Trevor Mills
+Relationship Builders
+Player-friendly executives.
+Examples:
+	•	Hector Alvarez
+	•	Darnell Price
+Former Champions
+Veterans with rings.
+
+
+===== NBF MARKET and ARENA DATABASE.txt =====
+Characters: 3900
+Lines: 240
+Preview:
+NBF MARKET & ARENA DATABASE v1.0
+Little Rock Bandits
+Arena: Bandit Colosseum
+Capacity: 18,800
+Atmosphere: 98/100
+Luxury: 72/100
+Ticket Price Index: 65/100
+Market
+	•	Market Size: Small
+	•	Fan Passion: 95
+	•	Fan Loyalty: 98
+	•	Fan Patience: 82
+	•	Media Pressure: 35
+	•	Free Agent Appeal: 42
+	•	Corporate Power: 38
+
+Dallas Outlaws
+Arena: Marshal's Range
+Capacity: 21,500
+Atmosphere: 91
+Luxury: 92
+Ticket Price Index: 88
+Market
+	•	Large
+	•	Passion: 91
+	•	Loyalty: 81
+	•	Patience: 42
+	•	Media Pressure: 93
+	•	Free Agent Appeal: 84
+	•	Corporate Power: 95
+
+Houston Cosmos
+Arena: Nova Orbit
+Capacity: 20,400
+Atmosphere: 86
+
+
+===== NBF PLAYER TIERS GUIDE.txt =====
+Characters: 4319
+Lines: 273
+Preview:
+NBF PLAYER TIERS
+Tier S — Generational
+League Count: 3–5 Players
+Traits:
+	•	MVP caliber
+	•	Franchise-changing
+	•	Hall of Fame trajectory
+Examples:
+	•	Michael Jordan
+	•	LeBron James
+	•	Kareem Abdul-Jabbar
+Probability: ~2% of league
+Current League: 4 Players
+
+Tier A — Superstars
+League Count: 12–18 Players
+Traits:
+	•	All-NBF caliber
+	•	Multiple award contenders
+	•	Max contract players
+Probability: ~8% of league
+Current League: 16 Players
+
+Tier B — Stars
+League Count: 25–35 Players
+Traits:
+	•	All-Star level
+	•	Team centerpiece
+	•	Can make deep playoff runs with support
+Current League: 30 Players
+
+Tier C — High-Level Starters
+League Count: 50–60 Players
+Traits:
+	•	Reliable starters
+
+
+===== NBF Player Schema.txt =====
+Characters: 2362
+Lines: 189
+Preview:
+NBF Player Schema v1.1
+
+class Player:
+
+    # Identity
+
+    id: int
+    name: str
+
+    age: int
+    position: str
+
+    # Talent
+
+    overall: int
+    potential: int
+
+    offense: int
+    defense: int
+    shooting: int
+    playmaking: int
+    rebounding: int
+
+    basketball_iq: int
+    athleticism: int
+
+    # Personality
+
+    leadership: int
+    discipline: int
+    confidence: int
+    popularity: int
+
+    # Motivation
+
+
+
+===== NBF REFEREE POOL.txt =====
+Characters: 2030
+Lines: 113
+Preview:
+
+NBF REFEREE POOL v1.0
+50 Active Referees
+Referees are permanent league characters subject to aging, retirement, promotions, investigations, and Hall of Fame consideration.
+Each referee tracks:
+	•	Accuracy
+	•	Consistency
+	•	Confidence
+	•	Popularity
+	•	Pressure Resistance
+
+ELITE OFFICIATING TIER
+1. Anthony Foster
+Accuracy: 96
+2. Rebecca Hale
+Accuracy: 95
+3. Michael Grant
+Accuracy: 95
+4. Jordan Ellis
+Accuracy: 94
+5. Samuel Rhodes
+Accuracy: 94
+6. Victoria Quinn
+Accuracy: 93
+7. Brandon Pierce
+Accuracy: 93
+8. David Monroe
+Accuracy: 92
+9. Olivia Stone
+Accuracy: 92
+10. Ethan Cross
+Accuracy: 92
+
+VETERAN TIER
+11. Tyler Bennett
+
+
+===== NBF TEAM REPORTER POOL.txt =====
+Characters: 2701
+Lines: 164
+Preview:
+NBF TEAM REPORTER POOL v1.0
+32 Team Reporters (2 Per Franchise)
+These reporters are permanent league characters. They build sources, break stories, create narratives, expose scandals, and may become Hall of Fame journalists over time.
+
+LITTLE ROCK BANDITS
+Emma Cross
+Type: Team Loyalist
+	•	Integrity: 84
+	•	Aggression: 53
+	•	Sources: 88
+	•	Popularity: 72
+Hidden:
+	•	Protects staff relationships
+	•	Trusted by players
+
+Jackson Pierce
+Type: Investigative Reporter
+	•	Integrity: 93
+	•	Aggression: 89
+	•	Sources: 65
+Hidden:
+	•	Hates owner interference
+	•	Loves uncovering secrets
+
+DALLAS OUTLAWS
+Victoria Kane
+Type: League Insider
+	•	Integrity: 68
+	•	Aggression: 75
+	•	Sources: 97
+Hidden:
+	•	Breaks major stories
+	•	Chases scoops
+
+Brandon York
+
+
+===== NBF_Brand_Design_Document_v1.0.txt =====
+Characters: 3313
+Lines: 226
+Preview:
+NBF Brand Design Document v1.0 (Corrected & Locked)
+Little Rock Bandits
+Mascot: Cash
+Colors:
+	•	Electric Blue
+	•	Steel Gray
+	•	White
+Rivalries:
+	•	Dallas Outlaws
+	•	Houston Cosmos
+Logo Direction:
+	•	Bandit mask with Arkansas star
+
+Dallas Outlaws
+Mascot: Marshal
+Colors:
+	•	Crimson
+	•	Black
+	•	Silver
+Rivalries:
+	•	Little Rock Bandits
+	•	Houston Cosmos
+Logo Direction:
+	•	Western star revolver theme
+
+Houston Cosmos
+Mascot: Nova
+Colors:
+	•	Deep Navy
+	•	Orange
+	•	White
+Rivalries:
+	•	Dallas Outlaws
+	•	Little Rock Bandits
+	•	Denver Peaks
+
+
+===== NBF_Commissioner_Victor_Hale.txt =====
+Characters: 668
+Lines: 23
+Preview:
+NBF Commissioner Profile
+Victor Hale
+Age: 58
+Hometown: St. Louis, Missouri
+Background
+Former antitrust attorney and sports negotiator selected as the founding commissioner. Known for discipline, professionalism, and long-term institutional thinking.
+Attributes
+Integrity: 78
+Popularity: 64
+Aggression: 55
+Discipline: 91
+Greed: 39
+Leadership Style
+Institution Builder
+Hidden Traits
+Long-Term Thinker (High)
+Political Skill (Elite)
+Risk Tolerance (Moderate)
+Loyalty: League First
+Powers
+Fines, Suspensions, Investigations, Rule Changes, Expansion Approval, Relocation Approval, League Governance
+Starting Legacy Score
+0 - Future reputation determined by league history.
+
+
+===== NBF_Constitution_v1.0.txt =====
+Characters: 1488
+Lines: 21
+Preview:
+Nation Basketball Federation (NBF) Constitution v1.0
+Purpose
+Create a persistent basketball universe where history emerges through probability, decisions, relationships, competition, and institutional pressure rather than scripted outcomes.
+Core Principles
+- No scripted champions, legends, villains, dynasties, or GOATs.
+- Basketball-only universe.
+- Probability-driven events.
+- Historical memory is permanent.
+- Genesis Era generates league history before public entry.
+Genesis Era
+The league operates through a hidden Genesis Era of approximately 50 seasons. Major milestones are preserved while routine game-level detail is discarded. Public coverage begins in Season 51.
+League Structure
+16 franchises. Each franchise contains ownership, front office, coaching staff, roster, reporter, fanbase, finances, arena, and historical records.
+Historical Records
+Championships, awards, Hall of Fame classes, retired jerseys, records, scandals, dynasties, ownership changes, and major league events are permanent.
+Relationship Engine
+Every major character maintains evolving relationships including allies, rivals, mentors, enemies, and trusted contacts.
+Commissioner Authority
+The Commissioner may fine, suspend, investigate, approve expansion, approve relocation, and propose rule changes subject to league governance.
+End State Vision
+The universe should naturally generate legends, dynasties, cursed franchises, Hall of Famers, retired jerseys, rivalries, scandals, and historical eras.
+
+
+===== Player Generation Schema.txt =====
+Characters: 2432
+Lines: 134
+Preview:
+Player Generation Schema
+Now that we've defined what a player is, we need to define how players are created.
+This is one of the most important systems in the entire NBF because it determines whether legends, busts, role players, and Hall of Famers can emerge naturally.
+
+Genesis Pool Size
+Initial Population
+500 Players
+This creates:
+	•	192 active roster spots
+	•	Free agent market
+	•	Injury replacements
+	•	Trades
+	•	G-League equivalent later if desired
+	•	Expansion flexibility
+
+Age Distribution
+
+18-20     15%
+21-24     35%
+25-29     30%
+30-34     15%
+35-40      5%
+
+This creates a natural mix of:
+	•	Prospects
+	•	Prime players
+	•	Veterans
+	•	Aging legends
+
+Position Distribution
+
+Point Guards      20%
+Shooting Guards   20%
+Small Forwards    20%
+Power Forwards    20%
+
+============================================
+PLAYER POOL ANALYSIS
+============================================
+Rows: 500
+Columns: ['ID', 'Name', 'Position', 'Age', 'Tier', 'Overall']
+
+Tier Counts:
+- Fringe: 67
+- Generational: 4
+- Role: 174
+- Star: 44
+- Starter: 184
+- Superstar: 27
+
+Position Counts:
+- C: 114
+- PF: 93
+- PG: 96
+- SF: 84
+- SG: 113
+
+Age Range:
+- Youngest: 19
+- Oldest: 38
+
+Duplicate Names: 57
+- Malik Rhodes
+- Marcus Price
+- Xavier Ellis
+- Malik Ellis
+- Grant Drake
+- Liam Sloan
+- Isaiah Wallace
+- Caleb Mitchell
+- Xavier Warren
+- Victor Shaw
+- James Cole
+- Darius Shaw
+- Troy Ross
+- Ethan Ward
+- Micah Holloway
+- Owen Warren
+- Javon Warren
+- Patrick Knight
+- Elijah Bishop
+- Luke Quinn
+
+Top 20 Players by Overall:
+- ID 206: Ethan Stone | C | Age 20 | Generational | OVR 99
+- ID 463: Xavier Dean | PF | Age 38 | Generational | OVR 99
+- ID 359: Nolan Ward | PF | Age 22 | Generational | OVR 97
+- ID 446: Logan Doyle | SG | Age 35 | Generational | OVR 96
+- ID 62: Isaiah Wallace | PF | Age 29 | Superstar | OVR 94
+- ID 412: Owen Gardner | SF | Age 28 | Superstar | OVR 94
+- ID 92: Victor King | PF | Age 32 | Superstar | OVR 93
+- ID 155: Andre Ford | PG | Age 23 | Superstar | OVR 93
+- ID 191: Nolan Wallace | SG | Age 20 | Superstar | OVR 93
+- ID 232: Damien Bennett | C | Age 32 | Superstar | OVR 93
+- ID 131: Julian Bell | SG | Age 28 | Superstar | OVR 92
+- ID 237: Patrick Knight | SG | Age 19 | Superstar | OVR 92
+- ID 273: Marcus King | C | Age 28 | Superstar | OVR 92
+- ID 453: Logan Stone | SF | Age 25 | Superstar | OVR 92
+- ID 478: Kendrick Drake | SG | Age 20 | Superstar | OVR 92
+- ID 27: Tyler Ward | SG | Age 38 | Superstar | OVR 91
+- ID 39: Ethan Ward | C | Age 27 | Superstar | OVR 91
+- ID 187: Liam Ward | PG | Age 30 | Superstar | OVR 91
+- ID 196: James Doyle | PF | Age 25 | Superstar | OVR 91
+- ID 283: Tyrese Cole | SG | Age 33 | Superstar | OVR 91
+
+============================================
+GM POOL ANALYSIS
+============================================
+GM Candidates Parsed: 50
+
+GM Archetypes:
+- Aggressive Negotiator: 1
+- Analytics Builder: 1
+- Analytics Expert: 1
+- Cap Strategist: 1
+- Championship Chaser: 1
+- Competitive Builder: 1
+- Culture Builder: 1
+- Data Scientist: 1
+- Draft Specialist: 1
+- Dynasty Architect: 1
+- Financial Expert: 1
+- Franchise Builder: 1
+- Franchise Rebuilder: 1
+- Franchise Stabilizer: 1
+- Future Executive Star: 1
+- High-Upside Hunter: 1
+- International Scout: 1
+- League Veteran: 1
+- Modern Architect: 1
+- Modern Executive: 1
+- Negotiation Master: 1
+- Old School Executive: 1
+- Player Developer: 1
+- Power Broker: 1
+- Prospect Whisperer: 1
+- Rebuild Expert: 1
+- Risk Taker: 1
+- Scouting Director: 1
+- Scouting Guru: 1
+- Star Hunter: 1
+- Strategic Negotiator: 1
+- Superstar Recruiter: 1
+- Talent Builder: 1
+- Talent Evaluator: 1
+- Talent Gambler: 1
+- Traditionalist: 1
+- Unknown: 10
+- Veteran Executive: 1
+- Veteran Scout: 1
+- Win-Now Executive: 1
+- Young Visionary: 1
+
+First 20 GM Candidates:
+- ID 1: Andrew Sloane | Age 38 | Archetype: Analytics Builder | Ratings: {'Drafting': 88, 'Scouting': 90}
+- ID 2: Marcus Holloway | Age 51 | Archetype: Veteran Executive | Ratings: {'Negotiation': 89, 'Reputation': 91}
+- ID 3: Jordan Pike | Age 42 | Archetype: Draft Specialist | Ratings: {}
+- ID 4: Olivia Kane | Age 37 | Archetype: Talent Evaluator | Ratings: {}
+- ID 5: Eric Bennett | Age 54 | Archetype: Win-Now Executive | Ratings: {}
+- ID 6: Cameron Price | Age 45 | Archetype: Star Hunter | Ratings: {}
+- ID 7: Nathan Ross | Age 48 | Archetype: Culture Builder | Ratings: {}
+- ID 8: Derek Vaughn | Age 41 | Archetype: Risk Taker | Ratings: {}
+- ID 9: Sophia Walker | Age 39 | Archetype: Modern Architect | Ratings: {}
+- ID 10: Brandon Chase | Age 50 | Archetype: Traditionalist | Ratings: {}
+- ID 11: Lucas Mercer | Age 36 | Archetype: Player Developer | Ratings: {}
+- ID 12: Tyler Bishop | Age 44 | Archetype: Aggressive Negotiator | Ratings: {}
+- ID 13: Isabella Ford | Age 40 | Archetype: Analytics Expert | Ratings: {}
+- ID 14: Connor Blake | Age 49 | Archetype: Franchise Builder | Ratings: {}
+- ID 15: Ethan Rhodes | Age 47 | Archetype: Scouting Guru | Ratings: {}
+- ID 16: Mason Cole | Age 52 | Archetype: Negotiation Master | Ratings: {}
+- ID 17: Ryan Hale | Age 43 | Archetype: Competitive Builder | Ratings: {}
+- ID 18: Leah Monroe | Age 38 | Archetype: Cap Strategist | Ratings: {}
+- ID 19: Jason Whitaker | Age 56 | Archetype: Veteran Scout | Ratings: {}
+- ID 20: Noah Griffin | Age 41 | Archetype: Talent Gambler | Ratings: {}
+
+============================================
+COACH POOL ANALYSIS
+============================================
+Coach Candidates Parsed: 60
+
+Coach Sections:
+- DEFENSIVE MASTERS: 10
+- DEVELOPMENT GURUS: 10
+- MODERN INNOVATORS: 10
+- OFFENSIVE GENIUSES: 10
+- OLD SCHOOL DISCIPLINARIANS: 10
+- PLAYER'S COACHES: 10
+
+Coach Archetypes:
+- Defense Specialist: 10
+- Development Guru: 10
+- Disciplinarian: 10
+- Innovator: 10
+- Offensive Genius: 10
+- Player's Coach: 10
+
+First 20 Coach Candidates:
+- ID 1: Trent Holloway | Age 44 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Gives rookies long leashes
+- ID 2: Ryan Mercer | Age 48 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Overvalues potential
+- ID 3: Elijah Ross | Age 41 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Avoids veterans
+- ID 4: Jordan Keene | Age 52 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Extremely patient
+- ID 5: Daniel Foster | Age 39 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Constant experimentation
+- ID 6: Marcus Quinn | Age 46 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Distrusts superstars
+- ID 7: Isaac Holloway | Age 50 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Hates win-now pressure
+- ID 8: Tyler Brooks | Age 42 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Loyal to favorites
+- ID 9: Ethan Rhodes | Age 45 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Avoids conflict
+- ID 10: Caleb Vaughn | Age 43 | Section: DEVELOPMENT GURUS | Archetype: Development Guru | Hidden: Weak in-game adjustments
+- ID 11: Marcus Bennett | Age 58 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Clashes with stars
+- ID 12: Victor Steele | Age 54 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Old school mentality
+- ID 13: Frank Donnelly | Age 60 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Media hostile
+- ID 14: Owen Cole | Age 49 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Slow offense
+- ID 15: Raymond Black | Age 53 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Stubborn
+- ID 16: Hunter Price | Age 45 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Benches stars
+- ID 17: Anthony Webb | Age 55 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Dislikes analytics
+- ID 18: Robert Chase | Age 51 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Poor development
+- ID 19: Michael Tate | Age 47 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Low flexibility
+- ID 20: Zachary Dean | Age 46 | Section: DEFENSIVE MASTERS | Archetype: Defense Specialist | Hidden: Overthinks matchups
+
+============================================
+FOUNDATION KEYWORD SCAN
+============================================
+
+Coach Schema.txt
+- award: 1
+- development: 4
+- hall of fame: 1
+- morale: 1
+- owner: 4
+- playoff: 3
+- potential: 2
+- reporter: 1
+- retirement: 1
+- salary: 1
+
+GENESIS FORMATION ERA.txt
+- arena: 2
+- award: 1
+- commissioner: 1
+- development: 3
+- draft: 7
+- expansion: 1
+- free agency: 1
+- hall of fame: 3
+- injury: 1
+- market: 1
+- owner: 8
+- potential: 1
+- reporter: 3
+- trade: 5
+
+Hall of Fame Committee.txt
+- award: 1
+- hall of fame: 4
+
+NBF 500 Player Talent Pool.txt
+- No keyword hits
+
+NBF Awards Committee.txt
+- award: 7
+- development: 2
+- hall of fame: 9
+- playoff: 1
+- reporter: 7
+- retirement: 1
+
+NBF Awards and Hall of Fame System.txt
+- award: 10
+- hall of fame: 12
+- owner: 9
+- reporter: 7
+- retirement: 4
+
+NBF COACH CANDIDATE POOL.txt
+- chemistry: 2
+- development: 14
+- market: 1
+- owner: 2
+- playoff: 1
+- potential: 2
+
+NBF FOUNDING OWNERSHIP ERA v1.0.txt
+- development: 1
+- market: 1
+- owner: 38
+
+NBF GENESIS SIMULATION ENGINE.txt
+- award: 2
+- chemistry: 2
+- development: 4
+- draft: 4
+- free agency: 3
+- hall of fame: 6
+- injury: 4
+- luxury tax: 1
+- market: 3
+- morale: 1
+- owner: 10
+- playoff: 3
+- referee: 1
+- reporter: 4
+- retirement: 3
+- salary: 1
+- trade: 4
+
+NBF GM CANDIDATE POOL.txt
+- cap: 2
+- commissioner: 1
+- development: 2
+- draft: 5
+- expansion: 1
+- free agency: 1
+- market: 2
+- owner: 1
+- retirement: 1
+- trade: 9
+
+NBF GM Schema.txt
+- award: 2
+- cap: 8
+- commissioner: 3
+- development: 1
+- draft: 11
+- free agency: 2
+- hall of fame: 2
+- luxury tax: 1
+- market: 2
+- owner: 5
+- playoff: 2
+- potential: 1
+- reporter: 1
+- salary: 1
+- trade: 10
+
+NBF Genesis Talent Pools GUIDE.txt
+- cap: 1
+- commissioner: 1
+- development: 3
+- draft: 3
+- expansion: 1
+- free agency: 2
+- hall of fame: 1
+- market: 1
+- owner: 3
+- retirement: 1
+- trade: 1
+
+NBF MARKET and ARENA DATABASE.txt
+- arena: 19
+- cap: 16
+- market: 18
+
+NBF PLAYER TIERS GUIDE.txt
+- award: 1
+- chemistry: 1
+- commissioner: 1
+- draft: 3
+- hall of fame: 4
+- injury: 2
+- owner: 2
+- playoff: 4
+- reporter: 1
+- retirement: 2
+
+NBF Player Schema.txt
+- award: 1
+- hall of fame: 2
+- injury: 17
+- playoff: 1
+- potential: 2
+
+NBF REFEREE POOL.txt
+- development: 1
+- hall of fame: 2
+- playoff: 1
+- potential: 3
+- referee: 4
+- retirement: 1
+
+NBF TEAM REPORTER POOL.txt
+- draft: 1
+- hall of fame: 1
+- owner: 2
+- reporter: 10
+
+NBF_Brand_Design_Document_v1.0.txt
+- No keyword hits
+
+NBF_Commissioner_Victor_Hale.txt
+- commissioner: 2
+- expansion: 1
+- relocation: 1
+
+NBF_Constitution_v1.0.txt
+- arena: 1
+- award: 1
+- commissioner: 2
+- expansion: 1
+- hall of fame: 2
+- owner: 2
+- relocation: 1
+- reporter: 1
+
+Player Generation Schema.txt
+- development: 1
+- draft: 2
+- expansion: 1
+- hall of fame: 1
+- injury: 2
+- market: 1
+- playoff: 1
+- potential: 4
+- retirement: 1
+- trade: 2
+
+============================================
+FOUNDATION AUDIT COMPLETE
+============================================

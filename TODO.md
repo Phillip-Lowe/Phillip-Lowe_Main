@@ -1,8 +1,47 @@
-# TODO — Current State (Updated 2026-07-06 02:11 CDT)
+# TODO — Current State (Updated 2026-07-08 03:33 CDT)
+
+---
+
+## 🔴 HIGH PRIORITY — Next Actions
+
+### 1. Partner Program Page
+**Status:** Not started
+**File:** `systack.net/partners`
+**Needs:** 20% recurring commission pitch, reseller agreement, onboarding flow
+**Impact:** Referral channel for recurring revenue
+
+### 2. Service Business OS Vertical Offer
+**Status:** Not started
+**Price:** $499 setup + $299/mo
+**Outcome:** "Never miss another customer inquiry"
+**Impact:** Packaged vertical landing page for specific niche
+
+### 3. Finish Dashboard "Try It" UI
+**Status:** API endpoints ready, frontend pending
+**Endpoints:** `try-lead-score`, `try-doc-classify`
+**Impact:** Live demos convert visitors to leads
+
+### 4. Fix Onboarding Wizard
+**Status:** Has duplicate `finishOnboarding` assignment
+**Impact:** Clean first-time user experience
+
+### 5. Scale Cold Email to 100+ Prospects
+**Status:** 20 active, need 80 more
+**Impact:** More at-bats = more meetings
+
+---
 
 ## ✅ COMPLETED — SAOS Enterprise Readiness
 
 All Oracle priorities P1-P5 complete. Command Center v2.0 live. 65/65 tests passing. 16 PDFs generated. Full endpoint test suite. Client onboarding script verified. Daily backup cron active.
+
+### ✅ ALSO COMPLETED — Distribution Pipeline (2026-07-08)
+- Invoice parser fixed (all fields extracting correctly)
+- Free Automation Audit lead magnet live at systack.net/audit/
+- Cold email workflow activated (20 prospects, Tuesday 9 AM CT)
+- Customer dashboard enhanced (process flows, Try It demos, pricing banner, onboarding wizard)
+- n8n database cleaned (770 orphaned records removed)
+- Git committed & pushed
 
 ## ✅ COMPLETED — Fleet Sales-Validation Sprint
 
@@ -26,74 +65,36 @@ All 8 fleet agents delivered:
 
 ---
 
-## 🔴 HIGH PRIORITY — Next Actions
-
-### 1. First Outreach Batch
-**Status:** Ready to execute
-**Needs:** Green's approval on 10 targets, email sending address, Calendly link
-**Impact:** First real leads in the pipeline
-
-### 2. iOS Safari Cert Trust
-**Status:** ✅ RESOLVED — Cloudflare Tunnel deployed
-**Domains:** `portal.systack.net` + `command.systack.net` (live and verified)
-**Note:** `saos.systack.net` CNAME needs manual update in Cloudflare DNS (points to deli tunnel)
-**Impact:** Clients can now access SAOS from any device, any browser on iOS
-
-### 3. Production Deployment
-**Status:** Deployment checklist PDF ready
-**Needs:** Green's decision to move from dev to prod credentials
-**Impact:** Real clients can be onboarded
-
-### 4. Stripe Billing Integration
-**Status:** Revenue tab is placeholder
-**Needs:** Stripe account setup, connect to SAOS_CUSTOMER_PORTAL_STRIPE_* env vars
-**Impact:** Automated subscription billing
-
----
-
 ## 🟡 MEDIUM PRIORITY — Backlog
 
-### 5. Monitoring Dashboard Enhancement
+### 6. Referral Engine
+**Status:** Conceptual
+**Trigger:** After successful service delivery
+**Reward:** 1 free month per referral
+**Impact:** Organic growth via happy customers
+
+### 7. Monitoring Dashboard Enhancement
 - Agent health metrics in Command Center
 - Task queue depth visualization
 - Error rate tracking over time
 - Response time percentiles
 
-### 6. Client Onboarding Flow Testing
+### 8. Client Onboarding Flow Testing
 - Script works (verified 2026-07-06)
 - Needs real-world test with actual client
 - Email delivery of credentials
 - 15-day implementation timeline validation
 
-### 7. Systack Website Updates
+### 9. Systack Website Updates
 - Service portfolio alignment with SAOS tiers
 - Case studies / testimonials section
 - Blog / content section
 - SEO optimization
 
-### 8. Training Video Production
+### 10. Training Video Production
 - 6 video outlines ready (in Standard Launch Kit)
 - Needs screen recording, editing, upload
 - YouTube unlisted or Loom
-
----
-
-## 🟢 LOW PRIORITY — Nice to Have
-
-### 9. AI Video Ad Service
-- "There's a [Business] for that" campaign series
-- $500-1500/video, $2-5K/month retainer
-- Concept validated, needs first client
-
-### 10. Voice Agent (SOL Talk Mode)
-- Research complete, architecture defined
-- Blocked by: Custom OpenClaw provider adapter
-- Alternative: Voicebox MCP integration
-
-### 11. Utopia Deli Enhancements
-- Weekly menu rotation automation
-- Customer notification system
-- **Note:** Do not touch deli repo without explicit permission
 
 ---
 
@@ -102,6 +103,25 @@ All 8 fleet agents delivered:
 | Item | Blocked By | Impact |
 |------|-----------|--------|
 | First outreach batch | Target approval + email setup | Revenue |
-| iOS Safari cert trust | Decision to proceed | Mobile access |
-| Production deployment | Decision to move to prod | Real clients |
+| Partner program | Decision to build page | Referral revenue |
+| Service Business OS page | Decision to verticalize | Niche revenue |
 | Stripe billing | Stripe account setup | Automated revenue |
+
+---
+
+## 🟢 LOW PRIORITY — Nice to Have
+
+### 11. AI Video Ad Service
+- "There's a [Business] for that" campaign series
+- $500-1500/video, $2-5K/month retainer
+- Concept validated, needs first client
+
+### 12. Voice Agent (SOL Talk Mode)
+- Research complete, architecture defined
+- Blocked by: Custom OpenClaw provider adapter
+- Alternative: Voicebox MCP integration
+
+### 13. Utopia Deli Enhancements
+- Weekly menu rotation automation
+- Customer notification system
+- **Note:** Do not touch deli repo without explicit permission

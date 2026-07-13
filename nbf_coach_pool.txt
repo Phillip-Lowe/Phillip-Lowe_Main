@@ -1,0 +1,357 @@
+NBF COACH CANDIDATE POOL v1.0
+100 Coach Candidates Status: Genesis Pool
+These coaches are not assigned to teams. During Genesis, GMs will hire from this pool based on owner preferences, team culture, market pressure, and roster composition.
+Each coach has:
+	•	Archetype
+	•	Primary Strength
+	•	Hidden Tendency
+
+DEVELOPMENT GURUS
+1. Trent Holloway (44)
+Development Guru
+	•	Elite at player growth
+	•	Hidden: Gives rookies long leashes
+2. Ryan Mercer (48)
+Development Guru
+	•	Builds young cores
+	•	Hidden: Overvalues potential
+3. Elijah Ross (41)
+Development Guru
+	•	Excellent teacher
+	•	Hidden: Avoids veterans
+4. Jordan Keene (52)
+Development Guru
+	•	Creates high-IQ teams
+	•	Hidden: Extremely patient
+5. Daniel Foster (39)
+Development Guru
+	•	Position versatility expert
+	•	Hidden: Constant experimentation
+6. Marcus Quinn (46)
+Development Guru
+	•	Improves fundamentals
+	•	Hidden: Distrusts superstars
+7. Isaac Holloway (50)
+Development Guru
+	•	Long-term builder
+	•	Hidden: Hates win-now pressure
+8. Tyler Brooks (42)
+Development Guru
+	•	Great with guards
+	•	Hidden: Loyal to favorites
+9. Ethan Rhodes (45)
+Development Guru
+	•	Builds chemistry
+	•	Hidden: Avoids conflict
+10. Caleb Vaughn (43)
+Development Guru
+	•	Elite practice coach
+	•	Hidden: Weak in-game adjustments
+
+DEFENSIVE MASTERS
+11. Marcus Bennett (58)
+Defense Specialist
+	•	Defense 95
+	•	Hidden: Clashes with stars
+12. Victor Steele (54)
+Defense Specialist
+	•	Elite schemes
+	•	Hidden: Old school mentality
+13. Frank Donnelly (60)
+Defense Specialist
+	•	Discipline legend
+	•	Hidden: Media hostile
+14. Owen Cole (49)
+Defense Specialist
+	•	Team defense guru
+	•	Hidden: Slow offense
+15. Raymond Black (53)
+Defense Specialist
+	•	Playoff defense expert
+	•	Hidden: Stubborn
+16. Hunter Price (45)
+Defense Specialist
+	•	Toughness culture
+	•	Hidden: Benches stars
+17. Anthony Webb (55)
+Defense Specialist
+	•	Physical defender advocate
+	•	Hidden: Dislikes analytics
+18. Robert Chase (51)
+Defense Specialist
+	•	Veteran manager
+	•	Hidden: Poor development
+19. Michael Tate (47)
+Defense Specialist
+	•	Elite preparation
+	•	Hidden: Low flexibility
+20. Zachary Dean (46)
+Defense Specialist
+	•	Film-study addict
+	•	Hidden: Overthinks matchups
+
+OFFENSIVE GENIUSES
+21. Victor Lawson (49)
+Offensive Genius
+	•	Offense 98
+	•	Hidden: Ignores defense
+22. Miles Chen (44)
+Offensive Genius
+	•	Pace innovator
+	•	Hidden: Constant tinkering
+23. Jordan Banks (40)
+Offensive Genius
+	•	Creative play designer
+	•	Hidden: Gambler
+24. Samuel Knox (52)
+Offensive Genius
+	•	Elite spacing systems
+	•	Hidden: Ego issues
+25. Austin Hale (43)
+Offensive Genius
+	•	Transition specialist
+	•	Hidden: Impatient
+26. Derek Ford (47)
+Offensive Genius
+	•	Shooters maximize under him
+	•	Hidden: Defensive neglect
+27. Nathan Cross (45)
+Offensive Genius
+	•	Star creator
+	•	Hidden: Plays favorites
+28. Cameron Shaw (41)
+Offensive Genius
+	•	Modern strategist
+	•	Hidden: Media friendly
+29. Benjamin Ellis (50)
+Offensive Genius
+	•	Half-court wizard
+	•	Hidden: Conservative on defense
+30. Trevor Moore (48)
+Offensive Genius
+	•	Elite late-game offense
+	•	Hidden: Emotional
+
+PLAYER'S COACHES
+31. Tyrell Banks (51)
+Player's Coach
+	•	Motivation 95
+	•	Hidden: Avoids discipline
+32. Jamal Griffin (42)
+Player's Coach
+	•	Former player
+	•	Hidden: Star favoritism
+33. Darius Cole (46)
+Player's Coach
+	•	Chemistry builder
+	•	Hidden: Too trusting
+34. Andre Bishop (44)
+Player's Coach
+	•	Popular league-wide
+	•	Hidden: Conflict avoidance
+35. Terrence Holt (53)
+Player's Coach
+	•	Veteran favorite
+	•	Hidden: Soft disciplinarian
+36. Isaiah Greene (43)
+Player's Coach
+	•	Great communicator
+	•	Hidden: Emotional decisions
+37. Malik Warren (48)
+Player's Coach
+	•	Team-first culture
+	•	Hidden: Loyalty bias
+38. Devon Price (41)
+Player's Coach
+	•	Locker-room stabilizer
+	•	Hidden: Poor tactical adjustments
+39. Xavier Ross (45)
+Player's Coach
+	•	Builds trust quickly
+	•	Hidden: Weak authority
+40. Lorenzo King (50)
+Player's Coach
+	•	Motivation specialist
+	•	Hidden: Slow to bench veterans
+
+OLD SCHOOL DISCIPLINARIANS
+41. Peter Rowe (61)
+Disciplinarian
+	•	Structure king
+	•	Hidden: Resistant to change
+42. Wallace Grant (59)
+Disciplinarian
+	•	Accountability first
+	•	Hidden: Harsh public criticism
+43. Gerald Stone (63)
+Disciplinarian
+	•	Tough culture
+	•	Hidden: Star conflicts
+44. Richard Hale (57)
+Disciplinarian
+	•	Veteran respect
+	•	Hidden: Low adaptability
+45. Steven Mercer (60)
+Disciplinarian
+	•	Practice intensity
+	•	Hidden: Burnout risk
+46. Douglas Webb (56)
+Disciplinarian
+	•	Conditioning guru
+	•	Hidden: Players dislike him
+47. James Thornton (58)
+Disciplinarian
+	•	Elite preparation
+	•	Hidden: Poor media relations
+48. Calvin Moore (62)
+Disciplinarian
+	•	Consistent systems
+	•	Hidden: Stubborn
+49. Arthur Hill (55)
+Disciplinarian
+	•	Defense-focused
+	•	Hidden: Low creativity
+50. Patrick Reid (59)
+Disciplinarian
+	•	Accountability leader
+	•	Hidden: Power struggles
+
+MODERN INNOVATORS
+51. Olivia Hartwell (39)
+Innovator
+	•	High adaptability
+	•	Hidden: Constant experimentation
+52. Noah Bishop (38)
+Innovator
+	•	Positionless basketball
+	•	Hidden: Risky rotations
+53. Amelia Fox (37)
+Innovator
+	•	Data-driven
+	•	Hidden: Underestimates leadership
+54. Rachel Vaughn (40)
+Innovator
+	•	Offensive innovation
+	•	Hidden: Media skeptical
+55. Harper Ellis (36)
+Innovator
+	•	Fast learner
+	•	Hidden: Impatient
+56. Lucas Doyle (39)
+Innovator
+	•	Advanced analytics
+	•	Hidden: Overcomplicates strategy
+57. Ava Morgan (38)
+Innovator
+	•	Creative schemes
+	•	Hidden: Rotation tinkerer
+58. Sophia Reid (41)
+Innovator
+	•	Flexible systems
+	•	Hidden: High expectations
+59. Emily Gardner (42)
+Innovator
+	•	Matchup expert
+	•	Hidden: Emotionally detached
+60. Carson Bell (40)
+Innovator
+	•	Development + analytics
+	•	Hidden: Experimental
+
+BALANCED VETERANS
+61. Robert Keene
+62. Anthony Rhodes
+63. Matthew York
+64. Jonathan Pierce
+65. Scott Mercer
+66. Dylan Cooper
+67. Benjamin Cruz
+68. Eric Bennett
+69. Mason Doyle
+70. Christopher York
+Archetype: Balanced Veteran
+Hidden Tendencies:
+	•	Reliable
+	•	Moderate adaptability
+	•	Good ownership relations
+
+HIGH-RISK COACHES
+71. Tyson Blackwell
+72. Owen Drake
+73. Trevor Mills
+74. Austin Black
+75. Derek Vaughn
+76. Hunter Wallace
+77. Noah Griffin
+78. Logan Pierce
+79. Caleb Grant
+80. Cameron Bishop
+Archetype: High-Risk Operator
+Hidden Tendencies:
+	•	Big-lineup changes
+	•	Aggressive tactics
+	•	Short job security
+
+RISING STARS
+81. Elijah Ward
+82. Serena Knight
+83. Nina Bishop
+84. Madison Ellis
+85. Ava Reynolds
+86. Samuel Brooks
+87. Leah Monroe
+88. Harper Mitchell
+89. Isaac Moreno
+90. Kara Vaughn
+Archetype: Future Headline Coach
+Hidden Tendencies:
+	•	Ambitious
+	•	Fast climbers
+	•	Potential championship coaches
+
+WILD CARDS
+91. Byron King
+92. Marcus Drake
+93. Tyler Stone
+94. Victor Cole
+95. Anthony Price
+96. Ethan Walker
+97. Cameron Ross
+98. Justin Hale
+99. Mason Cross
+100. Gabriel Hart
+Archetype: Unpredictable
+Hidden Tendencies:
+	•	Extreme outcomes
+	•	Can become legends or disasters
+	•	High variance careers
+
+Coach Ecosystem Summary
+Elite Development Coaches
+	•	Trent Holloway
+	•	Ryan Mercer
+	•	Elijah Ross
+	•	Jordan Keene
+Elite Defensive Coaches
+	•	Marcus Bennett
+	•	Victor Steele
+	•	Frank Donnelly
+Elite Offensive Coaches
+	•	Victor Lawson
+	•	Miles Chen
+	•	Jordan Banks
+Best Player Coaches
+	•	Tyrell Banks
+	•	Jamal Griffin
+	•	Darius Cole
+Most Likely Dynasty Builders
+	•	Victor Lawson
+	•	Miles Chen
+	•	Trent Holloway
+	•	Olivia Hartwell
+	•	Kara Vaughn
+Most Likely Quick Firings
+	•	Tyson Blackwell
+	•	Derek Vaughn
+	•	Hunter Wallace
+	•	Noah Griffin

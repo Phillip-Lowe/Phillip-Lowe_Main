@@ -11,7 +11,7 @@ import sys
 import time
 
 BASE = "http://localhost:8768"
-INTERNAL_KEY = "c9e3fdd8cb9060ee611916817cc68cd272a5ba937d19f96115cd8900e8437612"
+INTERNAL_KEY = "9236a071a332cb740af9518c9fdccb7d1a5d3097285b99b75a72875cc96c4f5c"
 results = {"pass": 0, "fail": 0, "skip": 0}
 errors = []
 
@@ -260,7 +260,7 @@ for route in pdf_routes:
 # ── COMMAND CENTER ENDPOINTS ───────────────────────────
 print("\n── Command Center (port 8770) ──")
 CC_BASE = "http://localhost:8770"
-CC_HEADERS = {"X-Admin-PIN": "1234"}
+CC_HEADERS = {"X-Admin-PIN": "46097565"}
 
 cc_endpoints = [
     "/api/health",

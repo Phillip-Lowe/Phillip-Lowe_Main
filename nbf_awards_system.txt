@@ -1,0 +1,234 @@
+NBF Awards & Hall of Fame System v1.0
+Status: LOCKED CANDIDATE
+The Awards and Hall of Fame system should be independent from owners, teams, coaches, and players. Nobody should be able to directly control legacy.
+
+NBF Awards Committee
+Purpose
+Responsible for voting on:
+	•	Most Valuable Player (MVP)
+	•	Finals MVP
+	•	Rookie of the Year
+	•	Defensive Player of the Year
+	•	Most Improved Player
+	•	Sixth Man of the Year
+	•	Coach of the Year
+	•	Executive of the Year
+	•	Owner of the Year
+	•	Reporter of the Year
+	•	All-NBF Teams
+	•	All-Defensive Teams
+
+Committee Size
+25 Members
+Permanent voting body.
+
+Composition
+National Media Voters (10)
+Examples:
+	•	Basketball Weekly
+	•	Coast to Coast
+	•	Full Court Network
+	•	The Hardwood Report
+	•	NBF Today
+Focus:
+	•	Narrative
+	•	Statistics
+	•	Exposure
+
+Team Reporters (5)
+Randomly selected each season.
+Focus:
+	•	Insider knowledge
+	•	Locker-room impact
+
+Former Players (5)
+Must be retired.
+Focus:
+	•	Basketball excellence
+	•	Peer respect
+
+Former Coaches & Executives (3)
+Focus:
+	•	Team impact
+	•	Winning contribution
+
+Hall of Fame Representatives (2)
+Focus:
+	•	Historical context
+
+Voting Weight
+Awards
+Media: 50%
+Former Players: 20%
+Former Coaches/Executives: 15%
+Team Reporters: 10%
+Hall of Fame Representatives: 5%
+This prevents one group from controlling awards.
+
+NBF Hall of Fame
+Official Name
+Albert Green Basketball Hall of Fame
+Named after:
+Albert Green Founder of the NBF.
+
+Hall Location
+Springfield, Missouri
+Neutral location.
+Not tied to any franchise.
+Built to honor the league itself.
+
+Hall of Fame Committee
+15 Permanent Members
+Independent body.
+Cannot own teams.
+Cannot coach.
+Cannot be active executives.
+Cannot be active players.
+
+Hall of Fame Voting Board
+5 Former Players
+3 Former Coaches
+2 Former Executives
+2 Former Reporters
+2 Historians
+1 Hall Chairperson
+
+First Hall Chairperson
+Dr. Samuel Whitaker
+Age: 71
+Profession: Basketball Historian
+Traits:
+	•	Integrity: 96
+	•	Popularity: 72
+	•	Bias: 12
+	•	Historical Knowledge: 100
+Reputation: Most respected historian in basketball.
+
+Hall of Fame Eligibility
+Players
+Eligible: 5 years after retirement
+Requirements: Not fixed.
+Committee evaluates:
+	•	Career accomplishments
+	•	Championships
+	•	Awards
+	•	Longevity
+	•	Impact on the game
+	•	Historical significance
+
+Coaches
+Eligible: 5 years after retirement
+
+Executives
+Eligible: 5 years after retirement
+
+Owners
+Eligible: Only after leaving ownership
+
+Reporters
+Eligible: After retirement
+Must have significantly impacted league history.
+
+Annual Class Limit
+Maximum:
+5 Inductees Per Year
+Not required to fill all spots.
+Example:
+
+Year 34
+
+2 Players
+1 Coach
+1 Executive
+
+Total: 4 Inductees
+
+A weak year may produce only 1–2 inductees.
+
+Hall Wings
+Players Wing
+Greatest players.
+
+Coaches Wing
+Championship coaches.
+Innovators.
+Dynasty builders.
+
+Executives Wing
+Legendary GMs and presidents.
+
+Owners Wing
+Transformational owners.
+
+Media Wing
+Reporters who shaped league history.
+
+Hall of Fame Tiers
+Not public.
+Used internally.
+Tier 1
+Hall of Famers
+
+Tier 2
+Inner Circle
+Top 25–50 figures in league history.
+
+Tier 3
+Immortals
+GOAT-level figures.
+Extremely rare.
+May only appear a handful of times in the first 100 years.
+
+Legacy Tracking
+Every major figure receives:
+
+Legacy Score
+Championships
+Awards
+Hall Probability
+Historical Impact
+Popularity
+Controversy Index
+
+These evolve throughout careers.
+
+Hall of Fame Museum Features
+Tracks permanently:
+	•	Champions
+	•	MVPs
+	•	Finals MVPs
+	•	Retired Jerseys
+	•	Coaching Records
+	•	Executive Records
+	•	Ownership Records
+	•	Scandals
+	•	Dynasties
+	•	GOAT Rankings
+	•	Championship Droughts
+
+Annual NBF Awards
+Players
+	•	Most Valuable Player
+	•	Finals MVP
+	•	Rookie of the Year
+	•	Defensive Player of the Year
+	•	Most Improved Player
+	•	Sixth Man of the Year
+Coaches
+	•	Coach of the Year
+Executives
+	•	Executive of the Year
+Owners
+	•	Owner of the Year
+Media
+	•	Reporter of the Year
+
+Historical Awards
+The NBF also permanently tracks:
+Decade Awards
+Every 10 Years:
+	•	Player of the Decade
+	•	Coach of the Decade
+	•	Executive of the Decade
+	•	Team of the Decade
+These become major historical milestones and fuel future dynasty and GOAT debates.

@@ -155,10 +155,102 @@ All cron jobs that notify Green must include:
 `"Delivering to BlueBubbles requires --to <handle|chat_guid:GUID>"`
 → Fix: Add explicit `channel` and `to` fields to delivery object.
 
+### n8n Workflow List UI Crash — Prevention
+
+After ANY workflow import via API or DB (not through UI Save), run:
+
+```sql
+-- Ensure timestamps
+UPDATE workflow_entity SET "createdAt" = strftime('%Y-%m-%d %H:%M:%f', 'now') WHERE "createdAt" IS NULL OR "createdAt" = '';
+UPDATE workflow_entity SET "updatedAt" = strftime('%Y-%m-%d %H:%M:%f', 'now') WHERE "updatedAt" IS NULL OR "updatedAt" = '';
+
+-- Ensure activeVersionId
+UPDATE workflow_entity SET activeVersionId = versionId WHERE activeVersionId IS NULL OR activeVersionId = '';
+
+-- Clean orphans (causes NULL updatedAt on join → crashes WorkflowsView.vue)
+DELETE FROM shared_workflow WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_statistics WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_history WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_publish_history WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+
+-- Ensure published_version entries for active workflows
+INSERT OR IGNORE INTO workflow_published_version (workflowId, publishedVersionId, createdAt, updatedAt)
+SELECT we.id, we.versionId, COALESCE(we."createdAt", strftime('%Y-%m-%d %H:%M:%f', 'now')), COALESCE(we."updatedAt", strftime('%Y-%m-%d %H:%M:%f', 'now'))
+FROM workflow_entity we WHERE we.active = 1 AND we.id NOT IN (SELECT workflowId FROM workflow_published_version);
+```
+
+**Root cause reference:** `memory/2026-07-07-n8n-workflow-list-fix.md` and `memory/2026-07-07-n8n-new-baseline.md`
+
+---
+
+### Media File Access Fix (2026-07-11)
+
+**Problem:** TTS-generated audio files in `~/.openclaw/media/outbound/` show "Outside allowed folders" error when served.
+
+**Root Cause:** OpenClaw's media serving restricts access to workspace paths only (`tools.fs.workspaceOnly`). Files in the global `media/outbound/` directory are outside this boundary.
+
+**Fix Applied:**
+```bash
+# Create symlink from workspace media to outbound directory
+rm -rf ~/.openclaw/workspaces/sol/media
+ln -s ~/.openclaw/media/outbound ~/.openclaw/workspaces/sol/media
+```
+
+**Result:** `~/.openclaw/workspaces/sol/media` → `~/.openclaw/media/outbound`
+
+**For Future TTS Files:** After generating TTS audio, reference files via workspace path:
+- `MEDIA:~/.openclaw/workspaces/sol/media/voice-<timestamp>---<uuid>.mp3`
+
+Or ensure files are copied/symlinked to workspace media before sending.
+
+---
+
+## n8n Database Cleanup After Workflow Deletion
+
+After deleting ANY workflow from `workflow_entity`, clean ALL related tables:
+
+```sql
+-- Clean top-down to avoid FK RESTRICT errors
+DELETE FROM execution_data WHERE executionId NOT IN (SELECT id FROM execution_entity);
+DELETE FROM execution_entity WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM webhook_entity WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_dependency WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_published_version WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_history WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_publish_history WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM workflow_statistics WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM shared_workflow WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+DELETE FROM insights_by_period WHERE metaId NOT IN (SELECT metaId FROM insights_metadata);
+DELETE FROM insights_raw WHERE metaId NOT IN (SELECT metaId FROM insights_metadata);
+DELETE FROM insights_metadata WHERE workflowId NOT IN (SELECT id FROM workflow_entity);
+-- Verify
+SELECT COUNT(*) FROM pragma_foreign_key_check(); -- Should be 0
+```
+
+**Failure to clean orphans causes:**
+- Blank workflow list UI (`e.updatedAt.toString` crash)
+- "Conflicting webhook path" errors on new workflows
+- FK constraint failures when publishing/activating workflows
+- Bloated database (14,200+ orphans accumulated in this session)
+
+**Reference:** `memory/2026-07-07-n8n-new-baseline.md`
+
+---
+
 ### When BlueBubbles Breaks
 - Check server is running: `brew services list | grep bluebubbles`
 - Server URL must be reachable (Tailscale or localhost)
 - If disabled in config: update `openclaw.json` → `channels.bluebubbles.enabled = true`
+
+### Admin PIN (Rotated 2026-07-07)
+- **Value:** `46097565`
+- **Saved to:** `~/.openclaw/workspaces/sol/.admin-pin`
+- **Used for:** Command Center (8770) + Customer Portal (8768) admin access
+- **Old PIN `1234`:** REJECTED — no longer valid
+
+### SAOS_INTERNAL_API_KEY (Rotated 2026-07-06)
+- **Value:** 64-char hex, stored in `.env` + `.zshrc`
+- **Old dev key:** Removed from all code (no fallback)
 
 ---
 

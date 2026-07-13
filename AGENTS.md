@@ -774,15 +774,19 @@ Source: memory/2026-06-27-0511-cdt-memory-hygiene-rule.md
 28. ✅ **Daily Backup Cron** — 3 AM CDT, iMessage alert on failure (2026-07-06)
 29. ✅ **July 5 Changelog PDF** — Documents all P1-P5 + Command Center work (2026-07-06)
 30. ✅ **Invoice Dashboard Health Fix** — Fixed false alarm in Command Center (2026-07-06)
+31. ✅ **Full Systems Audit & Pre-Deployment Fixes** — Admin PIN rotated (1234→46097565), provision bridge plist fixed, 3 tunnel configs cleaned, n8n restarted (6/9 SAOS workflows active), orphaned invoice tunnel killed, test suite 65/65 passing (2026-07-07 03:35 CDT)
+32. ✅ **n8n Workflow List UI Fix** — Orphaned shared_workflow (6), NULL timestamps on 4 SAOS workflows, missing workflow_published_version entries (7), orphaned statistics/history (117 total) all cleaned. Workflow list now renders. Prevention SQL documented (2026-07-07 04:39 CDT)
+33. ✅ **7 SAOS Workflow JSON Files Built** — Assembly (deepseek-v4-pro) built 54 nodes across 7 workflows from Oracle specs. Files at `Systack/content/saos/saos-data/n8n-workflows-v2/` (2026-07-07 04:53 CDT)
+34. ✅ **n8n Full Database Cleanup & New Baseline** — 7 old skeleton workflows deleted, 5 orphaned webhook entries cleaned, ~14,200 orphaned records across 11 tables deleted (execution_entity, execution_data, workflow_dependency, insights_metadata, insights_by_period, insights_raw, etc.). 7 new workflows inserted via SQL with proper history entries. FK violations: 0. n8n PID 18268, HTTP 200. (2026-07-07 05:26 CDT)
 
 **Oracle Priorities: ✅ ALL P1-P5 COMPLETE**
 **Oracle Phase 2: ✅ ALL 5 TASKS COMPLETE** — Production playbook, target accounts, sales library, failure simulations
 **Oracle Phase 3: ✅ ALL 8 FLEET DELIVERABLES COMPLETE** — Market Validation Playbook v1.0 (18 files, ~5,800 lines)
 
-**Remaining (Non-Oracle):**
+**Remaining (Non-Oracle — Updated 2026-07-07 Baseline):**
 1. ✅ iOS Safari cert trust — RESOLVED via Cloudflare Tunnel (portal.systack.net + command.systack.net, real SSL)
-2. ⏳ Production deployment — SAOS_INTERNAL_API_KEY still dev key (rotate to 64-char hex)
+2. ✅ Production deployment — SAOS_INTERNAL_API_KEY rotated to 64-char hex. Admin PIN rotated to 8-digit random. All tunnels cleaned. All services operational. 65/65 tests passing.
 3. ✅ Fleet health monitor — Running every 15 min with iMessage alerts
-4. ⏳ Client onboarding flow — Script ready (`scripts/onboard_client.py`), needs UI wiring
-5. ⏳ Billing integration — Stripe live, subscription management UI pending
-6. ⏳ PESSI top 5 security fixes: rotate API key, add RLS, encrypt backups, off-site backup, MFA mandatory for Enterprise
+4. ⏳ Client onboarding flow — Script ready (`scripts/onboard_client.py`), needs UI wiring (requires first real customer)
+5. ⏳ Billing integration — Stripe live, subscription management UI pending (requires first real customer)
+6. ✅ PESSI security fixes: ✅ API key rotated, ✅ RLS on 12 tables, ✅ backups encrypted, ✅ MFA pushed on all onboarding. Remaining: off-site backup replication (deferred), SOC 2 / pen test (deferred — needs $).

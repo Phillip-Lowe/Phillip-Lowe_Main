@@ -1,0 +1,290 @@
+{
+  "name": "SAOS Enterprise Configure Fleet",
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodes": [
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Webhook: Fleet Config",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "saos-fleet-config",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "saos-fleet-config-v2"
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000002",
+      "name": "Code: Fleet Generator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const crypto = require('crypto');\nconst payload = $input.first().json.body || $input.first().json;\nconst apiKey = crypto.randomBytes(32).toString('hex');\nconst agentCount = payload.agent_count || 5;\nconst agents = [];\nfor (let i = 1; i <= agentCount; i++) {\n  agents.push({\n    agent_name: 'agent_' + i,\n    status: 'provisioned',\n    created_at: new Date().toISOString()\n  });\n}\nconst fleetConfig = {\n  client_id: payload.client_id,\n  plan: payload.plan || 'enterprise',\n  agents,\n  integrations: payload.integrations || [],\n  api_key: apiKey,\n  webhook_url: payload.webhook_url || null,\n  created_at: new Date().toISOString()\n};\nreturn [{ json: { ...payload, fleet_config: fleetConfig, api_key: apiKey, agents } }];"
+      }
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000003",
+      "name": "Postgres: Update Client",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "credentialId": "postgres_saos",
+        "database": "systack_memory",
+        "schema": "public",
+        "operation": "executeQuery",
+        "query": "UPDATE clients SET api_key=$2, fleet_config=$3::jsonb, updated_at=NOW() WHERE id=$1",
+        "queryParameters": "={{[$json.client_id, $json.api_key, JSON.stringify($json.fleet_config)]}}"
+      }
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000004",
+      "name": "Postgres: Insert Agents",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "credentialId": "postgres_saos",
+        "database": "systack_memory",
+        "schema": "public",
+        "operation": "executeQuery",
+        "query": "={{'INSERT INTO client_agents (client_id, agent_name, status) VALUES ' + $('Code: Fleet Generator').first().json.agents.map((a, i) => \"($1, $\" + (i+2) + \", '\" + a.status + \"')\").join(', ')}}",
+        "queryParameters": "={{[$('Code: Fleet Generator').first().json.client_id, ...$('Code: Fleet Generator').first().json.agents.map(a => a.agent_name)]}}"
+      }
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000005",
+      "name": "Code: Build Config Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const original = $('Code: Fleet Generator').first().json;\nreturn [{ json: {\n  client_id: original.client_id,\n  plan: original.plan || 'enterprise',\n  agents: original.agents,\n  integrations: original.integrations || [],\n  api_key: original.api_key,\n  fleet_config: original.fleet_config,\n  webhook_url: original.webhook_url || null\n} }];"
+      }
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000006",
+      "name": "IF: Has Webhook URL",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-has-webhook",
+              "leftValue": "={{$json.webhook_url}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isNotEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000007",
+      "name": "HTTP: POST to Client Webhook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1320,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.webhook_url}}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { client_id: $json.client_id, plan: $json.plan, agents: $json.agents, integrations: $json.integrations, api_key: $json.api_key } }}",
+        "options": {
+          "retry": {
+            "enabled": true,
+            "attempts": 5,
+            "wait": 30000,
+            "continueOnFail": false
+          }
+        }
+      }
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000008",
+      "name": "HTTP: Notify Dashboard",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1540,
+        400
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8770/api/notifications",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { message: 'Fleet configured for client ' + $('Code: Build Config Response').first().json.client_id } }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Saos-Internal-Key",
+              "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "retry": {
+            "enabled": true,
+            "attempts": 5,
+            "wait": 30000,
+            "continueOnFail": false
+          }
+        }
+      }
+    },
+    {
+      "id": "f1b2c3d4-0001-4000-8000-000000000009",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        400
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, api_key: $('Code: Build Config Response').first().json.api_key, fleet_config: $('Code: Build Config Response').first().json.fleet_config } }}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook: Fleet Config": {
+      "main": [
+        [
+          {
+            "node": "Code: Fleet Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Fleet Generator": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Update Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres: Update Client": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Insert Agents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres: Insert Agents": {
+      "main": [
+        [
+          {
+            "node": "Code: Build Config Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build Config Response": {
+      "main": [
+        [
+          {
+            "node": "IF: Has Webhook URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Has Webhook URL": {
+      "main": [
+        [
+          {
+            "node": "HTTP: POST to Client Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP: Notify Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: POST to Client Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Notify Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Notify Dashboard": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

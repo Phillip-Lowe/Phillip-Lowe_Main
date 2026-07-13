@@ -46,6 +46,8 @@ DIRS=(
     demos
     docs
     niches
+    audit
+    partners
 )
 
 echo "📦 Syncing site files to deploy repo..."

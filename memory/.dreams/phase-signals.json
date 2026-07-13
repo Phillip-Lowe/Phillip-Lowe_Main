@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-27T08:00:00.386Z",
+  "updatedAt": "2026-07-09T08:00:00.800Z",
   "entries": {
     "memory:memory/2026-06-20-session-post-mortem.md:7:10": {
       "key": "memory:memory/2026-06-20-session-post-mortem.md:7:10",
@@ -3379,6 +3379,1212 @@
       "lightHits": 0,
       "remHits": 1,
       "lastRemAt": "2026-06-27T08:00:00.386Z"
+    },
+    "memory:memory/2026-07-07.md:3:4": {
+      "key": "memory:memory/2026-07-07.md:3:4",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07.md:9:12": {
+      "key": "memory:memory/2026-07-07.md:9:12",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07.md:13:16": {
+      "key": "memory:memory/2026-07-07.md:13:16",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07.md:19:22": {
+      "key": "memory:memory/2026-07-07.md:19:22",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07.md:23:23": {
+      "key": "memory:memory/2026-07-07.md:23:23",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07.md:26:26": {
+      "key": "memory:memory/2026-07-07.md:26:26",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07.md:29:29": {
+      "key": "memory:memory/2026-07-07.md:29:29",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07.md:32:35": {
+      "key": "memory:memory/2026-07-07.md:32:35",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:4:4": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:4:4",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:7:10": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:7:10",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:13:16": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:13:16",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:19:22": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:19:22",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:25:28": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:25:28",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:32:32": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:32:32",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:35:35": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:35:35",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:40:42": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:40:42",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-site-deploy-fix.md:45:47": {
+      "key": "memory:memory/2026-07-07-site-deploy-fix.md:45:47",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-trust-center-fix.md:4:4": {
+      "key": "memory:memory/2026-07-07-trust-center-fix.md:4:4",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-trust-center-fix.md:7:7": {
+      "key": "memory:memory/2026-07-07-trust-center-fix.md:7:7",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-trust-center-fix.md:10:12": {
+      "key": "memory:memory/2026-07-07-trust-center-fix.md:10:12",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-trust-center-fix.md:15:16": {
+      "key": "memory:memory/2026-07-07-trust-center-fix.md:15:16",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-trust-center-fix.md:19:21": {
+      "key": "memory:memory/2026-07-07-trust-center-fix.md:19:21",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-trust-center-fix.md:24:27": {
+      "key": "memory:memory/2026-07-07-trust-center-fix.md:24:27",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-trust-center-fix.md:28:30": {
+      "key": "memory:memory/2026-07-07-trust-center-fix.md:28:30",
+      "lightHits": 3,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-06.md:5:6": {
+      "key": "memory:memory/2026-07-06.md:5:6",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:13:15": {
+      "key": "memory:memory/2026-07-06.md:13:15",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:18:20": {
+      "key": "memory:memory/2026-07-06.md:18:20",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:23:25": {
+      "key": "memory:memory/2026-07-06.md:23:25",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:28:31": {
+      "key": "memory:memory/2026-07-06.md:28:31",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:34:36": {
+      "key": "memory:memory/2026-07-06.md:34:36",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:39:42": {
+      "key": "memory:memory/2026-07-06.md:39:42",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:45:48": {
+      "key": "memory:memory/2026-07-06.md:45:48",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:51:53": {
+      "key": "memory:memory/2026-07-06.md:51:53",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:56:59": {
+      "key": "memory:memory/2026-07-06.md:56:59",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:65:68": {
+      "key": "memory:memory/2026-07-06.md:65:68",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:69:72": {
+      "key": "memory:memory/2026-07-06.md:69:72",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:73:74": {
+      "key": "memory:memory/2026-07-06.md:73:74",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:77:77": {
+      "key": "memory:memory/2026-07-06.md:77:77",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:83:83": {
+      "key": "memory:memory/2026-07-06.md:83:83",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:86:89": {
+      "key": "memory:memory/2026-07-06.md:86:89",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:92:93": {
+      "key": "memory:memory/2026-07-06.md:92:93",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:96:99": {
+      "key": "memory:memory/2026-07-06.md:96:99",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:102:104": {
+      "key": "memory:memory/2026-07-06.md:102:104",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:107:109": {
+      "key": "memory:memory/2026-07-06.md:107:109",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:112:112": {
+      "key": "memory:memory/2026-07-06.md:112:112",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:115:118": {
+      "key": "memory:memory/2026-07-06.md:115:118",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:119:122": {
+      "key": "memory:memory/2026-07-06.md:119:122",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:127:130": {
+      "key": "memory:memory/2026-07-06.md:127:130",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:131:132": {
+      "key": "memory:memory/2026-07-06.md:131:132",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:138:138": {
+      "key": "memory:memory/2026-07-06.md:138:138",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:141:144": {
+      "key": "memory:memory/2026-07-06.md:141:144",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:145:148": {
+      "key": "memory:memory/2026-07-06.md:145:148",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06.md:151:154": {
+      "key": "memory:memory/2026-07-06.md:151:154",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:5:5": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:5:5",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:7:7": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:7:7",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:11:11": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:11:11",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:15:18": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:15:18",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:19:19": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:19:19",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:21:22": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:21:22",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:24:27": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:24:27",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:29:32": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:29:32",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:33:36": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:33:36",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:40:43": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:40:43",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:44:45": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:44:45",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:49:49": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:49:49",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:50:53": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:50:53",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:57:57": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:57:57",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-compute-conservation-mode.md:63:66": {
+      "key": "memory:memory/2026-07-06-compute-conservation-mode.md:63:66",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:3:6": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:3:6",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:7:7": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:7:7",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:13:13": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:13:13",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:15:17": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:15:17",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:19:19": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:19:19",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:27:30": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:27:30",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:31:31": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:31:31",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:35:38": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:35:38",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:39:39": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:39:39",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:43:46": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:43:46",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:50:53": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:50:53",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:57:60": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:57:60",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:61:61": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:61:61",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:65:68": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:65:68",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:69:70": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:69:70",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:74:75": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:74:75",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:79:82": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:79:82",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:83:86": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:83:86",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:87:90": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:87:90",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:91:94": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:91:94",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:95:96": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:95:96",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:102:102": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:102:102",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:106:109": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:106:109",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:110:113": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:110:113",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:114:115": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:114:115",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:117:117": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:117:117",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:121:121": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:121:121",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:123:123": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:123:123",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-handoff.md:127:130": {
+      "key": "memory:memory/2026-07-06-oracle-handoff.md:127:130",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:3:6": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:3:6",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:7:7": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:7:7",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:13:13": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:13:13",
+      "lightHits": 2,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-06-17-session-close-0711.md:1:50": {
+      "key": "memory:memory/2026-06-17-session-close-0711.md:1:50",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-06-05-saos-percy-strategy-lessons.md:94:132": {
+      "key": "memory:memory/2026-06-05-saos-percy-strategy-lessons.md:94:132",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-06-17-vultr-provisioning.md:95:149": {
+      "key": "memory:memory/2026-06-17-vultr-provisioning.md:95:149",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-07T08:01:19.777Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:15:15": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:15:15",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:17:20": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:17:20",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:21:24": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:21:24",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:26:26": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:26:26",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:32:35": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:32:35",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:36:39": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:36:39",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:45:48": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:45:48",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-06-oracle-phase3-handoff.md:49:52": {
+      "key": "memory:memory/2026-07-06-oracle-phase3-handoff.md:49:52",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-06-03-afternoon-session.md:1:40": {
+      "key": "memory:memory/2026-06-03-afternoon-session.md:1:40",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-06-23-utopia-deli-email-campaign-complete.md:1:43": {
+      "key": "memory:memory/2026-06-23-utopia-deli-email-campaign-complete.md:1:43",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-06-24-0529-cdt-dashboard-production.md:1:38": {
+      "key": "memory:memory/2026-06-24-0529-cdt-dashboard-production.md:1:38",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-08T08:00:00.472Z"
+    },
+    "memory:memory/2026-07-07.md:5:7": {
+      "key": "memory:memory/2026-07-07.md:5:7",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:11:11": {
+      "key": "memory:memory/2026-07-07.md:11:11",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:13:13": {
+      "key": "memory:memory/2026-07-07.md:13:13",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:17:20": {
+      "key": "memory:memory/2026-07-07.md:17:20",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:21:24": {
+      "key": "memory:memory/2026-07-07.md:21:24",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:25:26": {
+      "key": "memory:memory/2026-07-07.md:25:26",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:30:33": {
+      "key": "memory:memory/2026-07-07.md:30:33",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:34:37": {
+      "key": "memory:memory/2026-07-07.md:34:37",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:38:41": {
+      "key": "memory:memory/2026-07-07.md:38:41",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:42:44": {
+      "key": "memory:memory/2026-07-07.md:42:44",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:48:51": {
+      "key": "memory:memory/2026-07-07.md:48:51",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:52:55": {
+      "key": "memory:memory/2026-07-07.md:52:55",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:56:59": {
+      "key": "memory:memory/2026-07-07.md:56:59",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:63:63": {
+      "key": "memory:memory/2026-07-07.md:63:63",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:64:67": {
+      "key": "memory:memory/2026-07-07.md:64:67",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:68:71": {
+      "key": "memory:memory/2026-07-07.md:68:71",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:72:72": {
+      "key": "memory:memory/2026-07-07.md:72:72",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:76:79": {
+      "key": "memory:memory/2026-07-07.md:76:79",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:80:83": {
+      "key": "memory:memory/2026-07-07.md:80:83",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:84:86": {
+      "key": "memory:memory/2026-07-07.md:84:86",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:92:93": {
+      "key": "memory:memory/2026-07-07.md:92:93",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:96:96": {
+      "key": "memory:memory/2026-07-07.md:96:96",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:98:99": {
+      "key": "memory:memory/2026-07-07.md:98:99",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:104:107": {
+      "key": "memory:memory/2026-07-07.md:104:107",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:111:114": {
+      "key": "memory:memory/2026-07-07.md:111:114",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:115:118": {
+      "key": "memory:memory/2026-07-07.md:115:118",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:122:122": {
+      "key": "memory:memory/2026-07-07.md:122:122",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:126:126": {
+      "key": "memory:memory/2026-07-07.md:126:126",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07.md:127:130": {
+      "key": "memory:memory/2026-07-07.md:127:130",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:8:8": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:8:8",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:10:10": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:10:10",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:11:14": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:11:14",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:16:16": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:16:16",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:19:19": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:19:19",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:21:21": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:21:21",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:23:26": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:23:26",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:27:30": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:27:30",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:31:31": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:31:31",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:33:33": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:33:33",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:37:37": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:37:37",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:39:39": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:39:39",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:41:41": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:41:41",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:43:43": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:43:43",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:45:48": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:45:48",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:49:52": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:49:52",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:53:56": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:53:56",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:57:58": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:57:58",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:60:60": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:60:60",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:62:62": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:62:62",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:66:69": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:66:69",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:70:73": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:70:73",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:74:76": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:74:76",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:80:83": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:80:83",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:84:87": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:84:87",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:88:91": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:88:91",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:95:98": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:95:98",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:99:99": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:99:99",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-new-baseline.md:104:107": {
+      "key": "memory:memory/2026-07-07-n8n-new-baseline.md:104:107",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:5:5": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:5:5",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:7:8": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:7:8",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:11:11": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:11:11",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:15:15": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:15:15",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:18:18": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:18:18",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:21:21": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:21:21",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:23:23": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:23:23",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:24:27": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:24:27",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:30:30": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:30:30",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:33:35": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:33:35",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:40:42": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:40:42",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:44:47": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:44:47",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:48:51": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:48:51",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:52:52": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:52:52",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:55:58": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:55:58",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:59:62": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:59:62",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:64:67": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:64:67",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:70:70": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:70:70",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:72:73": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:72:73",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:78:79": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:78:79",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:83:83": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:83:83",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:85:88": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:85:88",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:92:92": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:92:92",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:94:94": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:94:94",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:97:97": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:97:97",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-07-07-n8n-workflow-list-fix.md:99:101": {
+      "key": "memory:memory/2026-07-07-n8n-workflow-list-fix.md:99:101",
+      "lightHits": 1,
+      "remHits": 0,
+      "lastLightAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-06-29-saos-production-audit.md:1:37": {
+      "key": "memory:memory/2026-06-29-saos-production-audit.md:1:37",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-06-22-session-0957.md:59:92": {
+      "key": "memory:memory/2026-06-22-session-0957.md:59:92",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-09T08:00:00.800Z"
+    },
+    "memory:memory/2026-06-05-v2-empty-fix.md:1:44": {
+      "key": "memory:memory/2026-06-05-v2-empty-fix.md:1:44",
+      "lightHits": 0,
+      "remHits": 1,
+      "lastRemAt": "2026-07-09T08:00:00.800Z"
     }
   }
 }

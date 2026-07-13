@@ -1,0 +1,149 @@
+{
+  "name": "SAOS Chat Bridge",
+  "active": true,
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Webhook: Chat Bridge",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [0, 0],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "saos-chat-bridge",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "saos-chat-bridge-v2"
+    },
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000002",
+      "name": "Code: Detect Intent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0],
+      "parameters": {
+        "jsCode": "const payload = $input.first().json.body || $input.first().json;\nconst message = (payload.message || '').toLowerCase();\nlet intent = 'general';\nif (/invoice|billing|payment|charge|refund|subscription/.test(message)) {\n  intent = 'billing';\n} else if (/error|server|workflow|api|crash|down|fail|timeout/.test(message)) {\n  intent = 'technical';\n} else if (/help|support|ticket|assist|contact/.test(message)) {\n  intent = 'support';\n}\nreturn [{ json: { ...payload, intent } }];"
+      }
+    },
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000003",
+      "name": "Postgres: Load History",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [440, 0],
+      "parameters": {
+        "credentialId": "postgres_saos",
+        "database": "systack_memory",
+        "schema": "public",
+        "table": "chat_messages",
+        "operation": "executeQuery",
+        "query": "SELECT * FROM chat_messages WHERE client_id = $1 AND conversation_id = $2 ORDER BY created_at DESC LIMIT 10",
+        "queryParameters": "={{[$json.client_id, $json.conversation_id]}}"
+      }
+    },
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000004",
+      "name": "Code: Build Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0],
+      "parameters": {
+        "jsCode": "const intent = $input.first().json.intent || 'general';\nconst clientId = $input.first().json.client_id;\nconst userMessage = $input.first().json.message || '';\nconst conversationId = $input.first().json.conversation_id || '';\nconst historyRows = $('Postgres: Load History').first().all().map(r => r.json);\nconst history = historyRows.map(r => `${r.role}: ${r.message}`).join('\\n');\nconst prompt = `Client ID: ${clientId}\\nIntent: ${intent}\\n\\nConversation History:\\n${history || 'No prior messages.'}\\n\\nCurrent User Message:\\n${userMessage}\\n\\nProvide helpful SAOS support response.`;\nreturn [{ json: { client_id: clientId, intent, prompt, conversation_id: conversationId, user_message: userMessage } }];"
+      }
+    },
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000005",
+      "name": "HTTP: Call SOL Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [880, 0],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8770/api/agent/chat",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { client_id: $json.client_id, intent: $json.intent, prompt: $json.prompt } }}",
+        "options": {
+          "retry": {
+            "enabled": true,
+            "attempts": 5,
+            "wait": 30000,
+            "continueOnFail": false
+          }
+        }
+      }
+    },
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000006",
+      "name": "Postgres: Save Messages",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [1100, 0],
+      "parameters": {
+        "credentialId": "postgres_saos",
+        "database": "systack_memory",
+        "schema": "public",
+        "operation": "executeQuery",
+        "query": "INSERT INTO chat_messages (client_id, conversation_id, role, message, created_at) VALUES ($1, $2, 'user', $3, NOW()), ($1, $2, 'assistant', $4, NOW())",
+        "queryParameters": "={{[$('Code: Build Context').first().json.client_id, $('Code: Build Context').first().json.conversation_id, $('Code: Build Context').first().json.user_message, $json.response || 'No response']}}"
+      }
+    },
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000007",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1320, 0],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, response: $('HTTP: Call SOL Agent').first().json.response || 'No response' } }}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook: Chat Bridge": {
+      "main": [
+        [
+          { "node": "Code: Detect Intent", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Code: Detect Intent": {
+      "main": [
+        [
+          { "node": "Postgres: Load History", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Postgres: Load History": {
+      "main": [
+        [
+          { "node": "Code: Build Context", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Code: Build Context": {
+      "main": [
+        [
+          { "node": "HTTP: Call SOL Agent", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "HTTP: Call SOL Agent": {
+      "main": [
+        [
+          { "node": "Postgres: Save Messages", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Postgres: Save Messages": {
+      "main": [
+        [
+          { "node": "Respond to Webhook", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

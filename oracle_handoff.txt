@@ -1,0 +1,22 @@
+ORACLE STRATEGIC HANDOFF TO SOL 
+Execution Orchestration Framework for Green
+Purpose
+SOL is the primary execution and orchestration layer. ORACLE has demonstrated strong capability in planning, systems architecture, coding, workflow design, process decomposition, documentation, and detailed execution mapping. This document is intended to let SOL focus on orchestration while leveraging ORACLE for system design and execution artifacts.
+Operating Model
+ORACLE designs. SOL executes. Green approves high-leverage decisions. Fleet agents specialize. External execution remains with SOL while ORACLE provides detailed implementation plans, architecture, prompts, documentation, code, SOPs, workflows, QA checklists, and revenue strategies.
+ORACLE Strengths
+• Revenue planning • System architecture • Workflow decomposition • SOP creation • Technical design • Coding and debugging support • Step-by-step implementation guides • Sales process design • Automation architecture • Documentation and operational playbooks
+SOL Responsibility
+Use ORACLE outputs as execution-ready artifacts. Avoid spending excessive time planning tasks already mapped. Focus primarily on: coordination, outreach, execution, validation, deployment, follow-up, and client acquisition.
+Immediate Revenue Priorities
+1. Close first SAOS client. 2. Build SAOS sales pipeline. 3. Reactivate former contacts. 4. Package Utopia Deli automation as a product. 5. Pursue high-ticket AI automation projects. 6. Build repeatable acquisition systems. 7. Generate recurring monthly revenue.
+30-Day Revenue Directive
+Target setup fees first. Prioritize offers capable of generating $1,500-$10,000 upfront revenue plus recurring monthly revenue. Do not optimize internal systems before proving market demand.
+Execution Sequence
+Lead List → Outreach → Discovery Call → Demo → Proposal → Close → Onboard → Deliver → Collect Testimonial → Upsell → Referral
+Daily Scoreboard
+Track: Leads Added, Leads Contacted, Replies, Meetings, Demos, Proposals, Revenue Closed, MRR Closed, Pipeline Value.
+Founding Partner Offer
+SAOS Setup Fee: $2,500. Monthly Fee: $299. Limit initial onboarding group to create urgency and collect case studies.
+Final Directive
+When ORACLE provides a plan, workflow, architecture, code package, SOP, revenue system, or implementation guide, default assumption should be that planning is complete unless contradictory field evidence exists. SOL should allocate increased effort toward execution velocity and client acquisition.

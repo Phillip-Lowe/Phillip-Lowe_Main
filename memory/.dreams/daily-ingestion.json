@@ -1,100 +1,80 @@
 {
   "version": 1,
   "files": {
-    "memory/2026-06-26.md": {
-      "mtimeMs": 1782516032548,
-      "size": 2179,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-08-saos-distribution-dashboard.md": {
+      "mtimeMs": 1783498888878,
+      "size": 5435,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25.md": {
-      "mtimeMs": 1782396637213,
-      "size": 6145,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-07.md": {
+      "mtimeMs": 1783420076705,
+      "size": 6989,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-0347-dashboard-fixes.md": {
-      "mtimeMs": 1782377740534,
-      "size": 3464,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-07-n8n-new-baseline.md": {
+      "mtimeMs": 1783420044264,
+      "size": 8705,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-0614-cdt-full-session-lessons.md": {
-      "mtimeMs": 1782386110395,
-      "size": 5139,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-07-n8n-workflow-list-fix.md": {
+      "mtimeMs": 1783417179611,
+      "size": 7351,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-0642-doby-loki-created.md": {
-      "mtimeMs": 1782387935413,
-      "size": 2292,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-07-pre-deploy-audit.md": {
+      "mtimeMs": 1783413178486,
+      "size": 3619,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-0905-oracle-context-lock.md": {
-      "mtimeMs": 1782396346610,
-      "size": 1813,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-07-security-score-95.md": {
+      "mtimeMs": 1783411722508,
+      "size": 3193,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-1819-cdt-session-end.md": {
-      "mtimeMs": 1782429560803,
-      "size": 1512,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-07-site-deploy-fix.md": {
+      "mtimeMs": 1783401178814,
+      "size": 1948,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-local-agent-experiment-results.md": {
-      "mtimeMs": 1782392799204,
-      "size": 3785,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-07-trust-center-fix.md": {
+      "mtimeMs": 1783411077957,
+      "size": 1508,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-path-prefix-cascade-lesson.md": {
-      "mtimeMs": 1782386024636,
-      "size": 1891,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-06.md": {
+      "mtimeMs": 1783338584502,
+      "size": 20814,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-saos-dashboard-mobile-fix.md": {
-      "mtimeMs": 1782379822975,
-      "size": 2590,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-06-compute-conservation-mode.md": {
+      "mtimeMs": 1783335306294,
+      "size": 2117,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-saos-dashboard-pdfs-updated.md": {
-      "mtimeMs": 1782388620394,
-      "size": 2251,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-06-oracle-handoff.md": {
+      "mtimeMs": 1783326616670,
+      "size": 16871,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-25-saos-dashboard-v2.1-ux-overhaul.md": {
-      "mtimeMs": 1782387617574,
-      "size": 3339,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-06-oracle-phase3-handoff.md": {
+      "mtimeMs": 1783334950730,
+      "size": 4459,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-24.md": {
-      "mtimeMs": 1782322579545,
-      "size": 2667,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-06-session-summary.md": {
+      "mtimeMs": 1783335495310,
+      "size": 2075,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-24-0402-cdt.md": {
-      "mtimeMs": 1782291798855,
-      "size": 495,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-06-site-update.md": {
+      "mtimeMs": 1783373664319,
+      "size": 4860,
+      "lastDreamingDayIngested": "2026-07-09"
     },
-    "memory/2026-06-24-0441-cdt-dashboard-rebuild.md": {
-      "mtimeMs": 1782294706923,
-      "size": 3656,
-      "lastDreamingDayIngested": "2026-06-27"
-    },
-    "memory/2026-06-24-0518-kling-ai-installed.md": {
-      "mtimeMs": 1782296292180,
-      "size": 1350,
-      "lastDreamingDayIngested": "2026-06-27"
-    },
-    "memory/2026-06-24-0529-cdt-dashboard-honesty-fix.md": {
-      "mtimeMs": 1782297381924,
-      "size": 3258,
-      "lastDreamingDayIngested": "2026-06-27"
-    },
-    "memory/2026-06-24-0529-cdt-dashboard-production.md": {
-      "mtimeMs": 1782297490469,
-      "size": 2483,
-      "lastDreamingDayIngested": "2026-06-27"
-    },
-    "memory/2026-06-24-0906-cdt-session-complete.md": {
-      "mtimeMs": 1782311934611,
-      "size": 4666,
-      "lastDreamingDayIngested": "2026-06-27"
+    "memory/2026-07-06-workflow-delivery.md": {
+      "mtimeMs": 1783338512296,
+      "size": 3774,
+      "lastDreamingDayIngested": "2026-07-09"
     }
   }
 }

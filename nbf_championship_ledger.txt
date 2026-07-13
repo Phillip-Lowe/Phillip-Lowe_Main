@@ -1,0 +1,14 @@
+Chicago Union: 6
+Dallas Outlaws: 5
+Houston Cosmos: 5
+Portland Lumberjacks: 5
+New York Empire: 5
+Boston Guardians: 4
+Philadelphia Riders: 4
+Atlanta Monarchs: 3
+Charlotte Crown: 3
+Miami Tide: 3
+Little Rock Bandits: 2
+Los Angeles Stars: 2
+Detroit Forge: 2
+Denver Peaks: 1

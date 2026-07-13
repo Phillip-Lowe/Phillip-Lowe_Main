@@ -1,0 +1,176 @@
+NBF MARKET & ARENA DATABASE v1.0
+Little Rock Bandits
+Arena: Bandit Colosseum Capacity: 18,800 Atmosphere: 98/100 Luxury: 72/100 Ticket Price Index: 65/100
+Market
+	•	Market Size: Small
+	•	Fan Passion: 95
+	•	Fan Loyalty: 98
+	•	Fan Patience: 82
+	•	Media Pressure: 35
+	•	Free Agent Appeal: 42
+	•	Corporate Power: 38
+
+Dallas Outlaws
+Arena: Marshal's Range Capacity: 21,500 Atmosphere: 91 Luxury: 92 Ticket Price Index: 88
+Market
+	•	Large
+	•	Passion: 91
+	•	Loyalty: 81
+	•	Patience: 42
+	•	Media Pressure: 93
+	•	Free Agent Appeal: 84
+	•	Corporate Power: 95
+
+Houston Cosmos
+Arena: Nova Orbit Capacity: 20,400 Atmosphere: 86 Luxury: 93 Ticket Price Index: 81
+Market
+	•	Large
+	•	Passion: 84
+	•	Loyalty: 80
+	•	Patience: 70
+	•	Media Pressure: 65
+	•	Free Agent Appeal: 79
+	•	Corporate Power: 92
+
+Denver Peaks
+Arena: The Summit Capacity: 18,700 Atmosphere: 90 Luxury: 80 Ticket Price Index: 75
+Market
+	•	Medium
+	•	Passion: 84
+	•	Loyalty: 86
+	•	Patience: 88
+	•	Media Pressure: 45
+	•	Free Agent Appeal: 61
+	•	Corporate Power: 61
+
+Phoenix Fire
+Arena: The Inferno Capacity: 20,200 Atmosphere: 88 Luxury: 89 Ticket Price Index: 79
+Market
+	•	Large
+	•	Passion: 87
+	•	Loyalty: 76
+	•	Patience: 55
+	•	Media Pressure: 72
+	•	Free Agent Appeal: 78
+	•	Corporate Power: 81
+
+Los Angeles Stars
+Arena: The Constellation Capacity: 22,300 Atmosphere: 88 Luxury: 100 Ticket Price Index: 100
+Market
+	•	Mega
+	•	Passion: 88
+	•	Loyalty: 72
+	•	Patience: 40
+	•	Media Pressure: 100
+	•	Free Agent Appeal: 100
+	•	Corporate Power: 100
+
+Seattle Sound
+Arena: Breaker Bay Pavilion Capacity: 19,300 Atmosphere: 97 Luxury: 84 Ticket Price Index: 78
+Market
+	•	Large
+	•	Passion: 93
+	•	Loyalty: 93
+	•	Patience: 80
+	•	Media Pressure: 58
+	•	Free Agent Appeal: 74
+	•	Corporate Power: 83
+
+Portland Lumberjacks
+Arena: Timberyard Pavilion Capacity: 18,200 Atmosphere: 96 Luxury: 74 Ticket Price Index: 71
+Market
+	•	Medium
+	•	Passion: 92
+	•	Loyalty: 95
+	•	Patience: 87
+	•	Media Pressure: 40
+	•	Free Agent Appeal: 53
+	•	Corporate Power: 52
+
+New York Empire
+Arena: Imperial Square Garden Capacity: 21,900 Atmosphere: 95 Luxury: 99 Ticket Price Index: 98
+Market
+	•	Mega
+	•	Passion: 95
+	•	Loyalty: 85
+	•	Patience: 35
+	•	Media Pressure: 100
+	•	Free Agent Appeal: 98
+	•	Corporate Power: 100
+
+Boston Guardians
+Arena: Sentinel Bastion Capacity: 19,200 Atmosphere: 97 Luxury: 84 Ticket Price Index: 82
+Market
+	•	Large
+	•	Passion: 97
+	•	Loyalty: 94
+	•	Patience: 61
+	•	Media Pressure: 86
+	•	Free Agent Appeal: 73
+	•	Corporate Power: 77
+
+Philadelphia Riders
+Arena: Riders Stadium Capacity: 20,100 Atmosphere: 98 Luxury: 79 Ticket Price Index: 80
+Market
+	•	Large
+	•	Passion: 99
+	•	Loyalty: 91
+	•	Patience: 38
+	•	Media Pressure: 90
+	•	Free Agent Appeal: 68
+	•	Corporate Power: 79
+
+Chicago Union
+Arena: Union Station Pavilion Capacity: 20,900 Atmosphere: 95 Luxury: 88 Ticket Price Index: 84
+Market
+	•	Mega
+	•	Passion: 94
+	•	Loyalty: 88
+	•	Patience: 51
+	•	Media Pressure: 89
+	•	Free Agent Appeal: 83
+	•	Corporate Power: 92
+
+Detroit Forge
+Arena: Ironworks Arena Capacity: 19,100 Atmosphere: 94 Luxury: 77 Ticket Price Index: 69
+Market
+	•	Medium
+	•	Passion: 91
+	•	Loyalty: 94
+	•	Patience: 79
+	•	Media Pressure: 51
+	•	Free Agent Appeal: 55
+	•	Corporate Power: 58
+
+Atlanta Monarchs
+Arena: Monarch Palace Capacity: 20,700 Atmosphere: 84 Luxury: 92 Ticket Price Index: 85
+Market
+	•	Large
+	•	Passion: 78
+	•	Loyalty: 73
+	•	Patience: 58
+	•	Media Pressure: 75
+	•	Free Agent Appeal: 88
+	•	Corporate Power: 90
+
+Charlotte Crown
+Arena: Crown Jewel Arena Capacity: 18,900 Atmosphere: 86 Luxury: 86 Ticket Price Index: 73
+Market
+	•	Medium
+	•	Passion: 82
+	•	Loyalty: 86
+	•	Patience: 91
+	•	Media Pressure: 42
+	•	Free Agent Appeal: 61
+	•	Corporate Power: 63
+
+Miami Tide
+Arena: Breakwater Pavilion Capacity: 20,500 Atmosphere: 87 Luxury: 98 Ticket Price Index: 91
+Market
+	•	Large
+	•	Passion: 84
+	•	Loyalty: 71
+	•	Patience: 54
+	•	Media Pressure: 76
+	•	Free Agent Appeal: 96
+	•	Corporate Power: 94

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Systack Revenue Board — ORACLE Directive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 12px;
+            border: 1px solid #00d4ff;
+        }
+        .header h1 {
+            color: #00d4ff;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .header .directive {
+            color: #ff6b35;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .header .subtitle {
+            color: #888;
+            margin-top: 10px;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .column {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #333;
+        }
+        .column-header {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .todo .column-header { background: #ff6b35; color: #000; }
+        .in-progress .column-header { background: #ffd700; color: #000; }
+        .review .column-header { background: #00d4ff; color: #000; }
+        .done .column-header { background: #00ff88; color: #000; }
+        
+        .card {
+            background: #16213e;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #00d4ff;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+        }
+        .card h3 {
+            color: #00d4ff;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+        .card p {
+            color: #aaa;
+            font-size: 0.85em;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75em;
+            color: #666;
+        }
+        .tag {
+            background: #333;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+        }
+        .tag.high { background: #ff4444; color: white; }
+        .tag.medium { background: #ffaa00; color: black; }
+        .tag.low { background: #00aa44; color: white; }
+        .tag.quick { background: #00d4ff; color: black; }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        .stat-label {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.85em;
+        }
+        
+        .blocked {
+            border-left-color: #ff4444 !important;
+        }
+        .blocked h3 {
+            color: #ff4444 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .board { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Systack Revenue Board</h1>
+        <div class="directive">ORACLE Directive: Stop Building → Get Customers & Revenue</div>
+        <div class="subtitle">Focus: SAOS Sales + Systack Services | Updated: 2026-07-13</div>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value" id="todo-count">0</div>
+            <div class="stat-label">To Do</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="progress-count">0</div>
+            <div class="stat-label">In Progress</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="review-count">0</div>
+            <div class="stat-label">Review</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="done-count">0</div>
+            <div class="stat-label">Done</div>
+        </div>
+    </div>
+
+    <div class="board">
+        <!-- TO DO Column -->
+        <div class="column todo">
+            <div class="column-header">📋 TO DO</div>
+            
+            <div class="card" data-id="1">
+                <h3>Activate Cold Email Campaign</h3>
+                <p>Launch the 20-prospect cold email sequence for SAOS. "Reply to email" CTA. Track opens/clicks.</p>
+                <div class="card-meta">
+                    <span class="tag high">HIGH</span>
+                    <span>Agent: CHATTY</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="2">
+                <h3>Launch Free Automation Audit Lead Magnet</h3>
+                <p>Promote systack.net/audit/ via LinkedIn, email, and direct outreach. Drive inbound leads.</p>
+                <div class="card-meta">
+                    <span class="tag high">HIGH</span>
+                    <span>Agent: ATLAS</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="3">
+                <h3>Create Partner Program Page</h3>
+                <p>Build systack.net/partners with 20% recurring commission structure. Affiliate signup flow.</p>
+                <div class="card-meta">
+                    <span class="tag medium">MEDIUM</span>
+                    <span>Agent: GENI</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="4">
+                <h3>Build Service Business OS Landing Page</h3>
+                <p>$499 setup + $299/mo packaged offer. Vertical: service businesses (HVAC, plumbing, etc).</p>
+                <div class="card-meta">
+                    <span class="tag medium">MEDIUM</span>
+                    <span>Agent: ASSEMBLY</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="5">
+                <h3>Scale to 100+ Prospects</h3>
+                <p>Expand cold email from 20 to 100+ targets. Use industry playbooks (Roofing, HVAC, Dental, etc).</p>
+                <div class="card-meta">
+                    <span class="tag medium">MEDIUM</span>
+                    <span>Agent: ATLAS</span>
+                </div>
+            </div>
+            
+            <div class="card blocked" data-id="6">
+                <h3>Stripe Live Integration</h3>
+                <p>Connect real Stripe for billing. Subscription management UI. Needs first customer.</p>
+                <div class="card-meta">
+                    <span class="tag low">BLOCKED</span>
+                    <span>Agent: DOOBY</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- IN PROGRESS Column -->
+        <div class="column in-progress">
+            <div class="column-header">🔄 IN PROGRESS</div>
+            
+            <div class="card" data-id="7">
+                <h3>LinkedIn Outreach Campaign</h3>
+                <p>Daily LinkedIn posts + direct messaging to prospects. Focus on automation ROI.</p>
+                <div class="card-meta">
+                    <span class="tag high">HIGH</span>
+                    <span>Agent: CHATTY</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="8">
+                <h3>SAOS Demo Environment</h3>
+                <p>Polish customer portal demo (port 8768). Add sample data, walkthrough video.</p>
+                <div class="card-meta">
+                    <span class="tag medium">MEDIUM</span>
+                    <span>Agent: GENI</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- REVIEW Column -->
+        <div class="column review">
+            <div class="column-header">👀 REVIEW</div>
+            
+            <div class="card" data-id="9">
+                <h3>Customer Onboarding Script</h3>
+                <p>Automated client setup via scripts/onboard_client.py. Test with first real customer.</p>
+                <div class="card-meta">
+                    <span class="tag medium">MEDIUM</span>
+                    <span>Agent: VALI</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="10">
+                <h3>Industry Playbooks (5 Verticals)</h3>
+                <p>ATLAS completed: Roofing, HVAC, Plumbing, Dental, Food Trucks. Review for accuracy.</p>
+                <div class="card-meta">
+                    <span class="tag quick">QUICK WIN</span>
+                    <span>Agent: ATLAS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DONE Column -->
+        <div class="column done">
+            <div class="column-header">✅ DONE</div>
+            
+            <div class="card" data-id="11">
+                <h3>Market Validation Playbook v1.0</h3>
+                <p>8 fleet deliverables complete. 18 files, ~5,800 lines. Ready for sales use.</p>
+                <div class="card-meta">
+                    <span class="tag quick">COMPLETE</span>
+                    <span>2026-07-06</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="12">
+                <h3>Security Score 9.5/10</h3>
+                <p>All P1-P5 security complete. Production-ready. Gap to 10.0 = external audit.</p>
+                <div class="card-meta">
+                    <span class="tag quick">COMPLETE</span>
+                    <span>2026-07-07</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="13">
+                <h3>Test Suite: 65/65 Passing</h3>
+                <p>API endpoint tests all green. Pre-deploy validation complete.</p>
+                <div class="card-meta">
+                    <span class="tag quick">COMPLETE</span>
+                    <span>2026-07-07</span>
+                </div>
+            </div>
+            
+            <div class="card" data-id="14">
+                <h3>Workflow Delivery Phase 1</h3>
+                <p>Shared n8n with tenant isolation. 7 API endpoints. Customer portal tabs.</p>
+                <div class="card-meta">
+                    <span class="tag quick">COMPLETE</span>
+                    <span>2026-07-06</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Systack Revenue Board | ORACLE Directive: Revenue First</p>
+        <p>Agents: CHATTY (outreach), ATLAS (research), GENI (creative), ASSEMBLY (architecture), DOOBY (code), VALI (QA)</p>
+    </div>
+
+    <script>
+        // Update card counts
+        function updateCounts() {
+            document.getElementById('todo-count').textContent = document.querySelectorAll('.todo .card').length;
+            document.getElementById('progress-count').textContent = document.querySelectorAll('.in-progress .card').length;
+            document.getElementById('review-count').textContent = document.querySelectorAll('.review .card').length;
+            document.getElementById('done-count').textContent = document.querySelectorAll('.done .card').length;
+        }
+        updateCounts();
+
+        // Simple card click handler (for future drag-drop)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                console.log('Card clicked:', this.querySelector('h3').textContent);
+                // Future: open detail view, move to next column, etc.
+            });
+        });
+    </script>
+</body>
+</html>

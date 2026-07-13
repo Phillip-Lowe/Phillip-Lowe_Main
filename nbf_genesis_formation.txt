@@ -1,0 +1,247 @@
+PHASE 2 — GENESIS FORMATION ERA
+NBF Years 1–3
+Validation: PASS
+Phase 1 built the world.
+Phase 2 creates the first generation.
+For the first time in league history:
+	•	Owners begin making decisions.
+	•	GMs get hired.
+	•	Coaches get hired.
+	•	Players are drafted.
+	•	Franchises develop identities.
+	•	Championships become possible.
+
+Year 1 Timeline
+Stage 1 — GM Hiring Cycle
+Each owner evaluates the 50-GM pool.
+Hiring factors:
+
+Owner Philosophy
++
+Team Culture
++
+Market Pressure
++
+GM Reputation
++
+GM Skill Ratings
+=
+Hiring Score
+
+Example:
+Little Rock Bandits
+Bill Mercer prioritizes:
+	•	Drafting
+	•	Character
+	•	Development
+	•	Patience
+Likely GM Targets:
+	•	Andrew Sloane
+	•	Ethan Rhodes
+	•	Elijah Ward
+	•	Harper Mitchell
+
+Dallas Outlaws
+Lucas Sterling prioritizes:
+	•	Reputation
+	•	Winning Now
+	•	Aggression
+Likely Targets:
+	•	Cameron Price
+	•	Mason Cole
+	•	Jonathan Price
+	•	Hunter Wallace
+
+New York Empire
+Vincent Roth prioritizes:
+	•	Prestige
+	•	Influence
+	•	Star Acquisition
+Likely Targets:
+	•	Mason Cole
+	•	Jonathan Price
+	•	Marcus Holloway
+
+Stage 2 — Coach Hiring Cycle
+After a GM is hired:
+
+GM
+↓
+Interview Pool
+↓
+Coaching Hire
+
+Example:
+Development-focused GMs tend to choose:
+	•	Trent Holloway
+	•	Elijah Ross
+	•	Jordan Keene
+Aggressive GMs tend to choose:
+	•	Victor Lawson
+	•	Jordan Banks
+	•	Tyson Blackwell
+
+Stage 3 — Founding Draft
+All 500 players enter the inaugural player draft.
+Draft Structure:
+
+Round 1
+Round 2
+Round 3
+Round 4
+Round 5
+
+80 total players selected.
+
+Stage 4 — Founding Free Agency
+Remaining players become free agents.
+GMs fill rosters based on:
+	•	Need
+	•	Talent
+	•	Budget
+	•	Age
+	•	Culture fit
+
+Initial Rosters
+Target:
+12 Active Players
+per team.
+16 Teams
+
+16 × 12
+=
+192 Active Players
+
+League Ready.
+
+Year 1 Storylines Engine
+The universe immediately begins generating:
+	•	Breakout rookies
+	•	Draft steals
+	•	Draft busts
+	•	Ownership conflicts
+	•	Trade rumors
+	•	Fan reactions
+	•	Reporter narratives
+
+Genesis Event Probabilities
+Common
+Hot Streak
+18%
+Slump
+20%
+Minor Injury
+24%
+Trade Rumor
+15%
+Reporter Leak
+10%
+
+Uncommon
+Trade
+8%
+Contract Dispute
+6%
+Coach on Hot Seat
+7%
+Locker Room Conflict
+5%
+Suspension
+3%
+
+Rare
+Owner Conflict
+1%
+Major Scandal
+0.5%
+Superstar Demands Trade
+1%
+Franchise Sale
+0.25%
+
+Years 2–10
+The Founding Era
+League develops:
+	•	First MVPs
+	•	First Champions
+	•	First Rivalries
+	•	First Dynasty Attempt
+	•	First Hall-of-Fame trajectory players
+Possible outcomes:
+
+Little Rock becomes a powerhouse.
+
+Dallas collapses.
+
+Seattle dominates.
+
+Miami signs stars.
+
+Anything is possible.
+
+Nothing predetermined.
+
+Years 11–25
+The Expansion of History
+Potential developments:
+	•	First retired jerseys
+	•	Legendary coaches
+	•	Failed dynasties
+	•	Historic trades
+	•	First commissioner controversies
+	•	Reporter icons emerge
+
+Years 26–40
+Legacy Era
+League now contains:
+	•	Hall of Famers
+	•	Rivalry history
+	•	Championship droughts
+	•	Franchise legends
+	•	Owner feuds
+	•	GM trees
+	•	Coaching trees
+
+Years 41–50
+Modern Era
+The league feels fully alive.
+Possible existence of:
+	•	GOAT debates
+	•	Record books
+	•	Multiple dynasties
+	•	Cursed franchises
+	•	Historic villains
+	•	Famous journalists
+	•	Legendary arenas
+
+End of Genesis
+At the conclusion of Year 50, the simulation locks:
+Permanent History
+	•	Champions
+	•	MVPs
+	•	Award Winners
+	•	Hall of Fame Classes
+	•	Retired Jerseys
+	•	Dynasty Eras
+	•	Major Scandals
+	•	Ownership Changes
+	•	Coach Records
+	•	GM Records
+	•	Arena Records
+	•	Attendance Records
+	•	Rivalry Records
+
+Public Era Begins
+Season 51 Opening Day
+The user enters a world that already contains:
+	•	50 years of basketball history
+	•	Hall of Famers
+	•	Retired jerseys
+	•	Famous owners
+	•	Legendary coaches
+	•	Historic rivalries
+	•	Championship droughts
+	•	Dynasties
+	•	GOAT arguments
+	•	Fan traditions
+The NBF is now ready to begin Genesis simulation design. The next artifact should be the Genesis Simulation Engine v1.0, which defines exactly how every season is processed and how history is recorded.

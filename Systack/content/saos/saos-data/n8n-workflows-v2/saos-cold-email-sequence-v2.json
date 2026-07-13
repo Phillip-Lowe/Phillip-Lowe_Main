@@ -1,0 +1,265 @@
+{
+  "name": "SAOS Cold Email Sequence Sender",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1 *"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Weekly Monday Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 200]
+    },
+    {
+      "parameters": {},
+      "id": "a1b2c3d4-0001-4000-8000-000000000002",
+      "name": "Manual Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// SAOS Cold Email Sequence — Prospect Data + Personalization\n// This node holds sample prospect data as a placeholder.\n// In production, replace with Google Sheets Read or HTTP Request to fetch from CRM.\n\nconst prospects = [\n  {\n    first_name: \"Marcus\",\n    last_name: \"Chen\",\n    company_name: \"Copper Kettle Group\",\n    industry: \"Restaurant\",\n    email: \"marcus.chen@copperkettlegroup.com\",\n    pain_points: \"12 locations run on spreadsheets; no centralized inventory; managers text orders manually; 18% food waste variance\",\n    current_tools: \"Toast POS, Google Sheets, WhatsApp groups\",\n    tier: \"Enterprise\",\n    priority_score: 9,\n    contacted: false\n  },\n  {\n    first_name: \"Jim\",\n    last_name: \"Harrison\",\n    company_name: \"Midwest Fulfillment Partners\",\n    industry: \"3PL\",\n    email: \"jim.harrison@midwestfulfillment.com\",\n    pain_points: \"NetSuite configured but staff uses spreadsheets for 60% of ops; no automated SLA compliance tracking; chargeback disputes take 3 weeks\",\n    current_tools: \"ShipStation, NetSuite, Zoho CRM\",\n    tier: \"Enterprise\",\n    priority_score: 10,\n    contacted: false\n  },\n  {\n    first_name: \"Kevin\",\n    last_name: \"Liu\",\n    company_name: \"Brightpath Accounting Group\",\n    industry: \"Accounting\",\n    email: \"kevin.liu@brightpathaccounting.com\",\n    pain_points: \"Client document collection is endless email threads; 40% of tax season chasing documents; no client portal\",\n    current_tools: \"Lacerte, QuickBooks, Smartsheet\",\n    tier: \"Business\",\n    priority_score: 9,\n    contacted: false\n  }\n];\n\n// Filter out already-contacted prospects\nconst newProspects = prospects.filter(p => !p.contacted);\n\n// Build personalized emails for each prospect\nconst personalizedEmails = newProspects.map(prospect => {\n  const industryLabel = prospect.industry === \"3PL\" ? \"logistics\" : prospect.industry.toLowerCase();\n\n  // Email 1 — Initial (Pain-Driven)\n  const email1Subject = `Your ${industryLabel} staff is doing data entry`;\n  const email1Body = `Hey ${prospect.first_name},\n\nYour team didn't get into this business to key invoices into spreadsheets.\n\nMost ${industryLabel} operators I talk to are losing 8–12 hours a week to manual document processing, reconciliation, and chasing down approvals. That time doesn't show up on a P&L, but it shows up in your labor costs and your sanity.\n\nHere's what I'm seeing at ${prospect.company_name}: ${prospect.pain_points}.\n\nSAOS automates the paperwork so your team can focus on what matters — not forms.\n\nWorth a 15-minute conversation?\n\nGreen Phillips\nFounder, SyStack`;\n\n  // Email 2 — Follow-up (Case Study, Day 3)\n  const email2Subject = `How a similar ${industryLabel} company reclaimed 10 hours/week`;\n  const email2Body = `Hi ${prospect.first_name},\n\nA ${industryLabel} company with similar operations was drowning in manual paperwork. Their managers were coming in early just to reconcile accounts.\n\nWe automated their document intake, classification, and approval routing. They got their mornings back. No new hires, no new software to manage.\n\nThey hit breakeven in 3 weeks.\n\nIf that sounds like something worth exploring for ${prospect.company_name}, let me know.\n\nGreen Phillips\nFounder, SyStack`;\n\n  // Email 3 — Breakup (Day 10)\n  const email3Subject = `Permission to close your file?`;\n  const email3Body = `Hi ${prospect.first_name},\n\nI've reached out a couple times about automating your back-office paperwork. No pressure — if the timing isn't right, I get it.\n\nIf it's a \"not now,\" just reply \"later\" and I'll check back in a few months.\n\nIf it's a \"never,\" reply \"no thanks\" and you'll never hear from me again.\n\nEither way, good luck with ${prospect.company_name}.\n\nGreen Phillips\nFounder, SyStack`;\n\n  return {\n    prospect: prospect,\n    email1: { subject: email1Subject, body: email1Body, to: prospect.email },\n    email2: { subject: email2Subject, body: email2Body, to: prospect.email },\n    email3: { subject: email3Subject, body: email3Body, to: prospect.email }\n  };\n});\n\nreturn personalizedEmails;"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000003",
+      "name": "Process Prospects",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email1.to }}",
+        "subject": "={{ $json.email1.subject }}",
+        "message": "={{ $json.email1.body }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000004",
+      "name": "Send Email 1 (Initial)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [500, 200],
+      "credentials": {
+        "gmail": {
+          "id": "gmail_saos_outreach",
+          "name": "Gmail - SAOS Outreach"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "unit": "days"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000005",
+      "name": "Wait 3 Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [750, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email2.to }}",
+        "subject": "={{ $json.email2.subject }}",
+        "message": "={{ $json.email2.body }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000006",
+      "name": "Send Email 2 (Follow-up)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1000, 200],
+      "credentials": {
+        "gmail": {
+          "id": "gmail_saos_outreach",
+          "name": "Gmail - SAOS Outreach"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 7,
+        "unit": "days"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000007",
+      "name": "Wait 7 Days",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email3.to }}",
+        "subject": "={{ $json.email3.subject }}",
+        "message": "={{ $json.email3.body }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000008",
+      "name": "Send Email 3 (Breakup)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1500, 200],
+      "credentials": {
+        "gmail": {
+          "id": "gmail_saos_outreach",
+          "name": "Gmail - SAOS Outreach"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://portal.systack.net/api/v1/sales/pipeline-update",
+        "sendBody": true,
+        "bodyParameters": "{\"prospect_email\":\"{{ $json.prospect.email }}\",\"prospect_name\":\"{{ $json.prospect.first_name }} {{ $json.prospect.last_name }}\",\"company\":\"{{ $json.prospect.company_name }}\",\"stage\":\"Outreach Sent\",\"timestamp\":\"{{ $now.toISO() }}\"}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000009",
+      "name": "Update Pipeline Tracker",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1750, 200]
+    },
+    {
+      "parameters": {},
+      "id": "a1b2c3d4-0001-4000-8000-000000000010",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [0, 600]
+    },
+    {
+      "parameters": {
+        "sendTo": "green@systack.net",
+        "subject": "SAOS Cold Email Workflow Error",
+        "message": "Workflow: SAOS Cold Email Sequence Sender\nError: {{ $json.error.message }}\nNode: {{ $json.error.node.name }}\nTime: {{ $now.toISO() }}\n\nCheck n8n execution log for details.",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000011",
+      "name": "Notify Green on Error",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [250, 600],
+      "credentials": {
+        "gmail": {
+          "id": "gmail_saos_outreach",
+          "name": "Gmail - SAOS Outreach"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Weekly Monday Trigger": {
+      "main": [
+        [
+          {
+            "node": "Process Prospects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Start": {
+      "main": [
+        [
+          {
+            "node": "Process Prospects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Prospects": {
+      "main": [
+        [
+          {
+            "node": "Send Email 1 (Initial)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email 1 (Initial)": {
+      "main": [
+        [
+          {
+            "node": "Wait 3 Days",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3 Days": {
+      "main": [
+        [
+          {
+            "node": "Send Email 2 (Follow-up)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email 2 (Follow-up)": {
+      "main": [
+        [
+          {
+            "node": "Wait 7 Days",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 7 Days": {
+      "main": [
+        [
+          {
+            "node": "Send Email 3 (Breakup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email 3 (Breakup)": {
+      "main": [
+        [
+          {
+            "node": "Update Pipeline Tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Handler": {
+      "main": [
+        [
+          {
+            "node": "Notify Green on Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null
+}

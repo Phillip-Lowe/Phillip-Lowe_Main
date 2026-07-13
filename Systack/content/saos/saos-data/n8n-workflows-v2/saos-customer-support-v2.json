@@ -1,0 +1,234 @@
+{
+  "name": "SAOS Customer Support Drafting",
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodes": [
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Schedule: Every 5 Min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000002",
+      "name": "HTTP: Fetch Pending Tasks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:8768/api/tasks?status=pending&type=support",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Saos-Internal-Key",
+              "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "retry": {
+            "enabled": true,
+            "attempts": 5,
+            "wait": 30000,
+            "continueOnFail": false
+          }
+        }
+      }
+    },
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000003",
+      "name": "IF: Has Tickets",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-has-tickets",
+              "leftValue": "={{$json.length || 0}}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000004",
+      "name": "Code: Draft Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        200
+      ],
+      "parameters": {
+        "jsCode": "const tasks = $input.first().json.data || $input.first().json;\nconst drafts = [];\nfor (const task of tasks) {\n  const t = task.type || 'general';\n  let draft = '';\n  if (t === 'billing') {\n    draft = `Hello,\\n\\nWe reviewed your billing request (Ticket #${task.id}). Our team is processing your inquiry regarding your account balance and payment history. We will provide a detailed response within 24 hours.\\n\\nThank you for your patience.\\nSAOS Support Team`;\n  } else if (t === 'technical') {\n    draft = `Hello,\\n\\nWe reviewed the reported issue (Ticket #${task.id}). Our engineering team has been notified and is investigating the technical concern. We will follow up with troubleshooting steps and a resolution timeline shortly.\\n\\nThank you for your patience.\\nSAOS Support Team`;\n  } else {\n    draft = `Hello,\\n\\nThank you for contacting support (Ticket #${task.id}). We have received your request and will review it promptly. Expect a detailed response within 24-48 hours.\\n\\nSAOS Support Team`;\n  }\n  drafts.push({ json: { task_id: task.id, draft_text: draft } });\n}\nreturn drafts;"
+      }
+    },
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000005",
+      "name": "Postgres: Update Task Draft",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        880,
+        200
+      ],
+      "parameters": {
+        "credentialId": "postgres_saos",
+        "database": "systack_memory",
+        "schema": "public",
+        "operation": "executeQuery",
+        "query": "UPDATE task_queue SET status='draft', draft_text=$2, updated_at=NOW() WHERE id=$1",
+        "queryParameters": "={{[$json.task_id, $json.draft_text]}}"
+      }
+    },
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000006",
+      "name": "HTTP: Notify Dashboard",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1100,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8768/api/notifications",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { type: 'support_draft', message: 'Draft ready for review' } }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Saos-Internal-Key",
+              "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "retry": {
+            "enabled": true,
+            "attempts": 5,
+            "wait": 30000,
+            "continueOnFail": false
+          }
+        }
+      }
+    },
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000007",
+      "name": "Code: No Tickets",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        400
+      ],
+      "parameters": {
+        "jsCode": "return [{ json: { status: 'no_tickets', timestamp: new Date().toISOString() } }];"
+      }
+    }
+  ],
+  "connections": {
+    "Schedule: Every 5 Min": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Fetch Pending Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Fetch Pending Tasks": {
+      "main": [
+        [
+          {
+            "node": "IF: Has Tickets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Has Tickets": {
+      "main": [
+        [
+          {
+            "node": "Code: Draft Engine",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code: No Tickets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Draft Engine": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Update Task Draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres: Update Task Draft": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Notify Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

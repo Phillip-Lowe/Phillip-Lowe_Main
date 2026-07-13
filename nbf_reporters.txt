@@ -1,0 +1,164 @@
+NBF TEAM REPORTER POOL v1.0
+32 Team Reporters (2 Per Franchise)
+These reporters are permanent league characters. They build sources, break stories, create narratives, expose scandals, and may become Hall of Fame journalists over time.
+
+LITTLE ROCK BANDITS
+Emma Cross
+Type: Team Loyalist
+	•	Integrity: 84
+	•	Aggression: 53
+	•	Sources: 88
+	•	Popularity: 72
+Hidden:
+	•	Protects staff relationships
+	•	Trusted by players
+
+Jackson Pierce
+Type: Investigative Reporter
+	•	Integrity: 93
+	•	Aggression: 89
+	•	Sources: 65
+Hidden:
+	•	Hates owner interference
+	•	Loves uncovering secrets
+
+DALLAS OUTLAWS
+Victoria Kane
+Type: League Insider
+	•	Integrity: 68
+	•	Aggression: 75
+	•	Sources: 97
+Hidden:
+	•	Breaks major stories
+	•	Chases scoops
+
+Brandon York
+Type: Hot Take Artist
+	•	Popularity: 93
+	•	Integrity: 52
+Hidden:
+	•	Loves controversy
+	•	Prioritizes clicks
+
+HOUSTON COSMOS
+Olivia Chen
+Type: Journalist
+Trent Wallace
+Type: Insider
+
+DENVER PEAKS
+Sarah Holloway
+Type: Journalist
+Noah Grant
+Type: Investigative Reporter
+
+PHOENIX FIRE
+Rebecca Stone
+Type: Hot Take Artist
+Tyler Vaughn
+Type: League Insider
+
+LOS ANGELES STARS
+Sophia Monroe
+Type: Insider
+	•	Sources: 99
+	•	Popularity: 95
+Hidden:
+	•	Celebrity connections
+
+Chase Bennett
+Type: Hot Take Artist
+Hidden:
+	•	Thrives on drama
+
+SEATTLE SOUND
+Rachel Brooks
+Type: Journalist
+Adam Mercer
+Type: Team Loyalist
+
+PORTLAND LUMBERJACKS
+Hannah Doyle
+Type: Journalist
+Liam Foster
+Type: Investigative Reporter
+
+NEW YORK EMPIRE
+Katherine Roth
+Type: League Insider
+	•	Sources: 98
+Hidden:
+	•	Knows everyone
+
+Marcus Sloan
+Type: Investigative Reporter
+Hidden:
+	•	Fearless
+	•	Unpopular with ownership
+
+BOSTON GUARDIANS
+Abigail Pierce
+Type: Journalist
+Connor Hayes
+Type: Team Loyalist
+
+PHILADELPHIA RIDERS
+Derek Malone
+Type: Investigative Reporter
+	•	Aggression: 94
+Hidden:
+	•	Never backs down
+
+Emily Doyle
+Type: Journalist
+Hidden:
+	•	Respected by coaches
+
+CHICAGO UNION
+Nathan Rhodes
+Type: Insider
+Samantha Grant
+Type: Journalist
+
+DETROIT FORGE
+Caleb Mercer
+Type: Investigative Reporter
+Olivia Grant
+Type: Journalist
+
+ATLANTA MONARCHS
+Vanessa King
+Type: Insider
+Jordan Banks
+Type: Hot Take Artist
+
+CHARLOTTE CROWN
+Madison Reid
+Type: Journalist
+Ethan Brooks
+Type: Team Loyalist
+
+MIAMI TIDE
+Sofia Cruz
+Type: Insider
+Gabriel Hart
+Type: Hot Take Artist
+
+NATIONAL MEDIA STARS
+These reporters are not tied to teams and may become famous league-wide.
+Michael Trent
+Role: NBF Network Lead Insider
+Rachel Lawson
+Role: Hardwood Weekly Senior Writer
+Devin Cross
+Role: Full Court Network Host
+Lauren Kane
+Role: Investigative Journalist
+Anthony Webb
+Role: League Historian
+Carla Bennett
+Role: Debate Show Host
+Victor Price
+Role: Draft Analyst
+Danielle Ross
+Role: Championship Correspondent

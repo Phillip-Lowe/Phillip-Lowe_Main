@@ -1,0 +1,1351 @@
+FOUNDATION VALIDATION: PASS
+FOUNDATION POOLS VALIDATION: PASS
+OWNER / MARKET VALIDATION: PASS
+INSTITUTIONAL POOLS VALIDATION: PASS
+PLAYER ENRICHMENT VALIDATION: PASS
+
+============================================
+NBF / LBU FOUNDATION LOADED
+============================================
+League: National Basketball Federation
+Motto: Ball On 'Em
+Trophy: Albert Green Championship Trophy
+Commissioner: Victor Hale
+Hall of Fame: Albert Green Basketball Hall of Fame
+Hall Location: Springfield, Missouri
+Current Year: 0
+Public Era Begins: Season 51
+GM Pool Size: 50
+Coach Pool Size: 60
+Player Pool Size: 500
+
+Eastern Conference:
+- New York Empire | Owner: Vincent Roth
+- Boston Guardians | Owner: Charles Whitmore IV
+- Philadelphia Riders | Owner: Patrick Doyle
+- Chicago Union | Owner: Margaret Walsh
+- Detroit Forge | Owner: Anthony Greco
+- Atlanta Monarchs | Owner: Travis King
+- Charlotte Crown | Owner: Rachel Morgan
+- Miami Tide | Owner: Alejandro Cruz
+
+Western Conference:
+- Little Rock Bandits | Owner: William Bill Mercer
+- Dallas Outlaws | Owner: Lucas Sterling
+- Houston Cosmos | Owner: Dr. Elena Vasquez
+- Denver Peaks | Owner: Michael Harlan
+- Phoenix Fire | Owner: Sophia Kane
+- Los Angeles Stars | Owner: Jordan Vale
+- Seattle Sound | Owner: Nathan Brooks
+- Portland Lumberjacks | Owner: Evelyn Ward
+
+History Log:
+- Year 0: The National Basketball Federation was founded by Albert Green.
+============================================
+
+
+============================================
+FOUNDATION POOLS LOADED
+============================================
+Players: 500
+GMs: 50
+Coaches: 60
+
+Top 10 Players by Overall:
+- ID 206: Ethan Stone | C | Age 20 | Generational | OVR 99
+- ID 463: Xavier Dean | PF | Age 38 | Generational | OVR 99
+- ID 359: Nolan Ward | PF | Age 22 | Generational | OVR 97
+- ID 446: Logan Doyle | SG | Age 35 | Generational | OVR 96
+- ID 62: Isaiah Wallace | PF | Age 29 | Superstar | OVR 94
+- ID 412: Owen Gardner | SF | Age 28 | Superstar | OVR 94
+- ID 92: Victor King | PF | Age 32 | Superstar | OVR 93
+- ID 155: Andre Ford | PG | Age 23 | Superstar | OVR 93
+- ID 191: Nolan Wallace | SG | Age 20 | Superstar | OVR 93
+- ID 232: Damien Bennett | C | Age 32 | Superstar | OVR 93
+
+First 10 GM Candidates:
+- Andrew Sloane | Age 38 | Analytics Builder | OVR 74
+- Marcus Holloway | Age 51 | Veteran Executive | OVR 74
+- Jordan Pike | Age 42 | Draft Specialist | OVR 71
+- Olivia Kane | Age 37 | Talent Evaluator | OVR 71
+- Eric Bennett | Age 54 | Win-Now Executive | OVR 68
+- Cameron Price | Age 45 | Star Hunter | OVR 68
+- Nathan Ross | Age 48 | Culture Builder | OVR 71
+- Derek Vaughn | Age 41 | Risk Taker | OVR 68
+- Sophia Walker | Age 39 | Modern Architect | OVR 71
+- Brandon Chase | Age 50 | Traditionalist | OVR 69
+
+First 10 Coach Candidates:
+- Trent Holloway | Age 44 | Development Guru | OVR 72
+- Ryan Mercer | Age 48 | Development Guru | OVR 72
+- Elijah Ross | Age 41 | Development Guru | OVR 72
+- Jordan Keene | Age 52 | Development Guru | OVR 72
+- Daniel Foster | Age 39 | Development Guru | OVR 72
+- Marcus Quinn | Age 46 | Development Guru | OVR 72
+- Isaac Holloway | Age 50 | Development Guru | OVR 72
+- Tyler Brooks | Age 42 | Development Guru | OVR 72
+- Ethan Rhodes | Age 45 | Development Guru | OVR 72
+- Caleb Vaughn | Age 43 | Development Guru | OVR 71
+============================================
+
+
+============================================
+PLAYER ENRICHMENT SUMMARY
+============================================
+Top 10 Enriched Players by Value Score:
+- ID 206: Ethan Stone | C | Age 20 | Generational | OVR 99 | POT 99 | OFF 94 | DEF 99 | REB 99 | IQ 99 | DUR 99 | Risk 1 | Motivation: Championships
+- ID 359: Nolan Ward | PF | Age 22 | Generational | OVR 97 | POT 99 | OFF 94 | DEF 99 | REB 99 | IQ 94 | DUR 99 | Risk 1 | Motivation: Championships
+- ID 463: Xavier Dean | PF | Age 38 | Generational | OVR 99 | POT 99 | OFF 99 | DEF 99 | REB 99 | IQ 96 | DUR 81 | Risk 27 | Motivation: Immortality
+- ID 155: Andre Ford | PG | Age 23 | Superstar | OVR 93 | POT 99 | OFF 91 | DEF 99 | REB 91 | IQ 99 | DUR 88 | Risk 12 | Motivation: Dominance
+- ID 191: Nolan Wallace | SG | Age 20 | Superstar | OVR 93 | POT 99 | OFF 99 | DEF 91 | REB 86 | IQ 94 | DUR 99 | Risk 1 | Motivation: Immortality
+- ID 237: Patrick Knight | SG | Age 19 | Superstar | OVR 92 | POT 99 | OFF 96 | DEF 98 | REB 80 | IQ 99 | DUR 96 | Risk 4 | Motivation: Dominance
+- ID 478: Kendrick Drake | SG | Age 20 | Superstar | OVR 92 | POT 99 | OFF 93 | DEF 96 | REB 91 | IQ 91 | DUR 85 | Risk 15 | Motivation: Legacy
+- ID 446: Logan Doyle | SG | Age 35 | Generational | OVR 96 | POT 99 | OFF 98 | DEF 96 | REB 91 | IQ 94 | DUR 78 | Risk 30 | Motivation: Championships
+- ID 453: Logan Stone | SF | Age 25 | Superstar | OVR 92 | POT 99 | OFF 90 | DEF 99 | REB 93 | IQ 98 | DUR 93 | Risk 7 | Motivation: Dominance
+- ID 39: Ethan Ward | C | Age 27 | Superstar | OVR 91 | POT 99 | OFF 85 | DEF 97 | REB 99 | IQ 94 | DUR 89 | Risk 11 | Motivation: Championships
+
+Tier Potential Averages:
+- Fringe: OVR 59.6 | POT 64.0 | Count 67
+- Generational: OVR 97.8 | POT 99.0 | Count 4
+- Role: OVR 67.9 | POT 72.6 | Count 174
+- Star: OVR 83.4 | POT 90.1 | Count 44
+- Starter: OVR 75.5 | POT 81.3 | Count 184
+- Superstar: OVR 90.9 | POT 96.8 | Count 27
+============================================
+
+
+============================================
+OWNER / MARKET FOUNDATION SUMMARY
+============================================
+
+Little Rock Bandits
+Owner: William Bill Mercer | Age 67 | Loyal Builder | Industry: Logistics & Freight | Net Worth: $4.8B
+Owner Ratings: Win 88 | Patience 91 | Greed 38 | Control 72 | PR 58
+Philosophy: Nobody gives us respect. We'll take it.
+Hidden Traits: Extremely Loyal, Holds Grudges, Values Development
+Arena: Bandit Colosseum | Capacity 18800 | Atmosphere 98 | Luxury 72
+Market: Small | Passion 95 | Loyalty 98 | Patience 82 | Media 35 | FA Appeal 42
+
+Dallas Outlaws
+Owner: Lucas Sterling | Age 54 | Win At All Costs | Industry: Private Equity | Net Worth: $19.7B
+Owner Ratings: Win 99 | Patience 29 | Greed 61 | Control 92 | PR 82
+Philosophy: Second place is losing.
+Hidden Traits: Ruthless, Impulsive, Media Savvy
+Arena: Marshal's Range | Capacity 21500 | Atmosphere 91 | Luxury 92
+Market: Large | Passion 91 | Loyalty 81 | Patience 42 | Media 93 | FA Appeal 84
+
+Houston Cosmos
+Owner: Dr. Elena Vasquez | Age 50 | Innovator | Industry: Energy Technology | Net Worth: $11.2B
+Owner Ratings: Win 84 | Patience 78 | Greed 35 | Control 50 | PR 72
+Hidden Traits: Analytics Obsessed, Long-Term Thinker
+Arena: Nova Orbit | Capacity 20400 | Atmosphere 86 | Luxury 93
+Market: Large | Passion 84 | Loyalty 80 | Patience 70 | Media 65 | FA Appeal 79
+
+Denver Peaks
+Owner: Michael Harlan | Age 61 | Hands-Off Steward | Industry: Outdoor Recreation | Net Worth: $5.9B
+Owner Ratings: Win 75 | Patience 95 | Greed 27 | Control 20 | PR 45
+Arena: The Summit | Capacity 18700 | Atmosphere 90 | Luxury 80
+Market: Medium | Passion 84 | Loyalty 86 | Patience 88 | Media 45 | FA Appeal 61
+
+Phoenix Fire
+Owner: Sophia Kane | Age 47 | Celebrity Owner | Industry: Hospitality | Net Worth: $7.4B
+Owner Ratings: Win 86 | Patience 52 | Greed 42 | Control 64 | PR 97
+Arena: The Inferno | Capacity 20200 | Atmosphere 88 | Luxury 89
+Market: Large | Passion 87 | Loyalty 76 | Patience 55 | Media 72 | FA Appeal 78
+
+Los Angeles Stars
+Owner: Jordan Vale | Age 58 | Global Mogul | Industry: Entertainment Empire | Net Worth: $24.3B
+Owner Ratings: Win 96 | Patience 60 | Greed 48 | Control 86 | PR 100
+Arena: The Constellation | Capacity 22300 | Atmosphere 88 | Luxury 100
+Market: Mega | Passion 88 | Loyalty 72 | Patience 40 | Media 100 | FA Appeal 100
+
+Seattle Sound
+Owner: Nathan Brooks | Age 55 | Basketball Purist | Industry: Software | Net Worth: $15.4B
+Owner Ratings: Win 87 | Patience 83 | Greed 24 | Control 55 | PR 41
+Arena: Breaker Bay Pavilion | Capacity 19300 | Atmosphere 97 | Luxury 84
+Market: Large | Passion 93 | Loyalty 93 | Patience 80 | Media 58 | FA Appeal 74
+
+Portland Lumberjacks
+Owner: Evelyn Ward | Age 63 | Traditionalist | Industry: Timber Holdings | Net Worth: $6.1B
+Owner Ratings: Win 80 | Patience 94 | Greed 29 | Control 48 | PR 39
+Arena: Timberyard Pavilion | Capacity 18200 | Atmosphere 96 | Luxury 74
+Market: Medium | Passion 92 | Loyalty 95 | Patience 87 | Media 40 | FA Appeal 53
+
+New York Empire
+Owner: Vincent Roth | Age 62 | Control Freak | Industry: Finance | Net Worth: $28.9B
+Owner Ratings: Win 97 | Patience 44 | Greed 65 | Control 99 | PR 88
+Arena: Imperial Square Garden | Capacity 21900 | Atmosphere 95 | Luxury 99
+Market: Mega | Passion 95 | Loyalty 85 | Patience 35 | Media 100 | FA Appeal 98
+
+Boston Guardians
+Owner: Charles Whitmore IV | Age 65 | Steward | Industry: Family Wealth | Net Worth: $14.3B
+Owner Ratings: Win 88 | Patience 85 | Greed 31 | Control 66 | PR 70
+Arena: Sentinel Bastion | Capacity 19200 | Atmosphere 97 | Luxury 84
+Market: Large | Passion 97 | Loyalty 94 | Patience 61 | Media 86 | FA Appeal 73
+
+Philadelphia Riders
+Owner: Patrick Doyle | Age 57 | Blue-Collar Competitor | Industry: Manufacturing | Net Worth: $7.8B
+Owner Ratings: Win 92 | Patience 73 | Greed 30 | Control 63 | PR 61
+Philosophy: You earn everything.
+Arena: Riders Stadium | Capacity 20100 | Atmosphere 98 | Luxury 79
+Market: Large | Passion 99 | Loyalty 91 | Patience 38 | Media 90 | FA Appeal 68
+
+Chicago Union
+Owner: Margaret Walsh | Age 59 | Builder | Industry: Infrastructure | Net Worth: $13.1B
+Owner Ratings: Win 90 | Patience 77 | Greed 34 | Control 62 | PR 72
+Arena: Union Station Pavilion | Capacity 20900 | Atmosphere 95 | Luxury 88
+Market: Mega | Passion 94 | Loyalty 88 | Patience 51 | Media 89 | FA Appeal 83
+
+Detroit Forge
+Owner: Anthony Greco | Age 68 | Loyal Owner | Industry: Automotive | Net Worth: $8.5B
+Owner Ratings: Win 86 | Patience 89 | Greed 25 | Control 58 | PR 55
+Arena: Ironworks Arena | Capacity 19100 | Atmosphere 94 | Luxury 77
+Market: Medium | Passion 91 | Loyalty 94 | Patience 79 | Media 51 | FA Appeal 55
+
+Atlanta Monarchs
+Owner: Travis King | Age 46 | Celebrity Owner | Industry: Media & Music | Net Worth: $9.7B
+Owner Ratings: Win 82 | Patience 48 | Greed 45 | Control 70 | PR 99
+Arena: Monarch Palace | Capacity 20700 | Atmosphere 84 | Luxury 92
+Market: Large | Passion 78 | Loyalty 73 | Patience 58 | Media 75 | FA Appeal 88
+
+Charlotte Crown
+Owner: Rachel Morgan | Age 51 | Growth Investor | Industry: Banking | Net Worth: $7.2B
+Owner Ratings: Win 78 | Patience 95 | Greed 32 | Control 40 | PR 65
+Arena: Crown Jewel Arena | Capacity 18900 | Atmosphere 86 | Luxury 86
+Market: Medium | Passion 82 | Loyalty 86 | Patience 91 | Media 42 | FA Appeal 61
+
+Miami Tide
+Owner: Alejandro Cruz | Age 53 | Lifestyle Mogul | Industry: International Real Estate | Net Worth: $16.8B
+Owner Ratings: Win 89 | Patience 58 | Greed 44 | Control 69 | PR 96
+Arena: Breakwater Pavilion | Capacity 20500 | Atmosphere 87 | Luxury 98
+Market: Large | Passion 84 | Loyalty 71 | Patience 54 | Media 76 | FA Appeal 96
+============================================
+
+
+============================================
+INSTITUTIONAL FOUNDATION SUMMARY
+============================================
+Referees: 50
+Team Reporters: 32
+Awards Committee: 25
+Hall of Fame Committee: 15
+
+Top Referees:
+- ID 1: Anthony Foster | ELITE OFFICIATING TIER | Accuracy 96
+- ID 2: Rebecca Hale | ELITE OFFICIATING TIER | Accuracy 95
+- ID 3: Michael Grant | ELITE OFFICIATING TIER | Accuracy 95
+- ID 4: Jordan Ellis | ELITE OFFICIATING TIER | Accuracy 94
+- ID 5: Samuel Rhodes | ELITE OFFICIATING TIER | Accuracy 94
+- ID 6: Victoria Quinn | ELITE OFFICIATING TIER | Accuracy 93
+- ID 7: Brandon Pierce | ELITE OFFICIATING TIER | Accuracy 93
+- ID 8: David Monroe | ELITE OFFICIATING TIER | Accuracy 92
+- ID 9: Olivia Stone | ELITE OFFICIATING TIER | Accuracy 92
+- ID 10: Ethan Cross | ELITE OFFICIATING TIER | Accuracy 92
+
+Team Reporter Assignment:
+- Little Rock Bandits: Emma Cross (Team Loyalist), Jackson Pierce (Investigative Reporter)
+- Dallas Outlaws: Victoria Kane (League Insider), Brandon York (Hot Take Artist)
+- Houston Cosmos: Olivia Chen (Journalist), Trent Wallace (Insider)
+- Denver Peaks: Sarah Holloway (Journalist), Noah Grant (Investigative Reporter)
+- Phoenix Fire: Rebecca Stone (Hot Take Artist), Tyler Vaughn (League Insider)
+- Los Angeles Stars: Sophia Monroe (Insider), Chase Bennett (Hot Take Artist)
+- Seattle Sound: Rachel Brooks (Journalist), Adam Mercer (Team Loyalist)
+- Portland Lumberjacks: Hannah Doyle (Journalist), Liam Foster (Investigative Reporter)
+- New York Empire: Katherine Roth (League Insider), Marcus Sloan (Investigative Reporter)
+- Boston Guardians: Abigail Pierce (Journalist), Connor Hayes (Team Loyalist)
+- Philadelphia Riders: Derek Malone (Investigative Reporter), Emily Doyle (Journalist)
+- Chicago Union: Nathan Rhodes (Insider), Samantha Grant (Journalist)
+- Detroit Forge: Caleb Mercer (Investigative Reporter), Olivia Grant (Journalist)
+- Atlanta Monarchs: Vanessa King (Insider), Jordan Banks (Hot Take Artist)
+- Charlotte Crown: Madison Reid (Journalist), Ethan Brooks (Team Loyalist)
+- Miami Tide: Sofia Cruz (Insider), Gabriel Hart (Hot Take Artist)
+
+Awards Committee Categories:
+- Former Coaches & Executives: 3
+- Former Players: 5
+- Hall Representatives: 2
+- National Media Voters: 10
+- Team Reporter Representatives: 5
+
+Hall of Fame Committee:
+- ID 1: Dr. Samuel Whitaker | Hall of Fame Chairperson
+- ID 2: Patricia Benson | Hall Historian & Archivist
+- ID 3: Harold Finch | Historian
+- ID 4: Marcus Hale | Former Player Voter
+- ID 5: Devon Cross | Former Player Voter
+- ID 6: Jerome Kane | Former Player Voter
+- ID 7: Isaiah Vaughn | Former Player Voter
+- ID 8: Derrick Boone | Former Player Voter
+- ID 9: Samuel Pierce | Former Coach Voter
+- ID 10: Linda Matthews | Former Coach Voter
+- ID 11: Robert McKinley | Former Coach Voter
+- ID 12: Warren Blake | Former Executive Voter
+- ID 13: Elizabeth Grant | Former Executive Voter
+- ID 14: Sarah Whitlock | Former Media Voter
+- ID 15: Michael Trent | Former Media Voter
+============================================
+
+YEAR 1 STAFF VALIDATION: PASS
+
+============================================
+YEAR 1 STAFF ASSIGNMENTS
+============================================
+
+Little Rock Bandits
+Owner: William Bill Mercer | Type: Loyal Builder
+GM: Marcus Holloway | OVR 74 | Scouting 68 | Development 68 | Leadership 99 | Personality: Veteran Executive
+Coach: Robert Chase | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Dallas Outlaws
+Owner: Lucas Sterling | Type: Win At All Costs
+GM: Nathan Ross | OVR 71 | Scouting 68 | Development 68 | Leadership 80 | Personality: Culture Builder
+Coach: Michael Tate | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Houston Cosmos
+Owner: Dr. Elena Vasquez | Type: Innovator
+GM: Jason Whitaker | OVR 71 | Scouting 68 | Development 68 | Leadership 78 | Personality: Veteran Scout
+Coach: Owen Cole | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Denver Peaks
+Owner: Michael Harlan | Type: Hands-Off Steward
+GM: Christopher York | OVR 71 | Scouting 68 | Development 68 | Leadership 78 | Personality: League Veteran
+Coach: Anthony Webb | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Phoenix Fire
+Owner: Sophia Kane | Type: Celebrity Owner
+GM: Derek Vaughn | OVR 68 | Scouting 68 | Development 68 | Leadership 68 | Personality: Risk Taker
+Coach: Hunter Price | OVR 73 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Los Angeles Stars
+Owner: Jordan Vale | Type: Global Mogul
+GM: Cameron Price | OVR 68 | Scouting 68 | Development 68 | Leadership 68 | Personality: Star Hunter
+Coach: Victor Steele | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Seattle Sound
+Owner: Nathan Brooks | Type: Basketball Purist
+GM: Brandon Chase | OVR 69 | Scouting 68 | Development 68 | Leadership 68 | Personality: Traditionalist
+Coach: Frank Donnelly | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Portland Lumberjacks
+Owner: Evelyn Ward | Type: Traditionalist
+GM: Andrew Sloane | OVR 74 | Scouting 98 | Development 68 | Leadership 68 | Personality: Analytics Builder
+Coach: Marcus Quinn | OVR 72 | Offense 68 | Defense 68 | Development 86 | Personality: Development Guru
+
+New York Empire
+Owner: Vincent Roth | Type: Control Freak
+GM: Sarah Donovan | OVR 71 | Scouting 80 | Development 76 | Leadership 68 | Personality: Talent Builder
+Coach: Isaac Holloway | OVR 72 | Offense 68 | Defense 68 | Development 86 | Personality: Development Guru
+
+Boston Guardians
+Owner: Charles Whitmore IV | Type: Steward
+GM: Isabella Ford | OVR 71 | Scouting 76 | Development 68 | Leadership 68 | Personality: Analytics Expert
+Coach: Raymond Black | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Philadelphia Riders
+Owner: Patrick Doyle | Type: Blue-Collar Competitor
+GM: Harper Mitchell | OVR 71 | Scouting 76 | Development 68 | Leadership 68 | Personality: Modern Executive
+Coach: Marcus Bennett | OVR 73 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Chicago Union
+Owner: Margaret Walsh | Type: Builder
+GM: Jordan Pike | OVR 71 | Scouting 80 | Development 76 | Leadership 68 | Personality: Draft Specialist
+Coach: Daniel Foster | OVR 72 | Offense 68 | Defense 68 | Development 86 | Personality: Development Guru
+
+Detroit Forge
+Owner: Anthony Greco | Type: Loyal Owner
+GM: Eric Bennett | OVR 68 | Scouting 68 | Development 68 | Leadership 68 | Personality: Win-Now Executive
+Coach: Tyrell Banks | OVR 70 | Offense 68 | Defense 68 | Development 68 | Personality: Player's Coach
+
+Atlanta Monarchs
+Owner: Travis King | Type: Celebrity Owner
+GM: Noah Griffin | OVR 71 | Scouting 80 | Development 76 | Leadership 68 | Personality: Talent Gambler
+Coach: Trent Holloway | OVR 72 | Offense 68 | Defense 68 | Development 91 | Personality: Development Guru
+
+Charlotte Crown
+Owner: Rachel Morgan | Type: Growth Investor
+GM: Tyler Bishop | OVR 68 | Scouting 68 | Development 68 | Leadership 68 | Personality: Aggressive Negotiator
+Coach: Zachary Dean | OVR 72 | Offense 68 | Defense 86 | Development 68 | Personality: Defense Specialist
+
+Miami Tide
+Owner: Alejandro Cruz | Type: Lifestyle Mogul
+GM: Benjamin Stone | OVR 68 | Scouting 68 | Development 68 | Leadership 68 | Personality: General Manager
+Coach: Ryan Mercer | OVR 72 | Offense 68 | Defense 68 | Development 86 | Personality: Development Guru
+============================================
+
+INAUGURAL DRAFT VALIDATION: PASS
+
+============================================
+YEAR 1 INAUGURAL DRAFT SUMMARY
+============================================
+
+Top 16 Draft Picks:
+- Pick 1: Ethan Stone | C | Age 20 | Generational | OVR 99 | Team: Portland Lumberjacks
+- Pick 2: Nolan Ward | PF | Age 22 | Generational | OVR 97 | Team: Miami Tide
+- Pick 3: Andre Ford | PG | Age 23 | Superstar | OVR 93 | Team: Los Angeles Stars
+- Pick 4: Xavier Dean | PF | Age 38 | Generational | OVR 99 | Team: Chicago Union
+- Pick 5: Nolan Wallace | SG | Age 20 | Superstar | OVR 93 | Team: Little Rock Bandits
+- Pick 6: Patrick Knight | SG | Age 19 | Superstar | OVR 92 | Team: Philadelphia Riders
+- Pick 7: Owen Gardner | SF | Age 28 | Superstar | OVR 94 | Team: Charlotte Crown
+- Pick 8: Logan Doyle | SG | Age 35 | Generational | OVR 96 | Team: Phoenix Fire
+- Pick 9: Kendrick Drake | SG | Age 20 | Superstar | OVR 92 | Team: Atlanta Monarchs
+- Pick 10: Logan Stone | SF | Age 25 | Superstar | OVR 92 | Team: New York Empire
+- Pick 11: Isaiah Wallace | PF | Age 29 | Superstar | OVR 94 | Team: Detroit Forge
+- Pick 12: Damien Bennett | C | Age 32 | Superstar | OVR 93 | Team: Houston Cosmos
+- Pick 13: Julian Bell | SG | Age 28 | Superstar | OVR 92 | Team: Boston Guardians
+- Pick 14: Marcus King | C | Age 28 | Superstar | OVR 92 | Team: Dallas Outlaws
+- Pick 15: James Doyle | PF | Age 25 | Superstar | OVR 91 | Team: Denver Peaks
+- Pick 16: Ethan Ward | C | Age 27 | Superstar | OVR 91 | Team: Seattle Sound
+
+Team Roster Cores:
+
+Little Rock Bandits
+GM: Marcus Holloway | Coach: Robert Chase
+- Pick 5: Nolan Wallace | SG | Age 20 | Superstar | OVR 93
+- Pick 28: James Cooper | SF | Age 34 | Superstar | OVR 91
+- Pick 37: Devon Ross | C | Age 25 | Star | OVR 86
+- Pick 69: Micah Bennett | PG | Age 21 | Starter | OVR 79
+- Pick 60: Ryan Ellis | PF | Age 24 | Starter | OVR 79
+
+Dallas Outlaws
+GM: Nathan Ross | Coach: Michael Tate
+- Pick 14: Marcus King | C | Age 28 | Superstar | OVR 92
+- Pick 19: Patrick Shaw | SF | Age 30 | Superstar | OVR 90
+- Pick 51: Devon Reid | SG | Age 36 | Superstar | OVR 88
+- Pick 46: Elijah King | PG | Age 21 | Starter | OVR 79
+- Pick 83: Logan Vaughn | SG | Age 21 | Starter | OVR 77
+
+Houston Cosmos
+GM: Jason Whitaker | Coach: Owen Cole
+- Pick 12: Damien Bennett | C | Age 32 | Superstar | OVR 93
+- Pick 21: Tyrese Cole | SG | Age 33 | Superstar | OVR 91
+- Pick 44: Grant Ward | SF | Age 20 | Starter | OVR 79
+- Pick 53: Hunter Mercer | PF | Age 26 | Star | OVR 83
+- Pick 76: Jalen Grant | PG | Age 26 | Star | OVR 81
+
+Denver Peaks
+GM: Christopher York | Coach: Anthony Webb
+- Pick 15: James Doyle | PF | Age 25 | Superstar | OVR 91
+- Pick 18: Liam Ward | PG | Age 30 | Superstar | OVR 91
+- Pick 50: Blake Griffin | SF | Age 20 | Star | OVR 81
+- Pick 47: Luke Quinn | SG | Age 35 | Superstar | OVR 88
+- Pick 79: Ryan Shaw | C | Age 24 | Star | OVR 80
+
+Phoenix Fire
+GM: Derek Vaughn | Coach: Hunter Price
+- Pick 8: Logan Doyle | SG | Age 35 | Generational | OVR 96
+- Pick 25: Bryce Hale | SF | Age 20 | Star | OVR 86
+- Pick 40: Kendrick Dean | C | Age 24 | Star | OVR 83
+- Pick 57: Cameron Hale | PG | Age 27 | Star | OVR 81
+- Pick 72: Cole Price | PF | Age 20 | Starter | OVR 76
+
+Los Angeles Stars
+GM: Cameron Price | Coach: Victor Steele
+- Pick 3: Andre Ford | PG | Age 23 | Superstar | OVR 93
+- Pick 30: Luke Vaughn | C | Age 23 | Star | OVR 86
+- Pick 35: Victor Reid | SF | Age 28 | Star | OVR 86
+- Pick 62: Jordan Mercer | PF | Age 22 | Starter | OVR 79
+- Pick 67: Darius Knight | SG | Age 22 | Starter | OVR 78
+
+Seattle Sound
+GM: Brandon Chase | Coach: Frank Donnelly
+- Pick 16: Ethan Ward | C | Age 27 | Superstar | OVR 91
+- Pick 17: Victor King | PF | Age 32 | Superstar | OVR 93
+- Pick 49: Mason Thornton | SF | Age 28 | Star | OVR 84
+- Pick 48: Micah Holloway | SG | Age 29 | Star | OVR 84
+- Pick 81: Jordan King | C | Age 23 | Starter | OVR 76
+
+Portland Lumberjacks
+GM: Andrew Sloane | Coach: Marcus Quinn
+- Pick 1: Ethan Stone | C | Age 20 | Generational | OVR 99
+- Pick 33: Anthony Cooper | PG | Age 33 | Superstar | OVR 89
+- Pick 32: Anthony York | SG | Age 21 | Star | OVR 86
+- Pick 64: Damien Foster | PF | Age 20 | Starter | OVR 78
+- Pick 65: Micah Drake | SF | Age 19 | Starter | OVR 77
+
+New York Empire
+GM: Sarah Donovan | Coach: Isaac Holloway
+- Pick 10: Logan Stone | SF | Age 25 | Superstar | OVR 92
+- Pick 23: Ethan Hart | SG | Age 31 | Superstar | OVR 89
+- Pick 42: Tyrese Price | PF | Age 21 | Star | OVR 81
+- Pick 55: Blake Doyle | C | Age 28 | Star | OVR 83
+- Pick 87: Zion Cross | SF | Age 20 | Starter | OVR 77
+
+Boston Guardians
+GM: Isabella Ford | Coach: Raymond Black
+- Pick 13: Julian Bell | SG | Age 28 | Superstar | OVR 92
+- Pick 20: Victor Pierce | C | Age 24 | Superstar | OVR 89
+- Pick 45: Victor King | SF | Age 27 | Star | OVR 84
+- Pick 52: Kendrick Cooper | PF | Age 32 | Star | OVR 85
+- Pick 84: Ethan Brooks | SG | Age 22 | Starter | OVR 78
+
+Philadelphia Riders
+GM: Harper Mitchell | Coach: Marcus Bennett
+- Pick 6: Patrick Knight | SG | Age 19 | Superstar | OVR 92
+- Pick 27: Tyler Mercer | PF | Age 24 | Star | OVR 86
+- Pick 38: Micah Thornton | C | Age 20 | Star | OVR 81
+- Pick 59: Xavier Hart | SF | Age 21 | Starter | OVR 77
+- Pick 70: Malik Bell | PG | Age 23 | Starter | OVR 77
+
+Chicago Union
+GM: Jordan Pike | Coach: Daniel Foster
+- Pick 4: Xavier Dean | PF | Age 38 | Generational | OVR 99
+- Pick 29: Mason King | PG | Age 20 | Star | OVR 87
+- Pick 36: Devon Brooks | C | Age 35 | Superstar | OVR 89
+- Pick 61: Cole Ellis | SF | Age 23 | Starter | OVR 79
+- Pick 68: Ethan Ward | SG | Age 31 | Star | OVR 83
+
+Detroit Forge
+GM: Eric Bennett | Coach: Tyrell Banks
+- Pick 11: Isaiah Wallace | PF | Age 29 | Superstar | OVR 94
+- Pick 22: Blake Knight | PG | Age 27 | Superstar | OVR 89
+- Pick 43: Ethan Hale | SG | Age 24 | Star | OVR 83
+- Pick 54: Hunter Walker | C | Age 21 | Starter | OVR 79
+- Pick 75: Liam Gardner | SF | Age 20 | Starter | OVR 78
+
+Atlanta Monarchs
+GM: Noah Griffin | Coach: Trent Holloway
+- Pick 9: Kendrick Drake | SG | Age 20 | Superstar | OVR 92
+- Pick 24: Devon Dean | PF | Age 21 | Star | OVR 86
+- Pick 41: Grant Dean | SF | Age 23 | Star | OVR 86
+- Pick 56: Hunter Bishop | C | Age 21 | Starter | OVR 77
+- Pick 88: Tyrese Bennett | C | Age 20 | Starter | OVR 75
+
+Charlotte Crown
+GM: Tyler Bishop | Coach: Zachary Dean
+- Pick 7: Owen Gardner | SF | Age 28 | Superstar | OVR 94
+- Pick 26: Andre Cole | C | Age 32 | Superstar | OVR 88
+- Pick 39: Owen Bennett | PG | Age 21 | Star | OVR 85
+- Pick 58: Avery Quinn | PF | Age 21 | Starter | OVR 79
+- Pick 71: Mason Cross | SG | Age 35 | Star | OVR 86
+
+Miami Tide
+GM: Benjamin Stone | Coach: Ryan Mercer
+- Pick 2: Nolan Ward | PF | Age 22 | Generational | OVR 97
+- Pick 31: Anthony York | PG | Age 30 | Superstar | OVR 89
+- Pick 34: Tyler Ward | SG | Age 38 | Superstar | OVR 91
+- Pick 66: Jordan Cooper | C | Age 20 | Starter | OVR 78
+- Pick 63: Damien Holloway | SF | Age 27 | Starter | OVR 79
+============================================
+
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+
+============================================
+YEAR 1 REGULAR SEASON SUMMARY
+============================================
+
+Overall Standings:
+1. Miami Tide | 47-13 | PCT 0.783 | Strength 99.6
+2. Portland Lumberjacks | 43-17 | PCT 0.717 | Strength 95.5
+3. Dallas Outlaws | 35-25 | PCT 0.583 | Strength 96.6
+4. Chicago Union | 34-26 | PCT 0.567 | Strength 96.9
+5. Little Rock Bandits | 34-26 | PCT 0.567 | Strength 93.5
+6. Denver Peaks | 32-28 | PCT 0.533 | Strength 96.3
+7. Boston Guardians | 31-29 | PCT 0.517 | Strength 93.4
+8. New York Empire | 28-32 | PCT 0.467 | Strength 93.3
+9. Phoenix Fire | 28-32 | PCT 0.467 | Strength 92.8
+10. Houston Cosmos | 26-34 | PCT 0.433 | Strength 93.8
+11. Charlotte Crown | 26-34 | PCT 0.433 | Strength 93.8
+12. Los Angeles Stars | 26-34 | PCT 0.433 | Strength 92.1
+13. Atlanta Monarchs | 24-36 | PCT 0.400 | Strength 90.8
+14. Seattle Sound | 23-37 | PCT 0.383 | Strength 92.5
+15. Detroit Forge | 22-38 | PCT 0.367 | Strength 93.6
+16. Philadelphia Riders | 21-39 | PCT 0.350 | Strength 92.6
+
+Eastern Conference:
+1. Miami Tide | 47-13
+2. Chicago Union | 34-26
+3. Boston Guardians | 31-29
+4. New York Empire | 28-32
+5. Charlotte Crown | 26-34
+6. Atlanta Monarchs | 24-36
+7. Detroit Forge | 22-38
+8. Philadelphia Riders | 21-39
+
+Western Conference:
+1. Portland Lumberjacks | 43-17
+2. Dallas Outlaws | 35-25
+3. Little Rock Bandits | 34-26
+4. Denver Peaks | 32-28
+5. Phoenix Fire | 28-32
+6. Houston Cosmos | 26-34
+7. Los Angeles Stars | 26-34
+8. Seattle Sound | 23-37
+============================================
+
+
+============================================
+YEAR 1 REGULAR SEASON PLAYER LEADERS
+============================================
+
+Top 15 by Season Impact:
+1. Nolan Ward | Miami Tide | PF | Generational | GP 60 | PPG 28.3 | RPG 12.8 | APG 10.8 | Impact 2305.9
+2. Ethan Stone | Portland Lumberjacks | C | Generational | GP 60 | PPG 27.5 | RPG 12.4 | APG 11.3 | Impact 2284.6
+3. Xavier Dean | Chicago Union | PF | Generational | GP 60 | PPG 26.7 | RPG 12.5 | APG 10.8 | Impact 2221.9
+4. Logan Doyle | Phoenix Fire | SG | Generational | GP 60 | PPG 27.6 | RPG 11.4 | APG 11.1 | Impact 2176.7
+5. Nolan Wallace | Little Rock Bandits | SG | Superstar | GP 60 | PPG 26.3 | RPG 10.1 | APG 10.3 | Impact 2111.2
+6. Marcus King | Dallas Outlaws | C | Superstar | GP 60 | PPG 23.3 | RPG 10.7 | APG 9.9 | Impact 2063.1
+7. Owen Gardner | Charlotte Crown | SF | Superstar | GP 60 | PPG 25.0 | RPG 11.2 | APG 10.0 | Impact 2059.6
+8. Kendrick Drake | Atlanta Monarchs | SG | Superstar | GP 60 | PPG 25.5 | RPG 10.5 | APG 9.7 | Impact 2035.7
+9. Patrick Knight | Philadelphia Riders | SG | Superstar | GP 60 | PPG 24.8 | RPG 10.3 | APG 10.7 | Impact 2035.1
+10. Logan Stone | New York Empire | SF | Superstar | GP 60 | PPG 23.6 | RPG 10.9 | APG 10.1 | Impact 2025.7
+11. Isaiah Wallace | Detroit Forge | PF | Superstar | GP 60 | PPG 24.7 | RPG 10.5 | APG 9.6 | Impact 2022.9
+12. James Doyle | Denver Peaks | PF | Superstar | GP 60 | PPG 23.5 | RPG 11.1 | APG 9.7 | Impact 2019.2
+13. Julian Bell | Boston Guardians | SG | Superstar | GP 60 | PPG 25.2 | RPG 10.1 | APG 9.5 | Impact 2007.0
+14. Andre Ford | Los Angeles Stars | PG | Superstar | GP 60 | PPG 23.2 | RPG 10.5 | APG 10.0 | Impact 2005.0
+15. Ethan Ward | Seattle Sound | C | Superstar | GP 60 | PPG 23.5 | RPG 10.8 | APG 9.8 | Impact 1985.9
+
+Top 10 Scorers:
+1. Nolan Ward | Miami Tide | PPG 28.3
+2. Logan Doyle | Phoenix Fire | PPG 27.6
+3. Ethan Stone | Portland Lumberjacks | PPG 27.5
+4. Xavier Dean | Chicago Union | PPG 26.7
+5. Nolan Wallace | Little Rock Bandits | PPG 26.3
+6. Kendrick Drake | Atlanta Monarchs | PPG 25.5
+7. Julian Bell | Boston Guardians | PPG 25.2
+8. Owen Gardner | Charlotte Crown | PPG 25.0
+9. Victor King | Seattle Sound | PPG 25.0
+10. Patrick Knight | Philadelphia Riders | PPG 24.8
+============================================
+
+YEAR END AWARDS VALIDATION: PASS
+
+============================================
+YEAR 1 AWARDS SUMMARY
+============================================
+- MVP: Nolan Ward, Miami Tide (28.3 PPG, 12.8 RPG, 10.8 APG)
+- Rookie of the Year: Nolan Ward, Miami Tide (Age 22, Generational, OVR 97, POT 99)
+- Defensive Player of the Year: Ethan Stone, Portland Lumberjacks (DEF 99, REB 99, IQ 99)
+- Sixth Man of the Year: Avery Drake, Portland Lumberjacks (12.8 PPG)
+- Most Improved Player: Nolan Ward, Miami Tide (OVR 97, POT 99)
+- Coach of the Year: Ryan Mercer, Miami Tide (47-13)
+- Executive of the Year: Andrew Sloane, Portland Lumberjacks (43-17)
+- Owner of the Year: Alejandro Cruz, Miami Tide (47-13)
+- Reporter of the Year: Victoria Kane, Dallas Outlaws (League Insider)
+============================================
+
+PLAYOFF VALIDATION: PASS
+
+============================================
+YEAR 1 PLAYOFF SUMMARY
+============================================
+- PLAYOFF SEEDS
+- 1. Miami Tide (47-13)
+- 2. Portland Lumberjacks (43-17)
+- 3. Dallas Outlaws (35-25)
+- 4. Chicago Union (34-26)
+- 5. Little Rock Bandits (34-26)
+- 6. Denver Peaks (32-28)
+- 7. Boston Guardians (31-29)
+- 8. New York Empire (28-32)
+- Round 1: Miami Tide defeated New York Empire in 4 games.
+- Round 1: Portland Lumberjacks defeated Boston Guardians in 4 games.
+- Round 1: Denver Peaks defeated Dallas Outlaws in 5 games.
+- Round 1: Chicago Union defeated Little Rock Bandits in 5 games.
+- Semifinals: Miami Tide defeated Chicago Union in 7 games.
+- Semifinals: Denver Peaks defeated Portland Lumberjacks in 6 games.
+- NBF Finals: Denver Peaks defeated Miami Tide in 5 games.
+- Kanomi Jones Playoff MVP: Nolan Ward, Miami Tide (472 PTS, 220 REB, 190 AST in playoffs).
+- CHAMPION: Denver Peaks won the Albert Green Championship Trophy.
+
+Champion: Denver Peaks
+Trophy: Albert Green Championship Trophy
+Kanomi Jones Playoff MVP: Nolan Ward (Miami Tide)
+============================================
+
+REUSABLE SEASON ENGINE VALIDATION: PASS
+
+============================================
+YEAR 1 HISTORICAL MEMORY / YEAR-END TRANSITION
+============================================
+
+Season Summary:
+- Year 1 Summary: Champion: Denver Peaks | Trophy: Albert Green Championship Trophy | Kanomi Jones Playoff MVP: Nolan Ward, Miami Tide | Best Record: Miami Tide (47-13) | Worst Record: Philadelphia Riders (21-39) | MVP: Nolan Ward, Miami Tide (28.3 PPG, 12.8 RPG, 10.8 APG) | Rookie of the Year: Nolan Ward, Miami Tide (Age 22, Generational, OVR 97, POT 99) | Defensive Player of the Year: Ethan Stone, Portland Lumberjacks (DEF 99, REB 99, IQ 99)
+
+Retirements:
+- No player retirements recorded.
+
+League Calendar: Year 2
+Status: Year 2 ready for offseason systems.
+============================================
+
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+YEAR 2 OFFSEASON VALIDATION: PASS
+
+============================================
+YEAR 2 OFFSEASON SUMMARY
+============================================
+- Year 2 Offseason: Free agency opened.
+- Year 2 Offseason: Annual rookie draft opened.
+- Year 2 Offseason: Philadelphia Riders waived Avery Cole, C, Starter, OVR 78 (annual draft upgrade; rookie pick 1).
+- Year 2 Offseason: Philadelphia Riders signed Cameron Walker, C, Generational, OVR 94.
+- Year 2 Offseason: Detroit Forge waived Elijah Cooper, SG, Starter, OVR 74 (annual draft upgrade; rookie pick 2).
+- Year 2 Offseason: Detroit Forge signed Jalen Bennett, PF, Superstar, OVR 90.
+- Year 2 Offseason: Seattle Sound waived Darius Shaw, C, Starter, OVR 74 (annual draft upgrade; rookie pick 3).
+- Year 2 Offseason: Seattle Sound signed Tyrese Bell, SF, Superstar, OVR 91.
+- Year 2 Offseason: Atlanta Monarchs waived Blake Sloan, C, Starter, OVR 75 (annual draft upgrade; rookie pick 4).
+- Year 2 Offseason: Atlanta Monarchs signed Lamar Graves, SG, Superstar, OVR 89.
+- Year 2 Offseason: Los Angeles Stars waived Zion Shaw, SG, Starter, OVR 76 (annual draft upgrade; rookie pick 5).
+- Year 2 Offseason: Los Angeles Stars signed Bryce Knight, SF, Superstar, OVR 91.
+- Year 2 Offseason: Charlotte Crown waived Jalen Shaw, PF, Starter, OVR 73 (annual draft upgrade; rookie pick 6).
+- Year 2 Offseason: Charlotte Crown signed Miles Bell, SG, Superstar, OVR 86.
+- Year 2 Offseason: Houston Cosmos waived Xavier Warren, PG, Starter, OVR 76 (annual draft upgrade; rookie pick 7).
+- Year 2 Offseason: Houston Cosmos signed Quentin King, C, Superstar, OVR 88.
+- Year 2 Offseason: Phoenix Fire waived Xavier Quinn, C, Starter, OVR 77 (annual draft upgrade; rookie pick 8).
+- Year 2 Offseason: Phoenix Fire signed Ashton Parker, PF, Superstar, OVR 90.
+- Year 2 Offseason: New York Empire waived Elijah Wallace, PG, Starter, OVR 75 (annual draft upgrade; rookie pick 9).
+- Year 2 Offseason: New York Empire signed Miles Bennett, PG, Star, OVR 81.
+- Year 2 Offseason: Boston Guardians waived Xavier Ellis, PG, Starter, OVR 74 (annual draft upgrade; rookie pick 10).
+- Year 2 Offseason: Boston Guardians signed Jordan Coleman, PG, Star, OVR 83.
+- Year 2 Offseason: Denver Peaks waived Andre Foster, SF, Starter, OVR 77 (annual draft upgrade; rookie pick 11).
+- Year 2 Offseason: Denver Peaks signed Isaiah Watson, SF, Star, OVR 80.
+- Year 2 Offseason: Little Rock Bandits waived Marcus Holloway, PF, Starter, OVR 78 (annual draft upgrade; rookie pick 12).
+- Year 2 Offseason: Little Rock Bandits signed Kendrick Wright, SF, Starter, OVR 77.
+- Year 2 Offseason: Chicago Union waived Andre Doyle, SF, Starter, OVR 74 (annual draft upgrade; rookie pick 13).
+- Year 2 Offseason: Chicago Union signed Ashton Carter, SG, Starter, OVR 73.
+- Year 2 Offseason: Dallas Outlaws waived Xavier Rhodes, SG, Starter, OVR 73 (annual draft upgrade; rookie pick 14).
+- Year 2 Offseason: Dallas Outlaws signed Lamar Harris, SF, Starter, OVR 76.
+- Year 2 Offseason: Portland Lumberjacks selected Donovan Parker, SG, Starter, OVR 71 with pick 15; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Miami Tide selected Nolan Carter, SF, Starter, OVR 70 with pick 16; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Philadelphia Riders waived Patrick Bell, PG, Starter, OVR 74 (annual draft upgrade; rookie pick 17).
+- Year 2 Offseason: Philadelphia Riders signed Darius Reed, C, Starter, OVR 76.
+- Year 2 Offseason: Detroit Forge waived Malik Bell, SF, Starter, OVR 78 (annual draft upgrade; rookie pick 18).
+- Year 2 Offseason: Detroit Forge signed Lamar Sanders, C, Starter, OVR 77.
+- Year 2 Offseason: Seattle Sound waived Jalen Rhodes, SF, Starter, OVR 75 (annual draft upgrade; rookie pick 19).
+- Year 2 Offseason: Seattle Sound signed Tobias King, C, Starter, OVR 74.
+- Year 2 Offseason: Atlanta Monarchs selected Darius Graves, PF, Starter, OVR 70 with pick 20; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Los Angeles Stars waived Malik Rhodes, PG, Starter, OVR 73 (annual draft upgrade; rookie pick 21).
+- Year 2 Offseason: Los Angeles Stars signed Xavier Porter, PF, Starter, OVR 72.
+- Year 2 Offseason: Charlotte Crown selected Bryce Wright, PG, Role, OVR 72 with pick 22; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Houston Cosmos selected Miles Mitchell, SG, Starter, OVR 70 with pick 23; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Phoenix Fire selected Miles Coleman, C, Starter, OVR 73 with pick 24; draft rights retained, no roster spot opened.
+- Year 2 Offseason: New York Empire selected Andre Walker, SG, Role, OVR 69 with pick 25; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Boston Guardians selected Corey Morris, PF, Role, OVR 71 with pick 26; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Denver Peaks selected Bryce Harris, PG, Role, OVR 71 with pick 27; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Little Rock Bandits selected Cameron Bell, SG, Role, OVR 68 with pick 28; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Chicago Union selected Amari Wallace, SF, Role, OVR 71 with pick 29; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Dallas Outlaws selected Darius Bennett, SG, Role, OVR 69 with pick 30; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Portland Lumberjacks selected Micah Price, SG, Role, OVR 69 with pick 31; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Miami Tide selected Bryce Foster, SF, Role, OVR 70 with pick 32; draft rights retained, no roster spot opened.
+- Year 2 Offseason: Annual rookie draft completed with 18 rookie signing(s).
+- Year 2 Offseason: No roster repair signings were required. All teams retained at least 12 active players.
+- Year 2 Offseason: No upgrade signings cleared the market threshold.
+- Year 2 Offseason: Free agency roster phase closed.
+
+Roster Counts:
+- Little Rock Bandits: 12 players
+- Dallas Outlaws: 12 players
+- Houston Cosmos: 12 players
+- Denver Peaks: 12 players
+- Phoenix Fire: 12 players
+- Los Angeles Stars: 12 players
+- Seattle Sound: 12 players
+- Portland Lumberjacks: 12 players
+- New York Empire: 12 players
+- Boston Guardians: 12 players
+- Philadelphia Riders: 12 players
+- Chicago Union: 12 players
+- Detroit Forge: 12 players
+- Atlanta Monarchs: 12 players
+- Charlotte Crown: 12 players
+- Miami Tide: 12 players
+
+Available Free Agents: 358
+Status: Year 2 offseason roster repair complete.
+============================================
+
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+DRAFT RIGHTS VALIDATION: PASS
+YEARLY OFFSEASON VALIDATION: PASS
+REGULAR SEASON VALIDATION: PASS
+REGULAR SEASON PLAYER STATS VALIDATION: PASS
+YEAR END AWARDS VALIDATION: PASS
+PLAYOFF VALIDATION: PASS
+REUSABLE SEASON ENGINE VALIDATION: PASS
+GENESIS TEST LOOP VALIDATION: PASS
+SEASON MVP LEGACY NAMING VALIDATION: PASS
+
+============================================
+GENESIS ERA SEASON MVP LEGACY NAME
+============================================
+Legacy Player: Tyrese King Jr.
+Public Era Award Name: Tyrese King Jr. Season MVP Award
+Career Snapshot: 37621 PTS | 16973 REB | 15617 AST | MVPs 13 | Playoff MVPs 3 | Championships 0
+============================================
+
+PUBLIC ERA READINESS VALIDATION: PASS
+
+============================================
+GENESIS TEST LOOP SUMMARY — YEARS 2-5
+============================================
+- Genesis test loop started: Years 2-50.
+- Year 2: Champion=Houston Cosmos; Kanomi Jones Playoff MVP=Nolan Ward (Miami Tide); MVP: Nolan Ward, Miami Tide (27.9 PPG, 12.4 RPG, 11.1 APG); Rookie of the Year: Cameron Walker, Philadelphia Riders (Age 19, Generational, OVR 94, POT 99)
+- Year 3: Champion=Philadelphia Riders; Kanomi Jones Playoff MVP=Cameron Walker (Philadelphia Riders); MVP: Xavier Dean, Chicago Union (26.6 PPG, 12.6 RPG, 11.3 APG); Rookie of the Year: Xavier Parker, New York Empire (Age 19, Superstar, OVR 89, POT 99)
+- Year 4: Champion=Philadelphia Riders; Kanomi Jones Playoff MVP=Xavier Parker (New York Empire); MVP: Ethan Stone, Portland Lumberjacks (27.6 PPG, 12.9 RPG, 10.5 APG); Rookie of the Year: Roman Sanders, Dallas Outlaws (Age 19, Star, OVR 85, POT 99)
+- Year 5: Champion=New York Empire; Kanomi Jones Playoff MVP=Xavier Parker (New York Empire); MVP: Cameron Walker, Philadelphia Riders (25.9 PPG, 12.9 RPG, 10.7 APG); Rookie of the Year: Miles King, Chicago Union (Age 19, Superstar, OVR 85, POT 98)
+- Year 6: Champion=Portland Lumberjacks; Kanomi Jones Playoff MVP=Xavier Parker (New York Empire); MVP: Ethan Stone, Portland Lumberjacks (28.0 PPG, 12.6 RPG, 10.9 APG); Rookie of the Year: Roman Morris, Chicago Union (Age 20, Generational, OVR 95, POT 99)
+- Year 7: Champion=Los Angeles Stars; Kanomi Jones Playoff MVP=Bryce Knight (Los Angeles Stars); MVP: Ethan Stone, Portland Lumberjacks (27.2 PPG, 12.8 RPG, 11.1 APG); Rookie of the Year: Cameron Watson, Miami Tide (Age 22, Superstar, OVR 87, POT 98)
+- Year 8: Champion=Philadelphia Riders; Kanomi Jones Playoff MVP=Cameron Walker (Philadelphia Riders); MVP: Ethan Stone, Portland Lumberjacks (27.7 PPG, 12.7 RPG, 10.9 APG); Rookie of the Year: Miles Graves, Phoenix Fire (Age 20, Superstar, OVR 91, POT 99)
+- Year 9: Champion=Los Angeles Stars; Kanomi Jones Playoff MVP=Bryce Knight (Los Angeles Stars); MVP: Roman Morris, Chicago Union (27.3 PPG, 11.7 RPG, 11.4 APG); Rookie of the Year: Bryce Morris, Chicago Union (Age 21, Superstar, OVR 91, POT 99)
+- Year 10: Champion=Chicago Union; Kanomi Jones Playoff MVP=Jalen Sanders (Los Angeles Stars); MVP: Ethan Stone, Portland Lumberjacks (27.7 PPG, 12.6 RPG, 10.9 APG); Rookie of the Year: Amari Sanders Jr., Boston Guardians (Age 22, Superstar, OVR 90, POT 99)
+- Year 11: Champion=Miami Tide; Kanomi Jones Playoff MVP=Nolan Ward (Miami Tide); MVP: Roman Morris, Chicago Union (27.2 PPG, 11.4 RPG, 11.4 APG); Rookie of the Year: Amari Walker Jr., Little Rock Bandits (Age 22, Superstar, OVR 91, POT 99)
+- Year 12: Champion=Philadelphia Riders; Kanomi Jones Playoff MVP=Cameron Walker (Philadelphia Riders); MVP: Roman Morris, Chicago Union (27.3 PPG, 11.1 RPG, 11.5 APG); Rookie of the Year: Donovan Watson Jr., Los Angeles Stars (Age 21, Star, OVR 84, POT 96)
+- Year 13: Champion=Chicago Union; Kanomi Jones Playoff MVP=Roman Morris (Chicago Union); MVP: Roman Morris, Chicago Union (28.0 PPG, 11.2 RPG, 11.6 APG); Rookie of the Year: Andre Walker Jr., Houston Cosmos (Age 20, Superstar, OVR 85, POT 99)
+- Year 14: Champion=Little Rock Bandits; Kanomi Jones Playoff MVP=Roman Morris (Chicago Union); MVP: Ethan Stone, Portland Lumberjacks (27.4 PPG, 12.7 RPG, 10.6 APG); Rookie of the Year: Miles Parker Jr., Portland Lumberjacks (Age 20, Superstar, OVR 87, POT 99)
+- Year 15: Champion=Chicago Union; Kanomi Jones Playoff MVP=Roman Morris (Chicago Union); MVP: Roman Morris, Chicago Union (28.4 PPG, 11.3 RPG, 11.5 APG); Rookie of the Year: Lamar Wright Jr., Boston Guardians (Age 20, Star, OVR 85, POT 99)
+- Year 16: Champion=Portland Lumberjacks; Kanomi Jones Playoff MVP=Roman Morris (Chicago Union); MVP: Ethan Stone, Portland Lumberjacks (27.6 PPG, 13.2 RPG, 11.1 APG); Rookie of the Year: Malik Watson Jr., Denver Peaks (Age 21, Superstar, OVR 90, POT 99)
+- Year 17: Champion=Portland Lumberjacks; Kanomi Jones Playoff MVP=Ethan Stone (Portland Lumberjacks); MVP: Ethan Stone, Portland Lumberjacks (27.3 PPG, 13.1 RPG, 10.9 APG); Rookie of the Year: Nolan Reed Jr., Seattle Sound (Age 21, Superstar, OVR 89, POT 99)
+- Year 18: Champion=Charlotte Crown; Kanomi Jones Playoff MVP=Tyrese King Jr. (Charlotte Crown); MVP: Tyrese King Jr., Charlotte Crown (27.4 PPG, 12.3 RPG, 11.2 APG); Rookie of the Year: Tyrese King Jr., Charlotte Crown (Age 22, Generational, OVR 97, POT 99)
+- Year 19: Champion=Little Rock Bandits; Kanomi Jones Playoff MVP=Amari Walker Jr. (Little Rock Bandits); MVP: Ethan Stone, Portland Lumberjacks (27.7 PPG, 13.0 RPG, 10.6 APG); Rookie of the Year: Amari Foster Jr., Boston Guardians (Age 22, Superstar, OVR 86, POT 99)
+- Year 20: Champion=Houston Cosmos; Kanomi Jones Playoff MVP=Ethan Stone (Portland Lumberjacks); MVP: Nolan Ward, Miami Tide (27.7 PPG, 13.1 RPG, 10.9 APG); Rookie of the Year: Roman Watson Jr., Atlanta Monarchs (Age 20, Generational, OVR 94, POT 99)
+- Year 21: Champion=Miami Tide; Kanomi Jones Playoff MVP=Nolan Ward (Miami Tide); MVP: Ethan Stone, Portland Lumberjacks (28.4 PPG, 12.4 RPG, 11.4 APG); Rookie of the Year: Bryce Bell Jr., Philadelphia Riders (Age 19, Superstar, OVR 89, POT 99)
+- Year 22: Champion=New York Empire; Kanomi Jones Playoff MVP=Isaiah Bell Jr. (New York Empire); MVP: Roman Morris, Chicago Union (27.2 PPG, 11.3 RPG, 12.0 APG); Rookie of the Year: Isaiah Bell Jr., New York Empire (Age 21, Superstar, OVR 91, POT 99)
+- Year 23: Champion=Miami Tide; Kanomi Jones Playoff MVP=Nolan Ward (Miami Tide); MVP: Tyrese King Jr., Charlotte Crown (27.6 PPG, 12.6 RPG, 11.6 APG); Rookie of the Year: Devin Hayes Jr., Houston Cosmos (Age 21, Superstar, OVR 91, POT 99)
+- Year 24: Champion=Dallas Outlaws; Kanomi Jones Playoff MVP=Cameron Walker (Philadelphia Riders); MVP: Roman Morris, Chicago Union (28.0 PPG, 11.4 RPG, 11.8 APG); Rookie of the Year: Elijah Walker Jr., Dallas Outlaws (Age 20, Generational, OVR 92, POT 99)
+- Year 25: Champion=Dallas Outlaws; Kanomi Jones Playoff MVP=Elijah Walker Jr. (Boston Guardians); MVP: Tyrese King Jr., Charlotte Crown (28.4 PPG, 12.6 RPG, 11.3 APG); Rookie of the Year: Micah Wallace Jr., Detroit Forge (Age 20, Superstar, OVR 91, POT 99)
+- Year 26: Champion=Dallas Outlaws; Kanomi Jones Playoff MVP=Elijah Walker Jr. (Dallas Outlaws); MVP: Tyrese King Jr., Charlotte Crown (27.1 PPG, 12.9 RPG, 11.1 APG); Rookie of the Year: Corey Lawson Jr., Little Rock Bandits (Age 21, Superstar, OVR 88, POT 99)
+- Year 27: Champion=Dallas Outlaws; Kanomi Jones Playoff MVP=Elijah Walker Jr. (Dallas Outlaws); MVP: Tyrese King Jr., Charlotte Crown (28.5 PPG, 12.2 RPG, 11.4 APG); Rookie of the Year: Xavier Knight Jr., Detroit Forge (Age 21, Superstar, OVR 87, POT 99)
+- Year 28: Champion=Boston Guardians; Kanomi Jones Playoff MVP=Elijah Walker Jr. (Boston Guardians); MVP: Tyrese King Jr., Charlotte Crown (27.0 PPG, 12.7 RPG, 12.0 APG); Rookie of the Year: Amari Reed Jr., Chicago Union (Age 22, Superstar, OVR 90, POT 99)
+- Year 29: Champion=Charlotte Crown; Kanomi Jones Playoff MVP=Tyrese King Jr. (Charlotte Crown); MVP: Tyrese King Jr., Charlotte Crown (27.8 PPG, 12.2 RPG, 10.9 APG); Rookie of the Year: Amari Carter Jr., Portland Lumberjacks (Age 22, Generational, OVR 91, POT 99)
+- Year 30: Champion=Houston Cosmos; Kanomi Jones Playoff MVP=Devin Hayes Jr. (Houston Cosmos); MVP: Elijah Walker Jr., Dallas Outlaws (27.5 PPG, 12.2 RPG, 10.8 APG); Rookie of the Year: Roman Porter Jr., Philadelphia Riders (Age 19, Superstar, OVR 89, POT 99)
+- Year 31: Champion=Houston Cosmos; Kanomi Jones Playoff MVP=Corey Parker Jr. (Philadelphia Riders); MVP: Tyrese King Jr., Charlotte Crown (26.6 PPG, 12.2 RPG, 11.7 APG); Rookie of the Year: Darius Carter Jr., Chicago Union (Age 20, Star, OVR 85, POT 99)
+- Year 32: Champion=Portland Lumberjacks; Kanomi Jones Playoff MVP=Amari Carter Jr. (Portland Lumberjacks); MVP: Tyrese King Jr., Charlotte Crown (26.9 PPG, 12.8 RPG, 11.7 APG); Rookie of the Year: Isaiah Bell Jr., Chicago Union (Age 20, Superstar, OVR 91, POT 99)
+- Year 33: Champion=Dallas Outlaws; Kanomi Jones Playoff MVP=Tyrese King Jr. (Charlotte Crown); MVP: Elijah Walker Jr., Dallas Outlaws (27.9 PPG, 11.7 RPG, 10.9 APG); Rookie of the Year: Bryce Morris Jr., Little Rock Bandits (Age 19, Superstar, OVR 84, POT 99)
+- Year 34: Champion=Portland Lumberjacks; Kanomi Jones Playoff MVP=Isaiah Bell Jr. (Chicago Union); MVP: Tyrese King Jr., Charlotte Crown (28.4 PPG, 12.2 RPG, 11.5 APG); Rookie of the Year: Lamar Coleman Jr., Boston Guardians (Age 19, Superstar, OVR 91, POT 99)
+- Year 35: Champion=Houston Cosmos; Kanomi Jones Playoff MVP=Roman Watson Jr. (Atlanta Monarchs); MVP: Tyrese King Jr., Charlotte Crown (27.2 PPG, 12.3 RPG, 11.0 APG); Rookie of the Year: Lamar Parker Jr., New York Empire (Age 21, Superstar, OVR 84, POT 98)
+- Year 36: Champion=Chicago Union; Kanomi Jones Playoff MVP=Isaiah Bell Jr. (Chicago Union); MVP: Tyrese King Jr., Charlotte Crown (26.6 PPG, 12.6 RPG, 11.3 APG); Rookie of the Year: Cameron Graves Jr., Boston Guardians (Age 19, Generational, OVR 90, POT 99)
+- Year 37: Champion=New York Empire; Kanomi Jones Playoff MVP=Lamar Parker Jr. (New York Empire); MVP: Tyrese King Jr., Charlotte Crown (27.7 PPG, 12.2 RPG, 11.2 APG); Rookie of the Year: Roman Coleman Jr., Denver Peaks (Age 22, Generational, OVR 97, POT 99)
+- Year 38: Champion=Detroit Forge; Kanomi Jones Playoff MVP=Isaiah Bell Jr. (Chicago Union); MVP: Roman Coleman Jr., Denver Peaks (27.6 PPG, 12.9 RPG, 12.2 APG); Rookie of the Year: Xavier Parker Jr., Phoenix Fire (Age 20, Superstar, OVR 91, POT 99)
+- Year 39: Champion=Detroit Forge; Kanomi Jones Playoff MVP=Amari Dawson Jr. (Los Angeles Stars); MVP: Roman Coleman Jr., Denver Peaks (29.0 PPG, 12.5 RPG, 11.2 APG); Rookie of the Year: Micah Brooks Jr., Charlotte Crown (Age 20, Generational, OVR 92, POT 99)
+- Year 40: Champion=Atlanta Monarchs; Kanomi Jones Playoff MVP=Roman Watson Jr. (Atlanta Monarchs); MVP: Roman Coleman Jr., Denver Peaks (28.5 PPG, 12.6 RPG, 11.5 APG); Rookie of the Year: Malik Watson Jr., Miami Tide (Age 21, Superstar, OVR 89, POT 99)
+- Year 41: Champion=Atlanta Monarchs; Kanomi Jones Playoff MVP=Roman Watson Jr. (Atlanta Monarchs); MVP: Roman Coleman Jr., Denver Peaks (28.4 PPG, 12.4 RPG, 11.3 APG); Rookie of the Year: Cameron Morris Jr., Dallas Outlaws (Age 20, Star, OVR 85, POT 99)
+- Year 42: Champion=Chicago Union; Kanomi Jones Playoff MVP=Isaiah Bell Jr. (Chicago Union); MVP: Roman Coleman Jr., Denver Peaks (28.2 PPG, 12.2 RPG, 11.3 APG); Rookie of the Year: Kendrick Foster Jr., Dallas Outlaws (Age 21, Generational, OVR 90, POT 99)
+- Year 43: Champion=Boston Guardians; Kanomi Jones Playoff MVP=Cameron Graves Jr. (Boston Guardians); MVP: Roman Coleman Jr., Denver Peaks (28.4 PPG, 12.6 RPG, 11.7 APG); Rookie of the Year: Micah Sanders Jr., New York Empire (Age 21, Superstar, OVR 91, POT 99)
+- Year 44: Champion=Chicago Union; Kanomi Jones Playoff MVP=Roman Coleman Jr. (Denver Peaks); MVP: Roman Coleman Jr., Denver Peaks (28.2 PPG, 12.6 RPG, 11.3 APG); Rookie of the Year: Roman Dawson Jr., Atlanta Monarchs (Age 22, Superstar, OVR 91, POT 99)
+- Year 45: Champion=Charlotte Crown; Kanomi Jones Playoff MVP=Amari Dawson Jr. (Los Angeles Stars); MVP: Roman Coleman Jr., Denver Peaks (28.4 PPG, 12.5 RPG, 11.4 APG); Rookie of the Year: Devin Watson Jr., Dallas Outlaws (Age 20, Superstar, OVR 87, POT 99)
+- Year 46: Champion=Atlanta Monarchs; Kanomi Jones Playoff MVP=Lamar Knight Jr. (Atlanta Monarchs); MVP: Roman Coleman Jr., Denver Peaks (28.2 PPG, 12.4 RPG, 11.4 APG); Rookie of the Year: Lamar Knight Jr., Atlanta Monarchs (Age 21, Generational, OVR 94, POT 99)
+- Year 47: Champion=Boston Guardians; Kanomi Jones Playoff MVP=Kendrick Foster Jr. (Dallas Outlaws); MVP: Roman Coleman Jr., Denver Peaks (28.7 PPG, 12.6 RPG, 11.7 APG); Rookie of the Year: Isaiah Morris Jr., Philadelphia Riders (Age 19, Generational, OVR 94, POT 99)
+- Year 48: Champion=New York Empire; Kanomi Jones Playoff MVP=Micah Sanders Jr. (New York Empire); MVP: Isaiah Morris Jr., Philadelphia Riders (29.6 PPG, 11.3 RPG, 11.6 APG); Rookie of the Year: Isaiah Price Jr., Portland Lumberjacks (Age 19, Superstar, OVR 88, POT 99)
+- Year 49: Champion=Boston Guardians; Kanomi Jones Playoff MVP=Lamar Knight Jr. (Atlanta Monarchs); MVP: Roman Coleman Jr., Denver Peaks (27.9 PPG, 12.4 RPG, 11.8 APG); Rookie of the Year: Donovan Hayes Jr., Chicago Union (Age 20, Superstar, OVR 88, POT 99)
+- Year 50: Champion=New York Empire; Kanomi Jones Playoff MVP=Lamar Knight Jr. (Atlanta Monarchs); MVP: Roman Coleman Jr., Denver Peaks (28.6 PPG, 12.2 RPG, 11.6 APG); Rookie of the Year: Kendrick Morris Jr., Houston Cosmos (Age 22, Superstar, OVR 88, POT 99)
+- Genesis test loop completed. League calendar now at Year 51.
+
+Championship Ledger:
+- Chicago Union: 6
+- Dallas Outlaws: 5
+- Houston Cosmos: 5
+- Portland Lumberjacks: 5
+- New York Empire: 5
+- Boston Guardians: 4
+- Philadelphia Riders: 4
+- Atlanta Monarchs: 3
+- Charlotte Crown: 3
+- Miami Tide: 3
+- Little Rock Bandits: 2
+- Los Angeles Stars: 2
+- Detroit Forge: 2
+- Denver Peaks: 1
+
+Final Roster Counts After Year-End Retirements:
+- Little Rock Bandits: 11 players (needs 1 offseason repair signing(s))
+- Dallas Outlaws: 12 players
+- Houston Cosmos: 10 players (needs 2 offseason repair signing(s))
+- Denver Peaks: 12 players
+- Phoenix Fire: 12 players
+- Los Angeles Stars: 12 players
+- Seattle Sound: 12 players
+- Portland Lumberjacks: 12 players
+- New York Empire: 12 players
+- Boston Guardians: 12 players
+- Philadelphia Riders: 11 players (needs 1 offseason repair signing(s))
+- Chicago Union: 11 players (needs 1 offseason repair signing(s))
+- Detroit Forge: 12 players
+- Atlanta Monarchs: 11 players (needs 1 offseason repair signing(s))
+- Charlotte Crown: 12 players
+- Miami Tide: 12 players
+
+Recent Historical Summaries:
+- Year 46 Summary: Champion: Atlanta Monarchs | Trophy: Albert Green Championship Trophy | Kanomi Jones Playoff MVP: Lamar Knight Jr., Atlanta Monarchs | Best Record: Atlanta Monarchs (44-16) | Worst Record: Philadelphia Riders (15-45) | MVP: Roman Coleman Jr., Denver Peaks (28.2 PPG, 12.4 RPG, 11.4 APG) | Rookie of the Year: Lamar Knight Jr., Atlanta Monarchs (Age 21, Generational, OVR 94, POT 99) | Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+- Year 47 Summary: Champion: Boston Guardians | Trophy: Albert Green Championship Trophy | Kanomi Jones Playoff MVP: Kendrick Foster Jr., Dallas Outlaws | Best Record: Atlanta Monarchs (40-20) | Worst Record: Portland Lumberjacks (21-39) | MVP: Roman Coleman Jr., Denver Peaks (28.7 PPG, 12.6 RPG, 11.7 APG) | Rookie of the Year: Isaiah Morris Jr., Philadelphia Riders (Age 19, Generational, OVR 94, POT 99) | Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+- Year 48 Summary: Champion: New York Empire | Trophy: Albert Green Championship Trophy | Kanomi Jones Playoff MVP: Micah Sanders Jr., New York Empire | Best Record: Atlanta Monarchs (41-19) | Worst Record: Los Angeles Stars (21-39) | MVP: Isaiah Morris Jr., Philadelphia Riders (29.6 PPG, 11.3 RPG, 11.6 APG) | Rookie of the Year: Isaiah Price Jr., Portland Lumberjacks (Age 19, Superstar, OVR 88, POT 99) | Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+- Year 49 Summary: Champion: Boston Guardians | Trophy: Albert Green Championship Trophy | Kanomi Jones Playoff MVP: Lamar Knight Jr., Atlanta Monarchs | Best Record: Boston Guardians (39-21) | Worst Record: Houston Cosmos (23-37) | MVP: Roman Coleman Jr., Denver Peaks (27.9 PPG, 12.4 RPG, 11.8 APG) | Rookie of the Year: Donovan Hayes Jr., Chicago Union (Age 20, Superstar, OVR 88, POT 99) | Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+- Year 50 Summary: Champion: New York Empire | Trophy: Albert Green Championship Trophy | Kanomi Jones Playoff MVP: Lamar Knight Jr., Atlanta Monarchs | Best Record: Atlanta Monarchs (40-20) | Worst Record: Miami Tide (20-40) | MVP: Roman Coleman Jr., Denver Peaks (28.6 PPG, 12.2 RPG, 11.6 APG) | Rookie of the Year: Kendrick Morris Jr., Houston Cosmos (Age 22, Superstar, OVR 88, POT 99) | Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+
+League Calendar: Year 51
+Status: Controlled Genesis test complete.
+Note: Final-year roster shortages are valid because no offseason runs after the final test season.
+============================================
+
+
+============================================
+PUBLIC ERA READINESS REPORT
+============================================
+League: National Basketball Federation
+Current Year: 51
+Public Era Begins: Season 51
+Teams: 16
+History Events Recorded: 3565
+
+Championship Ledger:
+- Chicago Union: 6
+- Dallas Outlaws: 5
+- Houston Cosmos: 5
+- Portland Lumberjacks: 5
+- New York Empire: 5
+- Boston Guardians: 4
+- Philadelphia Riders: 4
+- Atlanta Monarchs: 3
+- Charlotte Crown: 3
+- Miami Tide: 3
+- Little Rock Bandits: 2
+- Los Angeles Stars: 2
+- Detroit Forge: 2
+- Denver Peaks: 1
+
+Current Team Snapshot:
+1. Atlanta Monarchs | Record 40-20 | GM: Noah Griffin | Coach: Trent Holloway | Roster: 11
+2. Little Rock Bandits | Record 36-24 | GM: Marcus Holloway | Coach: Robert Chase | Roster: 11
+3. New York Empire | Record 36-24 | GM: Sarah Donovan | Coach: Isaac Holloway | Roster: 12
+4. Houston Cosmos | Record 32-28 | GM: Jason Whitaker | Coach: Owen Cole | Roster: 10
+5. Los Angeles Stars | Record 32-28 | GM: Cameron Price | Coach: Victor Steele | Roster: 12
+6. Portland Lumberjacks | Record 32-28 | GM: Andrew Sloane | Coach: Marcus Quinn | Roster: 12
+7. Detroit Forge | Record 32-28 | GM: Eric Bennett | Coach: Tyrell Banks | Roster: 12
+8. Charlotte Crown | Record 32-28 | GM: Tyler Bishop | Coach: Zachary Dean | Roster: 12
+9. Denver Peaks | Record 31-29 | GM: Christopher York | Coach: Anthony Webb | Roster: 12
+10. Dallas Outlaws | Record 29-31 | GM: Nathan Ross | Coach: Michael Tate | Roster: 12
+11. Boston Guardians | Record 29-31 | GM: Isabella Ford | Coach: Raymond Black | Roster: 12
+12. Philadelphia Riders | Record 29-31 | GM: Harper Mitchell | Coach: Marcus Bennett | Roster: 11
+13. Seattle Sound | Record 24-36 | GM: Brandon Chase | Coach: Frank Donnelly | Roster: 12
+14. Phoenix Fire | Record 23-37 | GM: Derek Vaughn | Coach: Hunter Price | Roster: 12
+15. Chicago Union | Record 23-37 | GM: Jordan Pike | Coach: Daniel Foster | Roster: 11
+16. Miami Tide | Record 20-40 | GM: Benjamin Stone | Coach: Ryan Mercer | Roster: 12
+
+Top 25 Active Players Entering Public Era:
+1. Isaiah Morris Jr. | Philadelphia Riders | SG | Age 23 | Generational | OVR 97 | POT 99
+2. Lamar Knight Jr. | Atlanta Monarchs | SG | Age 26 | Generational | OVR 97 | POT 99
+3. Micah Brooks Jr. | Charlotte Crown | C | Age 32 | Generational | OVR 94 | POT 99
+4. Roman Coleman Jr. | Denver Peaks | SG | Age 36 | Generational | OVR 98 | POT 99
+5. Kendrick Foster Jr. | Dallas Outlaws | C | Age 30 | Generational | OVR 91 | POT 99
+6. Cameron Graves Jr. | Boston Guardians | SF | Age 34 | Generational | OVR 95 | POT 99
+7. Andre Foster Jr. | Little Rock Bandits | SF | Age 22 | Superstar | OVR 92 | POT 99
+8. Darius Walker Jr. | Charlotte Crown | C | Age 28 | Superstar | OVR 92 | POT 99
+9. Devin Dawson Jr. | Portland Lumberjacks | C | Age 25 | Superstar | OVR 92 | POT 99
+10. Donovan Parker Jr. | Detroit Forge | SG | Age 25 | Superstar | OVR 92 | POT 99
+11. Isaiah Price Jr. | Portland Lumberjacks | C | Age 22 | Superstar | OVR 90 | POT 99
+12. Xavier Parker Jr. | Phoenix Fire | SG | Age 33 | Superstar | OVR 93 | POT 99
+13. Roman Dawson Jr. | Atlanta Monarchs | PG | Age 29 | Superstar | OVR 93 | POT 99
+14. Kendrick Morris Jr. | Houston Cosmos | SG | Age 23 | Superstar | OVR 89 | POT 99
+15. Micah Sanders Jr. | New York Empire | SF | Age 29 | Superstar | OVR 92 | POT 99
+16. Devin Watson Jr. | Dallas Outlaws | SF | Age 26 | Superstar | OVR 90 | POT 99
+17. Tobias Bennett Jr. | New York Empire | SF | Age 25 | Superstar | OVR 90 | POT 99
+18. Donovan Hayes Jr. | Chicago Union | PF | Age 22 | Superstar | OVR 88 | POT 99
+19. Miles King Jr. | Miami Tide | SF | Age 31 | Superstar | OVR 90 | POT 99
+20. Malik Watson Jr. | Miami Tide | PG | Age 32 | Superstar | OVR 90 | POT 99
+21. Darius Graves Jr. | New York Empire | PF | Age 26 | Superstar | OVR 88 | POT 99
+22. Lamar Sanders Jr. | Los Angeles Stars | C | Age 22 | Superstar | OVR 86 | POT 99
+23. Cameron Wright Jr. | Portland Lumberjacks | PF | Age 23 | Superstar | OVR 85 | POT 99
+24. Lamar Coleman Jr. | Boston Guardians | PF | Age 36 | Superstar | OVR 93 | POT 99
+25. Ashton Bell Jr. | Little Rock Bandits | PF | Age 33 | Superstar | OVR 88 | POT 99
+
+Recent Award Results:
+- MVP: Roman Coleman Jr., Denver Peaks (28.6 PPG, 12.2 RPG, 11.6 APG)
+- Rookie of the Year: Kendrick Morris Jr., Houston Cosmos (Age 22, Superstar, OVR 88, POT 99)
+- Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+- Sixth Man of the Year: Lamar Parker Jr., New York Empire (13.8 PPG)
+- Most Improved Player: Isaiah Morris Jr., Philadelphia Riders (OVR 96, POT 99)
+- Coach of the Year: Trent Holloway, Atlanta Monarchs (40-20)
+- Executive of the Year: Marcus Holloway, Little Rock Bandits (36-24)
+- Owner of the Year: William Bill Mercer, Little Rock Bandits (36-24)
+- Reporter of the Year: Sophia Monroe, Los Angeles Stars (Insider)
+
+Recent History:
+- Year 50 Offseason: Seattle Sound selected Nolan Walker Jr., PG, Starter, OVR 72 with pick 23; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Los Angeles Stars selected Quentin Bell Jr., SG, Starter, OVR 71 with pick 24; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Detroit Forge selected Tyrese King Jr., PG, Role, OVR 72 with pick 25; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Little Rock Bandits selected Amari King Jr., PF, Starter, OVR 70 with pick 26; draft rights retained, no roster spot opened.
+- Year 50 Offseason: New York Empire selected Bryce Lawson Jr., C, Role, OVR 67 with pick 27; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Denver Peaks selected Miles Wallace Jr., SG, Starter, OVR 71 with pick 28; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Charlotte Crown selected Xavier Bell Jr., SG, Role, OVR 72 with pick 29; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Chicago Union signed Kendrick Brooks Jr., SG, Starter, OVR 71.
+- Year 50 Offseason: Atlanta Monarchs selected Miles Morris Jr., SF, Role, OVR 67 with pick 31; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Boston Guardians selected Nolan King Jr., C, Role, OVR 72 with pick 32; draft rights retained, no roster spot opened.
+- Year 50 Offseason: Annual rookie draft completed with 12 rookie signing(s).
+- Year 50 Offseason: No roster repair signings were required. All teams retained at least 12 active players.
+- Year 50 Offseason: No upgrade signings cleared the market threshold.
+- Year 50 Offseason: Free agency roster phase closed.
+- Year 50: The NBF regular season began.
+- Year 50: The regular season concluded.
+- Year 50: The NBF Awards Committee voted on annual awards.
+- Year 50: MVP: Roman Coleman Jr., Denver Peaks (28.6 PPG, 12.2 RPG, 11.6 APG)
+- Year 50: Rookie of the Year: Kendrick Morris Jr., Houston Cosmos (Age 22, Superstar, OVR 88, POT 99)
+- Year 50: Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+- Year 50: Sixth Man of the Year: Lamar Parker Jr., New York Empire (13.8 PPG)
+- Year 50: Most Improved Player: Isaiah Morris Jr., Philadelphia Riders (OVR 96, POT 99)
+- Year 50: Coach of the Year: Trent Holloway, Atlanta Monarchs (40-20)
+- Year 50: Executive of the Year: Marcus Holloway, Little Rock Bandits (36-24)
+- Year 50: Owner of the Year: William Bill Mercer, Little Rock Bandits (36-24)
+- Year 50: Reporter of the Year: Sophia Monroe, Los Angeles Stars (Insider)
+- Year 50: The first NBF Playoffs began.
+- Year 50: Lamar Knight Jr. of the Atlanta Monarchs won the Kanomi Jones Playoff MVP.
+- Year 50: New York Empire won the Albert Green Championship Trophy.
+- Year 50 Summary: Champion: New York Empire | Trophy: Albert Green Championship Trophy | Kanomi Jones Playoff MVP: Lamar Knight Jr., Atlanta Monarchs | Best Record: Atlanta Monarchs (40-20) | Worst Record: Miami Tide (20-40) | MVP: Roman Coleman Jr., Denver Peaks (28.6 PPG, 12.2 RPG, 11.6 APG) | Rookie of the Year: Kendrick Morris Jr., Houston Cosmos (Age 22, Superstar, OVR 88, POT 99) | Defensive Player of the Year: Roman Coleman Jr., Denver Peaks (DEF 99, REB 97, IQ 99)
+- Year 50: Darius Hayes Jr. retired at age 40 after 22 NBF season(s) due to stepped away after a long title chase. Career: 14549 PTS, 6457 REB, 5438 AST.
+- Year 50: Andre Morris Jr. retired at age 39 after 21 NBF season(s) due to stepped away after a long title chase. Career: 28149 PTS, 12654 REB, 10966 AST.
+- Year 50: Andre Sanders Jr. retired at age 39 after 19 NBF season(s) due to stepped away after a long title chase. Career: 392 PTS, 229 REB, 133 AST.
+- Year 50: Tobias Watson Jr. retired at age 38 after 19 NBF season(s) due to stepped away after a long title chase. Career: 11558 PTS, 5100 REB, 4722 AST.
+- Year 50: Quentin Porter Jr. retired at age 37 after 17 NBF season(s) due to stepped away after a long title chase. Career: 13383 PTS, 6152 REB, 5160 AST.
+- Year 50: Lamar Mitchell Jr. retired at age 36 after 16 NBF season(s) due to stepped away after a long title chase. Career: 17181 PTS, 8017 REB, 6873 AST.
+- Year 50: 6 player(s) retired after the season.
+- League calendar advanced from Year 50 to Year 51.
+- Genesis Era: Hidden simulation completed through Year 50. Public Era is ready to begin in Season 51.
+- After the 50-year Genesis Era, the NBF named its regular-season MVP award the Tyrese King Jr. Season MVP Award, honoring Tyrese King Jr. as the defining player of the league's first 50 seasons.
+============================================
+
+PUBLIC ERA EXPORT VALIDATION: PASS
+
+============================================
+PUBLIC ERA EXPORT SUMMARY
+============================================
+- public_era_snapshot.json | 2426069 bytes
+- public_era_summary.txt | 569 bytes
+- championship_ledger.txt | 269 bytes
+- season_summaries.txt | 23883 bytes
+- award_history.txt | 63680 bytes
+- top_active_players.txt | 9186 bytes
+- public_era_export_manifest.txt | 325 bytes
+============================================
+

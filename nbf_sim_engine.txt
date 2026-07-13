@@ -1,0 +1,404 @@
+NBF GENESIS SIMULATION ENGINE v1.0
+Years 1–50 Historical Generation Framework
+Validation: PASS
+This is the system that creates history.
+The purpose is not to create stories.
+The purpose is to create conditions where stories emerge naturally.
+
+Core Genesis Loop
+Every season follows:
+
+Offseason
+↓
+GM Market
+↓
+Coach Market
+↓
+Draft
+↓
+Free Agency
+↓
+Training Camp
+↓
+Regular Season
+↓
+Trade Deadline
+↓
+Playoffs
+↓
+Championship
+↓
+Awards
+↓
+Retirements
+↓
+Hall of Fame Review
+↓
+History Lock
+↓
+Repeat
+
+
+YEAR 1 SPECIAL FORMATION PHASE
+This only occurs once.
+
+Owners
+↓
+Hire GMs
+↓
+GMs Hire Coaches
+↓
+League Conducts Inaugural Draft
+↓
+Remaining Players Enter Free Agency
+↓
+Teams Fill Rosters
+↓
+Season Begins
+
+
+OWNER DECISION ENGINE
+Owners make decisions based on:
+
+Winning Desire
+Patience
+Greed
+Control
+Public Pressure
+Market Expectations
+
+Examples:
+Impatient Owner
+May fire:
+	•	GMs
+	•	Coaches
+more frequently.
+
+Greedy Owner
+May:
+	•	Avoid luxury tax
+	•	Cut payroll
+
+Control Freak Owner
+May:
+	•	Override GM decisions
+	•	Block trades
+
+GM DECISION ENGINE
+Every GM has:
+
+Drafting
+Scouting
+Negotiation
+Risk Tolerance
+Reputation
+Hidden Tendencies
+
+Possible actions:
+Draft
+Choose prospects.
+Free Agency
+Sign players.
+Trades
+Buy Sell Rebuild
+Extensions
+Keep stars.
+
+COACH ENGINE
+Every coach tracks:
+
+Development
+Motivation
+Discipline
+Offense
+Defense
+Adaptability
+
+Effects:
+Development
+Player growth.
+Motivation
+Team morale.
+Defense
+Defensive ranking.
+Offense
+Offensive ranking.
+Adaptability
+Playoff adjustments.
+
+TEAM STRENGTH FORMULA
+Every season:
+
+Roster Talent
++
+Chemistry
++
+Coach Quality
++
+Health
++
+Home Court
++
+Development
+=
+Team Strength
+
+No team can exceed probability.
+Even great teams lose.
+
+PLAYER DEVELOPMENT ENGINE
+Each season players may:
+Improve
+Probability depends on:
+	•	Age
+	•	Work ethic
+	•	Coach
+	•	Minutes
+	•	Confidence
+
+Plateau
+No major change.
+
+Decline
+More common after age 30.
+
+BREAKOUT ENGINE
+Young players receive breakout rolls.
+Outcomes:
+
+No Breakout
+Small Breakout
+Major Breakout
+Superstar Leap
+
+Most players never become stars.
+
+INJURY ENGINE
+Every season:
+Minor Injury
+Most common.
+Miss: 1–10 games.
+
+Moderate Injury
+Miss: 10–40 games.
+
+Major Injury
+Miss: Season.
+
+Career Threatening
+Rare.
+May permanently alter trajectory.
+
+CHEMISTRY ENGINE
+Tracks:
+
+Coach Relationships
+Player Relationships
+Team Culture
+Winning
+Playing Time
+
+Possible outcomes:
+Strong Culture
+Performance boost.
+
+Neutral
+No effect.
+
+Dysfunction
+Performance penalty.
+
+RELATIONSHIP ENGINE
+Every major character tracks:
+Friends
+Rivals
+Mentors
+Enemies
+Trusted Contacts
+Relationships evolve every season.
+Nothing remains static.
+
+MEDIA ENGINE
+Reporters seek:
+
+Truth
+Clicks
+Influence
+Sources
+
+Possible events:
+Trade Rumor
+Leak
+Investigation
+Exposé
+Exclusive Interview
+Award Campaign
+
+SCANDAL ENGINE
+Rare.
+Possible outcomes:
+Gambling Investigation
+Tampering
+Salary Manipulation
+Owner Misconduct
+Reporter Fabrication
+Front Office Corruption
+Player Misconduct
+
+PLAYOFF ENGINE
+Qualification:
+
+Top 4 East
+Top 4 West
+
+Then:
+
+Seed 1-8
+By Record
+
+Regardless of conference.
+
+CHAMPIONSHIP ENGINE
+Winner receives:
+Albert Green Trophy
+History permanently records:
+	•	Champion
+	•	Runner-up
+	•	Finals MVP
+
+DYNASTY ENGINE
+Criteria:
+
+3 Championships
+Within 5 Years
+
+Possible Dynasty Status.
+Effects:
+	•	Increased expectations
+	•	Higher popularity
+	•	Greater media attention
+
+CURSED FRANCHISE ENGINE
+Criteria begin tracking:
+
+10 Years No Title
+15 Years No Title
+20 Years No Title
+25 Years No Title
+`
+
+Creates:
+	•	Fan pressure
+	•	Media narratives
+	•	Ownership instability
+
+RETIREMENT ENGINE
+Influenced by:
+
+Age
+Money
+Health
+Success
+Motivation
+Role
+
+Possible outcomes:
+Retire
+Continue
+Ring Chase
+Overseas Finish
+
+HALL OF FAME ENGINE
+Starts when enough players retire.
+Requirements:
+
+75% Committee Vote
+Maximum 5 Inductees
+
+Categories:
+	•	Players
+	•	Coaches
+	•	Executives
+	•	Owners
+	•	Reporters
+	•	Referees
+
+JERSEY RETIREMENT ENGINE
+Harder than Hall of Fame.
+Must satisfy:
+
+Longevity
+Impact
+Popularity
+Legacy
+
+Retired number:
+Unavailable Forever
+
+HISTORICAL MEMORY ENGINE
+History is never forgotten.
+The league permanently tracks:
+Champions
+MVPs
+Finals MVPs
+Hall of Famers
+Retired Jerseys
+Record Holders
+Dynasties
+Droughts
+Scandals
+Great Rivalries
+Legendary Coaches
+Legendary GMs
+Legendary Reporters
+
+END OF GENESIS
+After Year 50:
+The simulation locks:
+
+50 Champions
+50 MVPs
+Hall of Fame Classes
+Retired Jerseys
+Dynasties
+GOAT Candidates
+Historic Rivalries
+Legendary Figures
+Scandals
+Owner Histories
+
+
+PUBLIC ENTRY POINT
+NBF Season 51
+The user enters an already-living sports world.
+Examples of inherited history:
+
+Little Rock Bandits
+3 Championships
+
+Current Drought:
+18 Seasons
+
+Retired Jerseys:
+#7
+#22
+
+Hall of Famers:
+4
+
+Primary Rival:
+Dallas Outlaws
+
+
+Seattle Sound
+Dynasty Era:
+Years 28-33
+
+Championships:
+5
+
+Legendary Coach:
+Ethan Brooks
+
+Greatest Player:
+Marcus Hale

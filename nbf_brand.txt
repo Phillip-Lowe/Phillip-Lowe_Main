@@ -1,0 +1,226 @@
+NBF Brand Design Document v1.0 (Corrected & Locked)
+Little Rock Bandits
+Mascot: Cash
+Colors:
+	•	Electric Blue
+	•	Steel Gray
+	•	White
+Rivalries:
+	•	Dallas Outlaws
+	•	Houston Cosmos
+Logo Direction:
+	•	Bandit mask with Arkansas star
+
+Dallas Outlaws
+Mascot: Marshal
+Colors:
+	•	Crimson
+	•	Black
+	•	Silver
+Rivalries:
+	•	Little Rock Bandits
+	•	Houston Cosmos
+Logo Direction:
+	•	Western star revolver theme
+
+Houston Cosmos
+Mascot: Nova
+Colors:
+	•	Deep Navy
+	•	Orange
+	•	White
+Rivalries:
+	•	Dallas Outlaws
+	•	Little Rock Bandits
+	•	Denver Peaks
+Logo Direction:
+	•	Orbit and aerospace theme
+
+Denver Peaks
+Mascot: Summit
+Colors:
+	•	Mountain Blue
+	•	Gold
+	•	White
+Rivalries:
+	•	Phoenix Fire
+	•	Houston Cosmos
+Logo Direction:
+	•	Mountain peak theme
+
+Phoenix Fire
+Mascot: Blaze
+Colors:
+	•	Purple
+	•	Orange
+	•	Black
+Rivalries:
+	•	Denver Peaks
+	•	Los Angeles Stars
+Logo Direction:
+	•	Phoenix flame theme
+
+Los Angeles Stars
+Mascot: Starlight
+Colors:
+	•	Gold
+	•	Black
+	•	White
+Rivalries:
+	•	Phoenix Fire
+	•	Seattle Sound
+	•	New York Empire
+Logo Direction:
+	•	Luxury star theme
+
+Seattle Sound
+Mascot: Breaker
+Colors:
+	•	Emerald
+	•	Navy
+	•	Silver
+Rivalries:
+	•	Portland Lumberjacks
+	•	Los Angeles Stars
+Logo Direction:
+	•	Wave/orca theme
+
+Portland Lumberjacks
+Mascot: Timber
+Colors:
+	•	Forest Green
+	•	Cream
+	•	Brown
+Rivalries:
+	•	Seattle Sound
+	•	Denver Peaks
+Logo Direction:
+	•	Axe and pine theme
+
+New York Empire
+Mascot: Crown
+Colors:
+	•	Royal Blue
+	•	Black
+	•	Silver
+Rivalries:
+	•	Boston Guardians
+	•	Philadelphia Riders
+	•	Los Angeles Stars
+Logo Direction:
+	•	Crown and skyline theme
+
+Boston Guardians
+Mascot: Sentinel
+Colors:
+	•	Green
+	•	Gold
+	•	White
+Rivalries:
+	•	New York Empire
+	•	Philadelphia Riders
+Logo Direction:
+	•	Shield guardian theme
+
+Philadelphia Riders
+Mascot: Liberty Bell
+Colors:
+	•	Red
+	•	Navy
+	•	White
+Rivalries:
+	•	New York Empire
+	•	Boston Guardians
+Logo Direction:
+	•	Liberty Bell theme
+
+Chicago Union
+Mascot: Hammer
+Colors:
+	•	Red
+	•	Black
+	•	Cream
+Rivalries:
+	•	Detroit Forge
+	•	Atlanta Monarchs
+Logo Direction:
+	•	Industrial gear theme
+
+Detroit Forge
+Mascot: Anvil
+Colors:
+	•	Steel
+	•	Red
+	•	Black
+Rivalries:
+	•	Chicago Union
+	•	Charlotte Crown
+Logo Direction:
+	•	Forge and sparks theme
+
+Atlanta Monarchs
+Mascot: King
+Colors:
+	•	Purple
+	•	Gold
+	•	Black
+Rivalries:
+	•	Charlotte Crown
+	•	Chicago Union
+	•	Miami Tide
+Logo Direction:
+	•	Crown and lion theme
+
+Charlotte Crown
+Mascot: Regent
+Colors:
+	•	Teal
+	•	Black
+	•	White
+Rivalries:
+	•	Atlanta Monarchs
+	•	Detroit Forge
+Logo Direction:
+	•	Crown and hawk theme
+
+Miami Tide
+Mascot: Surge
+Colors:
+	•	Aqua
+	•	Pink
+	•	Black
+Rivalries:
+	•	Atlanta Monarchs
+	•	New York Empire
+Logo Direction:
+	•	Wave and sunset theme
+
+Official Blood Rivalries
+Little Rock Bandits vs Dallas Outlaws
+Theme: Respect vs Expectations
+Seattle Sound vs Portland Lumberjacks
+Theme: Sound vs Timber
+New York Empire vs Boston Guardians
+Theme: Power vs Tradition
+Chicago Union vs Detroit Forge
+Theme: Industry vs Industry
+
+Locked NBF Franchise Names
+Eastern Conference
+	•	New York Empire
+	•	Boston Guardians
+	•	Philadelphia Riders
+	•	Chicago Union
+	•	Detroit Forge
+	•	Atlanta Monarchs
+	•	Charlotte Crown
+	•	Miami Tide
+Western Conference
+	•	Los Angeles Stars
+	•	Seattle Sound
+	•	Portland Lumberjacks
+	•	Dallas Outlaws
+	•	Houston Cosmos
+	•	Denver Peaks
+	•	Phoenix Fire
+	•	Little Rock Bandits

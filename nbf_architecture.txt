@@ -1,0 +1,283 @@
+NBF Universe Master Architecture v1.0
+
+Purpose
+
+This document serves as the top-level architectural blueprint for the National Basketball Federation (NBF) and League Basketball Universe (LBU).
+
+All simulation systems ultimately report to this framework.
+
+This document is the source of truth for league design philosophy.
+
+
+Core Philosophy
+
+Basketball outcomes should be approximately:
+
+90-95% Simulation
+
+5-10% Narrative Interpretation
+
+LLMs explain reality.
+
+Simulation creates reality.
+
+
+Foundational Doctrine
+
+Ratings determine ability.
+
+Tendencies determine behavior.
+
+Coaches determine deployment.
+
+Rotations determine opportunity.
+
+Possessions determine production.
+
+Production determines outcomes.
+
+Outcomes determine history.
+
+Narratives interpret history.
+
+
+System Hierarchy
+
+Tier 1
+
+Universe Governance
+
+League Governance and Constitution Engine
+
+Rules and Competition Committee Engine
+
+
+Tier 2
+
+League Structure
+
+Expansion and Relocation Engine
+
+Franchise Lifecycle Engine
+
+League Economy and Salary Cap Engine
+
+
+Tier 3
+
+Talent Ecosystem
+
+Genesis Formation Engine
+
+Player Generation Engine
+
+Draft and Prospect Engine
+
+Player Development Engine
+
+
+Tier 4
+
+Basketball Simulation
+
+Player Archetype Engine
+
+Coach System Engine
+
+Rotation Engine
+
+Possession Engine
+
+
+Tier 5
+
+Evaluation Engines
+
+Advanced Analytics Engine
+
+Awards and Legacy Engine
+
+Hall of Fame System
+
+Historical Ranking System
+
+
+Tier 6
+
+League Dynamics
+
+Contract Engine
+
+Free Agency Engine
+
+Trade Engine
+
+
+Tier 7
+
+Interpretation Layer
+
+Media Engine
+
+Player Reaction Engine
+
+Owner Reaction Engine
+
+Agent Reaction Engine
+
+
+Tier 8
+
+Historical Preservation
+
+Dynasty Engine
+
+Historical Era Engine
+
+League Record System
+
+Century Tracking System
+
+
+Authority Structure
+
+League Constitution
+
+↓
+
+Commissioner
+
+↓
+
+Owners
+
+↓
+
+League Systems
+
+↓
+
+Teams
+
+↓
+
+Players
+
+
+Information Flow
+
+Players
+
+↓
+
+Possessions
+
+↓
+
+Statistics
+
+↓
+
+Analytics
+
+↓
+
+Awards
+
+↓
+
+Legacy
+
+↓
+
+History
+
+↓
+
+Narrative
+
+
+Narrative Boundary
+
+Narratives may:
+
+Interpret
+
+Analyze
+
+Debate
+
+Celebrate
+
+Criticize
+
+Narratives may not:
+
+Alter outcomes
+
+Change awards
+
+Modify ratings
+
+Create statistics
+
+Generate championships
+
+
+Historical Preservation
+
+Every completed season becomes immutable.
+
+Historical records are permanent.
+
+Retcons are prohibited.
+
+
+Century Simulation Goal
+
+The NBF should remain stable and believable through:
+
+100 Seasons
+
+250 Seasons
+
+500 Seasons
+
+1000+ Seasons
+
+without requiring manual intervention.
+
+
+Success Criteria
+
+A future observer should be able to enter any season of NBF history and understand:
+
+Who dominated
+
+Who failed
+
+Why teams won
+
+Why teams lost
+
+How eras evolved
+
+How legends emerged
+
+How dynasties rose and fell
+
+
+Final Doctrine
+
+Simulation creates reality.
+
+History preserves reality.
+
+Narrative explains reality.
+
+The NBF endures.
+
+
+Approved: NBF Universe Master Architecture v1.0
+
+July 2026

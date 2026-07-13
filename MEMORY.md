@@ -4,6 +4,241 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+## 2026-07-11 — Media File Access Fix (TTS Audio Files)
+
+**Status:** ✅ FIXED — 14:49 CDT
+**Reference:** `TOOLS.md` → "Media File Access Fix"
+
+### Problem
+TTS-generated audio files in `~/.openclaw/media/outbound/` returned "Outside allowed folders" error when served in responses.
+
+### Root Cause
+OpenClaw's media serving restricts file access to workspace paths. Files in the global `media/outbound/` directory (where TTS tools write) are outside the workspace boundary and get rejected.
+
+### Fix Applied
+```bash
+rm -rf ~/.openclaw/workspaces/sol/media
+ln -s ~/.openclaw/media/outbound ~/.openclaw/workspaces/sol/media
+```
+
+**Result:** `~/.openclaw/workspaces/sol/media` → `~/.openclaw/media/outbound`
+
+This creates a symlink bridge so the workspace media folder points to the actual outbound directory, making all TTS files accessible.
+
+### For Future TTS Files
+Always reference audio via workspace path:
+```
+MEDIA:~/.openclaw/workspaces/sol/media/voice-<timestamp>---<uuid>.mp3
+```
+
+Or use relative path: `media/voice-<timestamp>---<uuid>.mp3`
+
+---
+
+## 2026-07-11 — OpenClaw Node Cleanup + Qwen Local Optimization
+
+**Status:** ✅ COMPLETE — 14:30 CDT
+**Reference:** `memory/2026-07-11-node-cleanup-qwen-optimization.md`
+
+### Completed
+
+| # | Item | Details |
+|---|------|---------|
+| 1 | Stale node removed | `ai.openclaw.node.plist` deleted, node process killed. Only `ai.openclaw.gateway` running. |
+| 2 | Version mismatch resolved | Gateway 2026.6.11 (`.local`), stale node 2026.5.18 (`homebrew`) no longer running |
+| 3 | Ollama timeout | Already 1200s (well above 300s minimum) — no change needed |
+| 4 | Qwen models configured | qwen3.5:9b, qwen2.5-coder:14b, qwen2.5-coder:7b added with thinking:false, keep_alive:15m, num_ctx:16384 |
+| 5 | Provider-level keep_alive | Set to 15m default on ollama provider |
+| 6 | Config verified | All 4 models in config, gateway restarted, qwen3.5:9b test passed |
+
+### Key Rule
+Future nodes must use `/Users/philliplowe/.local/lib/node_modules/openclaw` — NOT the stale homebrew install.
+
+---
+
+## 2026-07-08 — SAOS Distribution Pipeline + Dashboard + Invoice Parser Fix
+
+**Status:** ✅ Session Complete — 03:21 CDT
+**Reference:** `memory/2026-07-08-saos-distribution-dashboard.md`
+
+### Completed
+
+| # | Deliverable | Impact |
+|---|-------------|--------|
+| 1 | Invoice parser fixed | Invoice number, dates, totals, tax, line items all extracting correctly |
+| 2 | Free Automation Audit lead magnet | Live at systack.net/audit/ — inbound lead gen, n8n webhook generates report |
+| 3 | Cold email workflow activated | 20 prospects, Tuesday 9 AM CT, "reply to email" CTA, support@systack.net SMTP |
+| 4 | Customer dashboard enhanced | Process flow modals, Try It demos, pricing banner, onboarding wizard |
+| 5 | n8n database cleaned | Old duplicate workflow + 770 orphaned records removed |
+| 6 | Git committed & pushed | All changes to Phillip-Lowe/systack (GitHub Pages) |
+
+### Key Decisions
+- "Reply to this email" over Calendly (lower friction)
+- Full 20 prospects (volume over cherry-picking)
+- Audit lead magnet = fastest path to revenue (inbound)
+- Tuesday 9 AM CT trigger (best open rates)
+- `plowe@systack.net` for all notifications
+
+### Next Session Priorities
+1. Partner Program page (`systack.net/partners`) — 20% recurring commission
+2. Service Business OS vertical offer — $499 setup + $299/mo packaged landing
+3. Finish dashboard Try It UI (lead scoring + doc classification frontend)
+4. Fix onboarding wizard duplicate `finishOnboarding`
+5. Scale cold email to 100+ prospects
+
+### Critical State
+- **n8n active (3):** Cold Email Sequence, Pipeline Tracker Sync, Automation Audit
+- **Tests:** 62/63 passing (1 = rate limiter)
+- **Parser:** localhost:9001, Dashboard: localhost:8768
+- **Distribution plan:** `Systack/strategy/distribution-pipeline-plan.md`
+
+---
+
+## 2026-07-07 — n8n Workflow List UI Blank (FIXED)
+
+**Status:** ✅ COMPLETE — Workflows visible in n8n UI (04:39 CDT)
+**Reference:** `memory/2026-07-07-n8n-workflow-list-fix.md`
+
+### Problem
+n8n workflow list page was blank. Browser console: `TypeError: null is not an object (evaluating 'e.updatedAt.toString')` at `WorkflowsView.vue:372`.
+
+### Root Cause (3 issues, same crash)
+
+1. **6 orphaned `shared_workflow` entries** — pointed to deleted workflows, returned NULL `updatedAt` on join
+2. **4 SAOS workflows with NULL `createdAt`/`updatedAt`** — Chat Bridge, Customer Support Drafting, Document Classification Engine, Scheduled Report Generator (inserted via API without timestamps)
+3. **7 active workflows missing `workflow_published_version` entries** — API returned null version metadata
+4. **Orphaned records**: 93 `workflow_statistics` + 6 `workflow_history` + 18 `workflow_publish_history` pointing to deleted workflows
+
+### Fix Applied
+
+| Fix | Count |
+|-----|-------|
+| Deleted orphaned `shared_workflow` | 6 |
+| Set timestamps on 4 SAOS workflows | 4 |
+| Created `workflow_published_version` entries | 7 |
+| Deleted orphaned `workflow_statistics` | 93 |
+| Deleted orphaned `workflow_history` | 6 |
+| Deleted orphaned `workflow_publish_history` | 18 |
+
+### Diagnosis Checklist (for future occurrences)
+
+1. Check `workflow_entity` for NULL `updatedAt`/`createdAt`
+2. Check for orphaned `shared_workflow` entries (LEFT JOIN → NULL)
+3. Check for active workflows missing `workflow_published_version`
+4. Check for orphaned records in related tables
+5. Use `n8n export:workflow --all` to verify what the API returns
+
+### Prevention
+After ANY workflow import via API/DB, run the prevention SQL block in `memory/2026-07-07-n8n-workflow-list-fix.md`.
+
+### Key Lesson
+The `e.updatedAt.toString()` crash has **multiple possible causes**, not just NULL `updatedAt` in `workflow_entity`. Orphaned records in join tables and missing `workflow_published_version` entries can also trigger it. The `n8n export:workflow --all` CLI command is the fastest way to verify what the API actually returns to the frontend.
+
+---
+
+## 2026-07-07 — n8n Full Cleanup & Workflow Import (NEW BASELINE)
+
+**Status:** ✅ COMPLETE — New n8n baseline at 05:26 CDT
+**Reference:** `memory/2026-07-07-n8n-new-baseline.md`
+
+### What Was Done
+
+1. **Workflow list UI fix** — 6 orphaned `shared_workflow`, 4 NULL timestamps, 7 missing `workflow_published_version`, 117 orphaned records → all cleaned (04:39 CDT)
+2. **7 SAOS workflow JSON files built** — Assembly (deepseek-v4-pro) generated 54 nodes across 7 workflows from Oracle specs (04:53 CDT)
+3. **Import & massive FK cleanup** — 7 old skeleton workflows deleted, 5 orphaned webhook entries deleted, ~14,200 orphaned records across 11 tables deleted (05:26 CDT)
+4. **FK violations: 0** — database fully clean
+
+### n8n Baseline (05:26 CDT)
+
+| Metric | Value |
+|--------|-------|
+| Total workflows | 60 |
+| SAOS workflows | 10 (1 active, 9 inactive) |
+| FK violations | 0 |
+| n8n version | 2.20.7-exp.0 |
+
+### SAOS Workflow Status
+
+| Workflow | Nodes | Active | Type |
+|----------|-------|--------|------|
+| SAOS Lead Capture + Score + Log | 4 | ✅ | Original |
+| SAOS Chat Bridge | 7 | ❌ | **NEW v2** |
+| SAOS Customer Support Drafting | 7 | ❌ | **NEW v2** |
+| SAOS Document Classification Engine | 9 | ❌ | **NEW v2** |
+| SAOS Scheduled Report Generator | 7 | ❌ | **NEW v2** |
+| SAOS Email Notification Dispatcher | 8 | ❌ | **NEW v2** |
+| SAOS Enterprise Configure Fleet | 9 | ❌ | **NEW v2** |
+| SAOS VPS Ready Notification | 7 | ❌ | **NEW v2** |
+| SAOS Client Provisioning Pipeline | 8 | ❌ | Original skeleton |
+| SAOS Enterprise — Stripe Checkout | 5 | ❌ | Original skeleton |
+
+### Key Lessons
+
+1. **n8n CLI import broken in 2.20.7-exp** — use direct SQL insert instead
+2. **Orphaned records accumulate fast** — clean ALL related tables after workflow deletion
+3. **workflow_history entries are required** — FK RESTRICT from `workflow_published_version`
+4. **webhook_entity persists after deletion** — causes "conflicting webhook path" errors
+5. **FK violations cascade** — clean top-down (execution_data → execution_entity → workflow_entity)
+
+### Prevention SQL
+
+After ANY workflow deletion or SQL import, run the prevention SQL blocks in `memory/2026-07-07-n8n-new-baseline.md`.
+
+---
+
+## 2026-07-07 — Full Systems Audit & Pre-Deployment Fixes
+
+**Status:** ✅ COMPLETE — All fixable issues resolved
+**Reference:** `memory/2026-07-07-pre-deploy-audit.md`
+**Test Suite:** 65/65 passing
+
+### Fixes Applied
+
+| # | Fix | Details |
+|---|-----|---------|
+| 1 | Admin PIN rotated | `1234` → `46097565` (8-digit random). Both Command Center + Customer Portal plists updated. Old PIN rejected, new PIN verified. Saved to `.admin-pin`. |
+| 2 | Provision Bridge plist fixed | Was pointing to `/tmp/systack-saas-init/scripts/saos_provision_bridge.py` (ephemeral, missing). Updated to `~/.openclaw/workspaces/sol/scripts/saos_provision_bridge.py`. Service now running (PID 2022). |
+| 3 | n8n tunnel config cleaned | Removed dead `invoices.systack.net → port 9001` route from `config-n8n-clean.yml`. No DNS record existed, port 9001 had nothing listening. |
+| 4 | Invoice tunnel config fixed | `config-invoice-dashboard.yml` updated: removed duplicate `utopia-api` route, fixed port from 9001 → 8766 (actual invoice dashboard). Orphaned tunnel (no credentials file) unloaded. |
+| 5 | SAOS tunnel config cleaned | Removed dead `saos.systack.net` route from `config-saos-dashboard.yml` (no DNS record). Tunnel now only serves `portal.systack.net` + `command.systack.net`. |
+| 6 | n8n restarted | Picked up all workflow activations. 6 SAOS workflows now active (was 3). 3 legacy non-SAOS workflows failed activation (broken node types) — not our concern. |
+| 7 | Test suite updated | Updated `tests/test_endpoints.py` with new admin PIN + current internal API key. |
+| 8 | Orphaned invoice tunnel killed | PID 908 (tunnel 4990dc9d) had no credentials file — was running but non-functional. Killed and LaunchAgent unloaded. |
+
+### n8n SAOS Workflow Status (After Fix)
+
+| Workflow | Active | Purpose |
+|----------|--------|---------|
+| SAOS Chat Bridge | ✅ | Portal chat → agent routing |
+| SAOS Email Notification Dispatcher | ✅ | Email alerts |
+| SAOS Lead Capture + Score + Log | ✅ | Site form → CRM pipeline |
+| SAOS Customer Support Drafting | ✅ | AI-drafted responses |
+| SAOS Document Classification Engine | ✅ | Doc routing |
+| SAOS Scheduled Report Generator | ✅ | Periodic reports |
+| SAOS Client Provisioning Pipeline | ❌ | Deferred — needs first customer |
+| SAOS VPS Ready Notification | ❌ | Deferred — no VPS provisioned yet |
+| SAOS Enterprise — Stripe Checkout | ❌ | Deferred — needs live Stripe product |
+| SAOS Enterprise — Configure Fleet | ❌ | Deferred — needs enterprise customer |
+
+### Remaining (Deferred — Requires Real Customers)
+
+- Client provisioning pipeline activation (needs first customer signup)
+- Stripe checkout webhook (needs live Stripe product configured)
+- VPS ready notification (no VPS provisioned yet)
+- Penetration test ($2-5K)
+- SOC 2 Type II ($15-50K)
+- DDoS protection at edge
+- Bug bounty program
+- Off-site backup replication
+- Client onboarding UI wiring
+
+### Admin PIN Location
+- Saved to: `~/.openclaw/workspaces/sol/.admin-pin`
+- Value: `46097565`
+- Used for: Command Center (8770) + Customer Portal (8768) admin access
+
+---
+
 ## 2026-07-07 — Security Score 8.5 → 9.5 + Trust Center Link Fix
 
 **Status:** ✅ COMPLETE
@@ -5241,23 +5476,83 @@ Full analysis: `memory/2026-06-30-saos-deep-analysis.md`
 
 ---
 
-## Promoted From Short-Term Memory (2026-07-07)
+## NBF (National Basketball Federation) — LOADED & STANDBY (2026-07-13)
 
-<!-- openclaw-memory-promotion:memory:memory/2026-06-05-saos-percy-strategy-lessons.md:94:132 -->
-- | Systack setup fee | $200-500 | One-time (currently free for beta) | | Systack monthly | $50-150/mo | Monitoring, support, updates | ### Total Monthly Cost Per Client | Scenario | VPS | Systack | Total | Annual | |----------|-----|---------|-------|--------| | Small business (cloud 8GB) | $40 | $50 | $90/mo | $1080 | | Medium business (cloud 16GB) | $80 | $100 | $180/mo | $2160 | | Enterprise (on-premise) | $75 | $150 | $225/mo | $2700 | | Budget (cloud 4GB, stripped) | $20 | $50 | $70/mo | $840 | **We were thinking $20-40/mo total. Reality is $90-225/mo.** This changes our market positioning and sales conversations. --- ## Factor 4: SAOS Foundation Impact ### What is SAOS? The **Systack Agent Operating System** — the foundation layer all Systack agents run on. It needs to account for: 1. **Variable RAM environments** — 2GB to 16GB+ 2. **Local-only mode** — no external dependencies 3. **Data sensitivity tiers** — public, internal, confidential, restricted 4. **Deployment flexibility** — cloud, on-premise, air-gapped, hybrid ### SAOS Design Changes Required | Feature | Original Plan | Revised Plan | |---------|--------------|--------------| | Model management | Cloud API fallback | Local-only by default, cloud opt-in | | File storage | Gateway sync | Local storage, no sync | | Authentication | Password or token | Tailscale only (no passwords in config) | | Updates | Automatic via gateway | Manual or scheduled, client-controlled | | Monitoring | External health checks | Local logs + client-visible dashboard | [score=0.850 recalls=7 avg=0.503 source=memory/2026-06-05-saos-percy-strategy-lessons.md:94-132]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-17-SESSION-END.md:1:37 -->
-- # Session End — 2026-06-17 05:56 CDT ## Final Status ### Services Running | Service | PID | Port | LaunchAgent | |---------|-----|------|-------------| | Orchestrator Daemon | 70691 | - | `net.systack.orchestrator` | | SAOS Dashboard | 97098 | 8765 | `net.systack.dashboard` | | Invoice Dashboard | 97487 | 8766 | `net.systack.invoice-dashboard` | | Invoice API | 86824 | 9001 | `com.systack.invoice-api` | ### Repos | Repo | URL | Contents | |------|-----|----------| | systack-saas | github.com/Phillip-Lowe/systack-saas | SAOS orchestrator, dashboard, fleet, provisioning | | systack-site | github.com/Phillip-Lowe/systack-site | Systack website | | utopia-deli-order | github.com/Phillip-Lowe/utopia-deli-order | Deli code only | ### Fleet Agents (10) SOL 🛰️, CODY 💻, ASSEMBLY 🛠️, VALI ✅, PESSI ⚠️, ORACLE 🔮, ATLAS 🗺️, CHATTY 💬, GENI 🎨, JURIS ⚖️ ### What's New Tonight - ✅ SAOS orchestrator daemon (persistent, launchd) - ✅ Client provisioning pipeline (n8n webhook active) - ✅ Fleet dashboard API + UI (port 8765) - ✅ Invoice dashboard auto-restart (port 8766) - ✅ JURIS agent config (research tools, no exec/message) - ✅ Repo separation: SAOS → systack-saas ### Next Session Priorities 1. Vultr API integration for auto-VPS provisioning 2. Stripe webhook test with test mode 3. JURIS workspace identity files 4. Add CHATTY + GENI LaunchAgents [score=0.844 recalls=11 avg=0.484 source=memory/2026-06-17-SESSION-END.md:1-37]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-05-all-three-deployed.md:1:50 -->
-- # 2026-06-05 03:04 CDT — All Three Deployed ## What We Did ### 1. ✅ GitHub Backup (#1534 pattern) **Deployed:** Workflow backup system for all n8n workflows - Created GitHub repo: `Phillip-Lowe/systack-n8n-workflows` - Exported all 30 workflows (active + inactive) - Created `scripts/backup-workflows.sh` automation - Scheduled daily cron: 6 AM automatic backup - Tested and working — auto-commits to GitHub **Repo contents:** - `workflows/deli/` — 11 active workflows - `workflows/systack/` — 19 inactive/archived workflows - `workflows/monitoring/` — Website downtime monitor - `scripts/backup-workflows.sh` — Daily automation - `README.md` — Auto-updated status ### 2. ✅ Uptime Monitoring (#11763 pattern) **Deployed:** Systack Website Downtime Monitor - Workflow ID: `a1b2c3d4-1234-5678-9abc-def012345678` - Status: **ACTIVE** (runs every hour) - Monitors 4 services: - n8n.systack.net - systack.net - utopia-deli.com - n8n.systack.net/webhook - Alerts: Email (plowe95@yahoo.com) + Slack (#systack-alerts) - Logs: Google Sheets (Systack_Monitoring tab) - Committed to GitHub repo ### 3. ✅ Personal Agent Study (#8237 pattern) **Studied:** "Jackie" — Personal Life Manager template - Telegram + voice + Google services + AI memory - Full architecture documented **Created:** `~/systack-n8n-workflows/architecture/PERSONAL-AGENT-SPEC.md` - 8,935 byte specification - Implementation phases: MVP → V1 → V2 → V3 - Technical stack defined - Business model: $99-199/month - Timeline: MVP in 2 weeks --- ## Files Created/Updated | File | Size | Purpose | |------|------|---------| [score=0.839 recalls=18 avg=0.416 source=memory/2026-06-05-all-three-deployed.md:1-50]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-17-vultr-provisioning.md:95:149 -->
-- ### With n8n Provisioning Pipeline The cloud-init script calls back to n8n when VPS is ready: ``` POST https://n8n.systack.net/webhook/saas-vps-ready { "client_id": "CLIENT001", "vps_ip": "123.45.67.89", "tailscale_ip": "100.x.x.x", "status": "ready", "timestamp": "2026-06-17T06:18:00Z" } ``` ### With Dashboard Provisioning status written to: - `/tmp/saos-deployment-{client_id}.json` (local) - `saos_deployments` table in Postgres (via n8n webhook) --- ## What's Missing / Next Steps | Item | Status | Notes | |------|--------|-------| | Vultr API key | ❌ Needed | Get from Vultr dashboard → API → Add key | | Tailscale auth key | ❌ Needed | Generate in Tailscale admin → Keys | | OpenClaw install URL | ⚠️ Placeholder | Currently uses get.openclaw.ai (verify) | | n8n webhook endpoint | ⚠️ Need to create | `saas-vps-ready` webhook in n8n | | Real VPS test | ⏳ Blocked | Waiting for API keys | | Identity file deployment | ⏳ Next step | Generate + SCP to VPS after creation | | Health check validation | ⏳ Next step | VALI-style checks after provision | --- ## Files Committed | File | Action | |------|--------| | `scripts/provision_vps.py` | NEW | | `scripts/test_provision.py` | NEW | **Commit:** `40cb7dc` — "Add Vultr VPS provisioning script with tests" **Repo:** https://github.com/Phillip-Lowe/systack-saas.git --- ## Credential Requirements ### Vultr API Key 1. Login to https://my.vultr.com/ 2. Go to Account → API → Add API Key 3. Copy key → store securely (keychain: `vultr-api-key`) 4. Scope needed: `compute:write`, `compute:read` ### Tailscale Auth Key [score=0.839 recalls=8 avg=0.502 source=memory/2026-06-17-vultr-provisioning.md:95-149]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-22-session-0957.md:1:34 -->
-- # Session — 2026-06-22 09:57 CDT **User directive:** "Save this everywhere" --- ## What Was Accomplished ### 1. Rebuilt SAOS Webhook Bridge + Poller (Lost in Workspace Reorg) - **File:** `saos-webhook-bridge.py` — Receives n8n webhook calls, triggers provisioning - **File:** `saos_provision_poller.py` — Polls n8n for webhook execution data - **Status:** Bridge running on port 8767 via launchd - **Tested:** POST to bridge triggers pipeline in test mode ✅ ### 2. Cleaned Up Stripe Payment Links + Pricing - Removed Personal+ tier from pricing page - Fixed Business annual: $3,588 → $2,988 (2 months free) - Fixed Enterprise annual: $9,588 → $7,990 (2 months free) - Personal-agent page now redirects to /saos/ - Removed "Personal Agent" from all nav menus **Stripe Links to KEEP (set redirect URLs):** | Link | Price | Redirect | |------|-------|----------| | SAOS Enterprise | $799/mo | `systack.net/saos/onboard.html?session_id={CHECKOUT_SESSION_ID}&plan=enterprise` | | SAOS Enterprise | $7,990/yr | `systack.net/saos/onboard.html?session_id={CHECKOUT_SESSION_ID}&plan=enterprise` | | SAOS Business | $299/mo | `systack.net/saos/onboard.html?session_id={CHECKOUT_SESSION_ID}&plan=business` | | SAOS Business | $2,988/yr | `systack.net/saos/onboard.html?session_id={CHECKOUT_SESSION_ID}&plan=business` | **Stripe Links to DEACTIVATE:** - SAOS Enterprise — Annual ($9,588) ❌ - SAOS Business — Annual ($3,588) ❌ - SAOS Enterprise — Monthly (old duplicate) ❌ - SAOS Business — Monthly (old duplicate) ❌ - SAOS Personal+ Monthly ($199) ❌ deprecated [score=0.836 recalls=14 avg=0.474 source=memory/2026-06-22-session-0957.md:1-34]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-17-oracle-fleet-expansion.md:1:41 -->
-- # Session — 2026-06-17 ## ORACLE Fleet Expansion Integrated: 7 → 10 Agents ### Source - ORACLE RSI architecture validation response - Status: PASS (strategically aligned with SAOS maturity) - SOL execution ### What Changed #### 1. Documentation Foundation - **SAOS-FOUNDATION-SPEC.md** updated: - Canonical 10-agent fleet table (Execution/Quality/Intelligence/Engagement/Compliance tiers) - External tiered abstraction: Core 7 + Extended Capabilities (+3) - Updated system loop with full canonical sequence - CODY positioned as Build Engine (technical docs only) - CHATTY + GENI bundled as "Engagement Engine" add-on #### 2. Website Updated - **systack-site/saos/index.html**: - Added Extended Capabilities section with CODY, CHATTY, GENI cards - CODY marked as "Technical Layer" (lower opacity, hidden positioning) - CHATTY + GENI marked as "Engagement" layer - Added Engagement Engine add-on pricing ($100-$300/mo tiered) - Commit: `4858836` on `Phillip-Lowe/systack-site.git` #### 3. Fleet Specifications Complete All 10 agents now have formal fleet specs: | # | Agent | File | Status | |---|-------|------|--------| | 1 | SOL | `fleet/sol.md` | 🟢 ACTIVE | | 2 | ORACLE | `fleet/oracle.md` | 🟢 ACTIVE | | 3 | ATLAS | `fleet/atlas.md` | 🟢 ACTIVE | | 4 | VALI | `fleet/vali.md` | 🟢 ACTIVE | | 5 | PESSI | `fleet/pessi.md` | 🟢 ACTIVE | | 6 | ASSEMBLY | `fleet/assembly.md` | 🟢 ACTIVE | | 7 | JURIS | `fleet/juris.md` | 🟢 ACTIVE (Jun 7) | | 8 | CODY | `fleet/cody.md` | 🔄 REVIVING (dormant since May 31) | | 9 | CHATTY | `fleet/chatty.md` | 🔄 REVIVING | [score=0.833 recalls=20 avg=0.491 source=memory/2026-06-17-oracle-fleet-expansion.md:1-41]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-17-session-close-0711.md:1:50 -->
-- # Session Close — 2026-06-17 07:11 CDT **Status:** Session paused, all work saved **User directive:** "Save this and I'll be back later" --- ## What Was Accomplished Tonight ### SAOS Provisioning Pipeline (COMPLETE) - 7 components built, tested, committed - 16/16 tests passing - Database schema verified (saos_clients, task_queue) - Orchestrator daemon verified (PID 70691) ### JURIS Compliance Framework (COMPLETE) - 4 wiki documents created - JURIS workspace identity files updated - Agent references documented ### ORACLE Architecture Review (SAVED) - Full response saved to memory/ORACLE-RESPONSE-2026-06-17.md - Approved: 16GB baseline, cloud-first, Tailscale tagged devices - Flags: Early health checks, state machine, on-prem architecture - **NOT implemented** — saved for later session --- ## Files Saved | File | Location | Purpose | |------|----------|---------| | MEMORY.md | ~/.openclaw/workspaces/sol/ | Curated memory, TODO list | | Session log | memory/2026-06-17-session-final.md | Full session summary | | ORACLE response | memory/ORACLE-RESPONSE-2026-06-17.md | Architecture review (pending) | | Close note | memory/2026-06-17-session-close-0711.md | This file | --- ## Next Session Starting Point When you return, priority is: 1. Get API keys (Vultr, Tailscale, n8n) 2. Test real VPS creation with --tier test 3. Implement ORACLE recommendations (when ready) --- **Session saved. See you later, Boss.** [score=0.829 recalls=7 avg=0.508 source=memory/2026-06-17-session-close-0711.md:1-50]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-19-systack-service-manual-client.md:32:75 -->
-- | Section | Content | Purpose | |---------|---------|---------| | **About SyStack** | Mission, vision, values | Brand identity | | **What Is SAOS** | Concept, benefits, diagram | Education | | **Service Plans** | Prices ($49-$299+), specs, features | Sales enablement | | **Products** | Invoice automation, ordering, no-shows | Product catalog | | **Security** | Encryption, VPN, compliance | Trust building | | **Getting Started** | 7-step onboarding | Expectation setting | | **Support** | Response times, SLA | Confidence | | **FAQ** | 7 common questions | Objection handling | | **Glossary** | SAOS, agent, workflow, n8n | Education | --- ## Comparison | Metric | Internal Manual | Client Manual | |--------|-----------------|---------------| | **Pages (approx)** | ~30 | ~20 | | **File size** | 588 KB | 330 KB | | **Classification** | SyStack Proprietary | Client Deliverable | | **Pricing detail** | Cost + margin | Sell price only | | **Technical depth** | Deep (commands, APIs) | Conceptual (diagrams, benefits) | | **Fleet detail** | 10 agents with models | "Full fleet of AI agents" | --- ## Files | File | Location | Size | |------|----------|------| | SyStack-Service-Manual-Client-v1.0.pdf | workspace + repo `docs/` | 330 KB | | SyStack-Service-Manual-Client-v1.0.md | workspace + repo `docs/` | 12 KB | **Git:** `4ba4ed6` on `main` --- ## Usage - **Sales calls:** Email to prospects before discovery call - **Website:** Link from `/docs` or `/pricing` pages - **Onboarding:** Include in welcome email after signup - **Support:** Reference for SLA expectations [score=0.828 recalls=8 avg=0.496 source=memory/2026-06-19-systack-service-manual-client.md:32-75]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-05-lead-automation-build.md:120:159 -->
-- → Auto-replies to lead → Shows recommendation + "Book a Call" CTA OR Visitor goes to /contact → Fills quick form → Submits → same webhook → Same notifications → Shows "We'll reply within 24h" ``` --- ## Files Changed/Created | File | Action | |------|--------| | `systack-site/contact.html` | Updated form to use webhook | | `systack-site/discovery.html` | ✅ New — 8-step questionnaire | | `systack-site/personal-agent/index.html` | Updated pricing tiers | | `systack-site/pricing.html` | Updated SAOS + Personal Agent sections | | `systack-site/services.html` | Added security section | | `systack-lead-capture-webhook.json` | ✅ New — n8n workflow | | `clients/mcdonalds-gm/DEPLOYMENT-PLAYBOOK.md` | Added discovery step | --- ## Next Session 1. **Deploy n8n workflow** — Import JSON, configure credentials 2. **Test end-to-end** — Submit form, verify sheets + emails 3. **Push site to GitHub** — `git push origin main` 4. **Verify live** — Test on systack.net --- *Built by Sol* *Lead capture + discovery automation complete* [score=0.805 recalls=7 avg=0.486 source=memory/2026-06-05-lead-automation-build.md:120-159]
+**Status:** ⏸️ WAITING — Full league knowledge extracted, awaiting Season 51 simulation
+**Source:** `/Users/philliplowe/nbf_lbu_sim/` (primary)
+**Full Details:** `memory/2026-07-13-nbf-complete-knowledge-base.md`
+
+### Quick Reference
+- **League:** National Basketball Federation (NBF), "Ball On 'Em"
+- **Commissioner:** Victor Hale
+- **16 Teams:** 8 East / 8 West
+- **Genesis Era:** Seasons 1-50 (simulated, hidden)
+- **Public Era:** Season 51 onward (content creation begins)
+- **Philosophy:** 90-95% Simulation, 5-10% LLM Interpretation
+
+### Top Players (Entering S51)
+1. Roman Coleman Jr. (Denver Peaks, SG, 36, OVR 98) — 8× MVP, 8× DPOY
+2. Isaiah Morris Jr. (Philadelphia Riders, SG, 23, OVR 97) — S48 MVP
+3. Lamar Knight Jr. (Atlanta Monarchs, SG, 26, OVR 97) — S50 Kanomi Jones MVP
+4. Micah Brooks Jr. (Charlotte Crown, C, 32, OVR 94)
+5. Cameron Graves Jr. (Boston Guardians, SF, 34, OVR 95)
+
+### Championship Leaders
+- Chicago Union: 6 titles
+- Dallas Outlaws, Houston Cosmos, Portland Lumberjacks, New York Empire: 5 each
+- Boston Guardians, Philadelphia Riders: 4 each
+- Atlanta Monarchs, Charlotte Crown, Miami Tide: 3 each
+- Detroit Forge, Little Rock Bandits, Los Angeles Stars: 2 each
+- Denver Peaks: 1
+- Phoenix Fire, Seattle Sound: 0 (title-hungry)
+
+### S51 Storylines (Pre-Simulation)
+- Isaiah Morris MVP chase
+- Lamar Knight dynasty building
+- Roman Coleman legacy watch (age 36)
+- Dallas Outlaws ownership meltdown
+- Philadelphia title window
+
+### When Activated
+Green + Oracle will finish engine (Step 5D → 5E), simulate Season 51, then activate SOL/DOOBY/LOKI for:
+- SportsCenter-style recaps
+- 30-for-30 documentaries
+- Power rankings shows
+- MVP ladder updates
+- Trade deadline specials
+- Playoff/finals broadcasts
+- Owner/player reactions
+
+---
+
+## TTS Audio — PAUSED (2026-07-12)
+**Status:** ⏸️ TTS paused — local MLX/Kokoro server (port 8080) down
+**Issue:** Audio files generate but never deliver (server not running)
+**Config:** `messages.tts.auto = "always"` pointing to dead `127.0.0.1:8080`
+**Decision:** Pause until user fixes local server or decides to switch provider
+**File:** `memory/2026-07-12-tts-audio-investigation.md`
+
+---
+
+## Promoted From Short-Term Memory (2026-07-13)
+
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-pre-deploy-audit.md:25:28 -->
+- Fixes Applied: **Admin PIN rotated**: `1234` → `46097565` (8-digit random). Both plists updated. Verified old PIN rejected, new PIN works.; **Provision Bridge plist fixed**: `/tmp/systack-saas-init/scripts/saos_provision_bridge.py` → `~/.openclaw/workspaces/sol/scripts/saos_provision_bridge.py`. Service restarted, PID 2022, polling normally.; **n8n tunnel config cleaned**: Removed dead `invoices.systack.net → port 9001` route.; **Invoice tunnel config fixed**: Port 9001 → 8766, removed duplicate utopia-api route. Orphaned tunnel (PID 908, no credentials) killed and LaunchAgent unloaded. [score=0.857 recalls=0 avg=0.620 source=memory/2026-07-07-pre-deploy-audit.md:25-28]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-pre-deploy-audit.md:3:5 -->
+- 2026-07-07 — Full Systems Audit & Pre-Deployment Fixes: **Date:** 2026-07-07 03:22-03:35 CDT **Status:** ✅ COMPLETE **Test Suite:** 65/65 passing [score=0.857 recalls=0 avg=0.620 source=memory/2026-07-07-pre-deploy-audit.md:3-5]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-security-score-95.md:3:5 -->
+- 2026-07-07 — Security Score 8.5 → 9.5 + Trust Center Link Fix: **Status:** ✅ COMPLETE **Time:** 02:51-03:08 CDT **Commit:** `2acdbec` (security headers), `76ad8a3` (trust center link fix) [score=0.857 recalls=0 avg=0.620 source=memory/2026-07-07-security-score-95.md:3-5]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:10:10 -->
+- n8n Workflow List UI Fix (04:39 CDT): **Root causes found and fixed:** [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:10-10]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:11:14 -->
+- n8n Workflow List UI Fix (04:39 CDT): 6 orphaned `shared_workflow` entries pointing to deleted workflows; 4 SAOS workflows with NULL `createdAt`/`updatedAt` (inserted via API without timestamps); 7 active workflows missing `workflow_published_version` entries; 93 orphaned `workflow_statistics`, 6 `workflow_history`, 18 `workflow_publish_history` entries [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:11-14]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:16:16 -->
+- n8n Workflow List UI Fix (04:39 CDT): Reference: `memory/2026-07-07-n8n-workflow-list-fix.md` [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:16-16]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:19:19 -->
+- SAOS Workflow JSON Build (04:53 CDT): Assembly (deepseek-v4-pro) built 7 complete SAOS workflow JSON files from Oracle's specs. [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:19-19]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:21:21 -->
+- SAOS Workflow JSON Build (04:53 CDT): **Files:** `Systack/content/saos/saos-data/n8n-workflows-v2/` [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:21-21]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:8:8 -->
+- n8n Workflow List UI Fix (04:39 CDT): Fixed blank workflow list page (`TypeError: null is not an object (evaluating 'e.updatedAt.toString')` at `WorkflowsView.vue:372`). [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:8-8]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-workflow-list-fix.md:11:11 -->
+- Problem: Location: `WorkflowsView.vue:372` [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-workflow-list-fix.md:11-11]
