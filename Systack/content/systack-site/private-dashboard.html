@@ -302,14 +302,12 @@
     </div>
 
     <script>
-# API endpoints (configured per client — localhost for Private tier)
-API_BASE = ''  # Same origin — dashboard served by Flask
+// API endpoints (configured per client — no hardcoded URLs)
+const API_BASE = '';  // Same origin — dashboard served by Flask
 
-# For development with dashboard-server.py:
-# Dashboard runs at http://localhost:8080
-# API is at same origin (no CORS needed)
+// For development: configure dashboard and API endpoints in your environment.
 
-# Activity type colors
+// Activity type colors
 const TYPE_COLORS = {
             booking: 'success',
             invoice: 'success',
