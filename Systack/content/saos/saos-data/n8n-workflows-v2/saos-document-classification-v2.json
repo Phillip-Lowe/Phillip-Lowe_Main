@@ -78,15 +78,15 @@
       ],
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:8768/api/webhook/invoice",
+        "url": "http://localhost:8768/api/notifications",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ $json }}",
+        "jsonBody": "={{ { client_id: $json.client_id, type: 'invoice_classified', message: 'Invoice document classified: ' + ($json.filename || 'unknown'), urgency: 'normal', channel: 'dashboard' } }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
-              "name": "X-Saos-Internal-Key",
+              "name": "X-Internal-Api-Key",
               "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
             }
           ]
@@ -197,7 +197,7 @@
         "headerParameters": {
           "parameters": [
             {
-              "name": "X-Saos-Internal-Key",
+              "name": "X-Internal-Api-Key",
               "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
             }
           ]

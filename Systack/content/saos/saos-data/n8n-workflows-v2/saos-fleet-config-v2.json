@@ -152,15 +152,15 @@
       ],
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:8770/api/notifications",
+        "url": "http://localhost:8768/api/notifications",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ { message: 'Fleet configured for client ' + $('Code: Build Config Response').first().json.client_id } }}",
+        "jsonBody": "={{ { client_id: $('Code: Build Config Response').first().json.client_id, type: 'fleet_configured', message: 'Fleet configured for client ' + $('Code: Build Config Response').first().json.client_id, urgency: 'normal', channel: 'dashboard' } }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
-              "name": "X-Saos-Internal-Key",
+              "name": "X-Internal-Api-Key",
               "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
             }
           ]

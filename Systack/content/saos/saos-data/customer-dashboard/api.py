@@ -16,6 +16,7 @@ import os
 import re
 import json
 import hashlib
+import hmac
 import random
 import secrets
 import string
@@ -407,7 +408,8 @@ def verify_pin(pin: str, stored: str) -> bool:
     if isinstance(stored, str) and stored.startswith('$2'):
         return bcrypt.checkpw(pin.encode('utf-8'), stored.encode('utf-8'))
     # Legacy plaintext fallback — remove after one-time migration.
-    return stored == pin
+    print("[SECURITY WARNING] Legacy plaintext PIN verified; migrate to bcrypt immediately.")
+    return hmac.compare_digest(stored, pin)
 
 def generate_pin(length=6):
     """Generate a numeric PIN using cryptographically secure random."""
@@ -551,10 +553,10 @@ def require_internal_api_key(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         api_key = request.headers.get('X-Internal-Api-Key', '')
-        expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+        expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
         if not expected:
             return jsonify({'error': 'Server misconfigured', 'message': 'SAOS_INTERNAL_API_KEY not set'}), 500
-        if api_key != expected:
+        if not expected or not hmac.compare_digest(api_key, expected):
             return jsonify({'error': 'Unauthorized', 'message': 'Invalid internal API key'}), 401
         return f(*args, **kwargs)
     return decorated
@@ -1659,9 +1661,9 @@ def pending_tasks():
     Requires internal-api-key header for basic security.
     """
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
     
-    if api_key != expected:
+    if not expected or not hmac.compare_digest(api_key, expected):
         return jsonify({'error': 'Unauthorized'}), 401
     
     # Get pending tasks that haven't been claimed yet
@@ -1689,9 +1691,9 @@ def claim_task(task_id):
     """Mark a task as claimed by an agent runner.
     Prevents duplicate agent spawns."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
     
-    if api_key != expected:
+    if not expected or not hmac.compare_digest(api_key, expected):
         return jsonify({'error': 'Unauthorized'}), 401
     
     data = request.get_json() or {}
@@ -1712,9 +1714,9 @@ def update_task(task_id):
     """Update task status from agent execution.
     Called by spawned agents via webhook."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
     
-    if api_key != expected:
+    if not expected or not hmac.compare_digest(api_key, expected):
         return jsonify({'error': 'Unauthorized'}), 401
     
     data = request.get_json() or {}
@@ -1834,9 +1836,9 @@ def notify_client():
     Called by task update system when client is offline or for urgent updates.
     """
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
     
-    if api_key != expected:
+    if not expected or not hmac.compare_digest(api_key, expected):
         return jsonify({'error': 'Unauthorized'}), 401
     
     data = request.get_json() or {}
@@ -1916,13 +1918,59 @@ def notify_client():
     
     return jsonify({'error': 'No delivery channel available'}), 500
 
+@app.route('/api/notifications', methods=['POST'])
+def create_notification():
+    """Generic notification creation endpoint used by n8n workflows.
+    Accepts a simple payload and stores it for later delivery.
+    """
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
+
+    if not expected or not hmac.compare_digest(api_key, expected):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    data = request.get_json() or {}
+    client_id = data.get('client_id')
+    task_id = data.get('task_id')
+    message = data.get('message', '')
+    notification_type = data.get('type', 'general')
+    urgency = data.get('urgency', 'normal')
+    channel = data.get('channel', 'dashboard')
+
+    if not message:
+        return jsonify({'error': 'message is required'}), 400
+
+    db_exec("""
+        INSERT INTO notifications (client_id, task_id, type, content, urgency, channel, status)
+        VALUES (%s, %s, %s, %s, %s, %s, 'queued')
+    """, (client_id, task_id, notification_type, message, urgency, channel))
+
+    return jsonify({'success': True, 'message': 'Notification queued'}), 201
+
+@app.route('/api/internal/notifications/<int:notification_id>/sent', methods=['POST'])
+def mark_notification_sent(notification_id):
+    """Mark a pending notification as sent. Used by n8n email dispatcher."""
+    api_key = request.headers.get('X-Internal-Api-Key', '')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
+
+    if not expected or not hmac.compare_digest(api_key, expected):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    db_exec("""
+        UPDATE notifications
+        SET status = 'sent', sent_at = NOW()
+        WHERE id = %s AND status IN ('queued', 'pending_email')
+    """, (notification_id,))
+
+    return jsonify({'success': True, 'notification_id': notification_id, 'status': 'sent'})
+
 @app.route('/api/internal/notifications/pending')
 def pending_notifications():
     """Get pending notifications for n8n to process."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
     
-    if api_key != expected:
+    if not expected or not hmac.compare_digest(api_key, expected):
         return jsonify({'error': 'Unauthorized'}), 401
     
     notifications = db_query("""
@@ -1947,9 +1995,9 @@ def upload_deliverable():
     """Upload a deliverable file for a task.
     Called by agents after completing work."""
     api_key = request.headers.get('X-Internal-Api-Key', '')
-    expected = os.environ.get('SAOS_INTERNAL_API_KEY')
+    expected = os.environ.get('SAOS_INTERNAL_API_KEY', '')
     
-    if api_key != expected:
+    if not expected or not hmac.compare_digest(api_key, expected):
         return jsonify({'error': 'Unauthorized'}), 401
     
     data = request.get_json() or {}

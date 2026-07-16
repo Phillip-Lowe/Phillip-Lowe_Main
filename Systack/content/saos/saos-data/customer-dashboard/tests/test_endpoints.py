@@ -13,9 +13,13 @@ import sys
 import time
 import os
 
-BASE = "http://localhost:8768"
+BASE_PORT = os.environ.get('SAOS_TEST_PORT', '8768')
+CC_PORT = os.environ.get('SAOS_TEST_CC_PORT', '8770')
+BASE = f"http://localhost:{BASE_PORT}"
 INTERNAL_KEY = os.environ.get('SAOS_INTERNAL_API_KEY', '')
 SAOS_ADMIN_PIN = os.environ.get('SAOS_ADMIN_PIN', '')
+# Command Center reads SYSTACK_ADMIN_PIN; fall back to SAOS_ADMIN_PIN for test convenience.
+SYSTACK_ADMIN_PIN = os.environ.get('SYSTACK_ADMIN_PIN', SAOS_ADMIN_PIN)
 SAOS_TEST_CLIENT_PIN = os.environ.get('SAOS_TEST_CLIENT_PIN', '1234')
 results = {"pass": 0, "fail": 0, "skip": 0}
 errors = []
@@ -264,8 +268,8 @@ for route in pdf_routes:
 
 # ── COMMAND CENTER ENDPOINTS ───────────────────────────
 print("\n── Command Center (port 8770) ──")
-CC_BASE = "http://localhost:8770"
-CC_HEADERS = {"X-Admin-PIN": SAOS_ADMIN_PIN}
+CC_BASE = f"http://localhost:{CC_PORT}"
+CC_HEADERS = {"X-Admin-PIN": SYSTACK_ADMIN_PIN}
 
 cc_endpoints = [
     "/api/health",

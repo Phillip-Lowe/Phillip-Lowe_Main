@@ -8,6 +8,7 @@ Usage:
 """
 
 import sys
+import os
 import argparse
 import requests
 import socket

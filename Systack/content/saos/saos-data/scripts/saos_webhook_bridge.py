@@ -22,6 +22,7 @@ import sys
 import json
 import argparse
 import subprocess
+import hmac
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
@@ -68,9 +69,9 @@ class WebhookHandler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "error", "message": "Service Unavailable: webhook secret not configured"}).encode())
             return
 
-        # Validate the shared secret header.
+        # Validate the shared secret header using constant-time comparison.
         supplied_secret = self.headers.get('X-Webhook-Secret', '')
-        if supplied_secret != WEBHOOK_SECRET:
+        if not hmac.compare_digest(supplied_secret, WEBHOOK_SECRET):
             log("ERROR: Invalid or missing X-Webhook-Secret header")
             self.send_response(401)
             self.send_header("Content-type", "application/json")

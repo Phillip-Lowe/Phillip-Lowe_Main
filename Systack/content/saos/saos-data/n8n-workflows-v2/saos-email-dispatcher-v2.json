@@ -161,7 +161,7 @@
       ],
       "parameters": {
         "method": "PUT",
-        "url": "={{'http://localhost:8768/api/notifications/' + $json.id}}",
+        "url": "={{'http://localhost:8768/api/internal/notifications/' + $json.id + '/sent'}}",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ { status: 'sent' } }}",
