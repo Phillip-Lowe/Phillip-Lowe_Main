@@ -36,12 +36,12 @@
       ],
       "parameters": {
         "method": "GET",
-        "url": "http://localhost:8768/api/tasks?status=pending&type=support",
+        "url": "http://localhost:8768/api/internal/pending-tasks",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
-              "name": "X-Saos-Internal-Key",
+              "name": "X-Internal-Api-Key",
               "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
             }
           ]
@@ -138,7 +138,7 @@
         "headerParameters": {
           "parameters": [
             {
-              "name": "X-Saos-Internal-Key",
+              "name": "X-Internal-Api-Key",
               "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
             }
           ]

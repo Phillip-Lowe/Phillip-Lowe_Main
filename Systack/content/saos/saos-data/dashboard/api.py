@@ -17,6 +17,13 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+# Static file allowlist — only serve safe web assets from the dashboard directory.
+STATIC_ALLOWLIST = {
+    'index.html', 'style.css', 'app.js', 'favicon.ico',
+    'logo.png', 'logo.svg', 'manifest.json',
+}
+BLOCKED_EXTENSIONS = {'.py', '.db', '.json', '.env', '.md', '.sql', '.log', '.bak', '.swp', '.key', '.pem'}
+
 # Serve static dashboard files
 @app.route('/')
 def dashboard_root():
@@ -24,7 +31,14 @@ def dashboard_root():
 
 @app.route('/<path:filename>')
 def dashboard_static(filename):
-    return send_from_directory('.', filename)
+    """Serve only allowlisted static assets; block sensitive extensions."""
+    base_name = os.path.basename(filename)
+    _, ext = os.path.splitext(base_name)
+    if ext.lower() in BLOCKED_EXTENSIONS:
+        return jsonify({"error": "Forbidden"}), 403
+    if base_name not in STATIC_ALLOWLIST:
+        return jsonify({"error": "Forbidden"}), 403
+    return send_from_directory('.', base_name)
 
 DB_HOST = os.environ.get("PGHOST", "localhost")
 DB_PORT = int(os.environ.get("PGPORT", "5432"))

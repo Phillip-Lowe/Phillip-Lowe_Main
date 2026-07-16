@@ -22,7 +22,12 @@ from psycopg2.extras import RealDictCursor
 
 # ── CONFIG ───────────────────────────────────────────────────────────
 DB_HOST = os.environ.get("PGHOST", "localhost")
-DB_PORT = int(os.environ.get("PGPORT", "5432"))
+PGPORT_RAW = os.environ.get("PGPORT", "5432")
+try:
+    DB_PORT = int(PGPORT_RAW)
+except ValueError:
+    print(f"ERROR: PGPORT must be an integer, got '{PGPORT_RAW}'")
+    sys.exit(1)
 DB_NAME = os.environ.get("PGDATABASE", "systack_memory")
 DB_USER = os.environ.get("PGUSER", "philliplowe")
 DB_PASS = os.environ.get("PGPASSWORD", "")

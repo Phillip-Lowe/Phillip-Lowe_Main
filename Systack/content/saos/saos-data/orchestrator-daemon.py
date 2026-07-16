@@ -19,19 +19,23 @@ from psycopg2.extras import RealDictCursor
 
 # ── CONFIG ───────────────────────────────────────────────────────────
 DB_HOST = os.environ.get("PGHOST", "localhost")
-DB_PORT = int(os.environ.get("PGPORT", "5432"))
+PGPORT_RAW = os.environ.get("PGPORT", "5432")
+try:
+    DB_PORT = int(PGPORT_RAW)
+except ValueError:
+    print(f"ERROR: PGPORT must be an integer, got '{PGPORT_RAW}'")
+    sys.exit(1)
 DB_NAME = os.environ.get("PGDATABASE", "systack_memory")
 DB_USER = os.environ.get("PGUSER", "philliplowe")
 DB_PASS = os.environ.get("PGPASSWORD", "")
 
 POLL_INTERVAL = 10       # seconds between task polls
 AGENT_HEARTBEAT = 60    # seconds between agent heartbeat updates
-BATCH_SIZE = 5          # tasks to process per poll cycle
 
-# ALL 10 FLEET AGENTS — each gets tasks based on capability matching
+# ALL 10 FLEET AGENTS — tasks are claimed by priority/order, not hardcoded capability matching
 FLEET_AGENTS = [
     "SOL",        # Command & Orchestrator
-    "CODY",       # Build Engine  
+    "CODY",       # Build Engine
     "ASSEMBLY",   # Deployment
     "VALI",       # Quality Verification
     "PESSI",      # Risk Analysis
@@ -41,20 +45,6 @@ FLEET_AGENTS = [
     "GENI",       # Creative & Visual
     "JURIS",      # Legal & Compliance
 ]
-
-# Agent capability map — determines which tasks each agent can claim
-AGENT_CAPABILITIES = {
-    "SOL":      ["GENERIC", "ORCHESTRATE", "COORDINATE", "ROUTE"],
-    "CODY":     ["BUILD", "CODE", "GENERATE", "SCAFFOLD", "RESEARCH"],
-    "ASSEMBLY": ["DEPLOY", "ACTIVATE", "PUBLISH", "CONFIGURE", "INSTALL"],
-    "VALI":     ["VALIDATE", "TEST", "VERIFY", "QUALITY", "REVIEW"],
-    "PESSI":    ["RISK", "AUDIT", "SECURITY", "STRESS_TEST", "FAILURE_MODE"],
-    "ORACLE":   ["DESIGN", "ARCHITECT", "PLAN", "STRATEGY", "RESEARCH"],
-    "ATLAS":    ["KNOWLEDGE", "MEMORY", "LOG", "DOCUMENT", "INDEX"],
-    "CHATTY":   ["COMMUNICATE", "MESSAGE", "ONBOARD", "EMAIL", "NOTIFY"],
-    "GENI":     ["CREATE", "IMAGE", "VIDEO", "DESIGN", "VISUAL"],
-    "JURIS":    ["LEGAL", "COMPLIANCE", "CONTRACT", "REVIEW", "CLEAR"],
-}
 
 # Agent emoji for logs
 AGENT_EMOJI = {
@@ -103,19 +93,12 @@ def ensure_agents_seeded():
     log(f"Fleet seeded: {len(FLEET_AGENTS)} agents ready")
 
 def claim_next_task(agent_name: str) -> Optional[Dict]:
-    """Atomically claim highest-priority task matching agent capabilities."""
-    capabilities = AGENT_CAPABILITIES.get(agent_name, ["GENERIC"])
-    
+    """Atomically claim highest-priority pending task."""
     conn = get_db()
     cur = conn.cursor(cursor_factory=RealDictCursor)
-    
-    # Build capability pattern for SQL LIKE matching
-    cap_patterns = [f"%%{c}%%" for c in capabilities]
-    
+
     cur.execute("BEGIN;")
-    
-    # Try to claim a task that matches this agent's capabilities
-    # OR a task with no specific agent assigned
+
     cur.execute("""
         SELECT * FROM task_queue
         WHERE status = 'PENDING'
@@ -125,7 +108,7 @@ def claim_next_task(agent_name: str) -> Optional[Dict]:
         FOR UPDATE SKIP LOCKED
         LIMIT 1;
     """, (agent_name,))
-    
+
     row = cur.fetchone()
     if row:
         cur.execute("""

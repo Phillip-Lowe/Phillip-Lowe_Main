@@ -35,14 +35,14 @@
       "position": [440, 0],
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:8768/api/webhook/provision",
+        "url": "http://localhost:8768/api/internal/workflows",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ $json.provisioning }}",
+        "jsonBody": "={{ { client_id: $json.provisioning.client_id, workflow_name: 'VPS Ready Provisioning', service_type: 'provisioning', status: 'deployed', webhook_url: 'http://localhost:8768/api/internal/workflows/' + $json.provisioning.client_id + '/notify', test_payload: $json.provisioning } }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "X-Saos-Internal-Key", "value": "={{$env.SAOS_INTERNAL_API_KEY}}" }
+            { "name": "X-Internal-Api-Key", "value": "={{$env.SAOS_INTERNAL_API_KEY}}" }
           ]
         },
         "options": {
@@ -78,14 +78,14 @@
       "position": [880, 0],
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:8770/api/notifications",
+        "url": "http://localhost:8768/api/internal/notify-client",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ { message: 'VPS ready for client ' + $('Code: Build Provisioning Payload').first().json.client_id, vps_id: $('Code: Build Provisioning Payload').first().json.vps_id } }}",
+        "jsonBody": "={{ { client_id: $('Code: Build Provisioning Payload').first().json.client_id, message: 'VPS ready for client ' + $('Code: Build Provisioning Payload').first().json.client_id, urgency: 'normal', channel: 'dashboard' } }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "X-Saos-Internal-Key", "value": "={{$env.SAOS_INTERNAL_API_KEY}}" }
+            { "name": "X-Internal-Api-Key", "value": "={{$env.SAOS_INTERNAL_API_KEY}}" }
           ]
         },
         "options": {

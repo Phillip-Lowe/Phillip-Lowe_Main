@@ -406,104 +406,11 @@ def _extract_assistant_text(session_file: str) -> str:
     return texts[-1] if texts else "No assistant response captured"
 
 
-def _execute_direct_tools(prompt: str, agent_name: str, task_id: int) -> Optional[Dict]:
-    """
-    FALLBACK: Parse the task prompt and execute directly using Python libraries.
-    Only used when agent turn is unavailable or for simple/fast operations.
-    
-    This is NOT the preferred path — agent turns are preferred per architecture.
-    """
-    import re
-    
-    prompt_lower = prompt.lower()
-    
-    # ── SHELL_EXEC (direct fallback) ──
-    shell_match = re.search(r'["\']?command["\']?\s*[:=]\s*["\']([^"\']+)["\']', prompt, re.I)
-    if not shell_match:
-        shell_match = re.search(r'run[:\s]+(.+?)(?:\n|$)', prompt, re.I)
-    
-    if shell_match or 'shell_exec' in prompt_lower:
-        cmd = shell_match.group(1).strip() if shell_match else None
-        if cmd:
-            dangerous = ['rm -rf /', 'rm -rf ~', 'drop ', 'delete from ', 
-                        'shutdown', 'reboot', 'mkfs', 'dd if=', '> /dev/null']
-            if any(d in cmd.lower() for d in dangerous):
-                return {
-                    "status": "blocked",
-                    "output": f"SAFETY: Command '{cmd}' rejected",
-                    "method": "direct_shell_blocked"
-                }
-            try:
-                result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=60)
-                return {
-                    "status": "completed",
-                    "output": result.stdout[:2000],
-                    "stderr": result.stderr[:1000],
-                    "rc": result.returncode,
-                    "method": "direct_shell_exec",
-                    "command": cmd
-                }
-            except Exception as e:
-                return {"status": "error", "output": f"Shell error: {e}", "method": "direct_shell_error"}
-    
-    # ── FILE_READ (direct fallback) ──
-    read_match = re.search(r'(?:read|cat|show)\s+(?:file\s+)?["\']?([^"\']+\.\w+)["\']?', prompt, re.I)
-    if read_match or 'file_read' in prompt_lower:
-        filepath = read_match.group(1).strip() if read_match else None
-        if filepath and os.path.isfile(filepath):
-            try:
-                with open(filepath, 'r') as f:
-                    content = f.read()
-                return {"status": "completed", "output": content[:3000], "method": "direct_file_read", "file": filepath}
-            except Exception as e:
-                return {"status": "error", "output": f"Read error: {e}", "method": "direct_file_error"}
-    
-    # ── FILE_WRITE (direct fallback) ──
-    write_match = re.search(r'(?:write|save|create)\s+(?:to\s+)?["\']?([^"\']+\.\w+)["\']?', prompt, re.I)
-    if write_match or 'file_write' in prompt_lower:
-        content_match = re.search(r'(?:content|body)[:\s]+(.+?)(?:\n#|$)', prompt, re.S | re.I)
-        if not content_match:
-            content_match = re.search(r'```(?:\w+)?\s*(.+?)```', prompt, re.S)
-        filepath = write_match.group(1).strip() if write_match else None
-        if filepath and content_match:
-            content = content_match.group(1).strip()
-            try:
-                os.makedirs(os.path.dirname(filepath), exist_ok=True)
-                with open(filepath, 'w') as f:
-                    f.write(content)
-                return {"status": "completed", "output": f"Written {len(content)} chars to {filepath}", "method": "direct_file_write", "file": filepath}
-            except Exception as e:
-                return {"status": "error", "output": f"Write error: {e}", "method": "direct_write_error"}
-    
-    # ── POSTGRES_QUERY (direct fallback) ──
-    if 'postgres_query' in prompt_lower or ('select ' in prompt_lower and 'from ' in prompt_lower):
-        sql_match = re.search(r'```sql\s*(.+?)```', prompt, re.S | re.I)
-        if not sql_match:
-            sql_match = re.search(r'(?:query|sql)[:\s]+(.+?)(?:\n\n|$)', prompt, re.S | re.I)
-        if sql_match:
-            query = sql_match.group(1).strip()
-            if query.lower().startswith('select') or query.lower().startswith('with'):
-                try:
-                    conn = psycopg2.connect(
-                        host=os.environ.get("PGHOST", "localhost"),
-                        port=int(os.environ.get("PGPORT", "5432")),
-                        dbname=os.environ.get("PGDATABASE", "systack_memory"),
-                        user=os.environ.get("PGUSER", "philliplowe"),
-                        password=os.environ.get("PGPASSWORD", "")
-                    )
-                    cur = conn.cursor()
-                    cur.execute(query)
-                    rows = cur.fetchall()
-                    colnames = [desc[0] for desc in cur.description] if cur.description else []
-                    cur.close(); conn.close()
-                    return {"status": "completed", "output": {"columns": colnames, "rows": rows[:50]}, "method": "direct_postgres_query", "query": query}
-                except Exception as e:
-                    return {"status": "error", "output": f"Query error: {e}", "method": "direct_postgres_error"}
-            else:
-                return {"status": "blocked", "output": "Non-SELECT queries require approval", "method": "direct_postgres_safety"}
-    
-    # No direct tool matched — agent will handle it
-    return None
+# Removed unsafe direct-tool fallback. Use OpenClaw's native tool API instead.
+# The previous `_execute_direct_tools` function allowed prompt-driven shell
+# execution, arbitrary SQL, and file read/write with only weak validation,
+# which is a critical security risk. All tool execution must now go through
+# OpenClaw's allowlisted native tool API.
 
 
 # ── WEB DASHBOARD DATA ─────────────────────────────────────────────

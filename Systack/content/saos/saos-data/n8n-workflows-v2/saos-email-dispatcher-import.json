@@ -132,7 +132,7 @@
       ],
       "parameters": {
         "method": "POST",
-        "url": "http://phillips-macbook-air.tail573d57.ts.net:1234/api/send",
+        "url": "={{$env.BLUEBUBBLES_URL}}/api/send",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ { recipient: $json.recipient || '+15012746231', message: $json.message || $json.body || 'SAOS Notification' } }}",

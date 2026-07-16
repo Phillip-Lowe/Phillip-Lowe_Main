@@ -2,7 +2,10 @@
 """Link Error Catcher to critical production workflows."""
 import json, subprocess, sys
 
-API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNmNiN2I4Zi02OThiLTQxYzYtOWE5NC1iM2YzNTA0MzNjZmEiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiNDQ4MDE4YzAtNTA3NC00YzM0LWEwZjAtMDE4YzY5NzExOTllIiwiaWF0IjoxNzc4OTc1MzE1fQ.8m4SjmpFAr0y9LkIexYBSzt8jEKjkzUWzxjnUtBu80Y"
+API_KEY = os.environ.get('N8N_API_KEY', '')
+if not API_KEY:
+    print("❌ N8N_API_KEY environment variable is not set. Exiting.")
+    sys.exit(1)
 ERROR_CATCHER_ID = "AdAM0770d3pJTrWt"
 
 CRITICAL = [

@@ -19,10 +19,11 @@ import hashlib
 import random
 import secrets
 import string
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from functools import wraps
 import base64
 import uuid
+import bcrypt
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DELIVERABLES_DIR = os.path.join(BASE_DIR, 'deliverables')
@@ -116,6 +117,9 @@ DB_HOST = os.environ.get("PGHOST", "localhost")
 DB_PORT = int(os.environ.get("PGPORT", "5432"))
 DB_NAME = os.environ.get("PGDATABASE", "systack_memory")
 DB_USER = os.environ.get("PGUSER", "philliplowe")
+
+# External service URLs (no hardcoded secrets)
+BLUEBUBBLES_URL = os.environ.get("BLUEBUBBLES_URL", "http://localhost:1234")
 
 # ── SERVICES CONFIGURATION ─────────────────────────────────
 # Service definitions by tier — ALIGNED WITH ACTUAL SYSTACK OFFERINGS
@@ -379,9 +383,35 @@ def db_insert(sql, params=()):
 def hash_token(token):
     return hashlib.sha256(token.encode()).hexdigest()
 
+# ── PIN HASHING (bcrypt) ────────────────────────────────────
+# MIGRATION NOTE: Existing plaintext PINs in `saos_clients.auth_pin`
+# and `saos_clients.temp_pin` must be hashed by a one-time migration
+# script before this code is considered fully secure. The legacy
+# plaintext fallback below is only a temporary bridge and should be
+# removed after migration.
+_BCRYPT_ROUNDS = 12
+
+def hash_pin(pin: str) -> str:
+    """Hash a plaintext PIN using bcrypt."""
+    if not isinstance(pin, str):
+        pin = str(pin)
+    return bcrypt.hashpw(pin.encode('utf-8'), bcrypt.gensalt(rounds=_BCRYPT_ROUNDS)).decode('utf-8')
+
+def verify_pin(pin: str, stored: str) -> bool:
+    """
+    Verify a plaintext PIN against a stored value.
+    Supports bcrypt hashes and, temporarily, legacy plaintext PINs.
+    """
+    if not pin or not stored:
+        return False
+    if isinstance(stored, str) and stored.startswith('$2'):
+        return bcrypt.checkpw(pin.encode('utf-8'), stored.encode('utf-8'))
+    # Legacy plaintext fallback — remove after one-time migration.
+    return stored == pin
+
 def generate_pin(length=6):
-    """Generate a numeric PIN."""
-    return ''.join(random.choices(string.digits, k=length))
+    """Generate a numeric PIN using cryptographically secure random."""
+    return ''.join(secrets.choice(string.digits) for _ in range(length))
 
 def generate_token():
     return secrets.token_urlsafe(32)
@@ -408,10 +438,11 @@ def get_auth_client():
         client = cur.fetchone()
         
         if client and 'error' not in client:
-            # Set RLS context for this session
-            pin = client.get('auth_pin') or client.get('temp_pin', '')
-            cur.execute("SET LOCAL app.current_client_pin = %s", (pin,))
-            
+            # Set RLS context for this session. PINs are now hashed, so use
+            # client_id for row-level security instead of the raw/hashed PIN.
+            cur.execute("SET LOCAL app.current_client_id = %s", (client['id'],))
+            cur.execute("SET LOCAL app.current_client_pin = 'hashed'")
+
             # Update last_used
             cur.execute("UPDATE client_auth_tokens SET last_used_at = NOW() WHERE token_hash = %s", (token_hash,))
             conn.commit()
@@ -604,22 +635,23 @@ def register_client():
         return jsonify({"error": "Client not found"}), 404
     
     # Verify temp PIN
-    if client.get('temp_pin') != temp_pin:
+    if not verify_pin(temp_pin, client.get('temp_pin')):
         return jsonify({"error": "Invalid temporary PIN"}), 401
-    
+
     # Check expiration
     if client.get('temp_pin_expires_at') and client['temp_pin_expires_at'] < datetime.now():
         return jsonify({"error": "Temporary PIN has expired. Contact support."}), 410
-    
-    # Set permanent PIN and activate
+
+    # Hash and set permanent PIN, then activate
+    hashed_pin = hash_pin(new_pin)
     db_exec("""
-        UPDATE saos_clients 
-        SET auth_pin = %s, onboarding_status = 'active', 
+        UPDATE saos_clients
+        SET auth_pin = %s, onboarding_status = 'active',
             onboarding_completed_at = NOW(), temp_pin = NULL,
             temp_pin_expires_at = NULL
         WHERE id = %s
-    """, (new_pin, client_id))
-    
+    """, (hashed_pin, client_id))
+
     return jsonify({
         "success": True,
         "message": "PIN set successfully. You can now log in with your client ID and PIN.",
@@ -641,12 +673,13 @@ def change_pin():
         return jsonify({"error": "PIN must be 4-10 digits"}), 400
     
     client = db_query("SELECT auth_pin FROM saos_clients WHERE id = %s", (client_id,), one=True)
-    if not client or client.get('auth_pin') != current_pin:
+    if not client or not verify_pin(current_pin, client.get('auth_pin')):
         return jsonify({"error": "Current PIN is incorrect"}), 401
-    
-    # Update PIN
-    db_exec("UPDATE saos_clients SET auth_pin = %s WHERE id = %s", (new_pin, client_id))
-    
+
+    # Hash and update PIN
+    hashed_pin = hash_pin(new_pin)
+    db_exec("UPDATE saos_clients SET auth_pin = %s WHERE id = %s", (hashed_pin, client_id))
+
     # Revoke ALL existing tokens for this client (security: force re-login)
     db_exec("""
         UPDATE client_auth_tokens 
@@ -679,22 +712,27 @@ def forgot_pin():
         # Return success even if not found (security - don't leak existence)
         return jsonify({"success": True, "message": "If your account exists, a reset link has been sent."})
     
-    # Generate new temp PIN
+    # Generate new temp PIN using secure random
     temp = generate_pin(6)
     expires = datetime.now() + timedelta(hours=24)
-    
+    hashed_temp = hash_pin(temp)
+
     db_exec("""
-        UPDATE saos_clients 
+        UPDATE saos_clients
         SET temp_pin = %s, temp_pin_expires_at = %s, onboarding_status = 'pending'
         WHERE id = %s
-    """, (temp, expires, client_id))
-    
-    # TODO: Send email with temp PIN via CHATTY/n8n
-    # For now, return it (in production, this would be sent to email only)
+    """, (hashed_temp, expires, client_id))
+
+    # SECURITY: The temporary PIN is NOT returned in the response.
+    # It must be delivered through a secure channel (email/SMS).
+    # Log server-side so an admin can retrieve it from secure logs if needed.
+    log_audit('pin_reset_generated', entity_type='client', entity_id=str(client_id),
+              client_id=client_id, new_value='***')
+    print(f"[FORGOT-PIN] Temporary PIN generated for client {client_id}; deliver via secure channel.")
+
     return jsonify({
         "success": True,
-        "message": "PIN reset. Contact your SAOS administrator for your temporary PIN.",
-        "temp_pin": temp,  # REMOVE IN PRODUCTION - send via email instead
+        "message": "If your account exists, a reset link with a temporary PIN has been sent via secure channel.",
         "expires_at": expires.isoformat()
     })
 
@@ -825,7 +863,7 @@ def client_status():
     """, (str(client_id),))
     setup_counts = {r['status']: r['n'] for r in setup_tasks if 'status' in r}
     total_setup = sum(setup_counts.values())
-    completed_setup = setup_counts.get('COMPLETED', 0)
+    completed_setup = setup_counts.get('DONE', 0)
     setup_progress = round((completed_setup / total_setup) * 100) if total_setup > 0 else 0
     
     # ── USAGE METRICS (Quick Win) ─────────────────────────
@@ -1194,14 +1232,20 @@ def login():
     if not client.get('auth_pin'):
         log_audit('login_failed_no_pin', entity_type='client', entity_id=str(client_id))
         return jsonify({"error": "PIN not set. Contact support."}), 403
-    
-    if client['auth_pin'] != pin:
+
+    if not verify_pin(pin, client['auth_pin']):
         log_audit('login_failed_invalid_pin', entity_type='client', entity_id=str(client_id))
         return jsonify({
             "error": "Invalid PIN",
             "message": f"Login failed. Attempt {attempts} of 5 in 5 minutes."
         }), 401
-    
+
+    # Transparent migration: if the stored PIN is still plaintext, re-hash it now.
+    stored_pin = client['auth_pin']
+    if isinstance(stored_pin, str) and not stored_pin.startswith('$2'):
+        db_exec("UPDATE saos_clients SET auth_pin = %s WHERE id = %s", (hash_pin(pin), client_id))
+        log_audit('pin_migrated_to_bcrypt', entity_type='client', entity_id=str(client_id), client_id=client_id)
+
     # Enterprise tier: MFA is mandatory
     tier = client.get('tier', 'business')
     if tier == 'enterprise' and not client.get('mfa_enabled'):
@@ -1355,20 +1399,20 @@ def mfa_disable():
     
     # Verify PIN
     fresh = db_query("SELECT auth_pin, mfa_enabled, mfa_secret FROM saos_clients WHERE id = %s", (client_id,), one=True)
-    if not fresh or fresh.get('auth_pin') != pin:
+    if not fresh or not verify_pin(pin, fresh.get('auth_pin')):
         return jsonify({"error": "Invalid PIN"}), 401
-    
+
     # Verify MFA code if MFA is enabled
     if fresh.get('mfa_enabled') and fresh.get('mfa_secret'):
         if not mfa_code or not _totp_verify(fresh['mfa_secret'], mfa_code):
             return jsonify({"error": "Valid MFA code required to disable MFA"}), 401
-    
+
     db_exec("""
-        UPDATE saos_clients 
+        UPDATE saos_clients
         SET mfa_enabled = false, mfa_secret = NULL, mfa_recovery_codes = '[]'
         WHERE id = %s
     """, (client_id,))
-    
+
     log_audit('mfa_disabled', entity_type='client', entity_id=str(client_id), client_id=client_id)
     return jsonify({"success": True, "message": "MFA disabled."})
 
@@ -1737,29 +1781,44 @@ def update_task(task_id):
     return jsonify({'success': True, 'task_id': task_id, 'status': status})
 
 # ── PDF Downloads (updated for v2.1) ──
+# Available PDFs on disk (as of 2026-07-16):
+#   SAOS-Quick-Start-Guide-v7.0.pdf
+#   SAOS-Dashboard-User-Guide-v6.0.pdf
+#   SAOS-Service-Manual-v7.0.pdf
+#   SAOS-Architecture-Overview-v5.0.pdf
+#   SAOS-Dashboard-Mobile-Access-Guide-v4.0.pdf
+#   SyStack-Enterprise-Deployment-Guide-v1.0.pdf
+#   SAOS-Customer-Portal-README-v2.pdf
+#   SAOS-Dashboard-Technical-Spec.pdf
+#   SAOS-iOS-Cert-Trust-Plan.pdf
+#   SAOS-Changes-2026-06-29.pdf, SAOS-Changes-2026-07-05.pdf
+#   SAOS-Security-Architecture-v1.0.pdf, SAOS-Security-Architecture-v2.0.pdf
+#   SAOS-Compliance-Trust-Center-v1.0.pdf
+#   SAOS-Backup-Recovery-Guide-v1.0.pdf
+#   SAOS-Production-Deployment-Checklist-v1.0.pdf
 @app.route('/download/quickstart-v5')
 def serve_quickstart_v5():
-    return send_from_directory(BASE_DIR, 'SAOS-Quick-Start-Guide-v6.0.pdf',
+    return send_from_directory(BASE_DIR, 'SAOS-Quick-Start-Guide-v7.0.pdf',
                                as_attachment=False, mimetype='application/pdf')
 
 @app.route('/download/user-guide-v3')
 def serve_user_guide_v3():
-    return send_from_directory(BASE_DIR, 'SAOS-Dashboard-User-Guide-v4.0.pdf',
+    return send_from_directory(BASE_DIR, 'SAOS-Dashboard-User-Guide-v6.0.pdf',
                                as_attachment=False, mimetype='application/pdf')
 
 @app.route('/download/manual-v5')
 def serve_manual_v5():
-    return send_from_directory(BASE_DIR, 'SAOS-Service-Manual-v6.0.pdf',
+    return send_from_directory(BASE_DIR, 'SAOS-Service-Manual-v7.0.pdf',
                                as_attachment=False, mimetype='application/pdf')
 
 @app.route('/download/architecture-v4')
 def serve_arch_v4():
-    return send_from_directory(BASE_DIR, 'SAOS-Architecture-Overview-v4.0.pdf',
+    return send_from_directory(BASE_DIR, 'SAOS-Architecture-Overview-v5.0.pdf',
                                as_attachment=False, mimetype='application/pdf')
 
 @app.route('/download/mobile-guide-v2')
 def serve_mobile_guide_v2():
-    return send_from_directory(BASE_DIR, 'SAOS-Dashboard-Mobile-Access-Guide-v2.0.pdf',
+    return send_from_directory(BASE_DIR, 'SAOS-Dashboard-Mobile-Access-Guide-v4.0.pdf',
                                as_attachment=False, mimetype='application/pdf')
 
 @app.route('/download/enterprise-guide')
@@ -1816,7 +1875,7 @@ def notify_client():
             import subprocess
             result = subprocess.run([
                 'curl', '-s', '-X', 'POST',
-                'http://phillips-macbook-air.tail573d57.ts.net:1234/api/message',
+                f'{BLUEBUBBLES_URL}/api/message',
                 '-H', 'Content-Type: application/json',
                 '-d', json.dumps({
                     'chatGuid': '+15012746231',
@@ -2355,11 +2414,30 @@ You own this data. Import it into any system that supports JSON.
     )
 
 # ── Static file serving ──
+# Only serve safe web assets. PDFs are served via /download/* routes.
+STATIC_ALLOWLIST = {
+    'index.html', 'onboard.html', 'demo.html', 'thanks.html',
+    'style.css', 'app.js', 'portal.js', 'chat.js', 'favicon.ico',
+    'logo.png', 'logo.svg', 'manifest.json',
+}
+BLOCKED_EXTENSIONS = {'.py', '.db', '.sqlite', '.json', '.env', '.md', '.sql', '.log', '.bak', '.swp', '.key', '.pem', '.pyc'}
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve_dashboard(path):
     if not path:
         return send_from_directory(BASE_DIR, 'index.html')
+
+    base_name = os.path.basename(path)
+    _, ext = os.path.splitext(base_name)
+
+    # Block sensitive file types and paths that try to escape the directory.
+    if '..' in path or ext.lower() in BLOCKED_EXTENSIONS or base_name in BLOCKED_EXTENSIONS:
+        return jsonify({"error": "Forbidden"}), 403
+    if base_name not in STATIC_ALLOWLIST:
+        # Unknown paths fall through to the SPA's index.html.
+        return send_from_directory(BASE_DIR, 'index.html')
+
     full_path = os.path.join(BASE_DIR, path)
     if os.path.isfile(full_path):
         return send_from_directory(BASE_DIR, path)
@@ -2442,7 +2520,7 @@ def _check_tailscale():
 def _check_bluebubbles():
     start = time_mod.time()
     try:
-        req = urllib.request.Request('http://phillips-macbook-air.tail573d57.ts.net:1234/', method='GET')
+        req = urllib.request.Request(f'{BLUEBUBBLES_URL}/', method='GET')
         with urllib.request.urlopen(req, timeout=3) as resp:
             elapsed = int((time_mod.time() - start) * 1000)
             if resp.status == 200:

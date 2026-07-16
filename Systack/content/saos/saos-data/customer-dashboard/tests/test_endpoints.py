@@ -3,15 +3,20 @@
 SAOS API Endpoint Test Suite
 Tests every endpoint in the Customer Portal API for correct responses.
 Run: python3 tests/test_endpoints.py
+
+Set SAOS_INTERNAL_API_KEY, SAOS_ADMIN_PIN, and SAOS_TEST_CLIENT_PIN env vars before running tests.
 """
 
 import requests
 import json
 import sys
 import time
+import os
 
 BASE = "http://localhost:8768"
-INTERNAL_KEY = "9236a071a332cb740af9518c9fdccb7d1a5d3097285b99b75a72875cc96c4f5c"
+INTERNAL_KEY = os.environ.get('SAOS_INTERNAL_API_KEY', '')
+SAOS_ADMIN_PIN = os.environ.get('SAOS_ADMIN_PIN', '')
+SAOS_TEST_CLIENT_PIN = os.environ.get('SAOS_TEST_CLIENT_PIN', '1234')
 results = {"pass": 0, "fail": 0, "skip": 0}
 errors = []
 
@@ -84,7 +89,7 @@ except Exception as e:
 # Login with correct credentials
 TOKEN = None
 try:
-    r = requests.post(f"{BASE}/api/auth/login", json={"client_id": 1, "pin": "1234"}, timeout=5)
+    r = requests.post(f"{BASE}/api/auth/login", json={"client_id": 1, "pin": SAOS_TEST_CLIENT_PIN}, timeout=5)
     if r.status_code == 200:
         data = r.json()
         if "token" in data:
@@ -106,7 +111,7 @@ if not TOKEN:
     print("\n⚠️  No auth token — skipping authenticated tests")
     # Try to get a token with client 2
     try:
-        r = requests.post(f"{BASE}/api/auth/login", json={"client_id": 2, "pin": "1234"}, timeout=5)
+        r = requests.post(f"{BASE}/api/auth/login", json={"client_id": 2, "pin": SAOS_TEST_CLIENT_PIN}, timeout=5)
         if r.status_code == 200 and "token" in r.json():
             TOKEN = r.json()["token"]
             print(f"  ✅ Got token from client 2")
@@ -260,7 +265,7 @@ for route in pdf_routes:
 # ── COMMAND CENTER ENDPOINTS ───────────────────────────
 print("\n── Command Center (port 8770) ──")
 CC_BASE = "http://localhost:8770"
-CC_HEADERS = {"X-Admin-PIN": "46097565"}
+CC_HEADERS = {"X-Admin-PIN": SAOS_ADMIN_PIN}
 
 cc_endpoints = [
     "/api/health",

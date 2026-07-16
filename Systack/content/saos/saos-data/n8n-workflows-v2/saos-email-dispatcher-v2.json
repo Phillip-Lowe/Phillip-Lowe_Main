@@ -36,12 +36,12 @@
       ],
       "parameters": {
         "method": "GET",
-        "url": "http://localhost:8768/api/notifications?status=pending",
+        "url": "http://localhost:8768/api/internal/notifications/pending",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
-              "name": "X-Saos-Internal-Key",
+              "name": "X-Internal-Api-Key",
               "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
             }
           ]
@@ -136,7 +136,7 @@
       ],
       "parameters": {
         "method": "POST",
-        "url": "http://phillips-macbook-air.tail573d57.ts.net:1234/api/send",
+        "url": "={{$env.BLUEBUBBLES_URL}}/api/send",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ { recipient: $json.recipient || '+15012746231', message: $json.message || $json.body || 'SAOS Notification' } }}",
@@ -169,7 +169,7 @@
         "headerParameters": {
           "parameters": [
             {
-              "name": "X-Saos-Internal-Key",
+              "name": "X-Internal-Api-Key",
               "value": "={{$env.SAOS_INTERNAL_API_KEY}}"
             }
           ]

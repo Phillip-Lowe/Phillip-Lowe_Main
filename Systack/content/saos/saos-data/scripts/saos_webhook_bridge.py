@@ -30,6 +30,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 LOG_FILE = os.path.expanduser("~/.openclaw/workspaces/sol/logs/saos_webhook_bridge.log")
 
+# Webhook authentication secret. If not set, all POST requests are rejected.
+WEBHOOK_SECRET = os.environ.get('SAOS_WEBHOOK_SECRET', '')
+
 def log(msg):
     """Write to log file."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -55,12 +58,31 @@ class WebhookHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps({"status": "ok", "service": "saos-webhook-bridge"}).encode())
     
     def do_POST(self):
-        """Handle webhook payload."""
+        """Handle webhook payload. Requires X-Webhook-Secret header."""
+        # Reject all POSTs if the webhook secret is not configured.
+        if not WEBHOOK_SECRET:
+            log("ERROR: SAOS_WEBHOOK_SECRET is not configured; rejecting request")
+            self.send_response(503)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "error", "message": "Service Unavailable: webhook secret not configured"}).encode())
+            return
+
+        # Validate the shared secret header.
+        supplied_secret = self.headers.get('X-Webhook-Secret', '')
+        if supplied_secret != WEBHOOK_SECRET:
+            log("ERROR: Invalid or missing X-Webhook-Secret header")
+            self.send_response(401)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "error", "message": "Unauthorized: invalid webhook secret"}).encode())
+            return
+
         content_length = int(self.headers.get('Content-Length', 0))
         body = self.rfile.read(content_length).decode('utf-8')
-        
+
         log(f"Received webhook: {body[:500]}")
-        
+
         try:
             data = json.loads(body)
         except json.JSONDecodeError:

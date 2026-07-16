@@ -11,7 +11,7 @@ import sys
 import argparse
 import requests
 import socket
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Optional SSH support
 try:
@@ -36,18 +36,22 @@ class HealthChecker:
             sock.settimeout(timeout)
             result = sock.connect_ex((self.vps_ip, port))
             sock.close()
+            is_open = result == 0
             return {
                 "port": port,
-                "open": result == 0,
-                "error": None if result == 0 else f"Connection failed (code: {result})"
+                "open": is_open,
+                "ok": is_open,
+                "error": None if is_open else f"Connection failed (code: {result})"
             }
         except Exception as e:
-            return {"port": port, "open": False, "error": str(e)}
+            return {"port": port, "open": False, "ok": False, "error": str(e)}
     
     def check_http(self, url: str, timeout: int = 10) -> dict:
         """Check HTTP endpoint."""
         try:
-            response = requests.get(url, timeout=timeout, verify=False)
+            # SSL verification configurable via env var; default to True for safety.
+            verify_ssl = os.environ.get('HEALTH_CHECK_VERIFY_SSL', 'true').lower() not in ('false', '0', 'no')
+            response = requests.get(url, timeout=timeout, verify=verify_ssl)
             return {
                 "url": url,
                 "status": response.status_code,
@@ -56,13 +60,16 @@ class HealthChecker:
             }
         except Exception as e:
             return {"url": url, "status": None, "ok": False, "error": str(e)}
-    
+
     def check_ssh(self, username: str = "systack", timeout: int = 10) -> dict:
         """Check SSH connectivity."""
         if not PARAMIKO_AVAILABLE:
             return {"ok": True, "note": "paramiko not installed, skipping SSH check"}
         try:
             client = paramiko.SSHClient()
+            # SECURITY WARNING: AutoAddPolicy accepts any host key without verification.
+            # This is acceptable for an automated health check against known VPS IPs,
+            # but it weakens SSH host-key validation. Consider pinning known host keys.
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             client.connect(self.vps_ip, username=username, timeout=timeout, look_for_keys=True)
             stdin, stdout, stderr = client.exec_command("uptime")
@@ -90,6 +97,9 @@ class HealthChecker:
             return {"ok": True, "note": "paramiko not installed, skipping Tailscale check"}
         try:
             client = paramiko.SSHClient()
+            # SECURITY WARNING: AutoAddPolicy accepts any host key without verification.
+            # Acceptable for automated health checks against known VPS IPs, but consider
+            # pinning known host keys for stronger SSH security.
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             client.connect(self.vps_ip, username="systack", timeout=10, look_for_keys=True)
             stdin, stdout, stderr = client.exec_command("tailscale status --json | head -20")
@@ -128,7 +138,7 @@ class HealthChecker:
         summary = {
             "client_id": self.client_id,
             "vps_ip": self.vps_ip,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "overall_status": "healthy" if critical_pass else "degraded",
             "checks": self.results,
             "critical_pass": critical_pass,
@@ -172,7 +182,7 @@ def main():
         summary = {
             "client_id": args.client_id,
             "vps_ip": args.vps_ip,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "overall_status": "healthy",
             "critical_pass": True,
             "total_checks": 8,
