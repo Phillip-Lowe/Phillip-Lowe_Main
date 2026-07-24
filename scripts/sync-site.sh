@@ -1,12 +1,12 @@
 #!/bin/bash
 # sync-site.sh — Sync Systack site files from workspace to deploy repo
-# 
-# Usage: ./sync-site.sh
-#   or:  ./sync-site.sh --dry-run  (preview changes without applying)
+#
+# Usage: ./scripts/sync-site.sh
+#   or:  ./scripts/sync-site.sh --dry-run  (preview changes without applying)
 #
 # This script copies the current site files from the workspace
-# (Phillip-Lowe_Main/Systack/content/systack-site/) to the deploy repo
-# (Phillip-Lowe/systack) and pushes to GitHub.
+# (Systack/content/systack-site/) to the deploy repo
+# (Phillip-Lowe/systack) and pushes to GitHub Pages.
 
 set -euo pipefail
 
@@ -32,6 +32,7 @@ FILES=(
     private-dashboard.html
     services.html
     test-book.html
+    trust.html
     CNAME
 )
 DIRS=(
@@ -48,6 +49,7 @@ DIRS=(
     niches
     audit
     partners
+    geo
 )
 
 echo "📦 Syncing site files to deploy repo..."
@@ -105,7 +107,7 @@ fi
 # Commit and push
 COMMIT_MSG="site: Sync from workspace ($(date +%Y-%m-%d-%H%M))
 
-Files synced from Phillip-Lowe_Main/Systack/content/systack-site/"
+Files synced from Systack/content/systack-site/"
 
 git commit -m "$COMMIT_MSG" >/dev/null 2>&1
 echo ""
@@ -114,7 +116,7 @@ git push origin main
 
 echo ""
 echo "✅ Site synced! GitHub Pages will deploy in ~2 minutes."
-echo "   Verify: curl -s https://systack.net | grep 'Your Business'"
+echo "   Verify: https://systack.net"
 
 # Cleanup
 rm -rf "$DEPLOY_DIR"
