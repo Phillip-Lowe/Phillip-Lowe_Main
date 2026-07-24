@@ -46,9 +46,10 @@ nav {
   text-decoration: none; font-weight: 600; font-size: 14px; transition: background 0.2s;
 }
 .nav-cta:hover { background: var(--teal); }
-.nav-menu { display: flex; gap: 16px; flex-wrap: nowrap; }
+.nav-menu { display: flex; gap: 22px; flex-wrap: nowrap; align-items: center; }
 .nav-menu a {
-  color: var(--gray-600); text-decoration: none; font-weight: 500; font-size: 13px; transition: color 0.2s; white-space: nowrap;
+  color: var(--gray-600); text-decoration: none; font-weight: 500; font-size: 14px; transition: color 0.2s; white-space: nowrap;
+  display: inline-flex; align-items: center;
 }
 .nav-menu a:hover { color: var(--cyan); }
 .nav-menu a.active { color: var(--cyan); font-weight: 700; }
