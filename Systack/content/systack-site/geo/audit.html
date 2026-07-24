@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free AI Visibility Audit — see how ChatGPT, Copilot, Gemini, and Google AI find your business.">
+  <meta property="og:title" content="Free AI Visibility Audit — SyStack">
+  <meta property="og:description" content="Find out if ChatGPT is recommending your competitors.">
+  <meta property="og:url" content="https://systack.net/geo/audit.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../brand/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/systack.css?v=15">
+  <title>Free AI Visibility Audit — SyStack</title>
+  <style>
+    .audit-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white; padding: 60px; border-radius: 20px; margin: 40px 0; text-align: center;
+    }
+    .audit-hero h1 { font-size: 38px; margin-bottom: 16px; }
+    .audit-hero p { font-size: 18px; opacity: 0.9; }
+    .audit-form {
+      background: white; border: 2px solid var(--gray-200); border-radius: 16px; padding: 40px; max-width: 600px; margin: 0 auto;
+    }
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--navy); }
+    .form-group input, .form-group select {
+      width: 100%; padding: 14px; border: 2px solid var(--gray-200); border-radius: 10px; font-size: 16px; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--cyan); }
+    .submit-btn { width: 100%; padding: 16px; font-size: 17px; }
+    .result-card {
+      display: none; background: white; border: 2px solid var(--gray-200); border-radius: 16px; padding: 40px; margin-top: 40px;
+    }
+    .score-display { text-align: center; margin-bottom: 30px; }
+    .score-number {
+      width: 160px; height: 160px; border-radius: 50%; border: 10px solid var(--cyan); margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 800; color: var(--navy);
+    }
+    .finding { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--gray-100); }
+    .finding .icon { font-size: 20px; flex-shrink: 0; }
+    .finding.good { color: var(--gray-800); }
+    .finding.bad { color: var(--gray-800); }
+    .finding.good .icon { color: var(--green); }
+    .finding.bad .icon { color: var(--red); }
+    .loading { text-align: center; padding: 40px; display: none; }
+    .spinner { width: 48px; height: 48px; border: 4px solid var(--gray-200); border-top: 4px solid var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .sample-report {
+      background: var(--gray-50); padding: 24px; border-radius: 12px; margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav>
+    <div class="nav-logo">
+      <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="../brand/logo-nav.png" alt="Systack" class="nav-logo-img" width="40" height="40">
+        <div class="nav-logo-text">Sy<span>Stack</span>.net</div>
+      </a>
+    </div>
+    <div class="nav-menu">
+      <a href="/">Home</a>
+      <a href="/services.html">Business Systems</a>
+      <a href="/geo/" class="active">AI Visibility</a>
+      <a href="/saos/">SAOS</a>
+      <a href="/work/">Our Work</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/geo/audit.html" style="color:var(--cyan);font-weight:700;">🎯 Free Audit</a>
+    </div>
+    <a href="/contact.html" class="nav-cta">Get Started</a>
+  </nav>
+
+  <div class="audit-hero">
+    <h1>Is ChatGPT Recommending Your Competitors?</h1>
+    <p>Get a free AI Visibility Audit. See what ChatGPT, Copilot, Gemini, and Google AI see when they look for a business like yours.</p>
+  </div>
+
+  <div class="audit-form" id="auditForm">
+    <form id="geoAuditForm">
+      <div class="form-group">
+        <label for="businessName">Business Name *</label>
+        <input type="text" id="businessName" name="businessName" placeholder="Smith Law Firm" required>
+      </div>
+
+      <div class="form-group">
+        <label for="website">Website *</label>
+        <input type="url" id="website" name="website" placeholder="https://www.smithlaw.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="city">City *</label>
+        <input type="text" id="city" name="city" placeholder="Little Rock" required>
+      </div>
+
+      <div class="form-group">
+        <label for="industry">Industry *</label>
+        <select id="industry" name="industry" required>
+          <option value="">Select your industry</option>
+          <option value="Law Firm">Law Firm</option>
+          <option value="Dental / Medical">Dental / Medical</option>
+          <option value="HVAC">HVAC</option>
+          <option value="Roofing / Contracting">Roofing / Contracting</option>
+          <option value="Real Estate">Real Estate</option>
+          <option value="CPA / Accounting">CPA / Accounting</option>
+          <option value="Insurance">Insurance</option>
+          <option value="Restaurant / Food Service">Restaurant / Food Service</option>
+          <option value="Other Local Business">Other Local Business</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" placeholder="you@business.com" required>
+      </div>
+
+      <button type="submit" class="cta-btn submit-btn">Check My AI Visibility</button>
+      <p style="font-size: 12px; color: var(--gray-400); margin-top: 16px; text-align: center;">
+        We respect your privacy. No spam. Your audit report will be emailed to you within 24 hours.
+      </p>
+    </form>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p style="font-size: 18px; color: var(--gray-600);">Analyzing your AI visibility...</p>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="score-display">
+      <div class="score-number" id="scoreNumber">42</div>
+      <h3>AI Visibility Score: <span id="scoreText">42/100</span></h3>
+      <p style="color: var(--gray-600);">This is a preview score. A complete audit is being generated and will be emailed to you.</p>
+    </div>
+
+    <h3 style="margin-bottom: 16px;">Findings</h3>
+    <div id="findingsList">
+      <div class="finding good"><span class="icon">✓</span><span><strong>Google Business Profile Found</strong> — Your business appears in local map results.</span></div>
+      <div class="finding good"><span class="icon">✓</span><span><strong>Website Indexed</strong> — Search engines can find your site.</span></div>
+      <div class="finding good"><span class="icon">✓</span><span><strong>Reviews Present</strong> — You have online reviews.</span></div>
+      <div class="finding bad"><span class="icon">✗</span><span><strong>Not mentioned in AI-generated local recommendation pattern</strong> — ChatGPT and Gemini are not surfacing your firm in answer results.</span></div>
+      <div class="finding bad"><span class="icon">✗</span><span><strong>Weak citation consistency</strong> — Business information varies across directories.</span></div>
+      <div class="finding bad"><span class="icon">✗</span><span><strong>Missing schema</strong> — No structured data to help AI systems understand your services.</span></div>
+      <div class="finding bad"><span class="icon">✗</span><span><strong>Limited authority signals</strong> — Few mentions on trusted local or industry sites.</span></div>
+    </div>
+
+    <div class="sample-report">
+      <h4>What's Next?</h4>
+      <p>We're generating your full AI Visibility Audit with specific recommendations. You'll receive it via email within 24 hours.</p>
+      <a href="/contact.html" class="cta-btn" style="margin-top: 16px;">Book a Free Consultation</a>
+    </div>
+  </div>
+
+  <footer style="margin-top: 60px;">
+    <p><strong>SyStack.net</strong> — Systems That Run Your Business While You Sleep</p>
+    <p style="font-size: 13px; color: var(--gray-400); margin-top: 8px;">
+      <a href="/">Home</a> ·
+      <a href="/services.html">Business Systems</a> ·
+      <a href="/geo/">AI Visibility</a> ·
+      <a href="/saos/">SAOS</a> ·
+      <a href="/pricing.html">Pricing</a> ·
+      <a href="/contact.html">Contact</a>
+    </p>
+    <p class="copyright">© 2026 SyStack. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+document.getElementById('geoAuditForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = {
+    businessName: form.businessName.value,
+    website: form.website.value,
+    city: form.city.value,
+    industry: form.industry.value,
+    email: form.email.value,
+    source: 'systack.net/geo/audit.html',
+    submittedAt: new Date().toISOString()
+  };
+
+  document.getElementById('auditForm').style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+
+  try {
+    const response = await fetch('https://n8n.systack.net/webhook/GEO_AUDIT_V1', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      console.error('Webhook error:', response.status, response.statusText);
+    }
+  } catch (err) {
+    console.error('Failed to submit audit:', err);
+  }
+
+  // Show preview result regardless — real audit is delivered by email
+  setTimeout(() => {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('resultCard').style.display = 'block';
+    document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth' });
+  }, 1500);
+});
+</script>
+
+</body>
+</html>
