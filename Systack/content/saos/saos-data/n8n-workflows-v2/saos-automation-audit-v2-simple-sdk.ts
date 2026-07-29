@@ -239,13 +239,39 @@ const buildErrorEmail = node({
       language: 'javaScript',
       jsCode: `
 const err = $input.first().json;
+
+const executionId =
+  err.execution?.id ||
+  err.executionId ||
+  'unknown';
+
+const nodeName =
+  err.error?.node?.name ||
+  err.node?.name ||
+  err.lastNodeExecuted ||
+  'unknown';
+
+const errorMessage =
+  err.error?.message ||
+  err.message ||
+  JSON.stringify(err.error || err);
+
+const workflowName =
+  err.workflow?.name ||
+  'SAOS Automation Audit v2';
+
+const executionUrl =
+  'https://n8n.systack.net/execution/' + executionId;
+
 const msg = [
-  'Workflow: SAOS Automation Audit v2',
-  'Execution ID: ' + (err.execution?.id || 'unknown'),
-  'Node: ' + (err.error?.node?.name || 'unknown'),
+  'Workflow: ' + workflowName,
+  'Execution ID: ' + executionId,
+  'Execution URL: ' + executionUrl,
+  'Node: ' + nodeName,
   'Time: ' + new Date().toISOString(),
-  'Error: ' + (err.error?.message || 'unknown'),
+  'Error: ' + errorMessage,
 ].join('\\n');
+
 return [{ json: { errorText: msg } }];
       `,
     },
