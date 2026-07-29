@@ -132,27 +132,25 @@
 
   <div class="result-card" id="resultCard">
     <div class="score-display">
-      <div class="score-number" id="scoreNumber">42</div>
-      <h3>AI Visibility Score: <span id="scoreText">42/100</span></h3>
-      <p style="color: var(--gray-600);">This is a preview score. A complete audit is being generated and will be emailed to you.</p>
+      <div class="score-number" id="scoreNumber">—</div>
+      <h3>Automation Score: <span id="scoreText">—</span></h3>
+      <p style="color: var(--gray-600);">Full report is being generated and emailed to you.</p>
     </div>
 
-    <h3 style="margin-bottom: 16px;">Findings</h3>
-    <div id="findingsList">
-      <div class="finding good"><span class="icon">✓</span><span><strong>Google Business Profile Found</strong> — Your business appears in local map results.</span></div>
-      <div class="finding good"><span class="icon">✓</span><span><strong>Website Indexed</strong> — Search engines can find your site.</span></div>
-      <div class="finding good"><span class="icon">✓</span><span><strong>Reviews Present</strong> — You have online reviews.</span></div>
-      <div class="finding bad"><span class="icon">✗</span><span><strong>Not mentioned in AI-generated local recommendation pattern</strong> — ChatGPT and Gemini are not surfacing your firm in answer results.</span></div>
-      <div class="finding bad"><span class="icon">✗</span><span><strong>Weak citation consistency</strong> — Business information varies across directories.</span></div>
-      <div class="finding bad"><span class="icon">✗</span><span><strong>Missing schema</strong> — No structured data to help AI systems understand your services.</span></div>
-      <div class="finding bad"><span class="icon">✗</span><span><strong>Limited authority signals</strong> — Few mentions on trusted local or industry sites.</span></div>
-    </div>
+    <h3 style="margin-bottom: 16px;">What We Found</h3>
+    <div id="findingsList"></div>
 
     <div class="sample-report">
       <h4>What's Next?</h4>
-      <p>We're generating your full AI Visibility Audit with specific recommendations. You'll receive it via email within 24 hours.</p>
+      <p>Your complete AI Visibility + Automation Audit with specific recommendations is being emailed now.</p>
       <a href="/contact.html" class="cta-btn" style="margin-top: 16px;">Book a Free Consultation</a>
     </div>
+  </div>
+
+  <div class="loading" id="loadingError" style="text-align: center; padding: 40px; display: none;">
+    <p id="errorTitle" style="color: var(--red); font-weight: 600;">We couldn't complete the audit right now.</p>
+    <p id="errorText" style="color: var(--gray-600);">Email <a href="mailto:plowe@systack.net">plowe@systack.net</a> for a manual audit, or try again tomorrow.</p>
+    <button onclick="location.reload()" class="cta-btn" style="margin-top: 16px;">Try Again</button>
   </div>
 
   <footer style="margin-top: 60px;">
@@ -175,39 +173,77 @@ document.getElementById('geoAuditForm').addEventListener('submit', async functio
   e.preventDefault();
 
   const form = e.target;
+  const industry = form.industry.value;
+  const industrySlug = industry.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '') || 'other';
   const data = {
-    businessName: form.businessName.value,
+    business_name: form.businessName.value,
     website: form.website.value,
-    city: form.city.value,
-    industry: form.industry.value,
     email: form.email.value,
+    industry: industrySlug,
+    employees: '1-10',
+    pain_point: `AI visibility and lead response in ${form.city.value}`,
+    city: form.city.value,
     source: 'systack.net/geo/audit.html',
     submittedAt: new Date().toISOString()
   };
 
   document.getElementById('auditForm').style.display = 'none';
   document.getElementById('loading').style.display = 'block';
+  document.getElementById('resultCard').style.display = 'none';
+  document.getElementById('loadingError').style.display = 'none';
 
   try {
-    const response = await fetch('https://n8n.systack.net/webhook/GEO_AUDIT_V1', {
+    const response = await fetch('https://n8n.systack.net/webhook/saos-automation-audit-v2', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
 
-    if (!response.ok) {
-      console.error('Webhook error:', response.status, response.statusText);
-    }
-  } catch (err) {
-    console.error('Failed to submit audit:', err);
-  }
+    const result = await response.json();
 
-  // Show preview result regardless — real audit is delivered by email
-  setTimeout(() => {
     document.getElementById('loading').style.display = 'none';
+
+    if (result.status === 'rate_limited' || response.status === 429) {
+      document.getElementById('errorTitle').textContent = 'Daily audit limit reached';
+      document.getElementById('errorTitle').style.color = 'var(--orange)';
+      document.getElementById('errorText').textContent = result.message || 'You’ve hit the daily limit for this website or email. Try again tomorrow, or email plowe@systack.net for a manual audit.';
+      document.getElementById('loadingError').style.display = 'block';
+      return;
+    }
+
+    if (!response.ok || result.status !== 'ok') {
+      document.getElementById('errorTitle').textContent = 'We couldn\'t complete the audit right now.';
+      document.getElementById('errorTitle').style.color = 'var(--red)';
+      document.getElementById('errorText').innerHTML = 'Email <a href="mailto:plowe@systack.net">plowe@systack.net</a> for a manual audit, or try again tomorrow.';
+      document.getElementById('loadingError').style.display = 'block';
+      return;
+    }
+
+    // Render real score
+    const score = result.score || 0;
+    const grade = score >= 80 ? 'Excellent' : score >= 60 ? 'Good' : score >= 40 ? 'Needs Work' : 'Critical Gap';
+    const gradeColor = score >= 80 ? 'var(--green)' : score >= 60 ? 'var(--orange)' : 'var(--red)';
+    document.getElementById('scoreNumber').textContent = score;
+    document.getElementById('scoreText').textContent = score + '/100 — ' + grade;
+    document.getElementById('scoreNumber').style.borderColor = gradeColor;
+
+    // Render findings
+    const list = document.getElementById('findingsList');
+    list.innerHTML = '';
+    (result.findings || []).forEach(f => {
+      const div = document.createElement('div');
+      div.className = 'finding ' + (f.deduction === 0 ? 'good' : 'bad');
+      div.innerHTML = `<span class="icon">${f.icon}</span><span><strong>${f.title}</strong> — ${f.evidence}${f.cost ? ' <em>(' + f.cost + ')</em>' : ''}</span>`;
+      list.appendChild(div);
+    });
+
     document.getElementById('resultCard').style.display = 'block';
     document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth' });
-  }, 1500);
+  } catch (err) {
+    console.error('Failed to submit audit:', err);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('loadingError').style.display = 'block';
+  }
 });
 </script>
 

@@ -297,6 +297,19 @@
         }
         .error-msg.show { display: block; }
 
+        /* Rate limit message */
+        .rate-limit-msg {
+            display: none;
+            background: rgba(255,152,0,0.1);
+            border: 1px solid rgba(255,152,0,0.3);
+            border-radius: 10px;
+            padding: 16px;
+            color: #ff9800;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .rate-limit-msg.show { display: block; }
+
         /* Trust indicators */
         .trust {
             text-align: center;
@@ -422,6 +435,7 @@
     <div class="form-section">
         <div class="form-card">
             <div class="error-msg" id="errorMsg"></div>
+            <div class="rate-limit-msg" id="rateLimitMsg"></div>
 
             <form id="auditForm">
                 <div class="form-group">
@@ -523,6 +537,7 @@ const results = document.getElementById('results');
 const errorMsg = document.getElementById('errorMsg');
 const submitBtn = document.getElementById('submitBtn');
 const loadingStep = document.getElementById('loadingStep');
+const rateLimitMsg = document.getElementById('rateLimitMsg');
 
 const steps = [
     'Checking website automation...',
@@ -569,11 +584,20 @@ form.addEventListener('submit', async (e) => {
             body: JSON.stringify(data)
         });
 
-        if (!response.ok) throw new Error('Audit service unavailable');
-
         const result = await response.json();
 
         loading.classList.remove('show');
+        errorMsg.classList.remove('show');
+
+        if (result.status === 'rate_limited' || response.status === 429) {
+            rateLimitMsg.innerHTML = `<strong>Daily audit limit reached</strong><br>${result.message || 'You’ve hit the limit for this website or email. Please try again tomorrow, or email plowe@systack.net for a manual audit.'}`;
+            rateLimitMsg.classList.add('show');
+            return;
+        }
+
+        if (result.status !== 'ok' || !response.ok) {
+            throw new Error(result.message || result.error || 'Audit service unavailable');
+        }
 
         // Display results
         document.getElementById('scoreNumber').textContent = result.score + '/100';
@@ -604,7 +628,8 @@ form.addEventListener('submit', async (e) => {
     } catch (err) {
         loading.classList.remove('show');
         form.style.display = 'block';
-        errorMsg.textContent = 'Something went wrong. Please try again or email plowe@systack.net directly.';
+        rateLimitMsg.classList.remove('show');
+        errorMsg.textContent = err.message || 'Something went wrong. Please try again or email plowe@systack.net directly.';
         errorMsg.classList.add('show');
     }
 });
