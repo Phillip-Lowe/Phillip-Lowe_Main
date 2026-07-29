@@ -563,7 +563,7 @@ form.addEventListener('submit', async (e) => {
     };
 
     try {
-        const response = await fetch('https://n8n.systack.net/webhook/saos-automation-audit', {
+        const response = await fetch('https://n8n.systack.net/webhook/saos-automation-audit-v2', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -593,7 +593,7 @@ form.addEventListener('submit', async (e) => {
                 <div class="icon">${f.icon}</div>
                 <div class="text">
                     <div class="title">${f.title}</div>
-                    <div class="desc">${f.description}</div>
+                    <div class="desc">${f.evidence}</div>
                     <div class="cost">${f.cost}</div>
                 </div>
             `;
