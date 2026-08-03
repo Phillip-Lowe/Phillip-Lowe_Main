@@ -6,6 +6,27 @@
 
 ---
 
+## SYSTACK-NOSHOW-30D-001: SyStack Appointment Recovery Pilot
+
+- Priority: P1
+- Status: EVIDENCE_COLLECTION
+- Start: 2026-08-02
+- Decision Deadline: 2026-09-01
+- Primary Metric: Preventable no-show rate
+- Commercial Target: One paid pilot
+- Evidence Gate: NOT PASSED
+- Existing Components: READ-ONLY AUDIT AUTHORIZED
+- New Builds: BLOCKED
+- Production Changes: BLOCKED
+- Next Milestone: 10 interviews plus one baseline-data or pilot commitment
+- Next Decision: Select one customer subsegment from evidence
+- Parallel Work:
+  - ATLAS: 25-target prospect set
+  - CHATTY: interview outreach and interview script
+  - VALI/PESSI: read-only infrastructure audit protocol
+
+---
+
 ## 📋 TO DO (10)
 
 | # | Task | Priority | Agent |

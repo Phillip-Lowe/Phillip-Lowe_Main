@@ -14,6 +14,28 @@ Sections:
 
 ---
 
+## P1: SYSTACK-NOSHOW-30D-001
+
+- [ ] Complete 10 structured customer interviews
+- [ ] Identify 5 businesses with measurable no-show exposure
+- [ ] Confirm 3 businesses have recurring, economically meaningful pain
+- [ ] Secure 1 baseline-data or controlled-pilot commitment
+- [ ] Complete read-only infrastructure audit
+- [ ] Select one evidence-backed subsegment
+- [ ] Pass Evidence Gate before new implementation
+- [ ] Secure one paid pilot
+- [ ] Produce final SCALE, MODIFY, CHANGE_SEGMENT, or RETIRE decision by 2026-09-01
+
+Constraints:
+
+- No new platform
+- No new agent
+- No auto-release build
+- No smart-rebooking build
+- No production activation without approval
+
+---
+
 ## P1 — Ready To Start
 
 - Utopia Deli Invoice Parser Activation — `memory/2026-06-08-invoice-parser-complete.md`
