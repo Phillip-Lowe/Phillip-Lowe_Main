@@ -10,7 +10,7 @@
 
 | # | Task | Priority | Agent |
 |---|------|----------|-------|
-| 0 | **30-Day Mission: One problem → one paid pilot outcome** | 🔴 HIGH | GREEN + SOL |
+| 0 | **30-Day Mission: No-show reduction → one paid SyStack pilot** | 🔴 HIGH | GREEN + SOL |
 | 1 | Activate Cold Email Campaign | 🔴 HIGH | CHATTY |
 | 2 | Launch Free Automation Audit Lead Magnet | 🔴 HIGH | ATLAS |
 | 3 | Create Partner Program Page | 🟡 MED | GENI |

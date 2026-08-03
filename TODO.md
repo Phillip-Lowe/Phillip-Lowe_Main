@@ -21,7 +21,7 @@ Sections:
 - Percy 8GB Upgrade + Full Restore — `Systack/clients/mcdonalds-gm/PERCY-4GB-DEPLOYMENT-FAILURE-ANALYSIS.md`
 - Outreach Pipeline Tracker + Gmail Credential — `Systack/strategy/outreach-*.md`
 - Revenue pipeline cleanup (Google Maps API key, BlueBubbles auth, disk cleanup) — `revenue-pipeline/action-log.md`
-- **30-Day Mission: Prove one recurring business problem → paid operational outcome** — `memory/2026-08-02-builder-level-assessment.md`
+- **30-Day Mission: No-show reduction → one paid SyStack pilot** — `memory/2026-08-02-systack-noshow-30d-001.md`
 
 ---
 
