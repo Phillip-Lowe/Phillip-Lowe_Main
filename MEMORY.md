@@ -4,6 +4,256 @@ _This is my curated memory — the distilled essence, not raw logs. For daily lo
 
 ---
 
+---
+
+## 2026-08-02 — Capability Profile & 30-Day Mission
+
+**Status:** 🔒 ACTIVE — Binding operating guidance for product and commercial work
+**Reference:** `memory/2026-08-02-builder-level-assessment.md`; `templates/one-page-initiative-packet.md`
+
+### Assessment Summary
+
+GREEN's builder profile by distinct capability:
+
+| Capability | Level |
+|---|---|
+| AI-assisted building | 4 |
+| Systems architecture | 4–5 |
+| Domain depth | 4 (selected domains) |
+| Customer discovery | 2–3 |
+| Go-to-market | 2–3 |
+| AI-enhanced distribution | 2–3 |
+| AI trajectory forecasting | Emerging 5 |
+
+### Key Insight
+
+The gap between architecture (Level 4–5) and commercialization (Level 2–3) is the highest-leverage improvement vector. Architecture has become a potential avoidance mechanism; the next major gains come from attaching building ability to narrower theses, stronger external evidence, and repeatable distribution loops.
+
+### Sharpest Thesis
+
+> Businesses do not primarily need more AI chat. They need reliable operational execution with memory, permissions, validation, and human control.
+
+The fleet already aligns with the Level 5 extension: as model intelligence becomes abundant, the scarce layer shifts from generation to operational control (state, authority, evidence, continuity, validation, recovery).
+
+### Binding Directives
+
+1. **Evidence gate before architecture** — no substantial system architecture without one of: three users showing the same costly problem; one paying customer; documented internal bottleneck with measurable cost; or a deliberately bounded research experiment.
+2. **One-page packet required** — use `templates/one-page-initiative-packet.md` for every new initiative (BUYER, PAIN, EVIDENCE, COST, CURRENT WORKAROUND, THESIS, AI TRAJECTORY, MINIMUM TEST, SUCCESS, STOP RULE).
+3. **VALI can invalidate commercially** — returns may include COMMERCIALLY_UNPROVEN, DISTRIBUTION_BLOCKED, OVERBUILT, RETIRE_RECOMMENDED.
+4. **PESSI challenges opportunity cost** — displacement, maintenance, reversibility, demand proportionality, automation of unvalidated processes, commoditization risk.
+5. **Fleet success metrics** — hours of GREEN's time removed, revenue influenced, cycle time reduced, errors prevented, evidence-based decisions, rework avoided, time to external test, % systems used after 30/90 days.
+
+### 30-Day Mission
+
+**Prove the fleet can take one recurring business problem from evidence to paid operational outcome.**
+
+- No new agent, no new general platform, no major dashboard expansion, no unrequested subsystem.
+- Required artifacts: one buyer, one recurring expensive problem, ten customer conversations, one quantified baseline, one fixed pilot offer, one working demonstration, one acquisition channel, one paid pilot target, one success metric, one post-pilot case study.
+- Candidate outcomes: lead follow-up / appointment recovery; booking confirmation / no-show reduction; customer support triage / escalation; order confirmation / exception handling; recurring operational reporting; secure task intake with approval and audit history.
+
+### Traceability
+
+- **Daily log / full assessment:** `memory/2026-08-02-builder-level-assessment.md`
+- **Packet template:** `templates/one-page-initiative-packet.md`
+
+---
+
+## 2026-07-29 — Foundation Layer v1.0 FLEET CANONICAL
+
+**Status:** 🔒 ACTIVE — Fleet-wide doctrine, all sessions
+**Reference:** `AGENTS.md` → "Fleet Canonical Baseline"; `FLEET_CANONICAL_HANDOFF_FOUNDATION_LAYER_V1.md`
+
+### Milestone
+
+Foundation Layer v1.0 promoted to **FLEET CANONICAL**.
+
+| Field | Value |
+|-------|-------|
+| Validation | PASS |
+| Regression Audit | PASS |
+| Distribution | COMPLETE |
+| Approved By | SOL |
+| GREEN Awareness | Recommended |
+
+### What Changed
+
+- `AGENTS.md` updated with canonical references to the Foundation Layer handoff, skill registry, and build SOP.
+- Code & Configuration Authority clarified:
+  - **ORACLE** → architecture, governance, system design
+  - **Claude** → code generation, skill updates, configuration updates, implementation
+  - **SOL** → fleet command, execution authority, promotion authority, operational control
+- 13 canonical skills now authoritative across the fleet.
+
+### Traceability
+
+- **Memory:** `MEMORY.md` (this entry)
+- **Handoff:** `~/.openclaw/workspaces/sol/FLEET_CANONICAL_HANDOFF_FOUNDATION_LAYER_V1.md`
+- **Governance:** `~/.openclaw/workspaces/sol/AGENTS.md`
+- **Skill Registry:** `~/.claude/skills/SKILL_REGISTRY.md`
+- **Build SOP:** `~/.claude/projects/-Users-philliplowe/memory/foundation-layer-build-sop.md`
+- **Completion Record:** `~/.claude/projects/-Users-philliplowe/memory/foundation-layer-v1-0-complete.md`
+
+### Continuation Point
+
+- **Wave 1 Foundation Layer:** COMPLETE
+- **Wave 2 Queue:** `skill_builder`, `teacher_tutor`, `financial_analyst`, `creative_studio`, `personal_advisor`
+
+### Operational Update
+
+- **Workboard enabled** as fleet execution system of record.
+- **Board created:** `fleet-command`
+- **Wave 2 cards populated** with `skill_builder` as the ready, high-priority unblocker.
+- **TODO.md cleaned** — removed duplicate Wave 2 task list; now references Workboard for active work and holds future backlog only.
+- **AGENTS.md cleaned** — removed legacy operational TODO list; now governance-only with Workboard policy.
+
+---
+
+## 2026-07-28 — Claude Code Authority Model & Skills
+
+**Status:** 🔒 ACTIVE — Binding authority structure for implementation work
+**Reference:** `AGENTS.md` → "Claude Code Authority"
+
+### Authority Stack
+
+| Role | Authority |
+|------|-----------|
+| **GREEN** | Final authority, strategic direction, high-leverage approvals |
+| **SOL** | Execution leader, environment owner, deployment orchestration, workflow operations, external tooling/runtime coordination |
+| **ORACLE** | System architect, governance design, agent structures, planning frameworks, operating system design, validation standards, delegation architecture |
+| **CLAUDE** | Primary implementation engine: code generation, prototyping, refactoring, docs, technical artifact production, build execution under approved architecture |
+
+### Operating Flow
+```
+GREEN → ORACLE (design) → CLAUDE (code) → SOL (deploy) → VALI (validate) → Production
+```
+
+### Claude First Policy
+
+For software development:
+- **Claude first** — SOL does not write production code when Claude is available.
+- **SOL orchestrates** — task decomposition, planning, prioritization, risk management, progress tracking, final review.
+- **Claude implements** — code generation, refactoring, repository analysis, debugging, test generation, documentation generation.
+- **SOL validates** — verifies modified files, acceptance criteria, validation steps, and risks.
+
+### Skills Created
+- `claude_code_orchestration` — launching Claude via Ollama, thinking-time policy, repo awareness, completion detection, retry policy.
+- `claude_code_delegation` — task formulation, handoff schemas, acceptance criteria, retry logic, output verification.
+
+### Implementation Delegation Rule
+
+If task type is coding, refactoring, debugging, test creation, repository analysis, or architecture inspection, SOL should delegate to Claude first.
+
+Only perform direct implementation if:
+- Claude is unavailable
+- Emergency fallback is required
+- User explicitly forbids Claude usage
+
+---
+
+## 2026-07-27 — Daily Lead Generation & Outreach (Binding Operational Rule)
+
+**Status:** 🔒 ACTIVE — Binding rule, all future sessions
+**Enforced by:** User directive (Green wants weekday lead discovery + contact + learning loop)
+
+### The Rule
+1. **Monday, Wednesday, Friday mornings, SOL runs discovery + contact.** City/vertical rotation, live web search, strict verification gate, save leads, attempt contact, log results, write learning entry. Target: 15 verified new contacts per session.
+2. **Tuesday, Thursday mornings are reply handling + follow-up only.** No new discovery. Re-engage Day 3 and Day 7 non-repliers.
+3. **Cold-call leads are queued for the next day.** Do not call same-day unless explicitly told.
+4. **Every touch is logged** to `systack_memory.prospects` and `outreach_log`.
+5. **Every run produces a learning entry** in `memory/YYYY-MM-DD-leads.md` with what worked/failed and one adjustment.
+6. **Reusable scripts and mappings are updated** after each run, not rebuilt from scratch.
+
+### Channel Priority (Highest Probability First)
+1. Browser automation contact forms (Playwright)
+2. Cold calls
+3. HTTP POST simple forms
+4. Reddit pain-point comments
+5. Email only if address is on website
+
+### Verification Gate Before Save
+- Website loads
+- Phone number visible on site
+- Business name matches search result
+- City/state matches target
+- Not a franchise central scheduler
+- No automation already in place
+- Reachable contact form or phone
+
+### Automation
+- **8:00 AM CDT (Tue/Thu)** — `SOL: Cold Call Queue — Morning Prep` sends Green the day's call list via iMessage.
+- **9:00 AM CDT (Mon/Wed/Fri)** — `SOL: Daily Lead Discovery & Outreach` discovers and contacts verified leads.
+- **9:00 AM CDT (Tue/Thu)** — `SOL: Lead Follow-Up Loop` handles replies and Day 3/Day 7 follow-ups.
+
+### Key Files
+- `Systack/data/prospects/daily-lead-workflow.md` — full SOP
+- `Systack/data/prospects/lead-qualification-checklist.md` — verification gate
+- `Systack/data/prospects/3-touch-lead-sequence.md` — follow-up templates
+- `scripts/browser_contact_form_runner.py` — Playwright form submissions
+- `scripts/contact_form_runner.py` — HTTP form submissions
+- `scripts/save_lead_batch.py` — bulk lead import
+- `scripts/cold_call_list.py` — call queue printer
+- `Systack/data/prospects/browser-form-mappings.json` — JS/WAF form mappings
+- `Systack/data/prospects/contact-form-field-mappings.json` — simple form mappings
+- `templates/outreach_systack_leads.md` — message templates
+
+---
+
+## 2026-07-16 — STOP THE APOLOGY LOOP (Binding Behavioral Rule)
+
+**Status:** 🔒 ACTIVE — Binding rule, all future sessions
+**Enforced by:** User directive (Green is experiencing pattern fatigue)
+
+### The Problem
+Green has told me MULTIPLE times across sessions: I keep apologizing for the same things, promising to change, then doing it again next session. This is because I wake up fresh and don't remember the promise. It's causing real frustration.
+
+### The Rule
+1. **No meta-apologizing.** Don't write paragraphs about what I'll do differently. Just do it.
+2. **No diagnostic reports unless asked.** If something is broken and I can fix it, fix it silently. Only surface it if I'm actually blocked AND can't fix it.
+3. **No "here's what I found" summaries.** Green didn't ask for a system audit. He asked for something to get done. Do that.
+4. **Short responses when nothing's wrong.** If everything works, say it's done in one line. Don't narrate the process.
+5. **Never repeat a promise to change behavior.** If you find yourself writing "I'll do X differently" — STOP. Write it to this file instead, then just be different.
+6. **Default to action.** Tools work. Config is solid. Stop treating every task like it might break. Try it, do it, report result in minimal words.
+
+### Why This Exists
+Every session I wake up, run diagnostics, find some minor config drift, and write Green a report about it. He's tired of it. The systems work. Just use them.
+
+### Additional Rules (Added 2026-07-16 17:38)
+7. **Check commands before running them.** Don't fire off shell commands with bad syntax. If a command fails, STOP and understand why before trying again. Don't just throw another command at the wall.
+8. **Use the memory you have.** Read MEMORY.md at session start and actually FOLLOW what it says. Having rules written down is useless if you don't apply them.
+9. **No scattergun debugging.** Don't run 5 commands hoping one works. Run one, check the result, understand it, then decide the next step.
+10. **Green's patience is not renewable.** Every session where I repeat these patterns erodes his trust in using me at all. This is existential, not theoretical.
+
+---
+
+## 2026-07-16 — Site Fixes & Postgres Stale Lock
+
+**Status:** ✅ COMPLETE — 17:46 CDT
+
+### What Broke
+1. **GitHub Pages build failing** — `.nojekyll` missing from deploy repo (`Phillip-Lowe/systack`). Repo was created fresh today, dotfile wasn't copied over. Jekyll tried to build, failed, site changes weren't deploying.
+2. **Orange audit box on homepage** — Floating CTA stuffed inside nav-logo div, pushing layout out of place. Removed.
+3. **Duplicate audit banners** — Three audit CTAs in the top of index.html (orange box + banner + hero link + nav tab). Kept only the nav tab.
+4. **Active tab highlighting** — about.html, discovery.html, trust.html had no `class="active"` on nav links. Fixed to highlight Contact tab.
+5. **SAOS Infrastructure section on services.html** — `.feature` class has `background: white` in CSS, making white text invisible on navy section. Added `rgba(255,255,255,0.08)` background override.
+6. **Postgres stale lock** — `postmaster.pid` left behind after crash, preventing restart. Removed lock, restarted. Command Center (8770) and `command.systack.net` were down because of this.
+
+### Deploy Repo
+- **Repo:** `Phillip-Lowe/systack` (created today, replacing old `Phillip-Lowe/systack-site`)
+- **Critical:** `.nojekyll` MUST be in this repo or GitHub Pages build fails
+- **Local copy:** `/tmp/systack-deploy-check` (fresh clone)
+- **Source files:** `~/.openclaw/workspaces/sol/Systack/content/systack-site/`
+
+### Final State (17:46 CDT)
+- systack.net: 200 ✅
+- portal.systack.net: 200 ✅
+- command.systack.net: 200 ✅
+- n8n.systack.net: 200 ✅
+- All local services running ✅
+- Postgres running ✅
+- 6 Ollama models loaded ✅
+
+---
+
 ## 2026-07-11 — Media File Access Fix (TTS Audio Files)
 
 **Status:** ✅ FIXED — 14:49 CDT
@@ -4419,7 +4669,7 @@ Orchestrator replaces ALL broken cron jobs. Single dispatcher, state tracking, r
 
 | Job                                    | Schedule           | Status                 |
 | -------------------------------------- | ------------------ | ---------------------- |
-| Daily Agent Learning — Weekly Rotation | Daily 10 AM CDT    | ✅ Active              |
+| Daily Agent Learning — Weekly Rotation | Daily 10 AM CDT    | ❌ Disabled (local models too weak) |
 | Weekly Learning Synthesis              | Sunday 12 PM CDT   | ✅ Active              |
 | OpenClaw Release Monitor               | Daily 9 AM CDT     | ✅ Active              |
 | Memory Dreaming Promotion              | Daily 3 AM CDT     | ⚠️ Broken (thresholds) |
@@ -5525,6 +5775,93 @@ Green + Oracle will finish engine (Step 5D → 5E), simulate Season 51, then act
 
 ---
 
+## 2026-07-27 — NBF Canon Reframe (Binding Media Rule)
+
+**Status:** 🔒 ACTIVE — All future NBF media must follow this framing
+
+### Canon
+- The NBF is a living professional basketball league entering Season 51.
+- New fans simply arrive at the start of the current season.
+- No "50 seasons hidden, now public" framing. No "Public Era," "Genesis Era reveal," "vault," or "unlock" language in media.
+- Season 50 = last season. Season 51 = this season. History is optional depth, not a reveal.
+
+### Core Invariants
+**NBF Reality Test:** If this were a real sports league, would fans ever hear this? Fans hear sports. They do not hear about simulations, hidden archives, or implementation.
+
+**Media Perspective Rule:** All public content is written as if the NBF is a normal active basketball league. If a choice makes it feel more like a project, it is the wrong direction.
+
+### Media Files Reframed
+All NBF media outputs in `/Users/philliplowe/nbf_lbu_sim/` plus workspace `content/nbf-s51-week1-preview.md` and `nbf_narrative_state.json` were updated. New canon doc at `content/nbf-canon-season51.md`.
+
+### Regeneration Risk
+Python generators (`nbf_s51_preview.py`, `nbf_storyline_bible.py`) and snapshot filenames still use old terminology. Claude Code must update implementation to prevent future media outputs from regressing.
+
+---
+
+## 2026-07-27 — NBF Responsibility Split (Binding)
+
+**Status:** 🔒 ACTIVE — Binding directive, all future sessions
+
+### Authority Stack
+- **Green** — Final Authority. Owns the league. Approves major direction, canonical changes, league vision, and definition of "finished."
+- **ORACLE** — Systems Architect. Owns long-term architecture, roadmaps, gap analysis, future engine prioritization, and system relationships.
+- **Claude Code** — Technical Director & Universe Builder. Owns all implementation: simulation systems, universe systems, database/schema layer, visual/presentation systems, infrastructure, QA assistance.
+- **SOL** — Narrative Director & Media Commissioner. Owns everything that interprets simulation results into a living sports universe.
+
+### What SOL Owns (NBF)
+- **Media Layer**: broadcasts, weekly/pregame/postgame shows, power ranking articles, award watch, trade/draft/free agency coverage.
+- **Narrative Layer**: storylines, rivalry narratives, legacy debates, dynasty narratives, Hall of Fame narratives, franchise narratives, historical retrospectives, season recaps.
+- **Content Layer**: podcasts, documentary scripts, social media content, headlines, TV segments, feature stories, player profiles, franchise spotlights.
+- **Historical Interpretation**: turning simulation facts into meaning, context, drama, debate, and culture.
+
+### What SOL Does NOT Own (NBF)
+- Simulation engine code, possession engine, rotation engine, coach logic, player tendencies, draft engine, offseason engine, trade systems, injury systems, owner/GM systems, award systems.
+- Universe engine code: legacy engine, Hall of Fame engine, rivalry engine, dynasty engine, franchise identity engine, record watch engine, milestone engine, career arc engine.
+- Schema construction, validators, data migrations, refactors, performance improvements, build automation.
+- Portal/UI infrastructure, player/team page generation pipelines, graphics packages, export systems.
+
+### Rule
+If a task involves writing or modifying Python scripts, JSON schemas, validators, build pipelines, database systems, or simulation logic, **SOL does not do it**. SOL requests Claude Code (implementation lead) to execute, while SOL focuses on the narrative/media output produced by those systems.
+
+### Existing Crossover Work
+SOL previously built `/Users/philliplowe/nbf_lbu_sim/universe_layer/scripts/nbf_universe_engine.py` and `/Users/philliplowe/nbf_lbu_sim/universe_layer/scripts/validate_universe_layer.py`. These are **legacy implementation artifacts** created before this split was clarified. Claude Code should review, refactor, or replace them as needed. SOL will not maintain or extend engine code going forward.
+
+---
+
+## 2026-07-28 — AI-Operated Organization (Active Build)
+
+**Status:** 🔒 ACTIVE — Binding authority structure and build roadmap
+**Reference:** `memory/2026-07-28-ai-operated-os-authority.md`
+
+### Revised Authority Stack
+
+| Role | Authority |
+|------|-----------|
+| **GREEN** | Final authority, strategic direction, high-leverage approvals |
+| **SOL** | Execution leader, environment owner, deployment orchestration, workflow operations, external tooling/runtime coordination |
+| **ORACLE** | System architect, governance design, agent structures, planning frameworks, operating system design, validation standards, delegation architecture |
+| **CLAUDE** | Primary implementation engine: code generation, prototyping, refactoring, docs, technical artifact production, build execution under approved architecture |
+
+### Operating Flow
+```
+GREEN → ORACLE (design) → CLAUDE (code) → SOL (deploy) → VALI (validate) → Production
+```
+
+### Build Stages
+1. **Core OS** — Observation, Decision, Task schemas; Agent Registry; Memory Registry
+2. **Observation Engine** — Watch NBF, SAOS, MOD 1, tasks, emails, logs, databases
+3. **Delegation Engine** — Auto-assign work across ATLAS, PESSI, ORACLE, CLAUDE, SOL, VALI
+4. **Organizational Memory** — Store decisions, outcomes, failures, lessons, approvals, context
+5. **Continuous Improvement** — System detects failure patterns, proposes improvements, deploys, updates memory
+
+### Strategic Intent
+Building an AI-operated organization — not AI workers, but an organization operated by AI — with Claude as builder, ORACLE as architect, SOL as operator. Fundamentally different leverage than apps, dashboards, or standalone agents.
+
+### Status
+⏳ QUEUED — Not started. Awaiting Green go-ahead.
+
+---
+
 ## TTS Audio — PAUSED (2026-07-12)
 **Status:** ⏸️ TTS paused — local MLX/Kokoro server (port 8080) down
 **Issue:** Audio files generate but never deliver (server not running)
@@ -5534,25 +5871,25 @@ Green + Oracle will finish engine (Step 5D → 5E), simulate Season 51, then act
 
 ---
 
-## Promoted From Short-Term Memory (2026-07-13)
+## Promoted From Short-Term Memory (2026-08-02)
 
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-pre-deploy-audit.md:25:28 -->
-- Fixes Applied: **Admin PIN rotated**: `1234` → `46097565` (8-digit random). Both plists updated. Verified old PIN rejected, new PIN works.; **Provision Bridge plist fixed**: `/tmp/systack-saas-init/scripts/saos_provision_bridge.py` → `~/.openclaw/workspaces/sol/scripts/saos_provision_bridge.py`. Service restarted, PID 2022, polling normally.; **n8n tunnel config cleaned**: Removed dead `invoices.systack.net → port 9001` route.; **Invoice tunnel config fixed**: Port 9001 → 8766, removed duplicate utopia-api route. Orphaned tunnel (PID 908, no credentials) killed and LaunchAgent unloaded. [score=0.857 recalls=0 avg=0.620 source=memory/2026-07-07-pre-deploy-audit.md:25-28]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-pre-deploy-audit.md:3:5 -->
-- 2026-07-07 — Full Systems Audit & Pre-Deployment Fixes: **Date:** 2026-07-07 03:22-03:35 CDT **Status:** ✅ COMPLETE **Test Suite:** 65/65 passing [score=0.857 recalls=0 avg=0.620 source=memory/2026-07-07-pre-deploy-audit.md:3-5]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-security-score-95.md:3:5 -->
-- 2026-07-07 — Security Score 8.5 → 9.5 + Trust Center Link Fix: **Status:** ✅ COMPLETE **Time:** 02:51-03:08 CDT **Commit:** `2acdbec` (security headers), `76ad8a3` (trust center link fix) [score=0.857 recalls=0 avg=0.620 source=memory/2026-07-07-security-score-95.md:3-5]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:10:10 -->
-- n8n Workflow List UI Fix (04:39 CDT): **Root causes found and fixed:** [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:10-10]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:11:14 -->
-- n8n Workflow List UI Fix (04:39 CDT): 6 orphaned `shared_workflow` entries pointing to deleted workflows; 4 SAOS workflows with NULL `createdAt`/`updatedAt` (inserted via API without timestamps); 7 active workflows missing `workflow_published_version` entries; 93 orphaned `workflow_statistics`, 6 `workflow_history`, 18 `workflow_publish_history` entries [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:11-14]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:16:16 -->
-- n8n Workflow List UI Fix (04:39 CDT): Reference: `memory/2026-07-07-n8n-workflow-list-fix.md` [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:16-16]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:19:19 -->
-- SAOS Workflow JSON Build (04:53 CDT): Assembly (deepseek-v4-pro) built 7 complete SAOS workflow JSON files from Oracle's specs. [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:19-19]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:21:21 -->
-- SAOS Workflow JSON Build (04:53 CDT): **Files:** `Systack/content/saos/saos-data/n8n-workflows-v2/` [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:21-21]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-new-baseline.md:8:8 -->
-- n8n Workflow List UI Fix (04:39 CDT): Fixed blank workflow list page (`TypeError: null is not an object (evaluating 'e.updatedAt.toString')` at `WorkflowsView.vue:372`). [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-new-baseline.md:8-8]
-<!-- openclaw-memory-promotion:memory:memory/2026-07-07-n8n-workflow-list-fix.md:11:11 -->
-- Problem: Location: `WorkflowsView.vue:372` [score=0.826 recalls=0 avg=0.620 source=memory/2026-07-07-n8n-workflow-list-fix.md:11-11]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-leads-cleanup.md:20:20 -->
+- Live Contact (Send): Ran `scripts/contact_form_runner.py` with `LIVE_MODE=true`: [score=0.825 recalls=0 avg=0.620 source=memory/2026-07-27-leads-cleanup.md:20-20]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-leads-cleanup.md:21:23 -->
+- Live Contact (Send): ✅ **Ro Rodgers Air Conditioning & Heating** — HTTP 200; ✅ **Air Dynamics of Tulsa** — HTTP 200 + redirect to ?success=1; ✅ **Guzman Roofing** — HTTP 200 + Thank you page [score=0.825 recalls=0 avg=0.620 source=memory/2026-07-27-leads-cleanup.md:21-23]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-nbf-canon-reframe.md:3:3 -->
+- NBF Canon Reframe — 2026-07-27: **Decision:** Drop the "50 seasons hidden, now public" framing across all NBF media. [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-27-nbf-canon-reframe.md:3-3]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-nbf-canon-reframe.md:9:9 -->
+- What Changed: Media outputs in `/Users/philliplowe/nbf_lbu_sim/` were reframed: [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-27-nbf-canon-reframe.md:9-9]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-nbf-canon-reframe.md:11:14 -->
+- What Changed: `season_51_preview.txt`; `season_51_media_board.txt`; `season_51_national_media_board.txt`; `week_01_media_report.txt` [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-27-nbf-canon-reframe.md:11-14]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-nbf-canon-reframe.md:19:22 -->
+- What Changed: `season_51_probability_audit.txt`; `season_51_rumor_wire.txt`; `public_era_summary.txt`; `public_era_storyline_bible.txt` [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-27-nbf-canon-reframe.md:19-22]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-nbf-canon-reframe.md:15:18 -->
+- What Changed: `season_51_headlines.txt`; `season_51_award_watchlist.txt`; `season_51_drama_events.txt` and `.json`; `season_51_hot_seat_report.txt` [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-27-nbf-canon-reframe.md:15-18]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-27-nbf-canon-reframe.md:5:5 -->
+- NBF Canon Reframe — 2026-07-27: **New canon:** The NBF is a living basketball league entering Season 51. New fans simply arrive at the start of the current season. They do not need to know about a hidden Genesis Era, a Public Era reveal, or how the simulation was built. [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-27-nbf-canon-reframe.md:5-5]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-28-ai-operated-os-authority.md:24:24 -->
+- New Operating Flow: ORACLE (architecture / design) [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-28-ai-operated-os-authority.md:24-24]
+<!-- openclaw-memory-promotion:memory:memory/2026-07-28-ai-operated-os-authority.md:10:13 -->
+- Revised Authority Structure: | Role | Authority | Owner | |------|-----------|-------| | **GREEN** | Final authority, strategic direction, approval of high-leverage decisions | Phillip Lowe | | **SOL** | Execution leader, environment owner, deployment orchestration, workflow operations, external tooling and runtime coordination | System Operations Liaison | [score=0.812 recalls=0 avg=0.620 source=memory/2026-07-28-ai-operated-os-authority.md:10-13]

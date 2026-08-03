@@ -1,127 +1,70 @@
-# TODO — Current State (Updated 2026-07-08 03:33 CDT)
+# Systack / OpenClaw — Canonical Backlog
+
+Generated: 2026-07-29
+Policy:
+- `WORKBOARD.md` = execution tracker (READY / RUNNING / REVIEW / DONE)
+- `BLOCKED.md` = waiting/approval-gated items
+- `TODO.md` = prioritized backlog only — items not yet promoted to Workboard
+
+Sections:
+- P1 = Ready to start (promote to Workboard when execution begins)
+- P2 = Strategic / growth
+- P3 = Future backlog
+- P4 = Ideas / parking lot
 
 ---
 
-## 🔴 HIGH PRIORITY — Next Actions
+## P1 — Ready To Start
 
-### 1. Partner Program Page
-**Status:** Not started
-**File:** `systack.net/partners`
-**Needs:** 20% recurring commission pitch, reseller agreement, onboarding flow
-**Impact:** Referral channel for recurring revenue
-
-### 2. Service Business OS Vertical Offer
-**Status:** Not started
-**Price:** $499 setup + $299/mo
-**Outcome:** "Never miss another customer inquiry"
-**Impact:** Packaged vertical landing page for specific niche
-
-### 3. Finish Dashboard "Try It" UI
-**Status:** API endpoints ready, frontend pending
-**Endpoints:** `try-lead-score`, `try-doc-classify`
-**Impact:** Live demos convert visitors to leads
-
-### 4. Fix Onboarding Wizard
-**Status:** Has duplicate `finishOnboarding` assignment
-**Impact:** Clean first-time user experience
-
-### 5. Scale Cold Email to 100+ Prospects
-**Status:** 20 active, need 80 more
-**Impact:** More at-bats = more meetings
+- Utopia Deli Invoice Parser Activation — `memory/2026-06-08-invoice-parser-complete.md`
+- No-Show Prevention Phase 1 (auto-release + smart rebooking) — `memory/2026-06-11-noshow-prevention-complete.md`
+- Percy 8GB Upgrade + Full Restore — `Systack/clients/mcdonalds-gm/PERCY-4GB-DEPLOYMENT-FAILURE-ANALYSIS.md`
+- Outreach Pipeline Tracker + Gmail Credential — `Systack/strategy/outreach-*.md`
+- Revenue pipeline cleanup (Google Maps API key, BlueBubbles auth, disk cleanup) — `revenue-pipeline/action-log.md`
+- **30-Day Mission: Prove one recurring business problem → paid operational outcome** — `memory/2026-08-02-builder-level-assessment.md`
 
 ---
 
-## ✅ COMPLETED — SAOS Enterprise Readiness
+## P2 — Strategic Growth
 
-All Oracle priorities P1-P5 complete. Command Center v2.0 live. 65/65 tests passing. 16 PDFs generated. Full endpoint test suite. Client onboarding script verified. Daily backup cron active.
-
-### ✅ ALSO COMPLETED — Distribution Pipeline (2026-07-08)
-- Invoice parser fixed (all fields extracting correctly)
-- Free Automation Audit lead magnet live at systack.net/audit/
-- Cold email workflow activated (20 prospects, Tuesday 9 AM CT)
-- Customer dashboard enhanced (process flows, Try It demos, pricing banner, onboarding wizard)
-- n8n database cleaned (770 orphaned records removed)
-- Git committed & pushed
-
-## ✅ COMPLETED — Fleet Sales-Validation Sprint
-
-All 8 fleet agents delivered:
-- ATLAS: Prospect research (5 niches, 27KB)
-- CHATTY: Outreach assets (emails, SMS, LinkedIn, scripts, 409 lines)
-- JURIS: Business infrastructure pack (6 legal docs, 16.9KB)
-- PESSI: Pre-mortem (12 risks, 10 mitigations, 14.5KB)
-- VALI: Acceptance standards (PASS/FAIL for 6 services, 382 lines)
-- CODY: Internal standards (onboarding, deployment, DB, credentials, backup, docs, 11.9KB)
-- ASSEMBLY: Standard launch kit (welcome, implementation, FAQ, support, training, pricing, 18.9KB)
-- SOL: Operating system (lead→renewal, 10 sections, 21.5KB)
-
-## ✅ COMPLETED — Sales Pipeline Tracker
-
-`Systack/sales/pipeline-tracker.md` — operational CRM for tracking leads through the pipeline.
-
-## ✅ COMPLETED — Fleet Health Monitor
-
-`Systack/operations/fleet-health-check.py` — 15-minute cron, iMessage alerts on critical service failure.
+- Complete `SAOS-FOUNDATION-SPEC.md` with all deployment tiers — `memory/2026-06-05-saos-percy-strategy-lessons.md`
+- Create `CLIENT-DISCOVERY-TEMPLATE.md` questionnaire — `memory/2026-06-05-saos-percy-strategy-lessons.md`
+- Create SAOS identity Jinja2 templates — `SAOS-PROVISIONING-BUILD-PLAN.md`
+- Rewrite Systack site pages — `Systack/content/systack-site/SITE-PLAN.md`
+- Geo-launch automated law-firm audits — `memory/2026-07-24-geo-launch.md`
+- Update NBF fan visual registry + re-validate — `memory/step-210-fan-visual-system.md`
+- Plan OpenClaw Wave 2 skills — `~/.claude/projects/-Users-philliplowe/plan.md`
 
 ---
 
-## 🟡 MEDIUM PRIORITY — Backlog
+## P3 — Future Backlog
 
-### 6. Referral Engine
-**Status:** Conceptual
-**Trigger:** After successful service delivery
-**Reward:** 1 free month per referral
-**Impact:** Organic growth via happy customers
-
-### 7. Monitoring Dashboard Enhancement
-- Agent health metrics in Command Center
-- Task queue depth visualization
-- Error rate tracking over time
-- Response time percentiles
-
-### 8. Client Onboarding Flow Testing
-- Script works (verified 2026-07-06)
-- Needs real-world test with actual client
-- Email delivery of credentials
-- 15-day implementation timeline validation
-
-### 9. Systack Website Updates
-- Service portfolio alignment with SAOS tiers
-- Case studies / testimonials section
-- Blog / content section
-- SEO optimization
-
-### 10. Training Video Production
-- 6 video outlines ready (in Standard Launch Kit)
-- Needs screen recording, editing, upload
-- YouTube unlisted or Loom
+- Sales / Outreach Expansion (scale to 100+ prospects, Calendly setup, industry playbooks review)
+- SAOS Product Enhancements (client dashboard UI, VPS snapshots, usage metrics + billing limits)
+- Utopia Deli Expansion (loyalty program, online ordering, catering booking, review response, 86 alerts)
+- Utopia Deli catering plan — `Sol-Knowledge/archives/deli-archives/CATERING-PLAN.md`
+- MOD 1 Apparel Marketing (Drop 2 quality gate, Square/Printify sync, influencer outreach, social automation queue)
+- NBF / LBU Media Generation (post-Season 51 broadcasts, recaps, MVP ladder, trade special, finals)
+- NBF Step 178C Public Portal Query Engine — legacy/optional subsystem pending roadmap review
+- Claude Skills Infrastructure (validation harness, registry UI, versioning)
+- Fleet Infrastructure (memory hygiene, log rotation, backup verification, monitoring coverage)
 
 ---
 
-## ⏸️ BLOCKED — Waiting on Green
+## P4 — Ideas / Parking Lot
 
-| Item | Blocked By | Impact |
-|------|-----------|--------|
-| First outreach batch | Target approval + email setup | Revenue |
-| Partner program | Decision to build page | Referral revenue |
-| Service Business OS page | Decision to verticalize | Niche revenue |
-| Stripe billing | Stripe account setup | Automated revenue |
+- Voice ordering experiment for Utopia Deli — `Systack/content/utopia-deli/VOICE-ORDERING-EXPERIMENT.md`
+- SAGE-Lite vector similarity + web UI — `Sol-Knowledge/archives/systack-archives/SAGE-LITE.md`
+- Automated Google reviews reply engine — `Sol-Knowledge/docs/google-reviews-monitoring-design.md`
 
 ---
 
-## 🟢 LOW PRIORITY — Nice to Have
+## Cross-References
 
-### 11. AI Video Ad Service
-- "There's a [Business] for that" campaign series
-- $500-1500/video, $2-5K/month retainer
-- Concept validated, needs first client
-
-### 12. Voice Agent (SOL Talk Mode)
-- Research complete, architecture defined
-- Blocked by: Custom OpenClaw provider adapter
-- Alternative: Voicebox MCP integration
-
-### 13. Utopia Deli Enhancements
-- Weekly menu rotation automation
-- Customer notification system
-- **Note:** Do not touch deli repo without explicit permission
+- Execution tracker: `WORKBOARD.md`
+- Approval-gated / blocked: `BLOCKED.md`
+- Raw unfinished-work audit: `AUDITS/unfinished-work-audit-2026-07-28.md`
+- Focused audit: `AUDITS/unfinished-work-focused-2026-07-29.md`
+- Completed work archive: `HISTORY/`
+- Backlog maintenance rule: `FLEET-RULES/TODO-MAINTENANCE.md`
+- Monthly audit rule: `FLEET-RULES/MONTHLY-AUDIT.md`

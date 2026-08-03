@@ -1,21 +1,25 @@
 # Systack Revenue Board — ORACLE Directive
 
-**Directive:** Stop Building → Get Customers & Revenue
-**Focus:** SAOS Sales + Systack Services
-**Updated:** 2026-07-13
+**Directive:** Stop Building → Get Customers & Revenue  
+**Focus:** SAOS Sales + Systack Services  
+**Updated:** 2026-08-02
 
 ---
 
-## 📋 TO DO (6)
+## 📋 TO DO (10)
 
 | # | Task | Priority | Agent |
 |---|------|----------|-------|
+| 0 | **30-Day Mission: One problem → one paid pilot outcome** | 🔴 HIGH | GREEN + SOL |
 | 1 | Activate Cold Email Campaign | 🔴 HIGH | CHATTY |
 | 2 | Launch Free Automation Audit Lead Magnet | 🔴 HIGH | ATLAS |
 | 3 | Create Partner Program Page | 🟡 MED | GENI |
 | 4 | Build Service Business OS Landing Page | 🟡 MED | ASSEMBLY |
 | 5 | Scale to 100+ Prospects | 🟡 MED | ATLAS |
 | 6 | Stripe Live Integration | ⚪ BLOCKED | DOOBY |
+| 7 | Utopia Deli Order Pipeline v2 + SMS | 🔴 HIGH | DOOBY |
+| 8 | NBF Step 240 — UE5 Bridge | 🔴 HIGH | DOOBY |
+| 9 | OpenClaw Personal OS Sprint 1 | 🟡 MED | DOOBY |
 
 ---
 

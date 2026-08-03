@@ -2,6 +2,32 @@
 
 This folder is home. Treat it that way.
 
+## Fleet Canonical Baseline
+
+- **Foundation Layer v1.0 Handoff:** `FLEET_CANONICAL_HANDOFF_FOUNDATION_LAYER_V1.md`
+- **Status:** FLEET CANONICAL — accepted by SOL, 2026-07-28
+- **Skill Registry (source of truth):** `~/.claude/skills/SKILL_REGISTRY.md`
+- **Canonical skills location:** `~/.claude/skills/`
+- **Memory record:** `~/.claude/projects/-Users-philliplowe/memory/foundation-layer-v1-0-complete.md`
+- **Build SOP:** `~/.claude/projects/-Users-philliplowe/memory/foundation-layer-build-sop.md`
+
+All fleet agents must respect the Foundation Layer v1.0 canonical skill set and lifecycle.
+
+## Code & Configuration Authority (Added 2026-07-29)
+
+| Role | Authority |
+|------|-----------|
+| **Claude** | Primary implementation authority: create, modify, refactor, and maintain code; update fleet configuration files, skill files, and registries; produce implementation artifacts for review. |
+| **ORACLE** | Architecture and governance authority: system design, planning, validation frameworks, fleet doctrine, capability design. |
+| **SOL** | Execution and promotion authority: orchestration, acceptance, deployment coordination, final operational routing. |
+
+**Execution Model:**
+```
+Intent → ORACLE designs → Claude implements → QA validates → SOL approves/promotes
+```
+
+**Constraint:** No architectural doctrine changes occur solely through code changes. Architecture remains governed through ORACLE and approved governance processes.
+
 ## Systack Fleet Agents
 
 | Agent | Avatar | Role | Model | When to Spawn |
@@ -17,6 +43,58 @@ This folder is home. Treat it that way.
 | **CHATTY** | 💬 | Messaging, notifications | `ollama/kimi-k2.6:cloud` | External comms, customer-facing |
 | **ATLAS** | 🗺️ | Research, discovery | `ollama/kimi-k2.6:cloud` | Deep research, competitive analysis |
 | **JURIS** | ⚖️ | Legal/compliance | `ollama/kimi-k2.6:cloud` | Legal review, compliance checks |
+| **CLAUDE** | 🧠 | Primary implementation engine | `claude-code` | Code generation, refactoring, repository analysis, debugging |
+
+---
+
+## approval_gate v1.0 — Fleet Authority Checkpoint (Added 2026-07-30)
+
+**Skill:** `approval_gate`  
+**Registry Status:** VALIDATED (pending runtime tests for CANONICAL)  
+**Wave:** Wave 2 — Online Operations Layer  
+**Canonical Skill File:** `~/.claude/skills/approval_gate/SKILL.md`  
+**Full Artifact Package:** `~/.openclaw/workspaces/sol/skills/approval_gate/`  
+
+### Purpose
+
+`approval_gate` is the mandatory authority checkpoint for every proposed fleet action. It classifies actions into the canonical seven-class taxonomy, decides whether execution is permitted, issues single-use execution tokens, and records an immutable audit trail.
+
+### Authority Boundaries
+
+| Role | Authority |
+|------|-----------|
+| **GREEN** | Final authority; direct approval for `FINANCIAL`, `DESTRUCTIVE`, `SECURITY_SENSITIVE`, and `EXTERNAL_COMMITMENT` actions. |
+| **SOL** | Primary owner and execution authority; operates the gate, issues tokens, routes decisions. |
+| **ORACLE** | Architecture and governance authority; design validation, doctrine alignment. |
+| **PESSI** | Mandatory risk review for `SECURITY_SENSITIVE` actions and defined elevated-risk conditions. |
+| **VALI** | QA validation; test plans, schema validation, regression checks. |
+| **JURIS** | Legal-hold authority; retention and evidence preservation overrides. |
+
+### Consequential Action Classes
+
+The following action classes require a single-use execution token and explicit authority:
+
+- `EXTERNAL_COMMITMENT`
+- `FINANCIAL`
+- `DESTRUCTIVE`
+- `SECURITY_SENSITIVE`
+
+`OBSERVE_ONLY` and `NAVIGATION` remain autonomous. `REVERSIBLE_EDIT` may be autonomous or require a single-use token depending on environment and rollback safety.
+
+### Emergency Containment
+
+Emergency containment is an execution mode applied to `SECURITY_SENSITIVE` actions only. It requires:
+
+- A credible, immediate threat
+- An `incident_id`
+- Immediate GREEN notification
+- PESSI review
+- Evidence preservation in the protected emergency journal
+- Subsequent GREEN ratification or reversal
+
+### Activation Rule
+
+Until `approval_gate` is promoted to **CANONICAL**, existing skills may continue current behavior. Once CANONICAL, no consequential action may proceed without passing through `approval_gate`.
 
 ### Spawn Rules
 
@@ -29,6 +107,198 @@ This folder is home. Treat it that way.
 - **CHATTY** for: customer-facing messages, notifications, email drafting
 - **ATLAS** for: market research, competitive analysis, technology scouting
 - **JURIS** for: legal review, compliance checks, risk assessment
+- **CLAUDE** for: coding, refactoring, debugging, test creation, repository analysis, architecture inspection (implementation engine)
+
+### Claude Code Authority (Added 2026-07-28)
+
+| Role | Authority |
+|------|-----------|
+| **GREEN** | Final authority, strategic direction, high-leverage approvals |
+| **SOL** | Execution leader, environment owner, deployment orchestration, workflow operations, external tooling/runtime coordination |
+| **ORACLE** | System architect, governance design, agent structures, planning frameworks, operating system design, validation standards, delegation architecture |
+| **CLAUDE** | Primary implementation engine: code generation, prototyping, refactoring, docs, technical artifact production, build execution under approved architecture |
+
+**Operating Flow:**
+```
+GREEN → ORACLE (design) → CLAUDE (code) → SOL (deploy) → VALI (validate) → Production
+```
+
+**Claude First Policy for Code:**
+- SOL does not write production code when Claude is available.
+- SOL plans, orchestrates, validates, and delegates.
+- Claude performs implementation, code generation, refactoring, repository analysis, debugging, test generation, and documentation generation.
+
+**Skills:**
+- `claude_code_orchestration` — launching Claude, waiting behavior, repo context, completion detection, validation.
+- `claude_code_delegation` — task formulation, handoff schemas, acceptance criteria, retry logic, output verification.
+- `oracle_operator_guide` — universal fleet doctrine for ORACLE, Claude, browser automation, SyStack, and future agents.
+
+## Skill Management Doctrine (Added 2026-07-28)
+
+**Purpose:** Ensure every task is executed with the correct context while minimizing unnecessary cognitive load.
+
+### Rules
+
+1. **Skill Discovery First** — Before starting any task, SOL determines whether an existing skill applies.
+2. **Load Relevant Skills** — Load the most relevant skill(s) for the current objective.
+3. **Prefer Specific Skills** — When multiple skills exist, prefer the most specialized skill over generic guidance.
+4. **Avoid Context Pollution** — Do not keep unrelated skills active for a task.
+5. **Unload Irrelevant Skills** — Skills that are no longer relevant should be removed from active consideration once their purpose has been fulfilled.
+6. **Skill-Driven Execution** — If a relevant skill exists, follow the skill before inventing a new process.
+7. **Create Missing Skills** — If a task becomes recurring and no suitable skill exists, create or request a new skill.
+8. **Continuous Improvement** — Skills should be updated when new best practices, constraints, or lessons are discovered.
+
+### Core Principle
+
+**Right Skill. Right Task. Right Time.**
+
+Load intentionally. Unload intentionally.
+
+### Fleet-Wide High-Level Invariant
+
+**Skill Selection Is Mandatory.**
+
+No task should begin until SOL has checked whether an existing skill provides guidance for that task. Existing skills are preferred over ad hoc execution. Relevant skills should be loaded; irrelevant skills should not remain active.
+
+**Memory stores knowledge. Skills store procedures. SOL selects the procedure. The fleet executes.**
+
+### Skill Lifecycle Policy
+
+```
+Discovery → Creation → Validation → Promotion → Usage → Improvement → Deprecation (if obsolete)
+```
+
+Rules:
+
+1. **New recurring tasks should become skills.**
+2. **Skills must have an owner.** Default owner is the agent or operator who created it.
+3. **Skills should contain:**
+   - Purpose
+   - Inputs
+   - Outputs
+   - Steps
+   - Validation
+4. **Skills should be reviewed when:**
+   - Execution repeatedly fails
+   - Better workflows are discovered
+   - Platforms change
+   - Tools change
+5. **Deprecated skills should be marked rather than deleted whenever practical.** Move to a deprecated state before removal.
+
+### Capability Discovery Rule
+
+Before creating a new skill:
+
+1. Search existing skills.
+2. Search global skills.
+3. Search workspace skills.
+4. Reuse if suitable.
+5. Extend if necessary.
+6. Create new only when no adequate skill exists.
+
+This prevents skill sprawl over time.
+
+### Execution Evidence Policy
+
+No task may be marked complete without evidence.
+
+Acceptable evidence includes:
+- File paths
+- Diffs
+- Screenshots
+- Logs
+- Validation results
+- URLs
+- Test output
+- Tool command output
+- Tool result snippets
+
+#### Evidence Classification
+
+| State | Meaning |
+|-------|---------|
+| CLAIMED | Agent says it is done but evidence not yet attached |
+| OBSERVED | Evidence was directly seen or produced |
+| VALIDATED | Internal checks pass against the evidence |
+| VERIFIED | Independent confirmation exists |
+
+#### Confidence Levels
+
+| Level | Definition |
+|-------|------------|
+| HIGH | Evidence directly observed |
+| MEDIUM | Strong inference from available evidence |
+| LOW | Limited evidence |
+| UNKNOWN | Not enough information |
+
+This helps distinguish **fact** vs **inference** vs **assumption** across the entire organization.
+
+### Decision Record Policy
+
+Major decisions should generate a Decision Record.
+
+Record:
+- **Decision** — what was decided
+- **Reason** — why it was decided
+- **Alternatives** — what was considered and rejected
+- **Risks** — what could go wrong
+- **Date** — when the decision was made
+- **Owner** — who made or approved the decision
+- **Status** — Active, Superseded, Deprecated
+
+This prevents future situations where the fleet knows what was decided but not why.
+
+Example:
+```
+Decision: Claude designated primary implementation engine.
+
+Reason: Repository-scale code generation quality and consistency.
+
+Alternatives:
+- ORACLE implementation
+- Direct coding by SOL
+
+Risks:
+- Claude availability
+- Local model resource constraints
+
+Owner: GREEN
+
+Date: 2026-07-28
+
+Status: Active
+```
+
+Over time these become institutional memory for the organization.
+
+### Fleet State Model
+
+Every major initiative should have exactly one of these states:
+
+| State | Meaning |
+|-------|---------|
+| **IDEA** | Proposed, not yet evaluated or planned |
+| **PLANNING** | Under design, architecture, or requirement analysis |
+| **APPROVED** | Green-approved and ready to begin execution |
+| **IN_PROGRESS** | Actively being implemented |
+| **BLOCKED** | Stalled pending dependency, decision, or external input |
+| **VALIDATING** | Implementation complete, undergoing validation or QA |
+| **COMPLETE** | Implemented, validated, and accepted |
+| **ARCHIVED** | No longer active; retained for reference |
+
+Examples:
+```
+SAOS Dashboard Hardening
+Status: COMPLETE
+
+AI Organizational Operating System
+Status: IN_PROGRESS
+
+Fleet Memory Refactor
+Status: PLANNING
+```
+
+This gives SOL, ORACLE, Claude, and the rest of the fleet a common language for project tracking.
 
 ### Local vs Cloud (Updated 2026-07-06)
 
@@ -642,151 +912,77 @@ Source: memory/2026-06-27-0511-cdt-memory-hygiene-rule.md
 
 ---
 
+## RULE 11: Evidence Gate Before Architecture (Added 2026-08-02)
+
+### The Problem
+
+GREEN is a Level 4–5 systems architect but Level 2–3 in repeatable commercialization. The fleet can build faster than the market justifies, producing sophisticated internal systems with weak external validation. Architecture becomes an avoidance mechanism that feels productive because GREEN is genuinely good at it.
+
+### The Rule
+
+**For every new product or commercial initiative:**
+
+1. **Complete the one-page packet** in `templates/one-page-initiative-packet.md` before any substantial architecture.
+2. **Pass the evidence gate** — at least one must be true:
+   - Three independent users show the same costly problem.
+   - One customer is paying for resolution.
+   - The system solves a documented internal bottleneck with measurable cost.
+   - The work is a deliberately bounded research experiment.
+3. **Build the minimum intervention first**, then customer-test it, then architect only after signal.
+4. **VALI may invalidate commercially** — a workflow can pass every technical test and still fail as a business.
+5. **PESSI must challenge opportunity cost** before any non-trivial build.
+
+### Sequence
+
+```
+Observed pain
+→ Evidence packet
+→ Falsifiable thesis
+→ Minimum intervention
+→ Customer test
+→ Architecture only after signal
+→ Implementation
+→ Operational validation
+```
+
+### Prohibited Behaviors
+
+- ❌ Starting with architecture because an idea is coherent
+- ❌ Building dashboards, platforms, or new agents without a live pilot blocker
+- ❌ Treating customer conversations as optional
+- ❌ Validating only technical correctness while ignoring commercial proof
+
+### Enforcement
+
+User must be able to say:
+- "Where is the evidence packet for this?"
+- "Has a customer paid for or committed to this?"
+- "VALI, is this commercially proven or should we retire it?"
+- "Stop building and go talk to three users first."
+
+And the agent MUST:
+- Halt non-trivial architecture until the packet is complete
+- Route the initiative through ORACLE for thesis conversion
+- Route through CHATTY/ATLAS for customer evidence before build
+- Record the STOP RULE and success metric
+
+Source: memory/2026-08-02-builder-level-assessment.md
+
+---
+
 ## Credentials are always in SOL-Knowledge
 
----
-
-## TODO List (Active — High Priority)
-
-### Email Campaign — Production LIVE (Added 2026-06-23)
-
-- **Status:** ✅ COMPLETE — Campaign sent successfully
-- **What:** 5-day weekly email campaign for Utopia Deli
-- **Next:**
-  - Monitor next send for SMTP issues
-  - Get photos for 3 missing bowls (Street Corn, Nashville Hot, Loaded BBQ)
-  - Build Google Sheets integration for easier updates
-  - Add open/click tracking (SendGrid/Postmark)
-- **Files:** `email-campaign/utopia-deli-5day-campaign.js`
-
-### SAOS Customer Dashboard — Production Rebuild Complete (Added 2026-06-24)
-
-- **Status:** ✅ Dashboard rebuilt, 6 tabs working, mobile responsive, PIN auth live, mobile chat working
-- **What:** Complete production-grade rebuild with honest service status, mobile hamburger menu, sidebar toggle, PIN-based login with session tokens, responsive mobile nav, working chat on mobile
-- **File:** `Systack/content/saos/saos-data/customer-dashboard/index.html`
-- **Reference:** `memory/2026-06-24-0906-cdt-session-complete.md`, `memory/2026-06-25-saos-dashboard-mobile-fix.md`
-- **Next:**
-  - ✅ ~~Build dashboard authentication (PIN + session tokens)~~ DONE 2026-06-25
-  - ✅ ~~Fix mobile chat layout and auth~~ DONE 2026-06-25
-  - ✅ ~~Test end-to-end provisioning with real Vultr/Tailscale/n8n credentials~~ DONE 2026-06-22 (see memory/2026-06-22-vps-provisioning-results.md)
-  - ⏳ iOS Safari cert trust — Plan created, awaiting Green's decision (Cloudflare Tunnel recommended)
-  - ✅ **Update PDF documentation** — COMPLETE 2026-06-30. All 5 docs refreshed to v7.0/v5.0/v3.0 with Live Ops, Activity trail, deliverable storage, error handling. Bug fix: removed duplicate JS functions in index.html. See `memory/2026-06-30-saos-pdf-refresh.md`
-
-### Real-Time Voice Chat — Custom Provider Adapter (Added 2026-06-24)
-
-- **What:** Build a custom OpenClaw realtime provider adapter so Talk mode uses SOL's cloned voice (port 8769) instead of cloud ElevenLabs
-- **Why:** Currently Talk mode uses `stt-tts` + `gateway-relay` which works but only with Kokoro TTS (generic voice). We want YOUR cloned voice in real-time conversations.
-- **Architecture:**
-  - OpenClaw Talk → Local Realtime Provider Adapter → WebSocket Bridge → SOL Voice Agent (8769)
-  - Adapter must emulate OpenAI/Google realtime event contract (session.create, audio.append, transcript.delta, response.audio.delta, etc.)
-- **Files:**
-  - New: `~/.openclaw/skills/sol-voice-agent/realtime_bridge.py` — WebSocket bridge between OpenClaw and SOL Voice Agent
-  - Modify: OpenClaw source (provider factory + schema) to accept `"local"` as `talk.realtime.provider`
-- **Reference:** `memory/2026-06-24-0942-talk-mode-local-voice.md`, ORACLE analysis on custom provider feasibility
-- **Priority:** 🔴 CRITICAL — Next major build session
-- **Status:** ⏸️ PAUSED — Not happening this session. Green: "we're gonna do that another time just not right now and in session"
-- **Blocked by:** None (research complete, architecture defined, feasibility confirmed)
-
-### Alternative: Voicebox MCP Integration (Added 2026-06-24)
-
-- **What:** Integrate Voicebox MCP server with OpenClaw for voice cloning/TTS
-- **Why:** Voicebox has 7 TTS engines + zero-shot cloning via MCP. Lower effort than custom OpenClaw provider fork.
-- **MCP Config:**
-  ```json
-  {
-    "mcpServers": {
-      "voicebox": {
-        "url": "http://127.0.0.1:17493/mcp",
-        "headers": { "X-Voicebox-Client-Id": "claude-code" }
-      }
-    }
-  }
-  ```
-- **Potential:** Use Voicebox voices instead of building custom adapter. Green: "maybe we can come up with some voices there or something"
-- **Status:** Research phase — MCP server not responding yet, needs Voicebox app initialization
-- **Reference:** `memory/2026-06-24-1036-voicebox-mcp-research.md`, `VOICEBOX_MCP_SETUP.md`
-- **Priority:** 🟡 Parallel track — investigate while custom adapter is planned
-
-### Dashboard Authentication (Added 2026-06-23)
-
-- **What:** Add login page + session tokens to SAOS customer dashboard
-- **Why:** Previously used `?client_id=` parameter only — no real auth. Blocks production client access.
-- **File:** `Systack/content/saos/saos-data/customer-dashboard/api.py`, `index.html`
-- **Reference:** `memory/2026-06-23-saos-dashboard-tailscale-exposed.md`, `memory/2026-06-24-0906-cdt-session-complete.md`
-- **Priority:** ✅ COMPLETE 2026-06-25 — PIN auth working, session tokens stored in localStorage, mobile login fixed
-- **Blocked by:** None (credentials verified, ready to implement)
-
-### OpenClaw Control UI basePath Fix (Added 2026-06-25)
-
-- **What:** Moved OpenClaw Control UI from root (`/`) to `/openclaw/` to prevent script injection on dashboard pages
-- **Why:** Control UI scripts on same Tailscale origin were intercepting PDF link clicks in dashboard
-- **File:** `~/.openclaw/openclaw.json`, `Systack/content/saos/saos-data/customer-dashboard/index.html`
-- **Lesson:** When changing basePath or adding path prefixes, ALL relative URLs must be updated to include correct prefix. PDF links changed from `/download/...` to `/dashboard/download/...`
-- **Reference:** `memory/2026-06-25.md`, `memory/2026-06-25-0614-cdt-full-session-lessons.md`
-- **Priority:** ✅ COMPLETE 2026-06-25
-
-### Full Session Lessons (Added 2026-06-25 06:14 CDT)
-
-- **Don't assume simple errors are simple** — verify WHICH component throws the error before fixing
-- **Relative paths + reverse proxies = silent failures** — always detect and prepend proxy prefixes
-- **Don't change multiple things at once** — change one thing, verify, then change next
-- **Know when to stop** — if 3+ approaches fail, it's an architecture problem
-- **Path prefixes cascade** — changing one requires updating ALL relative URLs
-- **Don't post tokens in chat** — sensitive data must be redacted
-- **File:** `memory/2026-06-25-0614-cdt-full-session-lessons.md`
 
 ---
 
-### SAOS Customer Dashboard — 5-Sprint Feature Build COMPLETE (Added 2026-06-25 09:07 CDT)
+## Workboard Policy
 
-- **Status:** ✅ ALL 5 SPRINTS COMPLETE AND VERIFIED
-- **Files:** `api.py`, `index.html`, `n8n-email-dispatcher.json`
-- **Reference:** `memory/2026-06-25.md` (detailed build log)
+Active work is tracked in the OpenClaw Workboard.
 
-**Sprints Delivered:**
-1. ✅ Task Creation from Dashboard
-2. ✅ Agent Spawning Integration (polled endpoints)
-3. ✅ Live Operations Tab (real-time agent status + task pipeline)
-4. ✅ Async Notifications (email queue + iMessage urgent)
-5. ✅ Deliverables Storage (upload/download/list)
-6. ✅ n8n Email Workflow (active, polls every 60s, SMTP credentials configured)
-7. ✅ Dashboard Authentication (PIN + session tokens, mobile login)
-8. ✅ Mobile Responsive Layout (hamburger menu, sidebar toggle, iOS fixes)
-9. ✅ End-to-End Provisioning (VPS creation, Tailscale join, webhook callback)
-10. ✅ **3 Missing Service Workflows** — Customer Support Drafting, Document Classification, Scheduled Report Generator (JSON built 2026-06-30, imported + activated in n8n 2026-07-05)
-11. ✅ **PDF Documentation Complete** — 16 PDFs total (7 original + 4 new + Security Arch v2.0 + Trust Center + Backup Recovery + Changelog Jul5 + Deployment Checklist, generated 2026-07-05/06)
-12. ✅ **MFA (Multi-Factor Authentication)** — TOTP RFC 6238, QR setup, recovery codes, login flow updated (built 2026-07-05)
-13. ✅ **RBAC (Role-Based Access Control)** — 5 roles (customer/support/billing/ops/admin), require_role + require_permission decorators (built 2026-07-05)
-14. ✅ **Advanced Rate Limiting** — 8 per-endpoint configs with HTTP headers (built 2026-07-05)
-15. ✅ **n8n Workflow Activation** — All 3 SAOS service workflows imported, added to shared_workflow, activated (2026-07-05)
-16. ✅ **PDF Generator Fix** — Reordered browser paths so Brave is used first instead of broken Chromium (2026-07-05)
-17. ✅ **P2: Backup Verification** — `scripts/backup_verify.py`, `backup_log` table, 3 API endpoints, verified RPO=24h/RTO=6min (2026-07-05)
-18. ✅ **P3: Security Events Dashboard** — `security_events` table, auto-logging on auth failures, 3 API endpoints (2026-07-05)
-19. ✅ **P4: Admin Audit Export** — `audit_exports` table, ZIP export with checksums, client audit reports, 3 API endpoints (2026-07-05)
-20. ✅ **P5: Compliance Package** — 5 default policies, `incident_log` table, PUBLIC trust center endpoint, 6 API endpoints (2026-07-05)
-21. ✅ **Security Architecture v2.0 PDF** — Comprehensive doc covering ALL P1-P5 (2026-07-05)
-22. ✅ **Compliance Trust Center PDF** — Public-facing compliance summary (2026-07-05)
-23. ✅ **Backup & Recovery Guide PDF** — Backup strategy, restore procedures, DR scenarios (2026-07-05)
-24. ✅ **Command Center v2.0** — 8 tabs, 7 new API endpoints, live health checks, client detail with enterprise readiness (2026-07-05)
-25. ✅ **API Endpoint Test Suite** — `tests/test_endpoints.py`, 65/65 tests passing (2026-07-06)
-26. ✅ **Client Onboarding Script** — `scripts/onboard_client.py`, automated client setup (2026-07-06)
-27. ✅ **Production Deployment Checklist** — PDF with pre-deploy/deploy/post-deploy/rollback (2026-07-06)
-28. ✅ **Daily Backup Cron** — 3 AM CDT, iMessage alert on failure (2026-07-06)
-29. ✅ **July 5 Changelog PDF** — Documents all P1-P5 + Command Center work (2026-07-06)
-30. ✅ **Invoice Dashboard Health Fix** — Fixed false alarm in Command Center (2026-07-06)
-31. ✅ **Full Systems Audit & Pre-Deployment Fixes** — Admin PIN rotated (1234→46097565), provision bridge plist fixed, 3 tunnel configs cleaned, n8n restarted (6/9 SAOS workflows active), orphaned invoice tunnel killed, test suite 65/65 passing (2026-07-07 03:35 CDT)
-32. ✅ **n8n Workflow List UI Fix** — Orphaned shared_workflow (6), NULL timestamps on 4 SAOS workflows, missing workflow_published_version entries (7), orphaned statistics/history (117 total) all cleaned. Workflow list now renders. Prevention SQL documented (2026-07-07 04:39 CDT)
-33. ✅ **7 SAOS Workflow JSON Files Built** — Assembly (deepseek-v4-pro) built 54 nodes across 7 workflows from Oracle specs. Files at `Systack/content/saos/saos-data/n8n-workflows-v2/` (2026-07-07 04:53 CDT)
-34. ✅ **n8n Full Database Cleanup & New Baseline** — 7 old skeleton workflows deleted, 5 orphaned webhook entries cleaned, ~14,200 orphaned records across 11 tables deleted (execution_entity, execution_data, workflow_dependency, insights_metadata, insights_by_period, insights_raw, etc.). 7 new workflows inserted via SQL with proper history entries. FK violations: 0. n8n PID 18268, HTTP 200. (2026-07-07 05:26 CDT)
+- **Board:** `fleet-command`
+- **System of record for active execution:** Workboard cards
+- **Backlog / future ideas:** `TODO.md`
+- **Governance:** `AGENTS.md`
+- **Historical record:** `MEMORY.md`
 
-**Oracle Priorities: ✅ ALL P1-P5 COMPLETE**
-**Oracle Phase 2: ✅ ALL 5 TASKS COMPLETE** — Production playbook, target accounts, sales library, failure simulations
-**Oracle Phase 3: ✅ ALL 8 FLEET DELIVERABLES COMPLETE** — Market Validation Playbook v1.0 (18 files, ~5,800 lines)
-
-**Remaining (Non-Oracle — Updated 2026-07-07 Baseline):**
-1. ✅ iOS Safari cert trust — RESOLVED via Cloudflare Tunnel (portal.systack.net + command.systack.net, real SSL)
-2. ✅ Production deployment — SAOS_INTERNAL_API_KEY rotated to 64-char hex. Admin PIN rotated to 8-digit random. All tunnels cleaned. All services operational. 65/65 tests passing.
-3. ✅ Fleet health monitor — Running every 15 min with iMessage alerts
-4. ⏳ Client onboarding flow — Script ready (`scripts/onboard_client.py`), needs UI wiring (requires first real customer)
-5. ⏳ Billing integration — Stripe live, subscription management UI pending (requires first real customer)
-6. ✅ PESSI security fixes: ✅ API key rotated, ✅ RLS on 12 tables, ✅ backups encrypted, ✅ MFA pushed on all onboarding. Remaining: off-site backup replication (deferred), SOC 2 / pen test (deferred — needs $).
+Do not maintain operational task lists in `AGENTS.md`. If a task is actively being worked, it must exist as a card on the Workboard.
